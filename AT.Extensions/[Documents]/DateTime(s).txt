@@ -1,0 +1,83 @@
+﻿The DateTimeExtensions class is a way to add new functionality to the existing DateTime type in C# without modifying or inheriting from it. You can use extension methods to create custom methods that operate on DateTime instances, such as adding days, formatting dates, or comparing dates.
+
+You can categorize the methods of the DateTimeExtensions class based on different criteria, such as the type of operation, output, input, or logic of each method. For example, you can group the methods into categories such as arithmetic, formatting, comparison, or conversion methods.
+
+Here are 50 possible categories for the methods of the DateTimeExtensions class, along with some examples of methods that belong to each category:
+
+•  Arithmetic methods: These are methods that perform arithmetic operations on dates, such as adding or subtracting days, weeks, months, or years. For example, AddOneDay, AddWeeks, SubtractMonths, etc.
+
+•  Formatting methods: These are methods that return a string representation of a date, using a predefined or custom format. For example, ToShortDateString, ToLongTimeString, ToCustomFormat, etc.
+
+•  Comparison methods: These are methods that compare two dates and return a bool or int value, indicating whether they are equal, greater, or less than each other. For example, IsSameDay, IsLeapYear, CompareTo, etc.
+
+•  Conversion methods: These are methods that convert a date to a different time zone, culture, or calendar. For example, ToLocalTime, ToUniversalTime, ToTimeZone, ToGregorianCalendar, etc.
+
+•  Validation methods: These are methods that check if a date is valid, such as within a certain range, format, or condition. For example, IsValidDate, IsInRange, IsWeekend, etc.
+
+•  Extraction methods: These are methods that extract a specific part of a date, such as the year, month, day, hour, minute, or second. For example, GetYear, GetMonth, GetDay, GetHour, etc.
+
+•  Modification methods: These are methods that modify a specific part of a date, such as setting the year, month, day, hour, minute, or second to a new value. For example, SetYear, SetMonth, SetDay, SetHour, etc.
+
+•  Generation methods: These are methods that generate a new date based on a certain rule, pattern, or sequence. For example, GenerateRandomDate, GenerateNextHoliday, GenerateSequence, etc.
+
+•  Calculation methods: These are methods that calculate a certain value or statistic based on a date, such as the age, difference, duration, or frequency. For example, CalculateAge, CalculateDifference, CalculateDuration, CalculateFrequency, etc.
+
+•  Enumeration methods: These are methods that enumerate a collection of dates based on a certain criterion, such as the days of the week, months of the year, or holidays. For example, EnumerateDaysOfWeek, EnumerateMonthsOfYear, EnumerateHolidays, etc.
+
+•  Sorting methods: These are methods that sort a collection of dates based on a certain order, such as ascending, descending, or custom. For example, SortAscending, SortDescending, SortCustom, etc.
+
+•  Searching methods: These are methods that search for a specific date or a collection of dates that match a certain condition, such as the first, last, or closest date. For example, SearchFirst, SearchLast, SearchClosest, etc.
+
+•  Filtering methods: These are methods that filter a collection of dates based on a certain criterion, such as the weekday, month, or year. For example, FilterByWeekday, FilterByMonth, FilterByYear, etc.
+
+•  Aggregation methods: These are methods that aggregate a collection of dates based on a certain function, such as the sum, average, minimum, or maximum. For example, AggregateSum, AggregateAverage, AggregateMinimum, AggregateMaximum, etc.
+
+•  Transformation methods: These are methods that transform a collection of dates based on a certain operation, such as adding, subtracting, or multiplying. For example, TransformAdd, TransformSubtract, TransformMultiply, etc.
+
+•  Combination methods: These are methods that combine two or more dates or collections of dates based on a certain logic, such as the union, intersection, or difference. For example, CombineUnion, CombineIntersection, CombineDifference, etc.
+
+•  Selection methods: These are methods that select a specific date or a collection of dates based on a certain index, position, or rank. For example, SelectByIndex, SelectByPosition, SelectByRank, etc.
+
+•  Grouping methods: These are methods that group a collection of dates based on a certain key, such as the year, month, or day. For example, GroupByYear, GroupByMonth, GroupByDay, etc.
+
+•  Visualization methods: These are methods that display a date or a collection of dates in a graphical or textual way, such as a calendar, chart, or table. For example, VisualizeCalendar, VisualizeChart, VisualizeTable, etc.
+
+•  Serialization methods: These are methods that serialize or deserialize a date or a collection of dates to or from a certain format, such as XML, JSON, or binary. For example, SerializeXML, DeserializeXML, SerializeJSON, DeserializeJSON, etc.
+
+•  Addition methods: These are methods that add a certain amount of time to a date, such as hours, minutes, or seconds. For example, AddHours, AddMinutes, AddSeconds, etc.
+
+•  Subtraction methods: These are methods that subtract a certain amount of time from a date, such as hours, minutes, or seconds. For example, SubtractHours, SubtractMinutes, SubtractSeconds, etc.
+
+•  Multiplication methods: These are methods that multiply a date by a certain factor, such as a number or a fraction. For example, MultiplyBy, MultiplyByFraction, etc.
+
+•  Division methods: These are methods that divide a date by a certain factor, such as a number or a fraction. For example, DivideBy, DivideByFraction, etc.
+
+•  Remainder methods: These are methods that return the remainder of a date divided by a certain factor, such as a number or a fraction. For example, RemainderBy, RemainderByFraction, etc.
+
+•  Rounding methods: These are methods that round a date to a certain precision, such as the nearest year, month, day, hour, minute, or second. For example, RoundToYear, RoundToMonth, RoundToDay, RoundToHour, etc.
+
+•  Truncation methods: These are methods that truncate a date to a certain precision, such as the year, month, day, hour, minute, or second. For example, TruncateToYear, TruncateToMonth, TruncateToDay, TruncateToHour, etc.
+
+•  Ceiling methods: These are methods that return the smallest date that is greater than or equal to a given date and has a certain precision, such as the year, month, day, hour, minute, or second. For example, CeilingToYear, CeilingToMonth, CeilingToDay, CeilingToHour, etc.
+
+•  Floor methods: These are methods that return the largest date that is less than or equal to a given date and has a certain precision, such as the year, month, day, hour, minute, or second. For example, FloorToYear, FloorToMonth, FloorToDay, FloorToHour, etc.
+
+•  Parsing methods: These are methods that parse a string into a date, using a predefined or custom format. For example, Parse, ParseExact, TryParse, TryParseExact, etc.
+
+•  Cloning methods: These are methods that create a copy of a date, with or without modifying some parts of it. For example, Clone, CloneWithYear, CloneWithMonth, CloneWithDay, etc.
+
+•  Swapping methods: These are methods that swap some parts of a date, such as the year, month, or day. For example, SwapYear, SwapMonth, SwapDay, etc.
+
+•  Shifting methods: These are methods that shift a date to a different position, such as the first, last, or nth day of the week, month, or year. For example, ShiftToFirstDayOfWeek, ShiftToLastDayOfMonth, ShiftToNthDayOfYear, etc.
+
+•  Matching methods: These are methods that check if a date matches a certain condition, such as being a leap day, a weekday, or a holiday. For example, IsLeapDay, IsWeekday, IsHoliday, etc.
+
+•  Difference methods: These are methods that return the difference between two dates, in terms of a certain unit, such as days, weeks, months, or years. For example, DifferenceInDays, DifferenceInWeeks, DifferenceInMonths, DifferenceInYears, etc.
+
+•  Duration methods: These are methods that return the duration of a date, in terms of a certain unit, such as hours, minutes, or seconds. For example, DurationInHours, DurationInMinutes, DurationInSeconds, etc.
+
+•  Frequency methods: These are methods that return the frequency of a date, in terms of a certain unit, such as days, weeks, months, or years. For example, FrequencyInDays, FrequencyInWeeks, FrequencyInMonths, FrequencyInYears, etc.
+
+•  Occurrence methods: These are methods that return the number of occurrences of a date, in terms of a certain unit, such as days, weeks, months, or years. For example, OccurrenceInDays, OccurrenceInWeeks, OccurrenceInMonths, OccurrenceInYears, etc.
+
+•  Position methods: These are methods that return the position of a date, in terms of a certain unit, such as days, weeks, months, or years. For example, PositionInDays, PositionInWeeks, PositionInMonths, PositionInYears, etc.

@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageOutputPath>..\[ Setup ]</PackageOutputPath>
+		<PackageId>AT.Extensions.Library</PackageId>
+		<Title>Extensions (Library)</Title>
+		<Authors>Amirreza Tabeshfard</Authors>
+		<Company>WebNest [Feature]</Company>
+		<Description>My goal is to meet the needs of all programmers. that no programmer needs to implement Extension in his/her program.</Description>
+		<Product>AT.Extensions.Library</Product>
+		<Copyright>2024</Copyright>
+		<PackageTags>Extension;Extensions</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<RepositoryType>git</RepositoryType>
+		<Version>1.0.0.1</Version>
+	</PropertyGroup>
+
+	<!-- 
+			[.NET 7]
+	-->
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="8.0.1" />
+		<PackageReference Include="Mime-Detective" Version="23.10.1" />
+		<PackageReference Include="Enable.Common.Argument" Version="2.0.1" />
+		<PackageReference Include="SharperHacks.CoreLibs.Constants" Version="2.1.1" />
+		<PackageReference Include="SharperHacks.CoreLibs.Constraints" Version="2.0.0" />
+		<ProjectReference Include="..\AT.Enums\AT.Enums.csproj" />
+		<ProjectReference Include="..\AT.Infrastructure\AT.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<!-- 
+			[.NET 8]
+	-->
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="8.0.1" />
+		<PackageReference Include="Mime-Detective" Version="23.10.1" />
+		<PackageReference Include="Enable.Common.Argument" Version="2.0.1" />
+		<PackageReference Include="SharperHacks.CoreLibs.Constants" Version="2.1.1" />
+		<PackageReference Include="SharperHacks.CoreLibs.Constraints" Version="2.0.0" />
+		<ProjectReference Include="..\AT.Enums\AT.Enums.csproj" />
+		<ProjectReference Include="..\AT.Infrastructure\AT.Infrastructure.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Enums [should be checked later]\**" />
+	  <Compile Remove="Pictures [should be checked later]\**" />
+	  <EmbeddedResource Remove="Enums [should be checked later]\**" />
+	  <EmbeddedResource Remove="Pictures [should be checked later]\**" />
+	  <None Remove="Enums [should be checked later]\**" />
+	  <None Remove="Pictures [should be checked later]\**" />
+	</ItemGroup>
+
+</Project>
