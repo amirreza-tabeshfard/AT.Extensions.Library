@@ -11,13 +11,58 @@
     <Company>WebNest [Feature]</Company>
     <Description>My goal is to meet the needs of all programmers. that no programmer needs to implement Extension in his/her program.</Description>
     <Product>AT.Extensions.Library</Product>
-    <Copyright>2024</Copyright>
-    <PackageTags>Extension;Extensions;CharsExtensions;DateTimesExtensions;DirectoryInfosExtensions;FileInfosExtensions;HttpHandlerExtensions;StringsExtensions;XMLExtensions</PackageTags>
+    <Copyright>Copyright 2024 (c) Amirreza Tabeshfard. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/amirreza-tabeshfard/AT.Extensions.Library</PackageProjectUrl>
+    <PackageTags>
+      Extension;
+      Extensions;
+      Char;
+      Chars;
+      CharExtension;
+      CharExtensions;
+      CharsExtension;
+      CharsExtensions;
+      DateTime;
+      DateTimes;
+      DateTimeExtension;
+      DateTimeExtensions;
+      DateTimesExtension;
+      DateTimesExtensions;
+      DirectoryInfo;
+      DirectoryInfos;
+      DirectoryInfoExtension;
+      DirectoryInfoExtensions;
+      DirectoryInfosExtension;
+      DirectoryInfosExtensions;
+      FileInfo;
+      FileInfos;
+      FileInfoExtension;
+      FileInfoExtensions;
+      FileInfosExtension;
+      FileInfosExtensions;
+      HttpHandler;
+      HttpHandlers;
+      HttpHandlerExtension;
+      HttpHandlerExtensions;
+      HttpHandlersExtension;
+      HttpHandlersExtensions;
+      String;
+      Strings;
+      StringExtension;
+      StringExtensions;
+      StringsExtension;
+      StringsExtensions;
+      XML;
+      XMLs;
+      XMLExtension;
+      XMLExtensions;
+      XMLsExtension;
+      XMLsExtensions;
+    </PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <Version>1.0.0.1</Version>
-    <PackageProjectUrl>https://github.com/amirreza-tabeshfard/AT.Extensions.Library</PackageProjectUrl>
   </PropertyGroup>
 
   <!-- 
