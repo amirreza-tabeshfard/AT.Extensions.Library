@@ -18,13 +18,13 @@ public static class LocalTimeZoneConfig : Object
         }
     }
 
-    public static TimeZoneInfo Init(string timeZoneId)
+    public static TimeZoneInfo Init(String timeZoneId)
     {
         _tz = TimeZoneConverter.TZConvert.GetTimeZoneInfo(timeZoneId);
         return _tz;
     }
 
-    public static TimeZoneInfo Create(string timeZoneId)
+    public static TimeZoneInfo Create(String timeZoneId)
     {
         _tz = TimeZoneConverter.TZConvert.GetTimeZoneInfo(timeZoneId);
         return _tz;

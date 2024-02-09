@@ -25,9 +25,9 @@ public static class Extensions : Object
         try
         {
             System.ComponentModel.TypeConverter converter1 = System.ComponentModel.TypeDescriptor.GetConverter(typeof(TValue));
-            if (converter1.CanConvertFrom(typeof(string)))
+            if (converter1.CanConvertFrom(typeof(String)))
                 return (TValue)converter1.ConvertFrom((object)value);
-            System.ComponentModel.TypeConverter converter2 = System.ComponentModel.TypeDescriptor.GetConverter(typeof(string));
+            System.ComponentModel.TypeConverter converter2 = System.ComponentModel.TypeDescriptor.GetConverter(typeof(String));
             if (converter2.CanConvertTo(typeof(TValue)))
                 return (TValue)converter2.ConvertTo((object)value, typeof(TValue));
         }
@@ -71,8 +71,8 @@ public static class Extensions : Object
 
     public static T GetValue<T>(this String s)
     {
-        MethodInfo mi = typeof(T).GetMethod("Parse", new Type[] { typeof(string) });
-        if (s == null)
+        MethodInfo mi = typeof(T).GetMethod("Parse", new Type[] { typeof(String) });
+        if (s == default)
         {
             throw new ArgumentNullException("s");
         }
@@ -95,8 +95,8 @@ public static class Extensions : Object
 
     public static T GetValue<T>(this String s, T defaultValue)
     {
-        MethodInfo mi = typeof(T).GetMethod("TryParse", new Type[] { typeof(string), typeof(T).MakeByRefType() });
-        if (s == null)
+        MethodInfo mi = typeof(T).GetMethod("TryParse", new Type[] { typeof(String), typeof(T).MakeByRefType() });
+        if (s == default)
         {
             return defaultValue;
         }
@@ -160,10 +160,10 @@ public static class Extensions : Object
         return str.Split(separator, options).Select(s => (T)System.Convert.ChangeType(s, typeof(T)));
     }
 
-    public static string ToDelimitedString<T>(this IEnumerable<T>? collection, string delimiter = ", ", string? endDelimiter = null)
+    public static String ToDelimitedString<T>(this IEnumerable<T>? collection, String delimiter = ", ", String? endDelimiter = null)
     {
         if (collection is null)
-            return string.Empty;
+            return String.Empty;
 
         var sb = new StringBuilder();
         using (var enumerator = collection.GetEnumerator())
@@ -173,7 +173,7 @@ public static class Extensions : Object
                 sb.Append(enumerator.Current);
             }
 
-            if (endDelimiter == null)
+            if (endDelimiter == default)
             {
                 while (enumerator.MoveNext())
                 {
@@ -201,10 +201,10 @@ public static class Extensions : Object
         return sb.ToString();
     }
 
-    public static string ToDelimitedString<T>(this IEnumerable<T>? collection, Func<T, string> func, string delimiter = ", ", string? endDelimiter = null)
+    public static String ToDelimitedString<T>(this IEnumerable<T>? collection, Func<T, String> func, String delimiter = ", ", String? endDelimiter = null)
     {
         if (collection is null)
-            return string.Empty;
+            return String.Empty;
 
         var sb = new StringBuilder();
         using (var enumerator = collection.GetEnumerator())
@@ -214,7 +214,7 @@ public static class Extensions : Object
                 sb.Append(func.Invoke(enumerator.Current));
             }
 
-            if (endDelimiter == null)
+            if (endDelimiter == default)
             {
                 while (enumerator.MoveNext())
                 {
@@ -274,9 +274,9 @@ public static class Extensions : Object
         return result;
     }
 
-    public static string ToJson<T>(this T value, JsonSerializerSettings settings = null)
+    public static String ToJson<T>(this T value, JsonSerializerSettings settings = null)
     {
-        if (settings == null)
+        if (settings == default)
             settings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),

@@ -10,9 +10,9 @@ public static class Extensions : Object
         bool result = default;
         // ----------------------------------------------------------------------------------------------------
         if (current == default)
-            throw new ArgumentNullException($"current is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(current));
         else if (other == default)
-            throw new ArgumentNullException($"other is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(other));
         // ----------------------------------------------------------------------------------------------------
         if (current.CompareTo(other).Equals((int)AT.Enums.DateComparison.IsFuture))
             result = true;
@@ -25,9 +25,9 @@ public static class Extensions : Object
         bool result = default;
         // ----------------------------------------------------------------------------------------------------
         if (current == default)
-            throw new ArgumentNullException($"current is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(current));
         else if (other == default)
-            throw new ArgumentNullException($"other is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(other));
         // ----------------------------------------------------------------------------------------------------
         if (current.CompareTo(other).Equals((int)AT.Enums.DateComparison.IsPast))
             result = true;
@@ -38,11 +38,11 @@ public static class Extensions : Object
     public static bool IsBetween(this DateTime dateTime, DateTime startDate, DateTime endDate, Boolean compareTime = default)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (startDate == default)
-            throw new ArgumentNullException($"startDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(startDate));
         else if (endDate == default)
-            throw new ArgumentNullException($"startDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(endDate));
         // ----------------------------------------------------------------------------------------------------
         return compareTime 
                ? (dateTime >= startDate && dateTime <= endDate) 
@@ -52,11 +52,11 @@ public static class Extensions : Object
     public static bool IsBetween(this DateTime dateTime, DateTime rangeBegining, DateTime rangeEnd)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (rangeBegining == default)
-            throw new ArgumentNullException($"rangeBegining is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(rangeBegining));
         else if (rangeEnd == default)
-            throw new ArgumentNullException($"rangeEnd is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(rangeEnd));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Ticks >= rangeBegining.Ticks
                && dateTime.Ticks < rangeEnd.Ticks;
@@ -65,7 +65,7 @@ public static class Extensions : Object
     public static bool IsDatePM(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return (dateTime >= dateTime.Noon())
                && (dateTime < dateTime.AddDays(1).Midnight());
@@ -74,9 +74,9 @@ public static class Extensions : Object
     public static bool IsDateTimeWithinXRangeOfAnotherDateTime(this DateTime dateTime, int interval, AT.Enums.DateTimeDifferenceFormat DateTimeFormat, DateTime comparisonDate)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (comparisonDate == default)
-            throw new ArgumentNullException($"comparisonDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(comparisonDate));
         // ----------------------------------------------------------------------------------------------------
         DateTime _min = comparisonDate;
         DateTime _max = comparisonDate;
@@ -146,9 +146,9 @@ public static class Extensions : Object
     public static bool IsEarlierThan(this DateTime dateTime, DateTime value)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (value == default)
-            throw new ArgumentNullException($"value is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.CompareTo(value) < 0;
     }
@@ -156,7 +156,7 @@ public static class Extensions : Object
     public static bool IsEndOfMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Day == DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
     }
@@ -164,7 +164,7 @@ public static class Extensions : Object
     public static bool IsEndOfWeek(this DateTime dateTime, DayOfWeek weekEnd = DayOfWeek.Saturday)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.DayOfWeek == weekEnd;
     }
@@ -172,7 +172,7 @@ public static class Extensions : Object
     public static bool IsFriday(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.DayOfWeek == DayOfWeek.Friday;
     }
@@ -182,7 +182,7 @@ public static class Extensions : Object
         IReadOnlyCollection<DateTime>? allHolidays = default;
         // ----------------------------------------------------------------------------------------------------
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         allHolidays = dateTime.Year.AllHolidays();
 
@@ -195,7 +195,7 @@ public static class Extensions : Object
     public static bool IsHolidayOrSunday(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.IsSunday() || dateTime.IsHoliday();
     }
@@ -203,11 +203,11 @@ public static class Extensions : Object
     public static bool IsInRange(this DateTime dateTime, DateTime startDate, DateTime endDate)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (startDate == default)
-            throw new ArgumentNullException($"startDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(startDate));
         else if (endDate == default)
-            throw new ArgumentNullException($"endDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(endDate));
         // ----------------------------------------------------------------------------------------------------
         return (dateTime >= startDate && dateTime <= endDate);
     }
@@ -215,13 +215,13 @@ public static class Extensions : Object
     public static bool IsIntersects(this DateTime startDate, DateTime endDate, DateTime intersectingStartDate, DateTime intersectingEndDate)
     {
         if (startDate == default)
-            throw new ArgumentNullException($"startDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(startDate));
         else if (endDate == default)
-            throw new ArgumentNullException($"endDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(endDate));
         else if (intersectingStartDate == default)
-            throw new ArgumentNullException($"intersectingStartDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(intersectingStartDate));
         else if (intersectingEndDate == default)
-            throw new ArgumentNullException($"intersectingEndDate is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(intersectingEndDate));
         // ----------------------------------------------------------------------------------------------------
         return (intersectingEndDate >= startDate && intersectingStartDate <= endDate);
     }
@@ -229,7 +229,7 @@ public static class Extensions : Object
     public static bool IsLastDayOfTheMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime == new DateTime(dateTime.Year, dateTime.Month, 1).AddMonths(1).AddDays(-1);
     }
@@ -237,9 +237,9 @@ public static class Extensions : Object
     public static bool IsLaterThan(this DateTime dateTime, DateTime value)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (value == default)
-            throw new ArgumentNullException($"value is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.CompareTo(value) > 0;
     }
@@ -247,7 +247,7 @@ public static class Extensions : Object
     public static bool IsLeapDay(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.IsLeapDay(dateTime.Year, dateTime.Month, dateTime.Day, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
@@ -255,7 +255,7 @@ public static class Extensions : Object
     public static bool IsLeapMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.IsLeapMonth(dateTime.Year, dateTime.Month, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
@@ -263,7 +263,7 @@ public static class Extensions : Object
     public static bool IsLeapYear(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.IsLeapYear(dateTime.Year);
         //return System.Globalization.CultureInfo.InvariantCulture.Calendar.IsLeapYear(dateTime.Year, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
@@ -277,7 +277,7 @@ public static class Extensions : Object
     public static bool IsMonday(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.DayOfWeek == DayOfWeek.Monday;
     }
@@ -285,9 +285,9 @@ public static class Extensions : Object
     public static bool IsSameDate(this DateTime dateTime, DateTime value)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (value == default)
-            throw new ArgumentNullException($"value is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Date == value.Date;
     }
@@ -295,9 +295,9 @@ public static class Extensions : Object
     public static bool IsSameTime(this DateTime dateTime, DateTime value)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (value == default)
-            throw new ArgumentNullException($"value is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
         return dateTime - dateTime.Date == value - value.Date;
     }
@@ -305,7 +305,7 @@ public static class Extensions : Object
     public static bool IsSaturday(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.DayOfWeek == DayOfWeek.Saturday;
     }
@@ -313,7 +313,7 @@ public static class Extensions : Object
     public static bool IsStartOfMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Day == 1;
     }
@@ -321,7 +321,7 @@ public static class Extensions : Object
     public static bool IsSunday(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.DayOfWeek == DayOfWeek.Sunday;
     }
@@ -329,7 +329,7 @@ public static class Extensions : Object
     public static bool IsThursday(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.DayOfWeek == DayOfWeek.Thursday;
     }
@@ -337,7 +337,7 @@ public static class Extensions : Object
     public static bool IsTuesday(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.DayOfWeek == DayOfWeek.Tuesday;
     }
@@ -366,7 +366,7 @@ public static class Extensions : Object
     public static bool IsWednesday(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.DayOfWeek == DayOfWeek.Wednesday;
     }
@@ -383,7 +383,7 @@ public static class Extensions : Object
     public static bool IsWeekend(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return (dateTime.DayOfWeek == DayOfWeek.Sunday || dateTime.DayOfWeek == DayOfWeek.Saturday);
     }
@@ -396,7 +396,7 @@ public static class Extensions : Object
     public static bool WillChangeDate(this DateTime dateTime, double value, AT.Enums.DateTimeDifferenceFormat differenceFormat = AT.Enums.DateTimeDifferenceFormat.Hours)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Date != dateTime.Add(value, differenceFormat).Date;
     }
@@ -404,7 +404,7 @@ public static class Extensions : Object
     public static bool WillChangeMonth(this DateTime dateTime, double value, AT.Enums.DateTimeDifferenceFormat differenceFormat = AT.Enums.DateTimeDifferenceFormat.Days)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Month != dateTime.Add(value, differenceFormat).Month;
     }
@@ -412,7 +412,7 @@ public static class Extensions : Object
     public static bool WillChangeYear(this DateTime dateTime, double value, AT.Enums.DateTimeDifferenceFormat differenceFormat = AT.Enums.DateTimeDifferenceFormat.Days)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Year != dateTime.Add(value, differenceFormat).Year;
     }

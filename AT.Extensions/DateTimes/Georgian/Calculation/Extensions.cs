@@ -4,7 +4,7 @@ public static class Extensions : Object
     public static int Age(this DateTime dateOfBirth)
     {
         if (dateOfBirth == default)
-            throw new ArgumentNullException($"dateOfBirth is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateOfBirth));
         // ----------------------------------------------------------------------------------------------------
         if (((DateTime.Today.Month < dateOfBirth.Month) || (DateTime.Today.Month == dateOfBirth.Month)) && (DateTime.Today.Day < dateOfBirth.Day))
             return DateTime.Today.Year - dateOfBirth.Year - 1;
@@ -15,9 +15,9 @@ public static class Extensions : Object
     public static int AgeMonths(this DateTime referenceDate, DateTime today)
     {
         if (referenceDate == default)
-            throw new ArgumentNullException($"referenceDate is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(referenceDate));
         else if (today == default)
-            throw new ArgumentNullException($"today is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(today));
         else if (referenceDate > today)
             throw new ArgumentOutOfRangeException(nameof(referenceDate));
         // ----------------------------------------------------------------------------------------------------
@@ -27,9 +27,9 @@ public static class Extensions : Object
     public static int AgeYears(this DateTime referenceDate, DateTime today)
     {
         if (referenceDate == default)
-            throw new ArgumentNullException($"referenceDate is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(referenceDate));
         else if (today == default)
-            throw new ArgumentNullException($"today is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(today));
         else if (referenceDate > today)
             throw new ArgumentOutOfRangeException(nameof(referenceDate));
         // ----------------------------------------------------------------------------------------------------

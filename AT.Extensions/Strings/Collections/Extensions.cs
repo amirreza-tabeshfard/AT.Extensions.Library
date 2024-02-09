@@ -1,5 +1,6 @@
-﻿using AT.Extensions.Strings.Extraction;
-using static AT.Extensions.Strings.Comparison.Extensions;
+﻿using AT.Extensions.Strings.Comparison;
+using AT.Extensions.Strings.Extraction;
+using Newtonsoft.Json.Linq;
 
 namespace AT.Extensions.Strings.Collections;
 public static class Extensions : Object
@@ -23,43 +24,43 @@ public static class Extensions : Object
 
     #endregion
 
-    public static IEnumerable<string> AllBetween(this String input, char enclosureCharacter)
+    public static IEnumerable<String> AllBetween(this String input, char enclosureCharacter)
     {
         return AllBetween(input, enclosureCharacter, enclosureCharacter);
     }
 
-    public static IEnumerable<string> AllBetween(this String input, char firstEnclosureCharacter, char secondEnclosureCharacter)
+    public static IEnumerable<String> AllBetween(this String input, char firstEnclosureCharacter, char secondEnclosureCharacter)
     {
-        if (input == null)
+        if (input == default)
             throw new ArgumentNullException("input");
 
         return AllBetweenCore(input, firstEnclosureCharacter, secondEnclosureCharacter);
     }
 
-    public static IEnumerable<string> AllBetween(this String input, string enclosure)
+    public static IEnumerable<String> AllBetween(this String input, String enclosure)
     {
         return AllBetween(input, enclosure, StringComparison.Ordinal);
     }
 
-    public static IEnumerable<string> AllBetween(this String input, string enclosure, StringComparison comparisonType)
+    public static IEnumerable<String> AllBetween(this String input, String enclosure, StringComparison comparisonType)
     {
         return AllBetween(input, enclosure, enclosure, comparisonType);
     }
 
-    public static IEnumerable<string> AllBetween(this String input, string firstEnclosure, string secondEnclosure, StringComparison comparisonType)
+    public static IEnumerable<String> AllBetween(this String input, String firstEnclosure, String secondEnclosure, StringComparison comparisonType)
     {
         // preconditions
-        if (input == null)
+        if (input == default)
             throw new ArgumentNullException("input");
-        if (firstEnclosure == null)
+        if (firstEnclosure == default)
             throw new ArgumentNullException("firstEnclosure");
-        if (secondEnclosure == null)
+        if (secondEnclosure == default)
             throw new ArgumentNullException("secondEnclosure");
 
         return AllBetweenImpl(input, firstEnclosure, secondEnclosure, comparisonType);
     }
 
-    private static IEnumerable<string> AllBetweenCore(this String input, char firstEnclosureCharacter, char secondEnclosureCharacter)
+    private static IEnumerable<String> AllBetweenCore(this String input, char firstEnclosureCharacter, char secondEnclosureCharacter)
     {
         int firstEnclosureCharacterIndex = input.IndexOf(firstEnclosureCharacter);
         while (firstEnclosureCharacterIndex != -1 && firstEnclosureCharacterIndex < input.Length - 1)
@@ -72,7 +73,7 @@ public static class Extensions : Object
             {
                 int length = secondEnclosureCharacterIndex - firstAdjustedIndex;
 
-                string part = input.Substring(firstAdjustedIndex, length);
+                String part = input.Substring(firstAdjustedIndex, length);
 
                 yield return part;
 
@@ -81,7 +82,7 @@ public static class Extensions : Object
         }
     }
 
-    private static IEnumerable<string> AllBetweenImpl(this String input, string firstEnclosure, string secondEnclosure, StringComparison comparisonType)
+    private static IEnumerable<String> AllBetweenImpl(this String input, String firstEnclosure, String secondEnclosure, StringComparison comparisonType)
     {
         int firstEnclosureIndex = input.IndexOf(firstEnclosure, comparisonType);
         while (firstEnclosureIndex != -1 && firstEnclosureIndex + firstEnclosure.Length < input.Length)
@@ -96,7 +97,7 @@ public static class Extensions : Object
             {
                 int length = secondEnclosureIndex - firstAdjustedIndex;
 
-                string substring = input.Substring(firstAdjustedIndex, length);
+                String substring = input.Substring(firstAdjustedIndex, length);
 
                 yield return substring;
 
@@ -109,7 +110,7 @@ public static class Extensions : Object
     {
         var defaultValue = Enumerable.Empty<(int Length, int Count)>().OrderBy(wordLength => wordLength.Length);
 
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return defaultValue;
 
         var lengths = text.Words()?.GroupBy(word => word.Length);
@@ -119,14 +120,14 @@ public static class Extensions : Object
         return result;
     }
 
-    public static IEnumerable<int> ExtractInts(this string? value)
+    public static IEnumerable<int> ExtractInts(this String? value)
     {
-        if (value == null)
+        if (value == default)
             return Enumerable.Empty<int>();
         return System.Text.RegularExpressions.Regex.Matches(value, @"-?( )?\d+").Select(i => int.Parse(i.Value.Replace(" ", "")));
     }
 
-    public static byte[]? FromBase64StringToByteArray(this string? value, bool shouldReturnNullIfConversionFailed = true)
+    public static byte[]? FromBase64StringToByteArray(this String? value, bool shouldReturnNullIfConversionFailed = true)
     {
         if (value is null)
             return Array.Empty<byte>();
@@ -144,7 +145,7 @@ public static class Extensions : Object
         }
     }
 
-    public static byte[]? FromBase64UrlStringToByteArray(this string? value, bool shouldReturnNullIfConversionFailed = true)
+    public static byte[]? FromBase64UrlStringToByteArray(this String? value, bool shouldReturnNullIfConversionFailed = true)
     {
         if (value is null)
             return Array.Empty<byte>();
@@ -159,7 +160,7 @@ public static class Extensions : Object
 
         value = value.Replace("%3D", "=");
         var paddingRequired = value.Length % 4;
-        var padding = paddingRequired == 0 ? string.Empty : new string('=', 4 - paddingRequired);
+        var padding = paddingRequired == 0 ? String.Empty : new String('=', 4 - paddingRequired);
         var base64 = value.Replace("-", "+").Replace("_", "/") + padding;
 
         try
@@ -178,21 +179,19 @@ public static class Extensions : Object
         }
     }
 
-    public static List<string> FromCommaSeparatedToList(this String str)
+    public static List<String> FromCommaSeparatedToList(this String value)
     {
-        List<string> value = new List<string>();
-        if (!string.IsNullOrEmpty(str))
-        {
-            foreach (var item in str.Split(','))
-            {
-                value.Add(item);
-            }
-        }
-
-        return value;
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        List<String> values = new();
+        foreach (string item in value.Split(','))
+            values.Add(item);
+        // ----------------------------------------------------------------------------------------------------
+        return values;
     }
 
-    public static byte[]? FromHexStringToByteArray(this string? value, bool shouldReturnNullIfConversionFailed = true)
+    public static byte[]? FromHexStringToByteArray(this String? value, bool shouldReturnNullIfConversionFailed = true)
     {
         if (value is null)
             return Array.Empty<byte>();
@@ -237,29 +236,27 @@ public static class Extensions : Object
         return asciiArr;
     }
 
-    public static IList<string> GetPathParts(this String path)
+    public static IList<String> GetPathParts(this String path)
     {
         return path.Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 
-    public static IDictionary<string, object> JsonToDictionary(this String val)
+    public static IDictionary<String, object> JsonToDictionary(this String value)
     {
-        if (string.IsNullOrEmpty(val))
-        {
-            throw new ArgumentNullException("val");
-        }
-        return
-            (Dictionary<string, object>)Newtonsoft.Json.JsonConvert.DeserializeObject(val, typeof(Dictionary<string, object>));
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        return (Dictionary<String, object>)Newtonsoft.Json.JsonConvert.DeserializeObject(value, typeof(Dictionary<String, object>));
     }
 
-    public static string[] PascalToSpacedStringArray(this String input)
+    public static String[] PascalToSpacedStringArray(this String input)
     {
         return input.PascalToSpacedString().Split(' ');
     }
 
-    public static IDictionary<string, string> QueryStringToDictionary(this String queryString)
+    public static IDictionary<String, String> QueryStringToDictionary(this String queryString)
     {
-        if (string.IsNullOrWhiteSpace(queryString))
+        if (String.IsNullOrWhiteSpace(queryString))
         {
             return null;
         }
@@ -267,7 +264,7 @@ public static class Extensions : Object
         {
             return null;
         }
-        string query = queryString.Replace("?", "");
+        String query = queryString.Replace("?", "");
         if (!query.Contains("="))
         {
             return null;
@@ -276,38 +273,38 @@ public static class Extensions : Object
             key => key[0].ToLower().Trim(), value => value[1]);
     }
 
-    public static IEnumerable<string> Range(this String str, int start, int end, params char[] split)
+    public static IEnumerable<String> Range(this String str, int start, int end, params char[] split)
     {
         return str.Split(split).Skip(start).Take(end - start + 1);
     }
 
-    public static IEnumerable<string> Range(this String str, int start, int end, params string[] split)
+    public static IEnumerable<String> Range(this String str, int start, int end, params String[] split)
     {
         return str.Split(split, StringSplitOptions.RemoveEmptyEntries).Skip(start).Take(end - start);
     }
 
-    public static IEnumerable<string> ReadLines(this String text)
+    public static IEnumerable<String> ReadLines(this String text)
     {
         var reader = new StringReader(text);
-        string? line;
+        String? line;
         while ((line = reader.ReadLine()) != null)
         {
             yield return line;
         }
     }
 
-    public static IEnumerable<string> Sentences(this String text, bool cleanNewLine = true, bool cleanWhitepace = true)
+    public static IEnumerable<String> Sentences(this String text, bool cleanNewLine = true, bool cleanWhitepace = true)
     {
-        IEnumerable<string> defaultValue = Enumerable.Empty<string>();
+        IEnumerable<String> defaultValue = Enumerable.Empty<String>();
 
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return defaultValue;
 
         IEnumerable<System.Text.RegularExpressions.Match> matches = System.Text.RegularExpressions.Regex.Matches(text, @"((\s[^\.\!\?]\.)+|([^\.\!\?]\.)+|[^\.\!\?]+)+[\.\!\?]+(\s|$)") as IEnumerable<System.Text.RegularExpressions.Match>;
-        IEnumerable<string> result = matches.Where(match => match.Success && !string.IsNullOrWhiteSpace(match.Value)).Select(match => match.Value);
+        IEnumerable<String> result = matches.Where(match => match.Success && !String.IsNullOrWhiteSpace(match.Value)).Select(match => match.Value);
 
         if (cleanNewLine)
-            result = result.Select(sentence => sentence.Replace(Environment.NewLine, string.Empty));
+            result = result.Select(sentence => sentence.Replace(Environment.NewLine, String.Empty));
 
         if (cleanWhitepace)
             result = result.Select(sentence => sentence.CleanWhiteSpace1());
@@ -315,41 +312,41 @@ public static class Extensions : Object
         return result;
     }
 
-    public static IEnumerable<string> SplitAndTrim(this String value, params char[] separators)
+    public static IEnumerable<String> SplitAndTrim(this String value, params char[] separators)
     {
         return value.Trim().Split(separators, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
     }
 
-    public static IEnumerable<string> SplitCamelCase(this String self)
+    public static IEnumerable<String> SplitCamelCase(this String self)
     {
-        const string PATTERN = @"[A-Z][a-z]*|[a-z]+|\d+";
+        const String PATTERN = @"[A-Z][a-z]*|[a-z]+|\d+";
         var matches = System.Text.RegularExpressions.Regex.Matches(self, PATTERN);
 
-        ICollection<string> words = new List<string>();
+        ICollection<String> words = new List<String>();
         foreach (System.Text.RegularExpressions.Match match in matches.Cast<System.Text.RegularExpressions.Match>())
             words.Add(match.Value);
         return words;
     }
 
-    public static string[] SplitIntoLines(this String s)
+    public static String[] SplitIntoLines(this String s)
     {
-        string cleaned = s.Replace("\r\n", "\n");
-        string[] r = cleaned.Split(new[] { '\r', '\n' });
+        String cleaned = s.Replace("\r\n", "\n");
+        String[] r = cleaned.Split(new[] { '\r', '\n' });
         return r;
     }
 
-    public static IEnumerable<string> TextElement(this String input)
+    public static IEnumerable<String> TextElement(this String input)
     {
         System.Globalization.TextElementEnumerator elementEnumerator = System.Globalization.StringInfo.GetTextElementEnumerator(input);
 
         while (elementEnumerator.MoveNext())
         {
-            string textElement = elementEnumerator.GetTextElement();
+            String textElement = elementEnumerator.GetTextElement();
             yield return textElement;
         }
     }
 
-    public static IEnumerable<AT.Infrastructure.TextElementSegment> TextElementSegments(string input)
+    public static IEnumerable<AT.Infrastructure.TextElementSegment> TextElementSegments(String input)
     {
         int[] elementOffsets = System.Globalization.StringInfo.ParseCombiningCharacters(input);
 
@@ -382,9 +379,9 @@ public static class Extensions : Object
         return bytes;
     }
 
-    public static ICollection<string> ToChunks(this String str, int chunkSize)
+    public static ICollection<String> ToChunks(this String str, int chunkSize)
     {
-        System.Collections.ObjectModel.Collection<string> c = new();
+        System.Collections.ObjectModel.Collection<String> c = new();
         if (str != null)
         {
             int cnt = 0;
@@ -404,18 +401,18 @@ public static class Extensions : Object
         return c;
     }
 
-    public static List<string> ToCollection(this String input, char delimiter = ',')
+    public static List<String> ToCollection(this String input, char delimiter = ',')
     {
         if (!input.Contains(delimiter))
         {
-            return new List<string> { input };
+            return new List<String> { input };
         }
         return input.Split(delimiter).ToList();
     }
 
-    public static string[] ToDelimitedArray(this String content, char delimiter = ',')
+    public static String[] ToDelimitedArray(this String content, char delimiter = ',')
     {
-        string[] array = content.Split(delimiter);
+        String[] array = content.Split(delimiter);
         for (int i = 0; i < array.Length; i++)
         {
             array[i] = array[i].Trim();
@@ -424,10 +421,10 @@ public static class Extensions : Object
         return array;
     }
 
-    public static List<string> Tokenize(this String s, Func<char, bool> predicate)
+    public static List<String> Tokenize(this String s, Func<char, bool> predicate)
     {
-        List<string> tokens = new();
-        string? token;
+        List<String> tokens = new();
+        String? token;
         int pos = 0;
 
         while ((token = s.GetNextToken(predicate, ref pos)) != null)
@@ -436,11 +433,11 @@ public static class Extensions : Object
         return tokens;
     }
 
-    public static List<string> Tokenize(this String s, string delimiterChars, bool ignoreCase = false)
+    public static List<String> Tokenize(this String s, String delimiterChars, bool ignoreCase = false)
     {
-        HashSet<char> hashSet = new(delimiterChars, CharComparer.GetEqualityComparer(ignoreCase));
-        List<string> tokens = new();
-        string? token;
+        HashSet<char> hashSet = new(delimiterChars, Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
+        List<String> tokens = new();
+        String? token;
         int pos = 0;
 
         while ((token = s.GetNextToken(hashSet.Contains, ref pos)) != null)
@@ -449,9 +446,9 @@ public static class Extensions : Object
         return tokens;
     }
 
-    public static List<string> ToList(this String s)
+    public static List<String> ToList(this String s)
     {
-        return new List<string> { s };
+        return new List<String> { s };
     }
 
     public static (MemoryStream MemoryStream, System.Text.Encoding Encoding) ToMemoryStream(this String self, System.Text.Encoding? encoding = default)
@@ -472,21 +469,21 @@ public static class Extensions : Object
         return (new MemoryStream(bytes), encoding);
     }
 
-    public static IEnumerable<string> ToTextElements(this String val)
+    public static IEnumerable<String> ToTextElements(this String val)
     {
-        if (val == null)
+        if (val == default)
         {
             throw new ArgumentNullException("val");
         }
         System.Globalization.TextElementEnumerator elementEnumerator = System.Globalization.StringInfo.GetTextElementEnumerator(val);
         while (elementEnumerator.MoveNext())
         {
-            string textElement = elementEnumerator.GetTextElement();
+            String textElement = elementEnumerator.GetTextElement();
             yield return textElement;
         }
     }
 
-    public static HashSet<string> UncapitalizedTitleWords { get; set; } = new(StringComparer.OrdinalIgnoreCase)
+    public static HashSet<String> UncapitalizedTitleWords { get; set; } = new(StringComparer.OrdinalIgnoreCase)
         {
             "a",
             "about",
@@ -528,27 +525,27 @@ public static class Extensions : Object
             "with"
         };
 
-    public static IEnumerable<string> UniqueWords(this String text)
+    public static IEnumerable<String> UniqueWords(this String text)
     {
-        IEnumerable<string> defaultValue = Enumerable.Empty<string>();
+        IEnumerable<String> defaultValue = Enumerable.Empty<String>();
 
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return defaultValue;
 
-        IEnumerable<string> result = text.Words()?.GroupBy(word => word).Select(wordGroup => wordGroup.Key) ?? defaultValue;
+        IEnumerable<String> result = text.Words()?.GroupBy(word => word).Select(wordGroup => wordGroup.Key) ?? defaultValue;
 
         return result;
     }
 
-    public static IEnumerable<string> Words(this String text)
+    public static IEnumerable<String> Words(this String text)
     {
-        IEnumerable<string> defaultValue = Enumerable.Empty<string>();
+        IEnumerable<String> defaultValue = Enumerable.Empty<String>();
 
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return defaultValue;
 
         IEnumerable<System.Text.RegularExpressions.Match> matches = System.Text.RegularExpressions.Regex.Matches(text, @"\w+") as IEnumerable<System.Text.RegularExpressions.Match>;
 
-        return matches.Where(match => match.Success && !string.IsNullOrWhiteSpace(match.Value)).Select(match => match.Value);
+        return matches.Where(match => match.Success && !String.IsNullOrWhiteSpace(match.Value)).Select(match => match.Value);
     }
 }

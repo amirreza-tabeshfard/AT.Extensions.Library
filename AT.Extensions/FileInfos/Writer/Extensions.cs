@@ -18,7 +18,7 @@ public static class Extensions : Object
         fileStream.Write(data, 0, data.Length);
     }
 
-    public static void AppendAllText(this FileInfo file, string text)
+    public static void AppendAllText(this FileInfo file, String text)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -36,7 +36,7 @@ public static class Extensions : Object
         writer.Write(buffer);
     }
 
-    public static void AppendLine(this FileInfo file, string text)
+    public static void AppendLine(this FileInfo file, String text)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));

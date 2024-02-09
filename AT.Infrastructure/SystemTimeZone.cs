@@ -3,7 +3,7 @@ public sealed class SystemTimeZone : Object
 {
     #region Field(s): Private
 
-    private readonly string _windowsSystemTimeZoneName;
+    private readonly String _windowsSystemTimeZoneName;
 
     #endregion
 
@@ -121,14 +121,14 @@ public sealed class SystemTimeZone : Object
 
     #region Constructor
 
-    private SystemTimeZone(string windowsSystemTimeZoneName)
+    private SystemTimeZone(String windowsSystemTimeZoneName)
     {
         _windowsSystemTimeZoneName = windowsSystemTimeZoneName;
     }
 
     #endregion
 
-    public override string ToString()
+    public override String ToString()
     {
         return _windowsSystemTimeZoneName;
     }

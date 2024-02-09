@@ -10,7 +10,7 @@ public static class VoidExtensions : Object
             action(character);
     }
 
-    public static void IfNotNull(this string? target, Action<string> continuation)
+    public static void IfNotNull(this String? target, Action<String> continuation)
     {
         if (target != null)
         {
@@ -18,35 +18,35 @@ public static class VoidExtensions : Object
         }
     }
 
-    public static void ReadLines(this String text, Action<string> callback)
+    public static void ReadLines(this String text, Action<String> callback)
     {
         var reader = new StringReader(text);
-        string? line;
+        String? line;
         while ((line = reader.ReadLine()) != null)
         {
             callback(line);
         }
     }
 
-    public static void ThrowIfEmpty(this String input, string paramName)
+    public static void ThrowIfEmpty(this String input, String paramName)
     {
         if (input.Length == 0)
             throw new ArgumentException($"{paramName} cannot be empty", paramName);
     }
 
-    internal static void ThrowIfNull([System.Diagnostics.CodeAnalysis.NotNull] this string? input, string paramName)
+    internal static void ThrowIfNull([System.Diagnostics.CodeAnalysis.NotNull] this String? input, String paramName)
     {
         if (input.IsNull()) throw new ArgumentNullException(paramName, $"{paramName} cannot be null");
     }
 
-    public static void ThrowIfNullEmptyOrWhitespace([System.Diagnostics.CodeAnalysis.NotNull] this string? input, string paramName)
+    public static void ThrowIfNullEmptyOrWhitespace([System.Diagnostics.CodeAnalysis.NotNull] this String? input, String paramName)
     {
         input.ThrowIfNull(paramName);
         input.ThrowIfEmpty(paramName);
         input.ThrowIfWhitespace(paramName);
     }
 
-    internal static void ThrowIfWhitespace(this String input, string paramName)
+    internal static void ThrowIfWhitespace(this String input, String paramName)
     {
         if (input.IsEmpty())
         {
@@ -58,7 +58,7 @@ public static class VoidExtensions : Object
         }
     }
 
-    public static void ToFile(this String self, string file)
+    public static void ToFile(this String self, String file)
     {
         File.WriteAllText(file, self);
     }

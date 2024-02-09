@@ -3,9 +3,9 @@ public static class CultureInfoData : Object
 {
     public class CultureData
     {
-        public List<string>? Articles { get; set; }
-        public List<string>? Conjunctions { get; set; }
-        public List<string>? Prepositions { get; set; }
+        public List<String>? Articles { get; set; }
+        public List<String>? Conjunctions { get; set; }
+        public List<String>? Prepositions { get; set; }
     }
 
     public static (System.Globalization.CultureInfo? info, CultureData? data) InfoData;
@@ -20,18 +20,18 @@ public static class CultureInfoData : Object
         try
         {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            string[] names = assembly.GetManifestResourceNames();
+            String[] names = assembly.GetManifestResourceNames();
 
             InfoData.info = default;
             InfoData.data = default;
 
-            string? resourceName = names.FirstOrDefault(name => name.Contains($".{culture.Name}.json"));
-            if (resourceName == null)
+            String? resourceName = names.FirstOrDefault(name => name.Contains($".{culture.Name}.json"));
+            if (resourceName == default)
                 resourceName = names.FirstOrDefault(name => name.Contains($".{culture.TwoLetterISOLanguageName}-"));
 
-            if (!string.IsNullOrEmpty(resourceName))
+            if (!String.IsNullOrEmpty(resourceName))
             {
-                string result = string.Empty;
+                String result = String.Empty;
                 using (Stream stream = assembly.GetManifestResourceStream(resourceName))
                 using (StreamReader reader = new StreamReader(stream))
                 {

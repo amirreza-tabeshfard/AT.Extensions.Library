@@ -5,7 +5,7 @@ public static class Extensions : Object
 {
     #region Method(s): Private
 
-    private static T ParamNotNull<T>(this T? obj, string ParameterName, string? Message = null)
+    private static T ParamNotNull<T>(this T? obj, String ParameterName, String? Message = null)
         where T : class
     {
         return obj ?? throw new ArgumentException(Message ?? $"Missing reference for parameter {ParameterName}", ParameterName);
@@ -13,7 +13,7 @@ public static class Extensions : Object
 
     #endregion
 
-    public static FileInfo ChangeExtension(this FileInfo file, string? extension)
+    public static FileInfo ChangeExtension(this FileInfo file, String? extension)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));

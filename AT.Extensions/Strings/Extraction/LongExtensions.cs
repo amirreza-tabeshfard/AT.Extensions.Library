@@ -16,7 +16,7 @@ public static class LongExtensions : Object
 
     public static long Length(this String source)
     {
-        if (source == null)
+        if (source == default)
         {
             throw new ArgumentNullException("source");
         }

@@ -11,20 +11,20 @@ public static partial class Extensions : object
     private static readonly char[] NibbleToStringMappingUpperCase = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
     private static readonly char[] NibbleToStringMappingLowerCase = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
-    static string whiteSpace = " ";
+    static String whiteSpace = " ";
     static int notFoundIndexValue = -1;
 
-    private static readonly string[] DecimalMeasurementSuffixes = new[]
+    private static readonly String[] DecimalMeasurementSuffixes = new[]
 {
             "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"
         };
 
-    private static readonly string[] BinaryMeasurementSuffixes = new[]
+    private static readonly String[] BinaryMeasurementSuffixes = new[]
     {
             "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"
         };
 
-    private static readonly Dictionary<string, string> ReplaceDictionary = new Dictionary<string, string>()
+    private static readonly Dictionary<String, String> ReplaceDictionary = new Dictionary<String, String>()
         {
             {"ı","i"}, //türkçeler
             {"ü","u"},
@@ -102,7 +102,7 @@ public static partial class Extensions : object
 
     #region Method(s): Private
 
-    private static string FromHungarianNotation(this String value)
+    private static String FromHungarianNotation(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -110,7 +110,7 @@ public static partial class Extensions : object
         return value.Replace('_', ' ').EveryWordUpper().Replace(" ", "");
     }
 
-    private static string FromCamelCase(this String value)
+    private static String FromCamelCase(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -118,7 +118,7 @@ public static partial class Extensions : object
         return $"{value.FirstOrDefault().ToUpper()}{value.Substring(1)}";
     }
 
-    private static string FromKebabCase(this String value)
+    private static String FromKebabCase(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -126,7 +126,7 @@ public static partial class Extensions : object
         return value.Replace('-', ' ').EveryWordUpper().Replace(" ", "");
     }
 
-    internal static string DetectAndNormalize(this String value)
+    internal static String DetectAndNormalize(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -143,7 +143,7 @@ public static partial class Extensions : object
         return value.EveryLetterUpper().Replace(" ", "");
     }
 
-    private static int FindFirstLetterIndex(string str)
+    private static int FindFirstLetterIndex(String str)
     {
         int index = notFoundIndexValue;
         for (int i = 0; i < str.Length; i++)
@@ -577,7 +577,7 @@ public static partial class Extensions : object
 
     #region Return: String
 
-    public static string ToAcronym(this String value, bool onlyPrincipalWords = true)
+    public static String ToAcronym(this String value, bool onlyPrincipalWords = true)
     {
         if (value.IsNullOrEmpty())
             throw new ArgumentNullException(nameof(value));
@@ -585,7 +585,7 @@ public static partial class Extensions : object
         return value.ToAcronym(System.Globalization.CultureInfo.CurrentCulture, onlyPrincipalWords);
     }
 
-    public static string ToAcronym(this String value, System.Globalization.CultureInfo culture, bool onlyPrincipalWords = true)
+    public static String ToAcronym(this String value, System.Globalization.CultureInfo culture, bool onlyPrincipalWords = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -594,19 +594,19 @@ public static partial class Extensions : object
         // ----------------------------------------------------------------------------------------------------
         onlyPrincipalWords = onlyPrincipalWords && AT.Infrastructure.CultureInfoData.InitializeCultureData(culture);
         return AlphaNumeric().Replace(value.ToAlphabetic(), new System.Text.RegularExpressions.MatchEvaluator(WordEvaluator)).RemoveWhitespace();
-        string WordEvaluator(System.Text.RegularExpressions.Match word)
+        String WordEvaluator(System.Text.RegularExpressions.Match word)
         {
-            string lower = word.Value.ToLower();
+            String lower = word.Value.ToLower();
 
-            return string.IsNullOrWhiteSpace(word.Value)
+            return String.IsNullOrWhiteSpace(word.Value)
                     || onlyPrincipalWords && (AT.Infrastructure.CultureInfoData.InfoData.data?.Articles?.Contains(lower) ?? false)
                     || (AT.Infrastructure.CultureInfoData.InfoData.data?.Conjunctions?.Contains(lower) ?? false)
                     || (AT.Infrastructure.CultureInfoData.InfoData.data?.Prepositions?.Contains(lower) ?? false)
-                    ? string.Empty : word.Value.Substring(0, 1).ToUpper();
+                    ? String.Empty : word.Value.Substring(0, 1).ToUpper();
         }
     }
 
-    public static string ToAlphabetic(this String value, bool preserveWhitespace = true)
+    public static String ToAlphabetic(this String value, bool preserveWhitespace = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -617,7 +617,7 @@ public static partial class Extensions : object
         return result.ToString();
     }
 
-    public static string ToAlphanumeric(this String value, bool preserveWhitespace = true)
+    public static String ToAlphanumeric(this String value, bool preserveWhitespace = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -628,7 +628,7 @@ public static partial class Extensions : object
         return result.ToString();
     }
 
-    public static string ToBase64String(this String value, System.Text.Encoding? encoding = default)
+    public static String ToBase64String(this String value, System.Text.Encoding? encoding = default)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -637,7 +637,7 @@ public static partial class Extensions : object
         return Convert.ToBase64String(encoding.GetBytes(value));
     }
 
-    public static string ToBase64String(this byte[] values)
+    public static String ToBase64String(this byte[] values)
     {
         if (values is null || values == default)
             throw new ArgumentNullException(nameof(values));
@@ -645,30 +645,30 @@ public static partial class Extensions : object
         return Convert.ToBase64String(values);
     }
 
-    public static string ToBase64UrlString(this byte[]? values, bool removePadding = true)
+    public static String ToBase64UrlString(this byte[]? values, bool removePadding = true)
     {
         if (values is null || values == default)
             throw new ArgumentNullException(nameof(values));
         // ----------------------------------------------------------------------------------------------------
-        string base64Uri = Convert.ToBase64String(values).Replace("+", "-").Replace("/", "_");
+        String base64Uri = Convert.ToBase64String(values).Replace("+", "-").Replace("/", "_");
         return removePadding
                ? base64Uri.TrimEnd('=')
                : base64Uri.Replace("=", "%3D");
     }
 
-    public static string ToCamelCase(this String value)
+    public static String ToCamelCase(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
         return AlphaNumeric().Replace(value, new System.Text.RegularExpressions.MatchEvaluator(WordEvaluator)).ToAlphanumeric(false);
-        static string WordEvaluator(System.Text.RegularExpressions.Match word)
+        static String WordEvaluator(System.Text.RegularExpressions.Match word)
         {
             return word.Value.ToSentenceCase();
         }
     }
 
-    public static string ToCamelCase2(this String value)
+    public static String ToCamelCase2(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -676,62 +676,62 @@ public static partial class Extensions : object
         return value.DetectAndNormalize().FirstLetterLower();
     }
 
-    public static string ToCommaSeparated(this List<string> values)
+    public static String ToCommaSeparated(this List<String> values)
     {
         if (values is null || values == default)
             throw new ArgumentNullException(nameof(values));
         // ----------------------------------------------------------------------------------------------------
-        string value = string.Empty;
+        String value = String.Empty;
         if (values is not null)
             if (values.Any())
-                value = string.Join(',', values);
+                value = String.Join(',', values);
         // ----------------------------------------------------------------------------------------------------
         return value;
     }
 
-    public static string ToCommaSeparated(this List<string> values, char separator)
+    public static String ToCommaSeparated(this List<String> values, char separator)
     {
         if (values is null || values == default)
             throw new ArgumentNullException(nameof(values));
         // ----------------------------------------------------------------------------------------------------
-        string value = string.Empty;
+        String value = String.Empty;
         if (values is not null)
             if (values.Any())
-                value = string.Join(separator, values);
+                value = String.Join(separator, values);
         // ----------------------------------------------------------------------------------------------------
         return value;
     }
 
-    public static string ToEndTrimmedString(this object input)
+    public static String ToEndTrimmedString(this object input)
     {
         return input.ToString().TrimEnd();
     }
 
-    public static string ToFormat(this String stringFormat, params object[] args)
+    public static String ToFormat(this String stringFormat, params object[] args)
     {
         return String.Format(stringFormat, args);
     }
 
-    public static string ToFullPath(this String path)
+    public static String ToFullPath(this String path)
     {
         return Path.GetFullPath(path);
     }
 
-    public static string ToGmtFormattedDate(this DateTime date)
+    public static String ToGmtFormattedDate(this DateTime date)
     {
         return date.ToString("yyyy'-'MM'-'dd hh':'mm':'ss tt 'GMT'");
     }
 
-    public static string ToHash(this String text)
+    public static String ToHash(this String text)
     {
         var parts = System.Security.Cryptography.MD5.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(text)).Select(b => b.ToString("x2"));
-        return string.Join("", parts);
+        return String.Join("", parts);
     }
 
-    public static string ToHexString(this byte[]? value, bool upperCase = true)
+    public static String ToHexString(this byte[]? value, bool upperCase = true)
     {
         if (value is null)
-            return string.Empty;
+            return String.Empty;
 
         var mapping = upperCase ? NibbleToStringMappingUpperCase : NibbleToStringMappingLowerCase;
         var hexString = new char[value.Length * 2];
@@ -743,10 +743,10 @@ public static partial class Extensions : object
             hexString[charIndex + 1] = mapping[value[i] & 0x0F];
         }
 
-        return new string(hexString);
+        return new String(hexString);
     }
 
-    public static string ToHumanReadableFileSize(this long input, bool binary = true)
+    public static String ToHumanReadableFileSize(this long input, bool binary = true)
     {
         bool negative = false;
         if (input < 0) { input *= -1; negative = true; }
@@ -764,7 +764,7 @@ public static partial class Extensions : object
             idx++;
         }
 
-        return (negative ? "-" : string.Empty)
+        return (negative ? "-" : String.Empty)
             + value.ToString(idx > 0 ? "0.00" : "0") + " " +
             (
                 binary
@@ -773,15 +773,15 @@ public static partial class Extensions : object
             );
     }
 
-    public static string ToHungarianNotation(this String str)
+    public static String ToHungarianNotation(this String str)
     {
-        return string.Join("", str
+        return String.Join("", str
             .DetectAndNormalize()
             .Select(x => x.IsUpper() ? $"_{x.ToLower()}" : x.ToString()))
             .Trim('_');
     }
 
-    public static string ToInsecureString(this System.Security.SecureString secureString)
+    public static String ToInsecureString(this System.Security.SecureString secureString)
     {
         Enable.Common.Argument.IsNotNull(secureString, nameof(secureString));
 
@@ -798,32 +798,32 @@ public static partial class Extensions : object
         }
     }
 
-    public static string ToInvariantString(this DateTime date, string format = "dd/MM/yyyy")
+    public static String ToInvariantString(this DateTime date, String format = "dd/MM/yyyy")
     {
         return date.ToString(format, System.Globalization.CultureInfo.InvariantCulture);
     }
 
-    public static string ToInvariantString(this DateTime? date, string format = "dd/MM/yyyy")
+    public static String ToInvariantString(this DateTime? date, String format = "dd/MM/yyyy")
     {
-        if (date == null)
-            return string.Empty;
+        if (date == default)
+            return String.Empty;
         else
             return date.Value.ToInvariantString(format);
     }
 
-    public static string ToKebabCase(this String str)
+    public static String ToKebabCase(this String str)
     {
-        return string.Join("", str
+        return String.Join("", str
             .DetectAndNormalize()
             .Select(x => x.IsUpper() ? $"-{x.ToLower()}" : x.ToString()))
             .Trim('-');
     }
 
-    public static string ToMorseCode(this String str, bool translateSpace = true)
+    public static String ToMorseCode(this String str, bool translateSpace = true)
     {
         System.Text.StringBuilder morseStringBuilder = new System.Text.StringBuilder();
 
-        Dictionary<char, string> morseCharacters = new Dictionary<char, string>()
+        Dictionary<char, String> morseCharacters = new Dictionary<char, String>()
             {
                 {'a', ".-"},
                 {'b', "-..."},
@@ -871,7 +871,7 @@ public static partial class Extensions : object
                 {'"',".-..-."}
             };
 
-        string tempMorseStr = String.Empty;
+        String tempMorseStr = String.Empty;
         foreach (Char c in str.ToLower())
         {
             //if there is a corresponding character-Key in dictionary
@@ -902,61 +902,54 @@ public static partial class Extensions : object
         return morseStringBuilder.ToString();
     }
 
-    public static string ToPascal(this String str)
+    public static String ToPascal(this String value)
     {
-        if (String.IsNullOrEmpty(str))
-        {
-            return string.Empty;
-        }
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        String upperLetter = String.Empty;
+        int firstLetterIndex = FindFirstLetterIndex(value);
 
-        string upperLetter = string.Empty;
-        int firstLetterIndex = FindFirstLetterIndex(str);
         if (firstLetterIndex == notFoundIndexValue)
-        {
-            return str;
-        }
-        upperLetter = str.Substring(0, firstLetterIndex + 1).ToUpper();
+            return value;
 
-        string unchangedStringPart = String.Empty;
-        if (str.Length > firstLetterIndex + 1)
-        {
-            unchangedStringPart = str.Substring(firstLetterIndex + 1, str.Length - firstLetterIndex - 1);
-        }
+        upperLetter = value.Substring(0, firstLetterIndex + 1).ToUpper();
+        String unchangedStringPart = String.Empty;
 
+        if (value.Length > firstLetterIndex + 1)
+            unchangedStringPart = value.Substring(firstLetterIndex + 1, value.Length - firstLetterIndex - 1);
+        // ----------------------------------------------------------------------------------------------------
         return upperLetter + unchangedStringPart;
     }
 
-    public static string ToPascalCase(this String str)
+    public static String ToPascalCase(this String str)
     {
         return str.DetectAndNormalize();
     }
 
-    public static string ToPriceFormat(this object value)
+    public static String ToPriceFormat(this object value)
     {
         return Convert.ToDecimal(value).ToString("N0");
     }
 
-    public static string ToSearchableString(this String str)
+    public static String ToSearchableString(this String value)
     {
-        if (string.IsNullOrEmpty(str))
-            return str;
-
-        str = str.ToLower();
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        value = value.ToLower();
 
         foreach (var rep in ReplaceDictionary.Keys)
-        {
-            str = str.Replace(rep, ReplaceDictionary[rep]);
-        }
+            value = value.Replace(rep, ReplaceDictionary[rep]);
 
-        str = str.TrimEveryThing();
-
-
-        return str;
+        value = value.TrimEveryThing();
+        // ----------------------------------------------------------------------------------------------------
+        return value;
     }
 
-    public static string ToSentenceCase(this String text, bool cleanWhitespace = true)
+    public static String ToSentenceCase(this String text, bool cleanWhitespace = true)
     {
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return text;
 
         if (cleanWhitespace)
@@ -965,24 +958,24 @@ public static partial class Extensions : object
         return text.Length > 1 ? text.Substring(0, 1).ToUpper() + text.Substring(1).ToLower() : text.ToUpper();
     }
 
-    public static string ToSentenceCase(this String input)
+    public static String ToSentenceCase(this String input)
     {
         try
         {
-            string sentence = input.ToLower().TrimStart();
+            String sentence = input.ToLower().TrimStart();
             if (sentence.Length <= 1) return sentence.ToUpper();
             return sentence.Remove(1).ToUpper() + sentence.Substring(1);
         }
         catch (Exception ex)
         {
-            Exception except = new Exception(string.Format("Exception throw in {0}.{1} -- Inner Exception:\n  {2}", System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message), ex);
+            Exception except = new Exception(String.Format("Exception throw in {0}.{1} -- Inner Exception:\n  {2}", System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message), ex);
             throw except;
         }
     }
 
-    public static string ToSnakeCase(this String text)
+    public static String ToSnakeCase(this String text)
     {
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return text;
 
         var result = text.ToAlphanumeric();
@@ -990,28 +983,28 @@ public static partial class Extensions : object
         return result.ReplaceWhitespace("_");
     }
 
-    public static string ToStartTrimmedString(this object input)
+    public static String ToStartTrimmedString(this object input)
     {
         return input.ToString().TrimStart();
     }
 
-    public static string ToTitleCase(this String text, System.Globalization.CultureInfo culture)
+    public static String ToTitleCase(this String text, System.Globalization.CultureInfo culture)
     {
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return text;
 
         if (!AT.Infrastructure.CultureInfoData.InitializeCultureData(culture))
             return culture.TextInfo.ToTitleCase(text);
         else
         {
-            string result = culture.TextInfo.ToTitleCase(text);
+            String result = culture.TextInfo.ToTitleCase(text);
 
             return System.Text.RegularExpressions.Regex.Replace(result, @"\w+", new System.Text.RegularExpressions.MatchEvaluator(WordEvaluator), System.Text.RegularExpressions.RegexOptions.IgnoreCase);
         }
 
-        string WordEvaluator(System.Text.RegularExpressions.Match word)
+        String WordEvaluator(System.Text.RegularExpressions.Match word)
         {
-            string lower = word.Value.ToLower();
+            String lower = word.Value.ToLower();
 
             bool lastWord = !word.NextMatch().Success;
 
@@ -1023,22 +1016,22 @@ public static partial class Extensions : object
         }
     }
 
-    public static string ToTitleCase(this String text)
+    public static String ToTitleCase(this String text)
     {
         return ToTitleCase(text, System.Globalization.CultureInfo.CurrentCulture);
     }
 
-    public static string ToTitleCase2(this String source)
+    public static String ToTitleCase2(this String source)
     {
         return ToTitleCase2(source, new System.Globalization.CultureInfo("en-US"));
     }
 
-    public static string ToTitleCase2(this String source, System.Globalization.CultureInfo cultureInfo)
+    public static String ToTitleCase2(this String source, System.Globalization.CultureInfo cultureInfo)
     {
         return cultureInfo.TextInfo.ToTitleCase(source.ToLower(cultureInfo));
     }
 
-    public static string ToTitleCase3(this String input)
+    public static String ToTitleCase3(this String input)
     {
         try
         {
@@ -1047,20 +1040,20 @@ public static partial class Extensions : object
         }
         catch (Exception ex)
         {
-            Exception except = new Exception(string.Format("Exception throw in {0}.{1} -- Inner Exception:\n  {2}", System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message), ex);
+            Exception except = new Exception(String.Format("Exception throw in {0}.{1} -- Inner Exception:\n  {2}", System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message), ex);
             throw except;
         }
     }
 
-    public static string ToTrimmedString(this object input)
+    public static String ToTrimmedString(this object input)
     {
         return input.ToString().Trim();
     }
 
-    public static string ToValidFilename(this String s)
+    public static String ToValidFilename(this String s)
     {
         char[] invalid = Path.GetInvalidFileNameChars();
-        string invalidString = new string(invalid);
+        String invalidString = new String(invalid);
         char[] titleChars = s.ToCharArray();
         char[] output = new Char[s.Length];
         int outputLength = 0;
@@ -1072,8 +1065,8 @@ public static partial class Extensions : object
                 outputLength++;
             }
         }
-        string rawR = new string(output, 0, outputLength);
-        string r = rawR.Trim();
+        String rawR = new String(output, 0, outputLength);
+        String r = rawR.Trim();
         if (r == "")
         {
             r = "NonAlphaName";
@@ -1081,22 +1074,19 @@ public static partial class Extensions : object
         return r;
     }
 
-    public static string ToWords(this String source)
+    public static String ToWords(this String source)
     {
         return System.Text.RegularExpressions.Regex.Replace(source, @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
     }
 
-    public static string ToXmlFormat(this String instance)
+    public static String? ToXmlFormat(this String instance)
     {
-        try
-        {
-            if (!string.IsNullOrEmpty(instance))
-                if (instance.TrimStart().StartsWith("<"))
-                    return System.Xml.Linq.XDocument.Parse(instance).ToString();
-        }
-        finally
-        {
-        }
+        if (instance.IsNullOrEmpty() || instance.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(instance));
+        // ----------------------------------------------------------------------------------------------------
+        if (instance.TrimStart().StartsWith("<"))
+            return System.Xml.Linq.XDocument.Parse(instance).ToString();
+        // ----------------------------------------------------------------------------------------------------
         return default;
     }
 

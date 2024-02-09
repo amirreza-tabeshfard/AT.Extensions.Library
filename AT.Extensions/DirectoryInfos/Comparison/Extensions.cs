@@ -1,15 +1,17 @@
-﻿namespace AT.Extensions.DirectoryInfos.Comparison;
+﻿using AT.Extensions.Strings.Comparison;
+
+namespace AT.Extensions.DirectoryInfos.Comparison;
 public static class Extensions
 {
     #region Method(s): Private
 
-    private static T NotNull<T>(this T? obj, string? Message = default) 
+    private static T NotNull<T>(this T? obj, String? Message = default) 
         where T : class
     {
         return obj ?? throw new InvalidOperationException(Message ?? "Empty object reference");
     }
 
-    private static DirectoryInfo ThrowIfNotFound(this DirectoryInfo Dir, string? Message = default)
+    private static DirectoryInfo ThrowIfNotFound(this DirectoryInfo Dir, String? Message = default)
     {
         DirectoryInfo dir = Dir.NotNull("Missing directory link");
         return !dir.Exists 
@@ -21,7 +23,7 @@ public static class Extensions
 
     public static bool IsDirectoryExists(this String path)
     {
-        if (string.IsNullOrEmpty(path))
+        if (path.IsNullOrEmpty() || path.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(path));
         // ----------------------------------------------------------------------------------------------------
         bool result = default;    

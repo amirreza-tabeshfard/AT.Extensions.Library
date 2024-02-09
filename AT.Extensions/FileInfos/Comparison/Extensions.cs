@@ -1,4 +1,6 @@
-﻿namespace AT.Extensions.FileInfos.Comparison;
+﻿using AT.Extensions.Strings.Comparison;
+
+namespace AT.Extensions.FileInfos.Comparison;
 public static class Extensions : Object
 {
     #region Field(s)
@@ -26,7 +28,7 @@ public static class Extensions : Object
 
     public static bool IsFileExists(this String path)
     {
-        if (string.IsNullOrEmpty(path))
+        if (path.IsNullOrEmpty() || path.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(path));
         // ----------------------------------------------------------------------------------------------------
         if (File.Exists(path))
@@ -35,11 +37,11 @@ public static class Extensions : Object
         return false;
     }
 
-    public static bool IsMoveFile(this String sourceFullFilepath, string destinationFullFilepath)
+    public static bool IsMoveFile(this String sourceFullFilepath, String destinationFullFilepath)
     {
-        if (string.IsNullOrEmpty(sourceFullFilepath))
+        if (sourceFullFilepath.IsNullOrEmpty() || sourceFullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(sourceFullFilepath));
-        else if (string.IsNullOrEmpty(destinationFullFilepath))
+        else if (destinationFullFilepath.IsNullOrEmpty() || destinationFullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(destinationFullFilepath));
         // ----------------------------------------------------------------------------------------------------
         bool isSuccess = default;
@@ -62,10 +64,10 @@ public static class Extensions : Object
 
     public static bool IsValidFileName(this String name)
     {
-        if (string.IsNullOrEmpty(name))
+        if (name.IsNullOrEmpty() || name.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(name));
         // ----------------------------------------------------------------------------------------------------
-        return !string.IsNullOrWhiteSpace(name)
+        return !String.IsNullOrWhiteSpace(name)
                && !name.Trim(' ').Any(_NotValidPathChars.Contains);
     }
 }

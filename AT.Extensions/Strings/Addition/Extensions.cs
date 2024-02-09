@@ -4,27 +4,27 @@ using AT.Extensions.Strings.Comparison;
 namespace AT.Extensions.Strings.Addition;
 public static class Extensions : Object
 {
-    public static string? AddWhitespaceLeft(this String value, int length)
+    public static String? AddWhitespaceLeft(this String value, int length)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         else if (length <= 0)
             throw new ArgumentOutOfRangeException(nameof(length), "The length must be greater than 0.");
         // ----------------------------------------------------------------------------------------------------
-        return string.Concat(new string(' ', length), value);
+        return String.Concat(new String(' ', length), value);
     }
 
-    public static string? AddWhitespaceRight(this String value, int length)
+    public static String? AddWhitespaceRight(this String value, int length)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         else if (length <= 0)
             throw new ArgumentOutOfRangeException(nameof(length), "The length must be greater than 0.");
         // ----------------------------------------------------------------------------------------------------
-        return string.Concat(value, new string(' ', length));
+        return String.Concat(value, new String(' ', length));
     }
 
-    public static string Append(this String self, IEnumerable<string> lines, bool asAppendLine = false, bool appendWithWhiteSpace = false)
+    public static String Append(this String self, IEnumerable<String> lines, bool asAppendLine = false, bool appendWithWhiteSpace = false)
     {
         System.Text.StringBuilder builder = new();
 
@@ -33,14 +33,14 @@ public static class Extensions : Object
         else
             builder.Append(self);
 
-        string leadWith = string.Empty;
+        String leadWith = String.Empty;
         if (appendWithWhiteSpace)
             leadWith = " ";
 
-        string[] theLines = (string[])lines;
-        string lastLine = theLines[theLines.Length - 1];
+        String[] theLines = (String[])lines;
+        String lastLine = theLines[theLines.Length - 1];
 
-        foreach (string line in theLines)
+        foreach (String line in theLines)
         {
             if (asAppendLine && line == lastLine)
             {
@@ -59,7 +59,7 @@ public static class Extensions : Object
         return builder.ToString();
     }
 
-    public static string AppendIf(this String str, bool condition, string appendMe)
+    public static String AppendIf(this String str, bool condition, String appendMe)
     {
         if (condition)
         {
@@ -71,116 +71,113 @@ public static class Extensions : Object
         }
     }
 
-    public static string AppendPath(this String path, params string[] parts)
+    public static String AppendPath(this String path, params String[] parts)
     {
         return Path.Combine(parts);
     }
 
-    public static string AppendPrefixIfMissing(this String val, string prefix, bool ignoreCase = true)
+    public static String AppendPrefixIfMissing(this String value, String prefix, bool ignoreCase = true)
     {
-        if (string.IsNullOrEmpty(val) || (ignoreCase ? val.StartsWithIgnoreCase(prefix) : val.StartsWith(prefix)))
-        {
-            return val;
-        }
-        return prefix + val;
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        if (ignoreCase ? value.StartsWithIgnoreCase(prefix) : value.StartsWith(prefix))
+            return value;
+        // ----------------------------------------------------------------------------------------------------
+        return prefix + value;
     }
 
-    public static string AppendSuffixIfMissing(this String val, string suffix, bool ignoreCase = true)
+    public static String AppendSuffixIfMissing(this String value, String suffix, bool ignoreCase = true)
     {
-        if (string.IsNullOrEmpty(val) || (ignoreCase ? val.EndsWithIgnoreCase(suffix) : val.EndsWith(suffix)))
-        {
-            return val;
-        }
-        return val + suffix;
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        if (ignoreCase ? value.EndsWithIgnoreCase(suffix) : value.EndsWith(suffix))
+            return value;
+        // ----------------------------------------------------------------------------------------------------
+        return value + suffix;
     }
 
-    public static string AppendSymbolIfMissing(this string? input, string symbol)
+    public static String AppendSymbolIfMissing(this String? input, String symbol)
     {
-        if (string.IsNullOrEmpty(symbol))
-            throw new ArgumentException(string.Format(AT.Infrastructure.ExceptionMessages.StringParamCannotBeNullOrEmpty_ParamName, nameof(symbol)), nameof(symbol));
-
-        input ??= string.Empty;
+        if (symbol.IsNullOrEmpty() || symbol.IsNullOrWhiteSpace())
+            throw new ArgumentException(String.Format(AT.Infrastructure.ExceptionMessages.StringParamCannotBeNullOrEmpty_ParamName, nameof(symbol)), nameof(symbol));
+        // ----------------------------------------------------------------------------------------------------
+        input ??= String.Empty;
         return input.EndsWith(symbol)
             ? input
             : input + symbol;
     }
 
-    public static string AppendUrl(this String url, string part)
+    public static String AppendUrl(this String url, String part)
     {
-        var composite = (url ?? string.Empty).TrimEnd('/') + "/" + part.TrimStart('/');
+        var composite = (url ?? String.Empty).TrimEnd('/') + "/" + part.TrimStart('/');
 
         return composite.TrimEnd('/');
     }
 
-    public static string CreateHashSha256(this string val)
+    public static String CreateHashSha256(this String value)
     {
-        if (string.IsNullOrEmpty(val))
-        {
-            throw new ArgumentException("val");
-        }
-        var sb = new System.Text.StringBuilder();
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        System.Text.StringBuilder sb = new();
         using (System.Security.Cryptography.SHA256 hash = System.Security.Cryptography.SHA256.Create())
         {
-            byte[] data = hash.ComputeHash(val.ToBytes());
+            byte[] data = hash.ComputeHash(value.ToBytes());
             foreach (byte b in data)
-            {
                 sb.Append(b.ToString("x2"));
-            }
         }
+        // ----------------------------------------------------------------------------------------------------
         return sb.ToString();
     }
 
-    public static string CreateHashSha512(this string val)
+    public static String CreateHashSha512(this String value)
     {
-        if (string.IsNullOrEmpty(val))
-        {
-            throw new ArgumentException("val");
-        }
-        var sb = new System.Text.StringBuilder();
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        System.Text.StringBuilder sb = new();
         using (System.Security.Cryptography.SHA512 hash = System.Security.Cryptography.SHA512.Create())
         {
-            byte[] data = hash.ComputeHash(val.ToBytes());
+            byte[] data = hash.ComputeHash(value.ToBytes());
             foreach (byte b in data)
-            {
                 sb.Append(b.ToString("x2"));
-            }
         }
+        // ----------------------------------------------------------------------------------------------------
         return sb.ToString();
     }
 
-    public static string CreateParameters(this String value, bool useOr)
+    public static String CreateParameters(this String value, bool useOr)
     {
-        if (string.IsNullOrEmpty(value))
-        {
-            return string.Empty;
-        }
-        IDictionary<string, object> searchParamters = value.JsonToDictionary();
-        var @params = new System.Text.StringBuilder("");
-        if (searchParamters == null)
-        {
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        IDictionary<String, object> searchParamters = value.JsonToDictionary();
+        System.Text.StringBuilder @params = new(String.Empty);
+        
+        if (searchParamters == default)
             return @params.ToString();
-        }
+
         for (int i = 0; i <= searchParamters.Count() - 1; i++)
         {
-            string key = searchParamters.Keys.ElementAt(i);
-            var val = (string)searchParamters[key];
-            if (!string.IsNullOrEmpty(key))
+            String key = searchParamters.Keys.ElementAt(i);
+            String val = (String)searchParamters[key];
+
+            if (!key.IsNullOrEmpty() || key.IsNullOrWhiteSpace())
             {
                 @params.Append(key).Append(" like '").Append(val.Trim()).Append("%' ");
                 if (i < searchParamters.Count() - 1 && useOr)
-                {
                     @params.Append(" or ");
-                }
                 else if (i < searchParamters.Count() - 1)
-                {
                     @params.Append(" and ");
-                }
             }
         }
+        // ----------------------------------------------------------------------------------------------------
         return @params.ToString();
     }
 
-    public static string InsertCamelCaseSpaces(this String s)
+    public static String InsertCamelCaseSpaces(this String s)
     {
         System.Text.StringBuilder builder = new(s.Length * 2);
 
@@ -204,17 +201,17 @@ public static class Extensions : Object
         return builder.ToString();
     }
 
-    public static string InsertIntoEachLine(this String input, int startIndex, string value)
+    public static String InsertIntoEachLine(this String input, int startIndex, String value)
     {
-        string[] delims = { Environment.NewLine };
+        String[] delims = { Environment.NewLine };
         var parts = input.Split(delims, StringSplitOptions.None);
 
-        var results = new List<string>();
+        var results = new List<String>();
         foreach (var i in parts)
         {
             results.Add(i.PadRight(startIndex)
                          .Insert(startIndex, value));
         }
-        return string.Join(Environment.NewLine, results);
+        return String.Join(Environment.NewLine, results);
     }
 }

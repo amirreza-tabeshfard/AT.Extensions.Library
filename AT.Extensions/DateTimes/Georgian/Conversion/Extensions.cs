@@ -1,6 +1,6 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Boundary;
 using AT.Extensions.DateTimes.Georgian.Extraction;
-using System.Text.RegularExpressions;
+using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Conversion;
 public static class Extensions : Object
@@ -27,12 +27,12 @@ public static class Extensions : Object
 
     private static TimeSpan? ParseTime(this String dateTime, System.Text.RegularExpressions.Regex regex)
     {
-        if (string.IsNullOrEmpty(dateTime))
-            throw new ArgumentNullException($"dateTime is '{default}'");
+        if (dateTime.IsNullOrEmpty() || dateTime.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan? result = default;
 
-        if (!string.IsNullOrWhiteSpace(dateTime))
+        if (!String.IsNullOrWhiteSpace(dateTime))
             if (regex.Match(dateTime).Groups["h"].Success && regex.Match(dateTime).Groups["m"].Success)
             {
                 int days = 0;
@@ -65,12 +65,12 @@ public static class Extensions : Object
         return result;
     }
 
-    private static string ToClientFormat(DateTime dateTime, string format)
+    private static String ToClientFormat(DateTime dateTime, String format)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (dateTime == DateTime.MinValue)
-            return string.Empty;
+            return String.Empty;
         // ----------------------------------------------------------------------------------------------------
         TimeSpan offsetSpan = AT.Infrastructure.LocalTimeZoneConfig.TimeZone.GetUtcOffset(dateTime);
         DateTimeOffset offset = new DateTimeOffset(dateTime.Ticks, offsetSpan);
@@ -80,30 +80,30 @@ public static class Extensions : Object
 
     #endregion
 
-    public static string ConvertTo24HourFormatWithSeconds(this DateTime dateTime)
+    public static String ConvertTo24HourFormatWithSeconds(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
     }
 
-    public static string ConvertToFormatDateOnly(this DateTime dateTime)
+    public static String ConvertToFormatDateOnly(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.ToString("yyy-MM-dd");
     }
 
-    public static string? ToBitmask(this IEnumerable<DateTime> dateTimes, DateTime begin, DateTime end, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
+    public static String? ToBitmask(this IEnumerable<DateTime> dateTimes, DateTime begin, DateTime end, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
     {
         if (dateTimes == default)
-            throw new ArgumentNullException($"dateTimes is '{default(IEnumerable<DateTime>)}'");
+            throw new ArgumentNullException(nameof(dateTimes));
         else if (begin == default)
-            throw new ArgumentNullException($"begin is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(begin));
         else if (end == default)
-            throw new ArgumentNullException($"end is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(end));
         // ----------------------------------------------------------------------------------------------------
         System.Text.StringBuilder result = new();
 
@@ -122,12 +122,12 @@ public static class Extensions : Object
                : result.ToString();
     }
 
-    public static string? ToBitmask(this IEnumerable<DateTime> dateTimes, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
+    public static String? ToBitmask(this IEnumerable<DateTime> dateTimes, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
     {
         if (dateTimes == default)
-            throw new ArgumentNullException($"dateTimes is '{default(IEnumerable<DateTime>)}'");
+            throw new ArgumentNullException(nameof(dateTimes));
         // ----------------------------------------------------------------------------------------------------
-        string? result = default;
+        String? result = default;
 
         if (dateTimes?.Any() ?? false)
             result = dateTimes?.ToBitmask(begin: dateTimes?.Min() ?? DateTime.MinValue,
@@ -139,15 +139,15 @@ public static class Extensions : Object
         if (result is null)
             result = defaultOnEmpty
                      ? default
-                     : string.Empty;
+                     : String.Empty;
         // ----------------------------------------------------------------------------------------------------
         return result;
     }
 
-    public static string? ToBitmask(this IEnumerable<int> numbers, int length, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
+    public static String? ToBitmask(this IEnumerable<int> numbers, int length, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
     {
         if (numbers == default)
-            throw new ArgumentNullException($"numbers is '{default(IEnumerable<int>)}'");
+            throw new ArgumentNullException(nameof(numbers));
         // ----------------------------------------------------------------------------------------------------
         System.Text.StringBuilder result = new();
 
@@ -166,12 +166,12 @@ public static class Extensions : Object
                : result.ToString();
     }
 
-    public static string? ToBitmask(this IEnumerable<int> bits, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
+    public static String? ToBitmask(this IEnumerable<int> bits, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
     {
         if (bits == default)
-            throw new ArgumentNullException($"bits is '{default(IEnumerable<int>)}'");
+            throw new ArgumentNullException(nameof(bits));
         // ----------------------------------------------------------------------------------------------------
-        string? result = default(string);
+        String? result = default(String);
 
         if (bits?.Any() ?? false)
             result = bits.ToBitmask(length: bits.Max(),
@@ -182,23 +182,23 @@ public static class Extensions : Object
         if (result is null)
             result = defaultOnEmpty
                      ? default
-                     : string.Empty;
+                     : String.Empty;
         // ----------------------------------------------------------------------------------------------------
         return result;
     }
 
-    public static string ToClientDate(this DateTime dateTime)
+    public static String ToClientDate(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return ToClientFormat(dateTime, "yyyy-MM-dd'T'00:00:00zzz");
     }
 
-    public static string ToClientDateTime(this DateTime dateTime)
+    public static String ToClientDateTime(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return ToClientFormat(dateTime, "yyyy-MM-dd'T'HH:mm:sszzz");
     }
@@ -206,17 +206,17 @@ public static class Extensions : Object
     public static DateTime ToCreationDate(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return (dateTime == DateTime.MinValue)
                ? DateTime.UtcNow
                : dateTime;
     }
 
-    public static string ToDateString(this DateTime dateTime, string format = "yyyy-MM-dd", System.Globalization.CultureInfo? provider = default)
+    public static String ToDateString(this DateTime dateTime, String format = "yyyy-MM-dd", System.Globalization.CultureInfo? provider = default)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Date.ToString(format: format, provider: provider ?? System.Globalization.CultureInfo.InvariantCulture);
     }
@@ -224,7 +224,7 @@ public static class Extensions : Object
     public static DateTime? ToDateTime(this object objDateTime)
     {
         if (objDateTime == default)
-            throw new ArgumentNullException($"objDateTime is '{default(object)}'");
+            throw new ArgumentNullException(nameof(objDateTime));
         // ----------------------------------------------------------------------------------------------------
         DateTime? dateTime = default;
 
@@ -236,8 +236,8 @@ public static class Extensions : Object
 
     public static DateTime? ToDateTime(this String stringDateTime)
     {
-        if (string.IsNullOrEmpty(stringDateTime))
-            throw new ArgumentNullException($"stringDateTime is '{default(string)}'");
+        if (stringDateTime.IsNullOrEmpty() || stringDateTime.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(stringDateTime));
         // ----------------------------------------------------------------------------------------------------
         DateTime dateTime;
         bool isDateTime = DateTime.TryParse(stringDateTime, out dateTime);
@@ -250,7 +250,7 @@ public static class Extensions : Object
     public static DateTime ToDateTime(this TimeSpan time)
     {
         if (time == default)
-            throw new ArgumentNullException($"time is '{default(TimeSpan)}'");
+            throw new ArgumentNullException(nameof(time));
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(time.Ticks);
     }
@@ -265,12 +265,12 @@ public static class Extensions : Object
         return result;
     }
 
-    public static string? ToFriendlyDateString(this DateTime dateTime)
+    public static String? ToFriendlyDateString(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        string? formattedDate = default;
+        String? formattedDate = default;
 
         if (dateTime.Date == DateTime.Today)
             formattedDate = "Today";
@@ -289,19 +289,19 @@ public static class Extensions : Object
     public static DateTime ToLocal(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.In(AT.Infrastructure.LocalTimeZoneConfig.TimeZone);
     }
 
-    public static DateTime ToNewTimeZone(this DateTime dateTime, string fromTimeZone, string toTimeZone)
+    public static DateTime ToNewTimeZone(this DateTime dateTime, String fromTimeZone, String toTimeZone)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
-        else if (string.IsNullOrEmpty(fromTimeZone))
-            throw new ArgumentNullException($"fromTimeZone is '{default}'");
-        else if (string.IsNullOrEmpty(toTimeZone))
-            throw new ArgumentNullException($"toTimeZone is '{default}'");
+            throw new ArgumentNullException(nameof(dateTime));
+        else if (fromTimeZone.IsNullOrEmpty() || fromTimeZone.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(fromTimeZone));
+        else if (toTimeZone.IsNullOrEmpty() || toTimeZone.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(toTimeZone));
         // ----------------------------------------------------------------------------------------------------
         DateTime universalTime = dateTime.ToUniversalTime(fromTimeZone, DateTimeKind.Unspecified);
         TimeZoneInfo destinationTimeZone = TimeZoneConverter.TZConvert.GetTimeZoneInfo(toTimeZone);
@@ -312,45 +312,45 @@ public static class Extensions : Object
     public static DateTime ToNewTimeZone(this DateTime dateTime, AT.Infrastructure.SystemTimeZone fromTimeZone, AT.Infrastructure.SystemTimeZone toTimeZone)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (fromTimeZone == default)
-            throw new ArgumentNullException($"fromTimeZone is '{default(AT.Infrastructure.SystemTimeZone)}'");
+            throw new ArgumentNullException(nameof(fromTimeZone));
         else if (toTimeZone == default)
-            throw new ArgumentNullException($"toTimeZone is '{default(AT.Infrastructure.SystemTimeZone)}'");
+            throw new ArgumentNullException(nameof(toTimeZone));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.ToNewTimeZone(fromTimeZone.ToString(), toTimeZone.ToString());
     }
 
-    public static string ToNewTimeZone(this String dateTime, string fromTimeZone, string toTimeZone, string formatToReturn = "M/dd/yyyy h:mm tt")
+    public static String ToNewTimeZone(this String dateTime, String fromTimeZone, String toTimeZone, String formatToReturn = "M/dd/yyyy h:mm tt")
     {
-        if (string.IsNullOrEmpty(dateTime))
-            throw new ArgumentNullException($"dateTime is '{default}'");
-        else if (string.IsNullOrEmpty(fromTimeZone))
-            throw new ArgumentNullException($"fromTimeZone is '{default}'");
-        else if (string.IsNullOrEmpty(toTimeZone))
-            throw new ArgumentNullException($"toTimeZone is '{default}'");
+        if (dateTime.IsNullOrEmpty() || dateTime.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(dateTime));
+        else if (fromTimeZone.IsNullOrEmpty() || fromTimeZone.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(fromTimeZone));
+        else if (toTimeZone.IsNullOrEmpty() || toTimeZone.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(toTimeZone));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.Parse(dateTime)
                .ToNewTimeZone(fromTimeZone, toTimeZone)
                .ToString(formatToReturn);
     }
 
-    public static string? ToOracleSqlDate(this DateTime dateTime)
+    public static String? ToOracleSqlDate(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.String.Format("to_date('{0}','dd.mm.yyyy hh24.mi.ss')", dateTime.ToString("dd.MM.yyyy HH:mm:ss"));
     }
 
     [Obsolete]
-    public static string? ToRFC822DateString(this DateTime dateTime)
+    public static String? ToRFC822DateString(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         int offset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).Hours;
-        string timeZone = "+" + offset.ToString().PadLeft(2, '0');
+        String timeZone = "+" + offset.ToString().PadLeft(2, '0');
         if (offset < 0)
         {
             int i = offset * -1;
@@ -360,24 +360,24 @@ public static class Extensions : Object
         return dateTime.ToString("ddd, dd MMM yyyy HH:mm:ss " + timeZone.PadRight(5, '0'), System.Globalization.CultureInfo.GetCultureInfo("en-US"));
     }
 
-    public static string ToString(this DateTime dateTime, string format)
+    public static String ToString(this DateTime dateTime, String format)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
-        if (string.IsNullOrEmpty(format))
-            throw new ArgumentNullException($"format is '{default}'");
+            throw new ArgumentNullException(nameof(dateTime));
+        if (format.IsNullOrEmpty() || format.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(format));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.ToString(format);
     }
 
-    public static TimeSpan? ToTimeSpan(this String dateTime, string? delimiters = default)
+    public static TimeSpan? ToTimeSpan(this String dateTime, String? delimiters = default)
     {
-        if (string.IsNullOrEmpty(dateTime))
-            throw new ArgumentNullException($"dateTime is '{default}'");
+        if (dateTime.IsNullOrEmpty() || dateTime.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
 
 
-        if (!string.IsNullOrWhiteSpace(dateTime))
+        if (!String.IsNullOrWhiteSpace(dateTime))
         {
             if (double.TryParse(
                 s: dateTime,
@@ -401,7 +401,7 @@ public static class Extensions : Object
                 return DateTime.FromOADate(invariant) - DateTime.FromOADate(0);
             }
 
-            if (!string.IsNullOrWhiteSpace(delimiters))
+            if (!String.IsNullOrWhiteSpace(delimiters))
             {
                 var delimitersEscaped = System.Text.RegularExpressions.Regex.Escape(
                     str: delimiters);
@@ -420,13 +420,13 @@ public static class Extensions : Object
         return default;
     }
 
-    public static TimeSpan? ToTimeSpanSmallDuration(this string? text)
+    public static TimeSpan? ToTimeSpanSmallDuration(this String? text)
     {
-        if (text == null)
+        if (text == default)
             return null;
 
         TimeSpan time;
-        Regex regex = new Regex("^(?<m>([0-9]+))(:|.|\')(?<s>([0-9]{1,2}))(\'\'|\"|:|.|,)(?<f>([0-9]+))$");
+        System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("^(?<m>([0-9]+))(:|.|\')(?<s>([0-9]{1,2}))(\'\'|\"|:|.|,)(?<f>([0-9]+))$");
         if (regex.IsMatch(text))
         {
             text = regex.Replace(text, "0:0:${m}:${s}.${f}");
@@ -438,22 +438,22 @@ public static class Extensions : Object
         return null;
     }
 
-    public static string ToTimeString(this TimeSpan value, string format = @"hh\:mm\:ss")
+    public static String ToTimeString(this TimeSpan value, String format = @"hh\:mm\:ss")
     {
         if (value == default)
-            throw new ArgumentNullException($"dateTime is '{default(System.TimeSpan)}'");
-        if (string.IsNullOrEmpty(format))
-            throw new ArgumentNullException($"format is '{default}'");
+            throw new ArgumentNullException(nameof(value));
+        if (format.IsNullOrEmpty() || format.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(format));
         // ----------------------------------------------------------------------------------------------------
         return (value.Ticks < 0 ? "-" : default) + value.ToString(format: format, formatProvider: System.Globalization.CultureInfo.InvariantCulture);
     }
 
-    public static DateTime ToUniversalTime(this DateTime localTime, string localTimeZoneName, DateTimeKind? localTimeType = default)
+    public static DateTime ToUniversalTime(this DateTime localTime, String localTimeZoneName, DateTimeKind? localTimeType = default)
     {
         if (localTime == default)
-            throw new ArgumentNullException($"localTime is '{default(DateTime)}'");
-        else if (string.IsNullOrEmpty(localTimeZoneName))
-            throw new ArgumentNullException($"localTimeZoneName is '{default}'");
+            throw new ArgumentNullException(nameof(localTime));
+        else if (localTimeZoneName.IsNullOrEmpty() || localTimeZoneName.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(localTimeZoneName));
         // ----------------------------------------------------------------------------------------------------
         TimeZoneInfo timeZoneInfo = TimeZoneConverter.TZConvert.GetTimeZoneInfo(localTimeZoneName);
 
@@ -466,19 +466,19 @@ public static class Extensions : Object
     public static DateTime ToUniversalTime(this DateTime localTime, AT.Infrastructure.SystemTimeZone localTimeZone)
     {
         if (localTime == default)
-            throw new ArgumentNullException($"localTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(localTime));
         else if (localTimeZone == default)
-            throw new ArgumentNullException($"localTimeZone is '{default(AT.Infrastructure.SystemTimeZone)}'");
+            throw new ArgumentNullException(nameof(localTimeZone));
         // ----------------------------------------------------------------------------------------------------
         return ToUniversalTime(localTime, localTimeZone.ToString(), default);
     }
 
-    public static DateTime ToUniversalTime(this DateTime localTime, string localTimeZoneName)
+    public static DateTime ToUniversalTime(this DateTime localTime, String localTimeZoneName)
     {
         if (localTime == default)
-            throw new ArgumentNullException($"localTime is '{default(DateTime)}'");
-        else if (string.IsNullOrEmpty(localTimeZoneName))
-            throw new ArgumentNullException($"localTimeZoneName is '{default}'");
+            throw new ArgumentNullException(nameof(localTime));
+        else if (localTimeZoneName.IsNullOrEmpty() || localTimeZoneName.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(localTimeZoneName));
         // ----------------------------------------------------------------------------------------------------
         return localTime.ToUniversalTime(localTimeZoneName, default);
     }
@@ -486,7 +486,7 @@ public static class Extensions : Object
     public static double ToUnixTime(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.CompareTo(new DateTime(1970, 1, 1), AT.Enums.DateTimeDifferenceFormat.Seconds);
     }
@@ -494,7 +494,7 @@ public static class Extensions : Object
     public static long ToUnixTimestamp(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, millisecond: 0);
         TimeSpan unixTimeSpan = dateTime - unixEpoch;

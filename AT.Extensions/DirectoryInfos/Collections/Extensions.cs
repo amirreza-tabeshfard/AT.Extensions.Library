@@ -6,7 +6,7 @@ public static class Extensions : Object
         if (directoryInfo == default)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.EnumerateDirectories(null, new string[] { });
+        return directoryInfo.EnumerateDirectories(null, new String[] { });
     }
 
     public static IEnumerable<DirectoryInfo>? EnumerateDirectories(this DirectoryInfo directoryInfo, SearchOption? searchOption)
@@ -14,10 +14,10 @@ public static class Extensions : Object
         if (directoryInfo == default)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.EnumerateDirectories(searchOption, Array.Empty<string>());
+        return directoryInfo.EnumerateDirectories(searchOption, Array.Empty<String>());
     }
 
-    public static IEnumerable<DirectoryInfo>? EnumerateDirectories(this DirectoryInfo directoryInfo, SearchOption? searchOption, params string[] patterns)
+    public static IEnumerable<DirectoryInfo>? EnumerateDirectories(this DirectoryInfo directoryInfo, SearchOption? searchOption, params String[] patterns)
     {
         if (directoryInfo == default)
             throw new ArgumentNullException(nameof(directoryInfo));
@@ -27,10 +27,10 @@ public static class Extensions : Object
         if (searchOption is null && patterns.Length == 0)
             result.AddRange(directoryInfo.EnumerateDirectories());
         else if (searchOption is null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
                 result.AddRange(directoryInfo.EnumerateDirectories(pattern));
         else if (searchOption is not null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
                 result.AddRange(directoryInfo.EnumerateDirectories(pattern, searchOption.Value));
         // ----------------------------------------------------------------------------------------------------
         if (result is not null)
@@ -45,7 +45,7 @@ public static class Extensions : Object
         if (directoryInfo == default)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.GetDirectories(null, Array.Empty<string>());
+        return directoryInfo.GetDirectories(null, Array.Empty<String>());
     }
 
     public static DirectoryInfo[]? GetDirectories(this DirectoryInfo directoryInfo, SearchOption? searchOption)
@@ -53,10 +53,10 @@ public static class Extensions : Object
         if (directoryInfo == default)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.GetDirectories(searchOption, Array.Empty<string>());
+        return directoryInfo.GetDirectories(searchOption, Array.Empty<String>());
     }
 
-    public static DirectoryInfo[]? GetDirectories(this DirectoryInfo directoryInfo, SearchOption? searchOption, params string[] patterns)
+    public static DirectoryInfo[]? GetDirectories(this DirectoryInfo directoryInfo, SearchOption? searchOption, params String[] patterns)
     {
         if (directoryInfo == default)
             throw new ArgumentNullException(nameof(directoryInfo));
@@ -66,10 +66,10 @@ public static class Extensions : Object
         if (searchOption is null && patterns.Length == 0)
             result.AddRange(directoryInfo.GetDirectories());
         else if (searchOption is null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
                 result.AddRange(directoryInfo.GetDirectories(pattern));
         else if (searchOption is not null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
                 result.AddRange(directoryInfo.GetDirectories(pattern, searchOption.Value));
         // ----------------------------------------------------------------------------------------------------
         if (result is not null)

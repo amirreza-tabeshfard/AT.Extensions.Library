@@ -1,4 +1,5 @@
 ﻿using AT.Extensions.FileInfos.Comparison;
+using AT.Extensions.Strings.Comparison;
 using MimeDetective;
 
 namespace AT.Extensions.FileInfos.Extraction;
@@ -27,15 +28,15 @@ public static class Extensions : Object
     /// FileStream fileStream = new FileStream(path: "[FULL PATH]", mode: FileMode.Open);
     /// byte[] bfile = new byte[fileStream.Length];
     /// fileStream.Read(bfile, 0, Convert.ToInt32(bfile.Length));
-    /// string fileExtension = GetFileExtensionFormByteArray(bfile);
+    /// String fileExtension = GetFileExtensionFormByteArray(bfile);
     /// </code>
     /// </example>
     /// <param name="byteArray">Byte Array From File</param>
     /// <returns>Extension name</returns>
-    public static string? GetFileExtensionFormByteArray(this byte[] byteArray)
+    public static String? GetFileExtensionFormByteArray(this byte[] byteArray)
     {
         if (byteArray == default)
-            throw new ArgumentNullException($"byteArray is '{default(byte[])}'");
+            throw new ArgumentNullException(nameof(byteArray));
         // ----------------------------------------------------------------------------------------------------
         Stream stream = new MemoryStream(byteArray);
         byte[] content = ContentReader.Default.ReadFromStream(stream);
@@ -52,18 +53,18 @@ public static class Extensions : Object
                .ToString();
     }
 
-    public static string GetFileNameWithoutExtension(this FileInfo file)
+    public static String GetFileNameWithoutExtension(this FileInfo file)
     {
         if (file == default)
-            throw new ArgumentNullException($"file is '{default(FileInfo)}'");
+            throw new ArgumentNullException(nameof(file));
         // ----------------------------------------------------------------------------------------------------
         return Path.GetFileNameWithoutExtension(file.Name);
     }
 
     public static long GetFileSize(this String filePath)
     {
-        if (string.IsNullOrEmpty(filePath))
-            throw new ArgumentNullException($"filePath is '{default}'");
+        if (filePath.IsNullOrEmpty() || filePath.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(filePath));
         // ----------------------------------------------------------------------------------------------------
         long result = default;
         FileInfo? fileInfo = default;
@@ -79,49 +80,49 @@ public static class Extensions : Object
         return result;
     }
 
-    public static string? GetFreeName(this String name, IEnumerable<string> names, string pattern = "{0} ({1})")
+    public static String? GetFreeName(this String name, IEnumerable<String> names, String pattern = "{0} ({1})")
     {
-        if (string.IsNullOrEmpty(name))
-            throw new ArgumentNullException($"name is '{default}'");
-        else if (string.IsNullOrEmpty(pattern))
-            throw new ArgumentNullException($"pattern is '{default}'");
+        if (name.IsNullOrEmpty() || name.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(name));
+        else if (pattern.IsNullOrEmpty() || pattern.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(pattern));
         else if (names == default)
-            throw new ArgumentNullException($"names is '{default}'");
+            throw new ArgumentNullException(nameof(names));
         else if (!names.Any())
-            throw new ArgumentNullException($"names is '{default}'");
+            throw new ArgumentNullException(nameof(names));
         // ----------------------------------------------------------------------------------------------------
-        string? result = default;
-        HashSet<string> hashSetNames = new(names);
+        String? result = default;
+        HashSet<String> hashSetNames = new(names);
         for (int i = 1; hashSetNames.Contains(name); i++)
-            result = string.Format(pattern, name, i);
+            result = String.Format(pattern, name, i);
         // ----------------------------------------------------------------------------------------------------
         return result;
     }
 
-    public static string GetFullFileNameWithNewExtension(this FileInfo file, string extension)
+    public static String GetFullFileNameWithNewExtension(this FileInfo file, String extension)
     {
         if (file == default)
-            throw new ArgumentNullException($"file is '{default}'");
-        else if (string.IsNullOrEmpty(extension))
-            throw new ArgumentNullException($"extension is '{default}'");
+            throw new ArgumentNullException(nameof(file));
+        else if (extension.IsNullOrEmpty() || extension.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(extension));
         // ----------------------------------------------------------------------------------------------------
         return Path.ChangeExtension(file.FullName, extension);
     }
 
-    public static string GetFullFileNameWithoutExtension(this FileInfo file)
+    public static String GetFullFileNameWithoutExtension(this FileInfo file)
     {
         if (file == default)
-            throw new ArgumentNullException($"file is '{default}'");
+            throw new ArgumentNullException(nameof(file));
         // ----------------------------------------------------------------------------------------------------
         return Path.Combine(file.Directory!.FullName, file.GetFileNameWithoutExtension());
     }
 
-    public static string GetValidFileName(this String Name, char replacementSymbol = '_')
+    public static String GetValidFileName(this String Name, char replacementSymbol = '_')
     {
-        if (string.IsNullOrWhiteSpace(Name))
+        if (String.IsNullOrWhiteSpace(Name))
             return "new_file";
 
-        string newName = Name.Trim(' ');
+        String newName = Name.Trim(' ');
 
         return _NotValidPathChars.Aggregate(newName, (current, c) => current.Replace(c, replacementSymbol));
     }

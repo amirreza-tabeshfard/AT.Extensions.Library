@@ -15,9 +15,9 @@ public static class DataLength : Object
 
         #region Method(s)
 
-        public static string[] GetDataNames() => new[] { "B", "kB", "MB", "GB", "TB" };
+        public static String[] GetDataNames() => new[] { "B", "kB", "MB", "GB", "TB" };
 
-        public static string[] GetDataNamesRu() => new[] { "Б", "кБ", "МБ", "ГБ", "ТБ" };
+        public static String[] GetDataNamesRu() => new[] { "Б", "кБ", "МБ", "ГБ", "ТБ" };
 
         #endregion
     }

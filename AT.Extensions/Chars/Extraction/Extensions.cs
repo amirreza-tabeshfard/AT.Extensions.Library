@@ -1,20 +1,22 @@
-﻿using AT.Extensions.Strings.Extraction;
+﻿using AT.Extensions.Strings.Comparison;
+using AT.Extensions.Strings.Extraction;
+using MimeDetective.Storage;
 
 namespace AT.Extensions.Chars.Extraction;
 public static class Extensions : Object
 {
     #region Method(s): Private
 
-    private static char LastImpl(string source, Func<char, bool> predicate, bool throwExceptionOnEmptyOrNotFound)
+    private static char LastImpl(String source, Func<char, bool> predicate, bool throwExceptionOnEmptyOrNotFound)
     {
-        if (string.IsNullOrEmpty(source))
+        if (source.IsNullOrEmpty() || source.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(source));
-        else if (predicate == null)
+        else if (predicate == default)
             throw new ArgumentNullException(nameof(predicate));
         else if (source.Length == default)
         {
             if (throwExceptionOnEmptyOrNotFound)
-                throw new InvalidOperationException("Source string cannot be empty but is.");
+                throw new InvalidOperationException("Source String cannot be empty but is.");
             return default;
         }
         // ----------------------------------------------------------------------------------------------------
@@ -27,7 +29,7 @@ public static class Extensions : Object
         }
         // ----------------------------------------------------------------------------------------------------
         if (throwExceptionOnEmptyOrNotFound)
-            throw new InvalidOperationException("Predicate test did not match any characters in source string: " + source);
+            throw new InvalidOperationException("Predicate test did not match any characters in source String: " + source);
         // ----------------------------------------------------------------------------------------------------
         return default;
     }
@@ -36,98 +38,100 @@ public static class Extensions : Object
 
     public static char? FirstLetter(this String value)
     {
-        var letters = value.KeepLettersOnly();
-        if (string.IsNullOrEmpty(letters))
-            return null;
-        else
-            return
-                letters.GetFirst();
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        String letters = value.KeepLettersOnly();
+        if (!letters.IsNullOrEmpty() || !letters.IsNullOrWhiteSpace())
+            return letters.GetFirst();
+        // ----------------------------------------------------------------------------------------------------
+        return default;
     }
 
-    public static char GetElementAt(this String source, int index)
+    public static char GetElementAt(this String value, int index)
     {
-        if (string.IsNullOrEmpty(source))
-            throw new ArgumentNullException(nameof(source));
-        else if (index < 0 || index >= source.Length)
-            throw new ArgumentOutOfRangeException(nameof(index), index, $"Argument of of range. Requested character index {index} of a string with {source.Length} characters.");
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        else if (index < 0 || index >= value.Length)
+            throw new ArgumentOutOfRangeException(nameof(index), index, $"Argument of of range. Requested character index {index} of a String with {value.Length} characters.");
         // ----------------------------------------------------------------------------------------------------
-        return source[index];
+        return value[index];
     }
 
-    public static char GetElementAtOrDefault(this String source, int index)
+    public static char GetElementAtOrDefault(this String value, int index)
     {
-        if (string.IsNullOrEmpty(source))
-            throw new ArgumentNullException(nameof(source));
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        if (index < 0 || index >= source.Length)
+        if (index < 0 || index >= value.Length)
             return default;
         // ----------------------------------------------------------------------------------------------------
-        return source[index];
+        return value[index];
     }
 
-    public static char GetFirst(this String source)
+    public static char GetFirst(this String value)
     {
-        if (string.IsNullOrEmpty(source))
-            throw new ArgumentNullException(nameof(source));
-        if (source.Length == default)
-            throw new InvalidOperationException("The source string cannot be empty but is.");
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        else if (value.Length == default)
+            throw new InvalidOperationException("The source String cannot be empty but is.");
         // ----------------------------------------------------------------------------------------------------
-        return source[0];
+        return value[0];
     }
 
-    public static char GetFirstOrDefault(this String source)
+    public static char GetFirstOrDefault(this String value)
     {
-        if (string.IsNullOrEmpty(source))
-            throw new ArgumentNullException(nameof(source));
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        return source.Length == 0 ? default : source[0];
+        return value.Length == 0 ? default : value[0];
     }
 
-    public static char GetLast(this String source)
+    public static char GetLast(this String value)
     {
-        if (string.IsNullOrEmpty(source))
-            throw new ArgumentNullException(nameof(source));
-        else if (source.Length == 0)
-            throw new InvalidOperationException("Source string cannot be empty but is.");
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        else if (value.Length == 0)
+            throw new InvalidOperationException("Source String cannot be empty but is.");
         // ----------------------------------------------------------------------------------------------------
-        return source[source.Length - 1];
+        return value[value.Length - 1];
     }
 
-    public static char GetLast(this String source, Func<char, bool> predicate)
+    public static char GetLast(this String value, Func<char, bool> predicate)
     {
-        if (string.IsNullOrEmpty(source))
-            throw new ArgumentNullException(nameof(source));
-        else if (predicate == null)
-            throw new ArgumentNullException(nameof(predicate));
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        else ArgumentNullException.ThrowIfNull(predicate);
         // ----------------------------------------------------------------------------------------------------
-        return LastImpl(source, predicate, true);
+        return LastImpl(value, predicate, true);
     }
 
-    public static char GetLastOrDefault(this String source)
+    public static char GetLastOrDefault(this String value)
     {
-        if (string.IsNullOrEmpty(source))
-            throw new ArgumentNullException(nameof(source));
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        return source.Length == 0 ? default : source[source.Length - 1];
+        return value.Length == 0 ? default : value[value.Length - 1];
     }
 
-    public static char GetLastOrDefault(this String source, Func<char, bool> predicate)
+    public static char GetLastOrDefault(this String value, Func<char, bool> predicate)
     {
-        if (string.IsNullOrEmpty(source))
-            throw new ArgumentNullException(nameof(source));
-        else if (predicate == null)
-            throw new ArgumentNullException(nameof(predicate));
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        else ArgumentNullException.ThrowIfNull(predicate);
         // ----------------------------------------------------------------------------------------------------
-        return LastImpl(source, predicate, false);
+        return LastImpl(value, predicate, false);
     }
 
     public static char? LastLetter(this String value)
     {
-        var letters = value.KeepLettersOnly();
-        if (string.IsNullOrEmpty(letters))
-            return null;
-        else
-            return
-                letters.GetLast();
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        String letters = value.KeepLettersOnly();
+        if (!letters.IsNullOrEmpty() || !letters.IsNullOrWhiteSpace())
+            return letters.GetLast();
+        // ----------------------------------------------------------------------------------------------------
+        return default;
     }
 }

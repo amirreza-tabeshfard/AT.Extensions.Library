@@ -5,7 +5,7 @@ using AT.Extensions.FileInfos.Creation;
 namespace AT.Extensions.FileInfos.Zipper;
 public static class Extensions
 {
-    public static FileInfo Zip(this FileInfo file, string? archiveFileName = null, bool isOverride = true)
+    public static FileInfo Zip(this FileInfo file, String? archiveFileName = null, bool isOverride = true)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -17,7 +17,7 @@ public static class Extensions
         else if (!Path.IsPathRooted(archiveFileName))
             archiveFileName = (file.Directory ?? throw new InvalidOperationException($"File directory '{file}' not received")).CreateFileInfo(archiveFileName).FullName;
 
-        using FileStream zipStream = System.IO.File.Open(archiveFileName, FileMode.OpenOrCreate, FileAccess.Write);
+        using FileStream zipStream = File.Open(archiveFileName, FileMode.OpenOrCreate, FileAccess.Write);
         using System.IO.Compression.ZipArchive zip = new System.IO.Compression.ZipArchive(zipStream);
 
         System.IO.Compression.ZipArchiveEntry? fileEntry = zip.GetEntry(file.Name);
@@ -36,7 +36,7 @@ public static class Extensions
         return new FileInfo(archiveFileName);
     }
 
-    public static async Task<FileInfo> ZipAsync(this FileInfo file, byte[] buffer, string? archiveFileName = null, bool isOverride = true, IProgress<double>? progress = null, CancellationToken cancel = default)
+    public static async Task<FileInfo> ZipAsync(this FileInfo file, byte[] buffer, String? archiveFileName = null, bool isOverride = true, IProgress<double>? progress = null, CancellationToken cancel = default)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -49,7 +49,7 @@ public static class Extensions
         else if (!Path.IsPathRooted(archiveFileName))
             archiveFileName = (file.Directory ?? throw new InvalidOperationException($"Failed to get file directory {file}")).CreateFileInfo(archiveFileName).FullName;
 
-        using FileStream zipStream = System.IO.File.Open(archiveFileName, FileMode.OpenOrCreate, FileAccess.Write);
+        using FileStream zipStream = File.Open(archiveFileName, FileMode.OpenOrCreate, FileAccess.Write);
         using System.IO.Compression.ZipArchive zip = new System.IO.Compression.ZipArchive(zipStream);
 
         System.IO.Compression.ZipArchiveEntry? fileEntry = zip.GetEntry(file.Name);

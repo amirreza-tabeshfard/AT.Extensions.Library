@@ -2,6 +2,7 @@
 using AT.Extensions.DateTimes.Georgian.Conversion;
 using AT.Extensions.DateTimes.Georgian.Extraction;
 using AT.Extensions.DateTimes.Georgian.Holiday;
+using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Collections;
 public static class Extensions : Object
@@ -10,11 +11,11 @@ public static class Extensions : Object
 
     private static readonly Dictionary<int, IReadOnlyCollection<DateTime>>? _holidaysCache = default;
 
-    private const string FromToDatesSeparator = ">";
+    private const String FromToDatesSeparator = ">";
     private const char NegativeBit = '0';
     private const char PositiveBit = '1';
 
-    private static readonly string[] fromToDatesSeparators = new string[] { FromToDatesSeparator };
+    private static readonly String[] fromToDatesSeparators = new String[] { FromToDatesSeparator };
 
     #endregion
 
@@ -29,9 +30,9 @@ public static class Extensions : Object
 
     #region Private: Method(s)
 
-    private static IEnumerable<DateTime> SelectDates(this IEnumerable<string> sections)
+    private static IEnumerable<DateTime> SelectDates(this IEnumerable<String> sections)
     {
-        foreach (string section in sections)
+        foreach (String section in sections)
         {
             DateTime?[] currents = section.Split(separator: fromToDatesSeparators,
                                                         options: StringSplitOptions.RemoveEmptyEntries)
@@ -99,9 +100,9 @@ public static class Extensions : Object
     public static IEnumerable<DateTime> GenerateBusinessDaysList(this DateTime fisrtDateTime, DateTime lastDateTime, IEnumerable<DateTime> holidays, List<int> weekends)
     {
         if (fisrtDateTime == default)
-            throw new ArgumentNullException($"fisrtDateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(fisrtDateTime));
         else if (lastDateTime == default)
-            throw new ArgumentNullException($"lastDateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(lastDateTime));
         else if (fisrtDateTime > lastDateTime)
             throw new ArgumentException("Incorrect last date " + lastDateTime);
         // ----------------------------------------------------------------------------------------------------
@@ -123,9 +124,9 @@ public static class Extensions : Object
     public static IEnumerable<DateTime> GenerateDateList(this DateTime fisrtDateTime, DateTime lastDateTime)
     {
         if (fisrtDateTime == default)
-            throw new ArgumentNullException($"fisrtDateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(fisrtDateTime));
         else if (lastDateTime == default)
-            throw new ArgumentNullException($"lastDateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(lastDateTime));
         else if (fisrtDateTime > lastDateTime)
             throw new ArgumentException("Incorrect last date " + lastDateTime);
         // ----------------------------------------------------------------------------------------------------
@@ -140,7 +141,7 @@ public static class Extensions : Object
     public static List<int>? GetCalendarChangedList(this DateTime dateTime, AT.Enums.CalendarFormat format)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         List<int>? result = default;
         System.Globalization.Calendar? calendar = default;
@@ -178,7 +179,7 @@ public static class Extensions : Object
     public static IEnumerable<DateTime> GetDateListInCurrentWeekNumber(this DateTime dateTime, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         DateTime datePointer = dateTime.AddDays(-8);
 
@@ -198,9 +199,9 @@ public static class Extensions : Object
     public static IEnumerable<DateTime> GetDateRangeTo(this DateTime self, DateTime toDate)
     {
         if (self == default)
-            throw new ArgumentNullException($"self is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(self));
         else if (toDate == default)
-            throw new ArgumentNullException($"toDate is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(toDate));
         // ----------------------------------------------------------------------------------------------------
         IEnumerable<int> range = Enumerable.Range(start: 0, count: new TimeSpan(ticks: toDate.Ticks - self.Ticks).Days);
 
@@ -211,9 +212,9 @@ public static class Extensions : Object
     public static IEnumerable<DateTime> GetDates(this DateTime from, DateTime to, IEnumerable<DayOfWeek>? daysOfWeek = default)
     {
         if (from == default)
-            throw new ArgumentNullException($"from is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(from));
         else if (to == default)
-            throw new ArgumentNullException($"to is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(to));
         // ----------------------------------------------------------------------------------------------------
         DateTime start = from <= to ? from : to;
         DateTime end = to >= from ? to : from;
@@ -226,11 +227,11 @@ public static class Extensions : Object
     public static IEnumerable<DateTime> GetDates(this String bitMask, DateTime startDate, DateTime? endDate = default, char positiveBit = PositiveBit)
     {
         if (startDate == default)
-            throw new ArgumentNullException($"startDate is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(startDate));
         // ----------------------------------------------------------------------------------------------------
         int[]? bits = default;
 
-        if (!string.IsNullOrEmpty(bitMask))
+        if (!bitMask.IsNullOrEmpty() || !bitMask.IsNullOrWhiteSpace())
             bits = bitMask?.GetBits(positiveBit: positiveBit)
                    .ToArray();
 
@@ -251,14 +252,14 @@ public static class Extensions : Object
                     yield return result.Date;
                 }
 
-                if (!string.IsNullOrEmpty(bitMask))
+                if (!bitMask.IsNullOrEmpty() || !bitMask.IsNullOrWhiteSpace())
                     startDate = startDate.AddDays(bitMask.Length);
             }
             while (startDate <= endDate);
         }
     }
 
-    public static IEnumerable<DateTime> GetDates(this String dates, string separator = ",")
+    public static IEnumerable<DateTime> GetDates(this String dates, String separator = ",")
     {
         if (separator?.Contains(FromToDatesSeparator) ?? false)
             throw new ArgumentException(message: $"The argument splitter cannot be '{FromToDatesSeparator}' since it is used to split from and to values of periods.",
@@ -267,12 +268,12 @@ public static class Extensions : Object
 
         IEnumerable<DateTime>? result = default;
 
-        if (!string.IsNullOrWhiteSpace(dates))
-            if (!string.IsNullOrWhiteSpace(separator))
+        if (!String.IsNullOrWhiteSpace(dates))
+            if (!String.IsNullOrWhiteSpace(separator))
             {
-                string[] sectionSeparators = new string[] { separator };
+                String[] sectionSeparators = new String[] { separator };
 
-                string[] sections = dates.Split(separator: sectionSeparators,
+                String[] sections = dates.Split(separator: sectionSeparators,
                                                 options: StringSplitOptions.RemoveEmptyEntries);
 
                 result = sections.SelectDates().OrderBy(d => d).ToArray();

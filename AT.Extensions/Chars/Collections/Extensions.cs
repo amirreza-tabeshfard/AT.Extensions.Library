@@ -3,13 +3,12 @@
 namespace AT.Extensions.Chars.Collections;
 public static class Extensions : Object
 {
-    public static char[] ToArray(this String source)
+    public static char[] ToArray(this String value)
     {
-        if (source == null)
-        {
-            throw new ArgumentNullException("source");
-        }
-        return source.ToCharArray();
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        return value.ToCharArray();
     }
 
     public static List<char> ToList(this String value)

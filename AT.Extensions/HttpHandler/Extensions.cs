@@ -1,7 +1,7 @@
 ﻿namespace AT.Extensions.HttpHandler;
 public static class Extensions
 {
-    public async static Task<T> WebApiCallGetAsync<T>(string fullUrl)
+    public async static Task<T> WebApiCallGetAsync<T>(String fullUrl)
         where T : class, new()
     {
         T result = new T();
@@ -22,7 +22,7 @@ public static class Extensions
         return result;
     }
 
-    public async static Task<T> WebApiCallPostAsync<T, U>(string fullUrl, U model)
+    public async static Task<T> WebApiCallPostAsync<T, U>(String fullUrl, U model)
         where T : class, new()
     {
         using HttpClientHandler clientHandler = new HttpClientHandler();
@@ -35,7 +35,7 @@ public static class Extensions
         return await responseMessage.Content.ReadAsAsync<T>();
     }
 
-    public async static Task<T> WebApiCallPutAsync<T>(string fullUrl)
+    public async static Task<T> WebApiCallPutAsync<T>(String fullUrl)
         where T : class, new()
     {
         T result = new T();
@@ -55,7 +55,7 @@ public static class Extensions
         return result;
     }
 
-    public async static Task<T> WebApiCallPutAsync<T, U>(string fullUrl, U model)
+    public async static Task<T> WebApiCallPutAsync<T, U>(String fullUrl, U model)
         where T : class, new()
     {
         T result = new T();
@@ -76,7 +76,7 @@ public static class Extensions
         return result;
     }
 
-    public async static Task<T> WebApiCallDeleteAsync<T>(string fullUrl)
+    public async static Task<T> WebApiCallDeleteAsync<T>(String fullUrl)
         where T : class, new()
     {
         T result = new T();

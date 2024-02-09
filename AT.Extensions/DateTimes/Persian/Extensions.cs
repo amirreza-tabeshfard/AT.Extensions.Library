@@ -1,9 +1,9 @@
 ﻿namespace AT.Extensions.DateTimes.Persian;
 public static class Extensions : object
 {
-    public static string GetPersianAge(this DateTime birthDate, out int day, out int month, out int year, out int week)
+    public static String GetPersianAge(this DateTime birthDate, out int day, out int month, out int year, out int week)
     {
-        string result = string.Empty;
+        String result = String.Empty;
         TimeSpan x = DateTime.Now - birthDate;
         DateTime dateTime = DateTime.MinValue + x;
 
@@ -28,9 +28,9 @@ public static class Extensions : object
         return result;
     }
 
-    public static string GetPersianAge(this DateTime birthDate)
+    public static String GetPersianAge(this DateTime birthDate)
     {
-        string result = string.Empty;
+        String result = String.Empty;
         TimeSpan x = DateTime.Now - birthDate;
         DateTime dateTime = DateTime.MinValue + x;
 
@@ -69,7 +69,7 @@ public static class Extensions : object
         return result;
     }
 
-    public static string ToPersianDateYMD(this DateTime date)
+    public static String ToPersianDateYMD(this DateTime date)
     {
         System.Globalization.PersianCalendar persianCalendar = new System.Globalization.PersianCalendar();
         int intYear = persianCalendar.GetYear(date);
@@ -78,7 +78,7 @@ public static class Extensions : object
         return intYear.ToString() + "/" + intMonth.ToString() + "/" + intDay.ToString();
     }
 
-    public static string ToPersianDateDMY(this DateTime date)
+    public static String ToPersianDateDMY(this DateTime date)
     {
         System.Globalization.PersianCalendar PC = new System.Globalization.PersianCalendar();
         int intYear = PC.GetYear(date);
@@ -87,7 +87,7 @@ public static class Extensions : object
         return intDay.ToString() + "/" + intMonth.ToString() + "/" + intYear.ToString();
     }
 
-    public static string ToPersianDateString(this DateTime date)
+    public static String ToPersianDateString(this DateTime date)
     {
         if (date != default)
         {
@@ -96,7 +96,7 @@ public static class Extensions : object
             int intMonth = PC.GetMonth(date);
             int intDayOfMonth = PC.GetDayOfMonth(date);
             DayOfWeek enDayOfWeek = PC.GetDayOfWeek(date);
-            string monthName, dayName;
+            String monthName, dayName;
 
             switch (intMonth)
             {

@@ -32,7 +32,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
     private static DateTime StartOfSecond(DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second, millisecond: 0);
     }
@@ -40,7 +40,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
     private static DateTime StartOfMinute(DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, 0, millisecond: 0);
     }
@@ -48,7 +48,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
     private static DateTime StartOfHour(DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, 0, 0, millisecond: 0);
     }
@@ -56,7 +56,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
     private static DateTime EndOfSecond(DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return StartOfSecond(dateTime).AddSeconds(1).AddTicks(-1);
     }
@@ -64,7 +64,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
     private static DateTime EndOfMinute(DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return StartOfMinute(dateTime).AddMinutes(1).AddTicks(-1);
     }
@@ -72,7 +72,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
     private static DateTime EndOfTheDay(DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return StartOfHour(dateTime).AddDays(1).AddTicks(-1);
     }
@@ -80,7 +80,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
     private static DateTime EndOfTheMonth(DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, 1)
                .AddMonths(1)
@@ -185,7 +185,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
         return (13 * this.Start.GetHashCode()) + this.End.GetHashCode();
     }
 
-    public override string ToString()
+    public override String ToString()
     {
         return this.Start + " - " + this.End;
     }

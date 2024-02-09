@@ -1,23 +1,24 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Comparison;
+using System;
 
 namespace AT.Extensions.DateTimes.Georgian.Addition;
 public static class Extensions : Object
 {
-    public static DateTime Add(this DateTime dateTime, double value, AT.Enums.DateTimeDifferenceFormat differenceFormat)
+    public static DateTime Add(this DateTime dateTime, double value, Enums.DateTimeDifferenceFormat differenceFormat)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return differenceFormat switch
         {
-            AT.Enums.DateTimeDifferenceFormat.Milliseconds => dateTime.AddMilliseconds(value),
-            AT.Enums.DateTimeDifferenceFormat.Seconds => dateTime.AddSeconds(value),
-            AT.Enums.DateTimeDifferenceFormat.Minutes => dateTime.AddMinutes(value),
-            AT.Enums.DateTimeDifferenceFormat.Hours => dateTime.AddHours(value),
-            AT.Enums.DateTimeDifferenceFormat.Days => dateTime.AddDays(value),
-            AT.Enums.DateTimeDifferenceFormat.Weeks => dateTime.AddDays(value * 7),
-            AT.Enums.DateTimeDifferenceFormat.Months => dateTime.AddMonths(Convert.ToInt32(value)),
-            AT.Enums.DateTimeDifferenceFormat.Years => dateTime.AddYears(Convert.ToInt32(value)),
+            Enums.DateTimeDifferenceFormat.Milliseconds => dateTime.AddMilliseconds(value),
+            Enums.DateTimeDifferenceFormat.Seconds => dateTime.AddSeconds(value),
+            Enums.DateTimeDifferenceFormat.Minutes => dateTime.AddMinutes(value),
+            Enums.DateTimeDifferenceFormat.Hours => dateTime.AddHours(value),
+            Enums.DateTimeDifferenceFormat.Days => dateTime.AddDays(value),
+            Enums.DateTimeDifferenceFormat.Weeks => dateTime.AddDays(value * 7),
+            Enums.DateTimeDifferenceFormat.Months => dateTime.AddMonths(Convert.ToInt32(value)),
+            Enums.DateTimeDifferenceFormat.Years => dateTime.AddYears(Convert.ToInt32(value)),
             _ => default,
         };
     }
@@ -25,7 +26,7 @@ public static class Extensions : Object
     public static TimeSpan AddDays(this TimeSpan time, int days)
     {
         if (time == default)
-            throw new ArgumentNullException($"time is '{default(TimeSpan)}'");
+            throw new ArgumentNullException(nameof(time));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan additionalDays = new TimeSpan(days: days,
                                                hours: 0,
@@ -39,7 +40,7 @@ public static class Extensions : Object
     public static DateTime AddWorkDays(this DateTime dateTime, int days)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         while (dateTime.DayOfWeek.IsWeekday())
             dateTime = dateTime.AddDays(value: 1.0);
@@ -58,7 +59,7 @@ public static class Extensions : Object
     public static DateTime AddWeeks(this DateTime dateTime, double value)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.AddDays(value * 7);
     }
@@ -66,10 +67,8 @@ public static class Extensions : Object
     public static DateTime AddBusinessDays(this DateTime dateTime, uint daysToAdd, IEnumerable<DateTime>? holidays)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
-
-        if (holidays == default)
-            throw new ArgumentNullException($"holidays is {default(DateTime)}");
+            throw new ArgumentNullException(nameof(dateTime));
+        else ArgumentNullException.ThrowIfNull(holidays);
         // ----------------------------------------------------------------------------------------------------
         List<DateTime>? holidaysList = holidays.ToList();
         for (int i = 0; i < daysToAdd; i++)
@@ -100,7 +99,7 @@ public static class Extensions : Object
     public static DateTime SetTime(this DateTime dateTime, int hour, int minute, int second, int millisecond = default)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (!hour.IsValidTime(minute, second))
             throw new ArgumentOutOfRangeException("Time values are not within ccepted range");
         // ----------------------------------------------------------------------------------------------------
@@ -110,7 +109,7 @@ public static class Extensions : Object
     public static DateTime SetDay(this DateTime dateTime, int day)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (!dateTime.Year.IsValidDate(dateTime.Month, day))
             throw new ArgumentOutOfRangeException(nameof(day));
         // ----------------------------------------------------------------------------------------------------
@@ -120,7 +119,7 @@ public static class Extensions : Object
     public static DateTime SetYear(this DateTime dateTime, int year)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (!year.IsValidDate(dateTime.Month, dateTime.Day))
             throw new ArgumentOutOfRangeException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@ Here are 50 possible categories for the methods of the DateTimeExtensions class,
 
 •  Arithmetic methods: These are methods that perform arithmetic operations on dates, such as adding or subtracting days, weeks, months, or years. For example, AddOneDay, AddWeeks, SubtractMonths, etc.
 
-•  Formatting methods: These are methods that return a string representation of a date, using a predefined or custom format. For example, ToShortDateString, ToLongTimeString, ToCustomFormat, etc.
+•  Formatting methods: These are methods that return a String representation of a date, using a predefined or custom format. For example, ToShortDateString, ToLongTimeString, ToCustomFormat, etc.
 
 •  Comparison methods: These are methods that compare two dates and return a bool or int value, indicating whether they are equal, greater, or less than each other. For example, IsSameDay, IsLeapYear, CompareTo, etc.
 
@@ -62,7 +62,7 @@ Here are 50 possible categories for the methods of the DateTimeExtensions class,
 
 •  Floor methods: These are methods that return the largest date that is less than or equal to a given date and has a certain precision, such as the year, month, day, hour, minute, or second. For example, FloorToYear, FloorToMonth, FloorToDay, FloorToHour, etc.
 
-•  Parsing methods: These are methods that parse a string into a date, using a predefined or custom format. For example, Parse, ParseExact, TryParse, TryParseExact, etc.
+•  Parsing methods: These are methods that parse a String into a date, using a predefined or custom format. For example, Parse, ParseExact, TryParse, TryParseExact, etc.
 
 •  Cloning methods: These are methods that create a copy of a date, with or without modifying some parts of it. For example, Clone, CloneWithYear, CloneWithMonth, CloneWithDay, etc.
 

@@ -1,4 +1,6 @@
-﻿namespace AT.Extensions.FileInfos.Creation;
+﻿using AT.Extensions.Strings.Comparison;
+
+namespace AT.Extensions.FileInfos.Creation;
 public static class Extensions : Object
 {
     public static BinaryWriter CreateBinary(this FileInfo file)
@@ -35,41 +37,41 @@ public static class Extensions : Object
 
     public static FileStream? CreateFile(this String fullFilepath)
     {
-        if (string.IsNullOrEmpty(fullFilepath))
+        if (fullFilepath.IsNullOrEmpty() || fullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(fullFilepath));
-        else if (!System.IO.File.Exists(fullFilepath))
+        else if (!File.Exists(fullFilepath))
             throw new FileNotFoundException(fullFilepath);
         // ----------------------------------------------------------------------------------------------------
-        using FileStream? result = System.IO.File.Create(fullFilepath);
+        using FileStream? result = File.Create(fullFilepath);
         // ----------------------------------------------------------------------------------------------------
         return result;
     }
 
     public static FileStream? CreateFile(this String fullFilepath, int bufferSize)
     {
-        if (string.IsNullOrEmpty(fullFilepath))
+        if (fullFilepath.IsNullOrEmpty() || fullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(fullFilepath));
-        else if (!System.IO.File.Exists(fullFilepath))
+        else if (!File.Exists(fullFilepath))
             throw new FileNotFoundException(fullFilepath);
         // ----------------------------------------------------------------------------------------------------
-        using FileStream? result = System.IO.File.Create(fullFilepath, bufferSize);
+        using FileStream? result = File.Create(fullFilepath, bufferSize);
         // ----------------------------------------------------------------------------------------------------
         return result;
     }
 
     public static FileStream CreateFile(this String fullFilepath, int bufferSize, FileOptions options)
     {
-        if (string.IsNullOrEmpty(fullFilepath))
+        if (fullFilepath.IsNullOrEmpty() || fullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(fullFilepath));
-        else if (!System.IO.File.Exists(fullFilepath))
+        else if (!File.Exists(fullFilepath))
             throw new FileNotFoundException(fullFilepath);
         // ----------------------------------------------------------------------------------------------------
-        using FileStream? result = System.IO.File.Create(fullFilepath, bufferSize, options);
+        using FileStream? result = File.Create(fullFilepath, bufferSize, options);
         // ----------------------------------------------------------------------------------------------------
         return result;
     }
 
-    public static FileInfo CreateFileInfo(this DirectoryInfo directory, string fileRelativePath)
+    public static FileInfo CreateFileInfo(this DirectoryInfo directory, String fileRelativePath)
     {
         if (directory is null)
             throw new ArgumentNullException(nameof(directory));

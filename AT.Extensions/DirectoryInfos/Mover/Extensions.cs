@@ -1,11 +1,13 @@
-﻿namespace AT.Extensions.DirectoryInfos.Mover;
+﻿using AT.Extensions.Strings.Comparison;
+
+namespace AT.Extensions.DirectoryInfos.Mover;
 public static class Extensions : Object
 {
-    public static bool MoveDirectory(this String sourceFullFilepath, string destinationFullFilepath)
+    public static bool MoveDirectory(this String sourceFullFilepath, String destinationFullFilepath)
     {
-        if (string.IsNullOrEmpty(sourceFullFilepath))
+        if (sourceFullFilepath.IsNullOrEmpty() || sourceFullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(sourceFullFilepath));
-        else if (string.IsNullOrEmpty(destinationFullFilepath))
+        else if (destinationFullFilepath.IsNullOrEmpty() || destinationFullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(destinationFullFilepath));
         // ----------------------------------------------------------------------------------------------------
         bool result;

@@ -1,4 +1,6 @@
-﻿namespace AT.Extensions.FileInfos.Copy;
+﻿using AT.Extensions.Strings.Comparison;
+
+namespace AT.Extensions.FileInfos.Copy;
 public static class Extensions : Object
 {
     public static FileInfo CopyTo(this FileInfo sourceFile, DirectoryInfo destinationDirectory)
@@ -18,9 +20,9 @@ public static class Extensions : Object
         else if (destinationDirectory == default)
             throw new ArgumentNullException(nameof(destinationDirectory));
         // ----------------------------------------------------------------------------------------------------
-        string newFile = Path.Combine(destinationDirectory.FullName, Path.GetFileName(sourceFile.Name));
+        String newFile = Path.Combine(destinationDirectory.FullName, Path.GetFileName(sourceFile.Name));
         // ----------------------------------------------------------------------------------------------------
-        return !isOverwrite && System.IO.File.Exists(newFile)
+        return !isOverwrite && File.Exists(newFile)
                ? new FileInfo(newFile)
                : sourceFile.CopyTo(newFile, true);
     }
@@ -121,19 +123,19 @@ public static class Extensions : Object
         } while (readed > 0 && totalReaded < length);
     }
 
-    public static void CopyToFile(this System.Text.StringBuilder contents, string path)
+    public static void CopyToFile(this System.Text.StringBuilder contents, String path)
     {
         if (contents == default)
             throw new ArgumentNullException(nameof(contents));
         // ----------------------------------------------------------------------------------------------------
-        System.IO.File.WriteAllText(path, contents.ToString());
+        File.WriteAllText(path, contents.ToString());
     }
 
-    public static void CopyToFile(this String contents, string path)
+    public static void CopyToFile(this String contents, String path)
     {
-        if (string.IsNullOrEmpty(contents))
+        if (contents.IsNullOrEmpty() || contents.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(contents));
         // ----------------------------------------------------------------------------------------------------
-        System.IO.File.WriteAllText(path, contents);
+        File.WriteAllText(path, contents);
     }
 }

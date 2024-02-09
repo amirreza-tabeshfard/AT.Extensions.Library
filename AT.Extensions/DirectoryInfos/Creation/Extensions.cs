@@ -1,9 +1,11 @@
-﻿namespace AT.Extensions.DirectoryInfos.Creation;
+﻿using AT.Extensions.Strings.Comparison;
+
+namespace AT.Extensions.DirectoryInfos.Creation;
 public static class Extensions : Object
 {
     public static void CreateDirectory(this String path)
     {
-        if (string.IsNullOrEmpty(path))
+        if (path.IsNullOrEmpty() || path.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(path));
         // ----------------------------------------------------------------------------------------------------
         DirectoryInfo directoryInfo = new(path);

@@ -1,5 +1,6 @@
 ﻿using AT.Extensions.FileInfos.Boundary;
 using AT.Extensions.FileInfos.Comparison;
+using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.FileInfos.Collections;
 public static class Extensions : Object
@@ -9,7 +10,7 @@ public static class Extensions : Object
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.DeleteFiles(null, out count, Array.Empty<string>());
+        return directoryInfo.DeleteFiles(null, out count, Array.Empty<String>());
     }
 
     public static List<Dictionary<FileInfo, bool>>? DeleteFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, out int count)
@@ -17,10 +18,10 @@ public static class Extensions : Object
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.DeleteFiles(searchOption, out count, Array.Empty<string>());
+        return directoryInfo.DeleteFiles(searchOption, out count, Array.Empty<String>());
     }
 
-    public static List<Dictionary<FileInfo, bool>>? DeleteFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, out int count, params string[] patterns)
+    public static List<Dictionary<FileInfo, bool>>? DeleteFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, out int count, params String[] patterns)
     {
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
@@ -37,7 +38,7 @@ public static class Extensions : Object
             files.AddRange(getFiles);
         }
         else if (searchOption is null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
             {
                 getFiles = directoryInfo.GetFiles(searchPattern: pattern);
                 if (getFiles is not null)
@@ -45,7 +46,7 @@ public static class Extensions : Object
                         files.AddRange(getFiles);
             }
         else if (searchOption is not null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
             {
                 getFiles = directoryInfo.GetFiles(searchPattern: pattern, searchOption: searchOption.Value);
                 if (getFiles is not null)
@@ -75,7 +76,7 @@ public static class Extensions : Object
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.EnumerateFiles(null, Array.Empty<string>());
+        return directoryInfo.EnumerateFiles(null, Array.Empty<String>());
     }
 
     public static IEnumerable<FileInfo> EnumerateFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption)
@@ -83,10 +84,10 @@ public static class Extensions : Object
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.EnumerateFiles(searchOption, Array.Empty<string>());
+        return directoryInfo.EnumerateFiles(searchOption, Array.Empty<String>());
     }
 
-    public static IEnumerable<FileInfo> EnumerateFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, params string[] patterns)
+    public static IEnumerable<FileInfo> EnumerateFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, params String[] patterns)
     {
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
@@ -101,7 +102,7 @@ public static class Extensions : Object
         }
         else if (searchOption is null && patterns.Length != 0)
         {
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
             {
                 getFiles = directoryInfo.EnumerateFiles(searchPattern: pattern);
                 if (getFiles is not null)
@@ -110,7 +111,7 @@ public static class Extensions : Object
             }
         }
         else if (searchOption is not null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
             {
                 getFiles = directoryInfo.EnumerateFiles(searchPattern: pattern, searchOption: searchOption.Value);
                 if (getFiles is not null)
@@ -126,7 +127,7 @@ public static class Extensions : Object
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.GetFiles(null, Array.Empty<string>());
+        return directoryInfo.GetFiles(null, Array.Empty<String>());
     }
 
     public static FileInfo[]? GetFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption)
@@ -134,10 +135,10 @@ public static class Extensions : Object
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        return directoryInfo.GetFiles(searchOption, Array.Empty<string>());
+        return directoryInfo.GetFiles(searchOption, Array.Empty<String>());
     }
 
-    public static FileInfo[]? GetFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, params string[] patterns)
+    public static FileInfo[]? GetFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, params String[] patterns)
     {
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
@@ -152,7 +153,7 @@ public static class Extensions : Object
             files.AddRange(getFiles);
         }
         else if (searchOption is null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
             {
                 getFiles = directoryInfo.GetFiles(searchPattern: pattern);
                 if (getFiles is not null)
@@ -160,7 +161,7 @@ public static class Extensions : Object
                         files.AddRange(getFiles);
             }
         else if (searchOption is not null && patterns.Length != 0)
-            foreach (string pattern in patterns)
+            foreach (String pattern in patterns)
             {
                 getFiles = directoryInfo.GetFiles(searchPattern: pattern, searchOption: searchOption.Value);
                 if (getFiles is not null)
@@ -175,7 +176,7 @@ public static class Extensions : Object
         return result;
     }
 
-    public static IEnumerable<string?>? GetStringLines(this FileInfo file)
+    public static IEnumerable<String?>? GetStringLines(this FileInfo file)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));
@@ -185,7 +186,7 @@ public static class Extensions : Object
             yield return reader.ReadLine();
     }
 
-    public static IEnumerable<string?>? GetStringLines(this FileInfo file, System.Text.Encoding encoding)
+    public static IEnumerable<String?>? GetStringLines(this FileInfo file, System.Text.Encoding encoding)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));
@@ -199,12 +200,12 @@ public static class Extensions : Object
 
     public static byte[] ReadAllBytes(this String filePath)
     {
-        if (string.IsNullOrEmpty(filePath))
+        if (filePath.IsNullOrEmpty() || filePath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(filePath));
-        else if (!System.IO.File.Exists(filePath))
+        else if (!File.Exists(filePath))
             throw new FileNotFoundException(filePath);
         // ----------------------------------------------------------------------------------------------------
-        return System.IO.File.ReadAllBytes(filePath);
+        return File.ReadAllBytes(filePath);
     }
 
     public static IEnumerable<byte>? ReadAllBytes(this FileInfo file)
@@ -229,27 +230,27 @@ public static class Extensions : Object
             yield return reader.ReadBytes(length);
     }
 
-    public static string[] ReadAllLines(this String filePath)
+    public static String[] ReadAllLines(this String filePath)
     {
-        if (string.IsNullOrEmpty(filePath))
+        if (filePath.IsNullOrEmpty() || filePath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(filePath));
-        else if (!System.IO.File.Exists(filePath))
+        else if (!File.Exists(filePath))
             throw new FileNotFoundException(filePath);
         // ----------------------------------------------------------------------------------------------------
-        return System.IO.File.ReadAllLines(filePath);
+        return File.ReadAllLines(filePath);
     }
 
-    public static string[] ReadAllLines(this String filePath, System.Text.Encoding encoding)
+    public static String[] ReadAllLines(this String filePath, System.Text.Encoding encoding)
     {
-        if (string.IsNullOrEmpty(filePath))
+        if (filePath.IsNullOrEmpty() || filePath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(filePath));
-        else if (!System.IO.File.Exists(filePath))
+        else if (!File.Exists(filePath))
             throw new FileNotFoundException(filePath);
         // ----------------------------------------------------------------------------------------------------
-        return System.IO.File.ReadAllLines(filePath, encoding);
+        return File.ReadAllLines(filePath, encoding);
     }
 
-    public static IEnumerable<string?>? ReadAllLines(this FileInfo file)
+    public static IEnumerable<String?>? ReadAllLines(this FileInfo file)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));
@@ -259,7 +260,7 @@ public static class Extensions : Object
             yield return reader.ReadLine();
     }
 
-    public static IEnumerable<string?>? ReadAllLines(this FileInfo file, Action<StreamReader>? initializer, int bufferSize = 3 * AT.Infrastructure.DataLength.Bytes.MB)
+    public static IEnumerable<String?>? ReadAllLines(this FileInfo file, Action<StreamReader>? initializer, int bufferSize = 3 * AT.Infrastructure.DataLength.Bytes.MB)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));

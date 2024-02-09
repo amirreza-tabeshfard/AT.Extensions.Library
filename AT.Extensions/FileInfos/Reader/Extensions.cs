@@ -1,4 +1,6 @@
-﻿namespace AT.Extensions.FileInfos.Reader;
+﻿using AT.Extensions.Strings.Comparison;
+
+namespace AT.Extensions.FileInfos.Reader;
 public static class Extensions : Object
 {
     public static BinaryReader OpenBinaryReader(this FileInfo file)
@@ -33,27 +35,27 @@ public static class Extensions : Object
         return new(new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read, bufferLength), encoding);
     }
 
-    public static string? ReadAllText(this String filePath)
+    public static String? ReadAllText(this String filePath)
     {
-        if (string.IsNullOrEmpty(filePath))
+        if (filePath.IsNullOrEmpty() || filePath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(filePath));
-        else if (!System.IO.File.Exists(filePath))
+        else if (!File.Exists(filePath))
             throw new FileNotFoundException(filePath);
         // ----------------------------------------------------------------------------------------------------
-        return System.IO.File.ReadAllText(filePath);
+        return File.ReadAllText(filePath);
     }
 
-    public static string? ReadAllText(this String filePath, System.Text.Encoding encoding)
+    public static String? ReadAllText(this String filePath, System.Text.Encoding encoding)
     {
-        if (string.IsNullOrEmpty(filePath))
+        if (filePath.IsNullOrEmpty() || filePath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(filePath));
-        else if (!System.IO.File.Exists(filePath))
+        else if (!File.Exists(filePath))
             throw new FileNotFoundException(filePath);
         // ----------------------------------------------------------------------------------------------------
-        return System.IO.File.ReadAllText(filePath, encoding);
+        return File.ReadAllText(filePath, encoding);
     }
 
-    public static string? ReadAllText(this FileInfo file, bool throwNotExist = true)
+    public static String? ReadAllText(this FileInfo file, bool throwNotExist = true)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));

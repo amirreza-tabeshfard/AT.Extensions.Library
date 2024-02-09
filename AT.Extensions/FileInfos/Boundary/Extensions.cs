@@ -24,7 +24,7 @@ public static class Extensions : Object
         throw new InvalidOperationException($"File {file.FullName} is locked by another process");
     }
 
-    public static FileInfo ThrowIfNotFound(this FileInfo file, string? Message = default)
+    public static FileInfo ThrowIfNotFound(this FileInfo file, String? Message = default)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));

@@ -1,9 +1,11 @@
-﻿namespace AT.Extensions.FileInfos.Process;
+﻿using AT.Extensions.Strings.Comparison;
+
+namespace AT.Extensions.FileInfos.Process;
 public static class Extensions : Object
 {
     #region Method(s): Private
 
-    private static T NotNull<T>(this T? obj, string? Message = null)
+    private static T NotNull<T>(this T? obj, String? Message = null)
         where T : class
     {
         return obj ?? throw new InvalidOperationException(Message ?? "Empty object reference");
@@ -11,7 +13,7 @@ public static class Extensions : Object
 
     #endregion
 
-    public static System.Diagnostics.Process? ExecuteAsAdmin(this FileInfo file, string args = "", bool isUseShellExecute = true)
+    public static System.Diagnostics.Process? ExecuteAsAdmin(this FileInfo file, String args = "", bool isUseShellExecute = true)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -19,7 +21,7 @@ public static class Extensions : Object
         return file.Execute(args, isUseShellExecute, "runas");
     }
 
-    public static System.Diagnostics.Process? Execute(this FileInfo file, string args, bool isUseShellExecute, string verb)
+    public static System.Diagnostics.Process? Execute(this FileInfo file, String args, bool isUseShellExecute, String verb)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -31,15 +33,15 @@ public static class Extensions : Object
         });
     }
 
-    public static System.Diagnostics.Process Execute(string file, string args = "", bool isUseShellExecute = true)
+    public static System.Diagnostics.Process Execute(this String file, String args = "", bool isUseShellExecute = true)
     {
-        if (string.IsNullOrEmpty(file))
+        if (file.IsNullOrEmpty() || file.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(file));
         // ----------------------------------------------------------------------------------------------------
         return System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(file, args) { UseShellExecute = isUseShellExecute }).NotNull();
     }
 
-    public static System.Diagnostics.Process Execute(this FileInfo file, string args = "", bool isUseShellExecute = true)
+    public static System.Diagnostics.Process Execute(this FileInfo file, String args = "", bool isUseShellExecute = true)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));

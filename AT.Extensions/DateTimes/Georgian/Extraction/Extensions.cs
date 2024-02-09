@@ -1,5 +1,6 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Boundary;
 using AT.Extensions.DateTimes.Georgian.Comparison;
+using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Extraction;
 public static class Extensions : Object
@@ -29,14 +30,14 @@ public static class Extensions : Object
 
     #region Private: Method(s)
 
-    private static string ToClientFormat(DateTime dateTime, string format)
+    private static String ToClientFormat(DateTime dateTime, String format)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (dateTime == DateTime.MinValue)
-            return string.Empty;
+            return String.Empty;
         // ----------------------------------------------------------------------------------------------------
-        TimeSpan offsetSpan = AT.Infrastructure.LocalTimeZoneConfig.TimeZone.GetUtcOffset(dateTime);
+        TimeSpan offsetSpan = Infrastructure.LocalTimeZoneConfig.TimeZone.GetUtcOffset(dateTime);
         DateTimeOffset offset = new DateTimeOffset(dateTime.Ticks, offsetSpan);
         // ----------------------------------------------------------------------------------------------------
         return offset.ToString(format);
@@ -47,9 +48,8 @@ public static class Extensions : Object
     public static decimal AgeExactYears(this DateTime referenceDate, DateTime today)
     {
         if (referenceDate == default)
-            throw new ArgumentNullException($"referenceDate is '{default(TimeSpan)}'");
-        // ----------------------------------------------------------------------------------------------------
-        if (referenceDate > today)
+            throw new ArgumentNullException(nameof(referenceDate));
+        else if (referenceDate > today)
             throw new ArgumentOutOfRangeException(nameof(referenceDate));
         // ----------------------------------------------------------------------------------------------------
         return Math.Round(((decimal)(today.Year * 12 + today.Month) - (referenceDate.Year * 12 + referenceDate.Month)) / 12, 2);
@@ -78,9 +78,9 @@ public static class Extensions : Object
     public static double CompareTo(this DateTime dateTime, DateTime value, AT.Enums.DateTimeDifferenceFormat differenceFormat = AT.Enums.DateTimeDifferenceFormat.Days)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (value == default)
-            throw new ArgumentNullException($"value is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan result = dateTime - value;
         return differenceFormat switch
@@ -100,9 +100,9 @@ public static class Extensions : Object
     public static int CompareWithoutMinutes(this DateTime dateTime, DateTime toDateTimeCompare)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         else if (toDateTimeCompare == default)
-            throw new ArgumentNullException($"toDateTimeCompare is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(toDateTimeCompare));
         // ----------------------------------------------------------------------------------------------------
         dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, 0, 0, millisecond: 0);
         toDateTimeCompare = new DateTime(toDateTimeCompare.Year, toDateTimeCompare.Month, toDateTimeCompare.Day, toDateTimeCompare.Hour, 0, 0, millisecond: 0);
@@ -110,14 +110,14 @@ public static class Extensions : Object
         return dateTime.CompareTo(toDateTimeCompare);
     }
 
-    public static long DateDiff(this DateTime startDate, System.String datePart, DateTime endDate)
+    public static long DateDiff(this DateTime startDate, String datePart, DateTime endDate)
     {
         if (startDate == default)
-            throw new ArgumentNullException($"startDate is '{default(DateTime)}'");
-        else if (string.IsNullOrEmpty(datePart))
-            throw new ArgumentNullException($"datePart is '{default}'");
+            throw new ArgumentNullException(nameof(startDate));
+        else if (datePart.IsNullOrEmpty() || datePart.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(datePart));
         else if (endDate == default)
-            throw new ArgumentNullException($"endDate is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(endDate));
         // ----------------------------------------------------------------------------------------------------
         Int64 DateDiffVal = 0;
         System.Globalization.Calendar calendar = Thread.CurrentThread.CurrentCulture.Calendar;
@@ -221,7 +221,7 @@ public static class Extensions : Object
             #endregion
 
             default:
-                throw new Exception(System.String.Format("DatePart \"{0}\" is unknown", datePart));
+                throw new Exception(String.Format("DatePart \"{0}\" is unknown", datePart));
         }
         // ----------------------------------------------------------------------------------------------------
         return DateDiffVal;
@@ -230,7 +230,7 @@ public static class Extensions : Object
     public static double DateTimeToUnixTimeStamp(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return (dateTime.ToUniversalTime().Ticks - _epochTicks) / TimeSpan.TicksPerSecond;
     }
@@ -238,7 +238,7 @@ public static class Extensions : Object
     public static TimeSpan Elapsed(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.Now.Subtract(dateTime);
     }
@@ -246,7 +246,7 @@ public static class Extensions : Object
     public static double ElapsedSeconds(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.Now.Subtract(dateTime).TotalSeconds;
     }
@@ -254,7 +254,7 @@ public static class Extensions : Object
     public static TimeSpan EquationOfTimeEccentricEffect(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         double h = AverageAngle * (dateTime.DayOfYear - 2);
         double v = h + (E360OverPi * Math.Sin(h.AsDegreesToRadians()));
@@ -268,7 +268,7 @@ public static class Extensions : Object
     public static TimeSpan EquationOfTimeTiltEffect(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         double e = AverageAngle * (dateTime.DayOfYear - 80);
         e = (e >= 270 ? e - 360 : (e >= 90 ? e - 180 : e));
@@ -283,23 +283,23 @@ public static class Extensions : Object
     public static TimeSpan EquationOfTimeTotal(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.EquationOfTimeEccentricEffect() + dateTime.EquationOfTimeTiltEffect();
     }
 
-    public static string FormatClientDate(this DateTime dateTime)
+    public static String FormatClientDate(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return ToClientFormat(dateTime, "yyyy-MM-dd");
     }
 
-    public static string FormatClientTime(this DateTime dateTime)
+    public static String FormatClientTime(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return ToClientFormat(dateTime, "HH:mm");
     }
@@ -309,9 +309,9 @@ public static class Extensions : Object
     public static TimeSpan GetAbsDuration(this TimeSpan from, TimeSpan to)
     {
         if (from == default)
-            throw new ArgumentNullException($"from is '{default(TimeSpan)}'");
+            throw new ArgumentNullException(nameof(from));
         else if (to == default)
-            throw new ArgumentNullException($"to is '{default(TimeSpan)}'");
+            throw new ArgumentNullException(nameof(to));
         // ----------------------------------------------------------------------------------------------------
         return new TimeSpan(Math.Abs(to.Subtract(from).Ticks));
     }
@@ -319,9 +319,9 @@ public static class Extensions : Object
     public static TimeSpan GetAbsDuration(this DateTime from, DateTime to)
     {
         if (from == default)
-            throw new ArgumentNullException($"from is '{default(TimeSpan)}'");
+            throw new ArgumentNullException(nameof(from));
         else if (to == default)
-            throw new ArgumentNullException($"to is '{default(TimeSpan)}'");
+            throw new ArgumentNullException(nameof(to));
         // ----------------------------------------------------------------------------------------------------
         return new TimeSpan(Math.Abs(to.Subtract(from).Ticks));
     }
@@ -329,7 +329,7 @@ public static class Extensions : Object
     public static int GetDayOfMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetDayOfMonth(dateTime);
     }
@@ -337,7 +337,7 @@ public static class Extensions : Object
     public static int GetDaysInMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
         //return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetDaysInMonth(dateTime.Year, dateTime.Month, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
@@ -346,7 +346,7 @@ public static class Extensions : Object
     public static int GetDaysInYear(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetDaysInYear(dateTime.Year, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
@@ -354,7 +354,7 @@ public static class Extensions : Object
     public static int GetEra(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime);
     }
@@ -362,7 +362,7 @@ public static class Extensions : Object
     public static int GetHour(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetHour(dateTime);
     }
@@ -370,7 +370,7 @@ public static class Extensions : Object
     public static int GetLeapMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetLeapMonth(dateTime.Year, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
@@ -378,7 +378,7 @@ public static class Extensions : Object
     public static double GetMilliseconds(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetMilliseconds(dateTime);
     }
@@ -386,9 +386,9 @@ public static class Extensions : Object
     public static DateTime GetMaximum(this DateTime dateTimeFirst, DateTime dateTimeSecond)
     {
         if (dateTimeFirst == default)
-            throw new ArgumentNullException($"dateTimeFirst is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTimeFirst));
         else if (dateTimeSecond == default)
-            throw new ArgumentNullException($"dateTimeSecond is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTimeSecond));
         // ----------------------------------------------------------------------------------------------------
         if (dateTimeFirst >= dateTimeSecond)
             return dateTimeFirst;
@@ -399,9 +399,9 @@ public static class Extensions : Object
     public static DateTime GetMinimum(this DateTime dateTimeFirst, DateTime dateTimeSecond)
     {
         if (dateTimeFirst == default)
-            throw new ArgumentNullException($"dateTimeFirst is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTimeFirst));
         else if (dateTimeSecond == default)
-            throw new ArgumentNullException($"dateTimeSecond is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTimeSecond));
         // ----------------------------------------------------------------------------------------------------
         if (dateTimeFirst <= dateTimeSecond)
             return dateTimeFirst;
@@ -412,7 +412,7 @@ public static class Extensions : Object
     public static int GetMinute(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetMinute(dateTime);
     }
@@ -420,7 +420,7 @@ public static class Extensions : Object
     public static int GetMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetMonth(dateTime);
     }
@@ -428,9 +428,9 @@ public static class Extensions : Object
     public static int GetMonthDiff(this DateTime dateTimeFirst, DateTime dateTimeSecond)
     {
         if (dateTimeFirst == default)
-            throw new ArgumentNullException($"dateTimeFirst is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTimeFirst));
         else if (dateTimeSecond == default)
-            throw new ArgumentNullException($"dateTimeSecond is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTimeSecond));
         // ----------------------------------------------------------------------------------------------------
         DateTime dateTimeLeft = (dateTimeFirst < dateTimeSecond) ? dateTimeFirst : dateTimeSecond;
         DateTime dateTimeRigth = (dateTimeFirst >= dateTimeSecond) ? dateTimeFirst : dateTimeSecond;
@@ -443,7 +443,7 @@ public static class Extensions : Object
     public static int GetMonthsInYear(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetMonthsInYear(dateTime.Year, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
@@ -451,7 +451,7 @@ public static class Extensions : Object
     public static int GetSecond(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetSecond(dateTime);
     }
@@ -459,9 +459,9 @@ public static class Extensions : Object
     public static double GetTotalMonthDiff(this DateTime dateTimeFirst, DateTime dateTimeSecond)
     {
         if (dateTimeFirst == default)
-            throw new ArgumentNullException($"dateTimeFirst is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTimeFirst));
         else if (dateTimeSecond == default)
-            throw new ArgumentNullException($"dateTimeSecond is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTimeSecond));
         // ----------------------------------------------------------------------------------------------------
         DateTime dateTimeLeft = (dateTimeFirst < dateTimeSecond) ? dateTimeFirst : dateTimeSecond;
         DateTime dateTimeRigth = (dateTimeFirst >= dateTimeSecond) ? dateTimeFirst : dateTimeSecond;
@@ -479,36 +479,36 @@ public static class Extensions : Object
                + (dateTimeLeft.Year == dateTimeRigth.Year ? 0 : (dateTimeRigth.Year - dateTimeLeft.Year) * 12);
     }
 
-    public static TimeSpan GetUtcOffset(this DateTime dateTime, string dateTimeZoneName)
+    public static TimeSpan GetUtcOffset(this DateTime dateTime, String dateTimeZoneName)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return TimeZoneConverter.TZConvert.GetTimeZoneInfo(dateTimeZoneName)
                .GetUtcOffset(dateTime);
     }
 
-    public static TimeSpan GetUtcOffset(this DateTime dateTime, AT.Infrastructure.SystemTimeZone dateTimeZone)
+    public static TimeSpan GetUtcOffset(this DateTime dateTime, Infrastructure.SystemTimeZone dateTimeZone)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return GetUtcOffset(dateTime, dateTimeZone.ToString());
     }
 
-    public static int GetUtcOffsetInteger(this DateTime dateTime, string dateTimeZoneName)
+    public static int GetUtcOffsetInteger(this DateTime dateTime, String dateTimeZoneName)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return GetUtcOffset(dateTime, dateTimeZoneName)
                .Hours;
     }
 
-    public static int GetUtcOffsetInteger(this DateTime dateTime, AT.Infrastructure.SystemTimeZone dateTimeZone)
+    public static int GetUtcOffsetInteger(this DateTime dateTime, Infrastructure.SystemTimeZone dateTimeZone)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return GetUtcOffsetInteger(dateTime, dateTimeZone.ToString());
     }
@@ -516,7 +516,7 @@ public static class Extensions : Object
     public static int GetWeekOfYear(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(dateTime, System.Globalization.DateTimeFormatInfo.CurrentInfo.CalendarWeekRule, System.Globalization.DateTimeFormatInfo.CurrentInfo.FirstDayOfWeek);
     }
@@ -524,7 +524,7 @@ public static class Extensions : Object
     public static int GetYear(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetYear(dateTime);
     }
@@ -534,7 +534,7 @@ public static class Extensions : Object
     public static double HourAngle(this DateTime dateTime, double Latitude, double GeometricZenith)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         double latRad = Latitude.AsDegreesToRadians();
         double sdRad = dateTime.SolarDeclination().AsDegreesToRadians();
@@ -547,7 +547,7 @@ public static class Extensions : Object
     public static double HourAngleDawn(this DateTime dateTime, double Latitude, AT.Enums.TwilightKind Kind)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         double _geometricZenith;
         switch (Kind)
@@ -578,7 +578,7 @@ public static class Extensions : Object
     public static double HourAngleDusk(this DateTime dateTime, double Latitude, AT.Enums.TwilightKind Kind)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return -dateTime.HourAngleDawn(Latitude, Kind);
     }
@@ -586,7 +586,7 @@ public static class Extensions : Object
     public static double HourAngleSunrise(this DateTime dateTime, double Latitude)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.HourAngle(Latitude, 90.833);
     }
@@ -594,7 +594,7 @@ public static class Extensions : Object
     public static double HourAngleSunset(this DateTime dateTime, double Latitude)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return -dateTime.HourAngleSunrise(Latitude);
     }
@@ -602,7 +602,7 @@ public static class Extensions : Object
     public static int LastLeapYear(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         dateTime = dateTime.AddYears(-1);
 
@@ -617,15 +617,15 @@ public static class Extensions : Object
     public static int LengthOfMonth(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
     }
 
-    public static string LengthOfTime(this DateTime dateTime)
+    public static String LengthOfTime(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan lengthOfTime = DateTime.Now.Subtract(dateTime);
 
@@ -639,28 +639,28 @@ public static class Extensions : Object
         return lengthOfTime.Days.ToString() + "d";
     }
 
-    public static string LocalTimeToServerTime(this String localTime, string serverTimeZoneName, string formatToReturn = "M/dd/yyyy h:mm tt")
+    public static String LocalTimeToServerTime(this String localTime, String serverTimeZoneName, String formatToReturn = "M/dd/yyyy h:mm tt")
     {
-        if (string.IsNullOrEmpty(localTime))
-            throw new ArgumentNullException($"localTime is '{default}'");
-        else if (string.IsNullOrEmpty(serverTimeZoneName))
-            throw new ArgumentNullException($"serverTimeZoneName is '{default}'");
-        else if (string.IsNullOrEmpty(formatToReturn))
-            throw new ArgumentNullException($"formatToReturn is '{default}'");
+        if (localTime.IsNullOrEmpty() || localTime.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(localTime));
+        else if (serverTimeZoneName.IsNullOrEmpty() || serverTimeZoneName.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(serverTimeZoneName));
+        else if (formatToReturn.IsNullOrEmpty() || formatToReturn.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(formatToReturn));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.Parse(localTime)
                .LocalTimeToServerTime(serverTimeZoneName)
                .ToString(formatToReturn);
     }
 
-    public static string LocalTimeToServerTime(this String localTime, AT.Infrastructure.SystemTimeZone serverTimeZone, string formatToReturn = "M/dd/yyyy h:mm tt")
+    public static String LocalTimeToServerTime(this String localTime, Infrastructure.SystemTimeZone serverTimeZone, String formatToReturn = "M/dd/yyyy h:mm tt")
     {
-        if (string.IsNullOrEmpty(localTime))
-            throw new ArgumentNullException($"localTime is '{default}'");
+        if (localTime.IsNullOrEmpty() || localTime.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(localTime));
         else if (serverTimeZone == default)
-            throw new ArgumentNullException($"serverTimeZoneName is '{default(AT.Infrastructure.SystemTimeZone)}'");
-        else if (string.IsNullOrEmpty(formatToReturn))
-            throw new ArgumentNullException($"formatToReturn is '{default}'");
+            throw new ArgumentNullException(nameof(serverTimeZone));
+        else if (formatToReturn.IsNullOrEmpty() || formatToReturn.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(formatToReturn));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.Parse(localTime)
                .LocalTimeToServerTime(serverTimeZone)
@@ -670,7 +670,7 @@ public static class Extensions : Object
     public static int MaxWeekNumber(this DateTime dateTime, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return MaxWeekNumber(dateTime.Year, weekRule, weekStart);
     }
@@ -678,7 +678,7 @@ public static class Extensions : Object
     public static int MaxWeekNumber(int year, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
     {
         if (year == default)
-            throw new ArgumentNullException($"year is '{default(int)}'");
+            throw new ArgumentNullException(nameof(year));
         // ----------------------------------------------------------------------------------------------------
         return new System.Globalization.GregorianCalendar().GetWeekOfYear(new DateTime(year, 12, 31), weekRule, weekStart);
     }
@@ -686,7 +686,7 @@ public static class Extensions : Object
     public static int NextLeapYear(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         dateTime = dateTime.AddYears(1);
 
@@ -698,10 +698,10 @@ public static class Extensions : Object
         return dateTime.Year + (dateTime.IsLeapYear() ? 0 : 4);
     }
 
-    public static string? NullDateToString(this DateTime? dateTime, string format = "M/d/yyyy", string? nullResult = default)
+    public static String? NullDateToString(this DateTime? dateTime, String format = "M/d/yyyy", String? nullResult = default)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         if (dateTime.HasValue)
             return dateTime.Value.ToString(format);
@@ -712,7 +712,7 @@ public static class Extensions : Object
     public static int QuarterOfYear(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return dateTime.Month switch
         {
@@ -723,10 +723,10 @@ public static class Extensions : Object
         };
     }
 
-    public static DateTime ServerTimeToLocalTime(this DateTime dateTime, string timeZoneName)
+    public static DateTime ServerTimeToLocalTime(this DateTime dateTime, String timeZoneName)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         TimeZone serverTimeZone = TimeZone.CurrentTimeZone;
         DateTime dateTimeInUtc = serverTimeZone.ToUniversalTime(dateTime);
@@ -734,52 +734,52 @@ public static class Extensions : Object
         return dateTimeInUtc.Local(timeZoneName);
     }
 
-    public static DateTime ServerTimeToLocalTime(this DateTime dateTime, AT.Infrastructure.SystemTimeZone localTimeZone)
+    public static DateTime ServerTimeToLocalTime(this DateTime dateTime, Infrastructure.SystemTimeZone localTimeZone)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return ServerTimeToLocalTime(dateTime, localTimeZone.ToString());
     }
 
-    public static string ServerTimeToLocalTime(this String serverTime, string timeZoneName, string formatToReturn = "M/dd/yyyy h:mm tt")
+    public static String ServerTimeToLocalTime(this String serverTime, String timeZoneName, String formatToReturn = "M/dd/yyyy h:mm tt")
     {
-        if (string.IsNullOrEmpty(serverTime))
-            throw new ArgumentNullException($"serverTime is '{default}'");
-        else if (string.IsNullOrEmpty(timeZoneName))
-            throw new ArgumentNullException($"timeZoneName is '{default}'");
+        if (serverTime.IsNullOrEmpty() || serverTime.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(serverTime));
+        else if (timeZoneName.IsNullOrEmpty() || timeZoneName.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(timeZoneName));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.Parse(serverTime)
                .ServerTimeToLocalTime(timeZoneName)
                .ToString(formatToReturn);
     }
 
-    public static string ServerTimeToLocalTime(this String serverTime, AT.Infrastructure.SystemTimeZone localTimeZone, string formatToReturn = "M/dd/yyyy h:mm tt")
+    public static String ServerTimeToLocalTime(this String serverTime, Infrastructure.SystemTimeZone localTimeZone, String formatToReturn = "M/dd/yyyy h:mm tt")
     {
-        if (string.IsNullOrEmpty(serverTime))
-            throw new ArgumentNullException($"serverTime is '{default}'");
+        if (serverTime.IsNullOrEmpty() || serverTime.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(serverTime));
         else if (localTimeZone == default)
-            throw new ArgumentNullException($"localTimeZone is '{default(AT.Infrastructure.SystemTimeZone)}'");
+            throw new ArgumentNullException(nameof(localTimeZone));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.Parse(serverTime)
                .ServerTimeToLocalTime(localTimeZone)
                .ToString(formatToReturn);
     }
 
-    public static AT.Infrastructure.DateTimeRange Since(this DateTime startDateTime, DateTime endDateTime)
+    public static Infrastructure.DateTimeRange Since(this DateTime startDateTime, DateTime endDateTime)
     {
         if (startDateTime == default)
-            throw new ArgumentNullException($"startDateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(startDateTime));
         else if (endDateTime == default)
-            throw new ArgumentNullException($"endDateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(endDateTime));
         // ----------------------------------------------------------------------------------------------------
-        return new AT.Infrastructure.DateTimeRange(startDateTime, endDateTime);
+        return new Infrastructure.DateTimeRange(startDateTime, endDateTime);
     }
 
     public static double SolarDeclination(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         double h = AverageAngle * (dateTime.DayOfYear - 2);
         double v = h + (E360OverPi * Math.Sin(h.AsDegreesToRadians()));
@@ -791,7 +791,7 @@ public static class Extensions : Object
     public static TimeSpan TimeElapsed(this DateTime dateTime)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.Now - dateTime;
     }
@@ -818,20 +818,20 @@ public static class Extensions : Object
         return _epochDateTime.AddSeconds(unixTimeStamp);
     }
 
-    public static AT.Infrastructure.DateTimeRange Until(this DateTime startDateTime, DateTime endDateTime)
+    public static Infrastructure.DateTimeRange Until(this DateTime startDateTime, DateTime endDateTime)
     {
         if (startDateTime == default)
-            throw new ArgumentNullException($"startDateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(startDateTime));
         else if (endDateTime == default)
-            throw new ArgumentNullException($"endDateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(endDateTime));
         // ----------------------------------------------------------------------------------------------------
-        return new AT.Infrastructure.DateTimeRange(startDateTime, endDateTime);
+        return new Infrastructure.DateTimeRange(startDateTime, endDateTime);
     }
 
     public static int WeekNumber(this DateTime dateTime, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
     {
         if (dateTime == default)
-            throw new ArgumentNullException($"dateTime is '{default(DateTime)}'");
+            throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         return new System.Globalization.GregorianCalendar().GetWeekOfYear(dateTime, weekRule, weekStart);
     }
@@ -841,7 +841,7 @@ public static class Extensions : Object
         return (target.Date - source.Date).TotalDays;
     }
 
-    public static string DayName(this DateTime current)
+    public static String DayName(this DateTime current)
     {
         return current.DayOfWeek.ToString();
     }

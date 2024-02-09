@@ -19,7 +19,7 @@ public static class ReturnIntExtensions : Object
 
     public static int Count(this String source)
     {
-        if (source == null)
+        if (source == default)
         {
             throw new ArgumentNullException("source");
         }
@@ -33,39 +33,39 @@ public static class ReturnIntExtensions : Object
         return count;
     }
 
-    public static int CountOccurrences(this String val, string stringToMatch)
+    public static int CountOccurrences(this String val, String stringToMatch)
     {
         return System.Text.RegularExpressions.Regex.Matches(val, stringToMatch, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Count;
     }
 
     public static int CountSentences(this String text)
     {
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return -1;
 
         return text.Sentences()?.Count() ?? -1;
     }
 
-    public static int CountSubstring(this String input, string value)
+    public static int CountSubstring(this String input, String value)
     {
         return CountSubstring(input, value, StringComparison.Ordinal);
     }
 
-    public static int CountSubstring(this String input, string value, StringComparison comparisonType)
+    public static int CountSubstring(this String input, String value, StringComparison comparisonType)
     {
         // preconditions
-        if (input == null)
+        if (input == default)
             throw new ArgumentNullException("input");
 
         return CountSubstring(input, value, 0, input.Length, comparisonType);
     }
 
-    public static int CountSubstring(this String input, string value, int startIndex, int count, StringComparison comparisonType)
+    public static int CountSubstring(this String input, String value, int startIndex, int count, StringComparison comparisonType)
     {
         // preconditions
-        if (input == null)
+        if (input == default)
             throw new ArgumentNullException("input");
-        if (value == null)
+        if (value == default)
             throw new ArgumentNullException("value");
         if (startIndex < 0 || startIndex >= input.Length)
             throw new ArgumentOutOfRangeException("startIndex", "startIndex should be between 0 and input.Length");
@@ -101,17 +101,17 @@ public static class ReturnIntExtensions : Object
         return occurences;
     }
 
-    public static int CountSubstringEnd(this String input, string endsWith)
+    public static int CountSubstringEnd(this String input, String endsWith)
     {
         return CountSubstringEnd(input, endsWith, StringComparison.Ordinal);
     }
 
-    public static int CountSubstringEnd(this String input, string endsWith, StringComparison comparisonType)
+    public static int CountSubstringEnd(this String input, String endsWith, StringComparison comparisonType)
     {
         // preconditions
-        if (input == null)
+        if (input == default)
             throw new ArgumentNullException("input");
-        if (endsWith == null)
+        if (endsWith == default)
             throw new ArgumentNullException("endsWith");
 
         int occurences = 0;
@@ -120,7 +120,7 @@ public static class ReturnIntExtensions : Object
         // prevent empty startsWiths from being counted
         if (endsWithLength > 0)
         {
-            string currentComparand = input;
+            String currentComparand = input;
 
             // keep on looping until no occurrence is found which is guarded by the break statement
             while (true)
@@ -142,17 +142,17 @@ public static class ReturnIntExtensions : Object
         return occurences;
     }
 
-    public static int CountSubstringStart(this String input, string startsWith)
+    public static int CountSubstringStart(this String input, String startsWith)
     {
         return CountSubstringStart(input, startsWith, StringComparison.Ordinal);
     }
 
-    public static int CountSubstringStart(this String input, string startsWith, StringComparison comparisonType)
+    public static int CountSubstringStart(this String input, String startsWith, StringComparison comparisonType)
     {
         // preconditions
-        if (input == null)
+        if (input == default)
             throw new ArgumentNullException("input");
-        if (startsWith == null)
+        if (startsWith == default)
             throw new ArgumentNullException("startsWith");
 
         int occurences = 0;
@@ -161,7 +161,7 @@ public static class ReturnIntExtensions : Object
         // prevent empty startsWiths from being counted
         if (startsWithLength > 0)
         {
-            string currentComparand = input;
+            String currentComparand = input;
 
             // keep on looping until no occurrence is found which is guarded by the break statement
             while (true)
@@ -185,7 +185,7 @@ public static class ReturnIntExtensions : Object
 
     public static int CountUniqueWords(this String text)
     {
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return -1;
 
         return text.UniqueWords()?.Count() ?? -1;
@@ -193,7 +193,7 @@ public static class ReturnIntExtensions : Object
 
     public static int CountWords(this String text)
     {
-        if (string.IsNullOrWhiteSpace(text))
+        if (String.IsNullOrWhiteSpace(text))
             return -1;
 
         return text.Words()?.Count() ?? -1;
@@ -223,18 +223,18 @@ public static class ReturnIntExtensions : Object
 
     public static int CountWords3(this String str)
     {
-        string sTemp = System.Text.RegularExpressions.Regex.Replace(str, "( ){2,}", " ");
+        String sTemp = System.Text.RegularExpressions.Regex.Replace(str, "( ){2,}", " ");
         return sTemp.Split(new char[] { ' ' }).Length; //, ',', '.', '?', '!' 
 
     }
 
     public static int GetByteSize(this String val, System.Text.Encoding encoding)
     {
-        if (val == null)
+        if (val == default)
         {
             throw new ArgumentNullException("val");
         }
-        if (encoding == null)
+        if (encoding == default)
         {
             throw new ArgumentNullException("encoding");
         }
@@ -258,91 +258,84 @@ public static class ReturnIntExtensions : Object
         return (int)(uiHash % int.MaxValue);
     }
 
-    public static int IndexOfInvariant(this String s, string substring)
+    public static int IndexOfInvariant(this String s, String substring)
     {
         return s.SafeIndexOf(substring, StringComparison.Ordinal);
     }
 
-    public static int IndexOfInvariant(this String s, string substring, int startIndex)
+    public static int IndexOfInvariant(this String value, String substring, int startIndex)
     {
-        int r = -1;
-        if (s != null && !(string.IsNullOrEmpty(substring)))
-        {
-            r = s.IndexOf(substring, startIndex, StringComparison.Ordinal);
-        }
-        return r;
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        else if (substring.IsNullOrEmpty() || substring.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(substring));
+        // ----------------------------------------------------------------------------------------------------
+        return value.IndexOf(substring, startIndex, StringComparison.Ordinal);
     }
 
-    public static int IndexOfInvariantIgnoreCase(this String s, string substring)
+    public static int IndexOfInvariantIgnoreCase(this String s, String substring)
     {
         return s.SafeIndexOf(substring, StringComparison.OrdinalIgnoreCase);
     }
 
-    public static int LastIndexOfInvariant(this String s, string substring)
+    public static int LastIndexOfInvariant(this String s, String substring)
     {
         return s.LastIndexOf(substring, StringComparison.Ordinal);
     }
 
-    public static int PrefixCount(this String s, string prefix)
+    public static int PrefixCount(this String value, String prefix)
     {
-        int r = 0;
-        if (string.IsNullOrEmpty(prefix))
-        {
-            r = -1;
-        }
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        int result = default;
+        // ----------------------------------------------------------------------------------------------------
+        if (prefix.IsNullOrEmpty() || prefix.IsNullOrWhiteSpace())
+            result = -1;
         else
-        {
-            while (s.StartsWithInvariant(prefix))
+            while (value.StartsWithInvariant(prefix))
             {
-                s = s.Substring(prefix.Length);
-                r++;
+                value = value.Substring(prefix.Length);
+                result++;
             }
-        }
-        return r;
-    }
-
-    public static int SafeIndexOf(this String s, string substring, StringComparison comparison)
-    {
-        int r = -1;
-        if (s != null && !(string.IsNullOrEmpty(substring)))
-        {
-            r = s.IndexOf(substring, comparison);
-        }
-        return r;
-    }
-
-    public static int SafeLength(this String str)
-    {
-        if (str == null)
-        {
-            return 0;
-        }
-        else
-        {
-            return str.Length;
-        }
-    }
-
-    public static int Size(this String input)
-    {
-        // preconditions
-        if (input == null)
-            throw new ArgumentNullException("input");
-
-        // simple implementation for utf16 which is the default encoding where chars are of a fixed size
-        int result = input.Length * sizeof(char);
-
+        // ----------------------------------------------------------------------------------------------------
         return result;
     }
 
-    public static int Size(this String input, System.Text.Encoding encoding)
+    public static int SafeIndexOf(this String value, String substring, StringComparison comparison)
     {
-        if (input == null)
-            throw new ArgumentNullException("input");
-        if (encoding == null)
-            throw new ArgumentNullException("encoding");
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        else if (substring.IsNullOrEmpty() || substring.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(substring));
+        // ----------------------------------------------------------------------------------------------------
+        return value.IndexOf(substring, comparison);
+    }
 
-        return encoding.GetByteCount(input);
+    public static int SafeLength(this String value)
+    {
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        return value.Length;
+    }
+
+    public static int Size(this String value)
+    {
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        // ----------------------------------------------------------------------------------------------------
+        return value.Length * sizeof(char);
+    }
+
+    public static int Size(this String value, System.Text.Encoding encoding)
+    {
+        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
+            throw new ArgumentNullException(nameof(value));
+        else if (encoding == default)
+            throw new ArgumentNullException(nameof(encoding));
+        // ----------------------------------------------------------------------------------------------------
+        return encoding.GetByteCount(value);
     }
 
     public static int SizeAs(this String input, System.Text.Encoding targetEncoding)
@@ -352,11 +345,11 @@ public static class ReturnIntExtensions : Object
 
     public static int SizeAs(this String input, System.Text.Encoding targetEncoding, System.Text.Encoding sourceEncoding)
     {
-        if (input == null)
+        if (input == default)
             throw new ArgumentNullException("input");
-        if (targetEncoding == null)
+        if (targetEncoding == default)
             throw new ArgumentNullException("targetEncoding");
-        if (sourceEncoding == null)
+        if (sourceEncoding == default)
             throw new ArgumentNullException("sourceEncoding");
 
         byte[] sourceBytes = sourceEncoding.GetBytes(input);
@@ -368,7 +361,7 @@ public static class ReturnIntExtensions : Object
 
     public static int Width(this String input)
     {
-        if (input == null)
+        if (input == default)
             throw new ArgumentNullException("input");
 
         System.Globalization.TextElementEnumerator elementEnumerator = System.Globalization.StringInfo.GetTextElementEnumerator(input);

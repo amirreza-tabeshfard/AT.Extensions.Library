@@ -2,12 +2,12 @@
 public enum CaseType
 {
     /// <summary>
-    /// Converts each character in the string to upper case.
+    /// Converts each character in the String to upper case.
     /// </summary>
     Upper,
 
     /// <summary>
-    /// Converts each character in the string to lower case.
+    /// Converts each character in the String to lower case.
     /// </summary>
     Lower,
 
@@ -23,7 +23,7 @@ public enum CaseType
     Sentence,
 
     /// <summary>
-    /// Converts the string to title capitalization.
+    /// Converts the String to title capitalization.
     /// </summary>
     Title,
 }

@@ -23,7 +23,7 @@ public static class Extensions : Object
         return foundXmlNodes.Where(whereExression);
     }
 
-    public static IEnumerable<XmlNode> FindElementsByAttributeValue(this XmlDocument xmlDocument, string attributeName, string attributeValue)
+    public static IEnumerable<XmlNode> FindElementsByAttributeValue(this XmlDocument xmlDocument, String attributeName, String attributeValue)
     {
         List<XmlNode> foundXmlNodes = new List<XmlNode>();
         xmlDocument.FirstChild.ParentNode.TraverseXml(x =>
@@ -31,7 +31,7 @@ public static class Extensions : Object
             XmlAttribute? foundAttribute = x.Attributes?.Cast<XmlAttribute>()
                                                           .FirstOrDefault(attribute => attribute.Name.Equals(attributeName) &&
                                                            attribute.InnerText == attributeValue);
-            if (foundAttribute == null)
+            if (foundAttribute == default)
                 return;
 
             foundXmlNodes.Add(x);
@@ -47,7 +47,7 @@ public static class Extensions : Object
         {
             XmlAttribute? foundAttribute = x.Attributes?.Cast<XmlAttribute>()
                                                             .FirstOrDefault(whereExpression);
-            if (foundAttribute == null)
+            if (foundAttribute == default)
                 return;
 
             foundXmlNodes.Add(x);
@@ -99,9 +99,9 @@ public static class Extensions : Object
         });
     }
 
-    public static XmlNode ReadServiceConfigFile(this string filePath, string fileName, string extension, string singleNode)
+    public static XmlNode ReadServiceConfigFile(this String filePath, String fileName, String extension, String singleNode)
     {
-        if (string.IsNullOrWhiteSpace(filePath))
+        if (String.IsNullOrWhiteSpace(filePath))
         {
             throw new ArgumentNullException(nameof(filePath));
         }
@@ -109,14 +109,14 @@ public static class Extensions : Object
         XmlDocument xmlDocument = new XmlDocument();
         xmlDocument.Load($"{fileName}.{extension}");
 
-        if (xmlDocument == null)
+        if (xmlDocument == default)
         {
             throw new ArgumentException($"从文件{filePath}中未读取到任何配置");
         }
 
         XmlNode? root = xmlDocument.SelectSingleNode(singleNode);
 
-        if (root == null)
+        if (root == default)
         {
             throw new ArgumentException($"从文件{filePath}中未读取到任何配置");
         }
@@ -124,14 +124,14 @@ public static class Extensions : Object
         return root;
     }
 
-    public static XmlDocument GetXmlDocFromFile(this string filePath)
+    public static XmlDocument GetXmlDocFromFile(this String filePath)
     {
         XmlDocument document = new();
         document.Load(filePath);
         return document;
     }
 
-    public static string GetNodeInnerTextFromString(this string xmlString, string stringTargetNode)
+    public static String GetNodeInnerTextFromString(this String xmlString, String stringTargetNode)
     {
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(xmlString);
@@ -141,7 +141,7 @@ public static class Extensions : Object
         return targetNode.InnerText;
     }
 
-    public static string GetNodeTextFromFile(this string filePath, string stringTargetNode)
+    public static String GetNodeTextFromFile(this String filePath, String stringTargetNode)
     {
         return filePath
                .GetXmlDocFromFile()
@@ -150,12 +150,12 @@ public static class Extensions : Object
                ;
     }
 
-    public static XmlNode GetXmlNode(this XmlDocument xmlDoc, string stringTargetNode)
+    public static XmlNode GetXmlNode(this XmlDocument xmlDoc, String stringTargetNode)
     {
         return xmlDoc.SelectSingleNode(stringTargetNode);
     }
 
-    public static string GetNodeTextValue(this XmlNode node)
+    public static String GetNodeTextValue(this XmlNode node)
     {
         return node.InnerText;
     }

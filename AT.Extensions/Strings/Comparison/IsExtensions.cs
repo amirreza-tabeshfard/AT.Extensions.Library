@@ -75,11 +75,11 @@ public static partial class IsExtensions : Object
         return DateTime.TryParse(value, out DateTime _);
     }
 
-    public static bool IsDateTime(this String value, string format)
+    public static bool IsDateTime(this String value, String format)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
-        else if (String.IsNullOrEmpty(format))
+        else if (format.IsNullOrEmpty() || format.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(format));
         // ----------------------------------------------------------------------------------------------------
         return DateTime.TryParseExact(value, format, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime _);
@@ -87,7 +87,7 @@ public static partial class IsExtensions : Object
 
     public static bool IsEmpty([System.Diagnostics.CodeAnalysis.NotNullWhen(false)] this String value)
     {
-        return (string.IsNullOrWhiteSpace(value)) && (value.Length == 0);
+        return (String.IsNullOrWhiteSpace(value)) && (value.Length == 0);
     }
 
     public static bool IsEmptyOrWhiteSpace(this String value)
@@ -112,7 +112,7 @@ public static partial class IsExtensions : Object
         return result;
     }
 
-    public static bool IsEndOfSentenceCharacter(string value, int pos)
+    public static bool IsEndOfSentenceCharacter(String value, int pos)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -216,12 +216,12 @@ public static partial class IsExtensions : Object
         return value.Length >= minimum;
     }
 
-    public static bool IsNotNullOrEmpty([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] this string? value)
+    public static bool IsNotNullOrEmpty([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] this String? value)
     {
-        return !String.IsNullOrEmpty(value);
+        return !value.IsNullOrEmpty();
     }
 
-    public static void IsNotNullOrEmpty([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] this string? value, Action<string> action)
+    public static void IsNotNullOrEmpty([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] this String? value, Action<String> action)
     {
         if (value.IsNotNullOrEmpty())
             action(value);
@@ -244,12 +244,12 @@ public static partial class IsExtensions : Object
 
     public static bool IsNullOrEmpty(this String value)
     {
-        return string.IsNullOrEmpty(value);
+        return String.IsNullOrEmpty(value);
     }
 
     public static bool IsNullOrWhiteSpace(this String value)
     {
-        return string.IsNullOrWhiteSpace(value);
+        return String.IsNullOrWhiteSpace(value);
     }
 
     public static bool IsNumeric(this String value)
@@ -282,11 +282,11 @@ public static partial class IsExtensions : Object
     public static bool IsTrue(this String value)
     {
         return value.Trim() == "1"
-               || string.Compare(value.Trim(), "true", ignoreCase: true) == 0
-               || string.Compare(value.Trim(), "t", ignoreCase: true) == 0
-               || string.Compare(value.Trim(), "yes", ignoreCase: true) == 0
-               || string.Compare(value.Trim(), "y", ignoreCase: true) == 0
-               || string.Compare(value.Trim(), "ok", ignoreCase: true) == 0
+               || String.Compare(value.Trim(), "true", ignoreCase: true) == 0
+               || String.Compare(value.Trim(), "t", ignoreCase: true) == 0
+               || String.Compare(value.Trim(), "yes", ignoreCase: true) == 0
+               || String.Compare(value.Trim(), "y", ignoreCase: true) == 0
+               || String.Compare(value.Trim(), "ok", ignoreCase: true) == 0
                ;
     }
 
@@ -313,7 +313,7 @@ public static partial class IsExtensions : Object
 
     public static bool IsValidNumber(this String value, System.Globalization.CultureInfo culture)
     {
-        string validNumberPattern = @"^-?(?:\d+|\d{1,3}(?:" + culture.NumberFormat.NumberGroupSeparator + @"\d{3})+)?(?:\" + culture.NumberFormat.NumberDecimalSeparator + @"\d+)?$";
+        String validNumberPattern = @"^-?(?:\d+|\d{1,3}(?:" + culture.NumberFormat.NumberGroupSeparator + @"\d{3})+)?(?:\" + culture.NumberFormat.NumberDecimalSeparator + @"\d+)?$";
         return new System.Text.RegularExpressions.Regex(validNumberPattern, System.Text.RegularExpressions.RegexOptions.ECMAScript).IsMatch(value);
     }
 
@@ -339,7 +339,7 @@ public static partial class IsExtensions : Object
         }
     }
 
-    public static bool IsWordCharacter(string value, int pos)
+    public static bool IsWordCharacter(String value, int pos)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
