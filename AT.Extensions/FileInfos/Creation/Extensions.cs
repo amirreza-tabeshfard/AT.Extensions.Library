@@ -11,7 +11,7 @@ public static class Extensions : Object
         return new(file.Create());
     }
 
-    public static BinaryWriter CreateBinary(this FileInfo file, int bufferLength)
+    public static BinaryWriter CreateBinary(this FileInfo file, Int32 bufferLength)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));
@@ -27,7 +27,7 @@ public static class Extensions : Object
         return new(file.Create(), encoding);
     }
 
-    public static BinaryWriter CreateBinary(this FileInfo file, int bufferLength, System.Text.Encoding encoding)
+    public static BinaryWriter CreateBinary(this FileInfo file, Int32 bufferLength, System.Text.Encoding encoding)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));
@@ -47,7 +47,7 @@ public static class Extensions : Object
         return result;
     }
 
-    public static FileStream? CreateFile(this String fullFilepath, int bufferSize)
+    public static FileStream? CreateFile(this String fullFilepath, Int32 bufferSize)
     {
         if (fullFilepath.IsNullOrEmpty() || fullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(fullFilepath));
@@ -59,7 +59,7 @@ public static class Extensions : Object
         return result;
     }
 
-    public static FileStream CreateFile(this String fullFilepath, int bufferSize, FileOptions options)
+    public static FileStream CreateFile(this String fullFilepath, Int32 bufferSize, FileOptions options)
     {
         if (fullFilepath.IsNullOrEmpty() || fullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(fullFilepath));

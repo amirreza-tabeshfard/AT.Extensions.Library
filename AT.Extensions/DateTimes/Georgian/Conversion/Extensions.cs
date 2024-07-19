@@ -9,8 +9,8 @@ public static class Extensions : Object
 
     private static readonly System.Text.RegularExpressions.Regex? timespanRegex;
 
-    public const char NegativeBit = '0';
-    public const char PositiveBit = '1';
+    public const Char NegativeBit = '0';
+    public const Char PositiveBit = '1';
 
     #endregion
 
@@ -35,25 +35,25 @@ public static class Extensions : Object
         if (!String.IsNullOrWhiteSpace(dateTime))
             if (regex.Match(dateTime).Groups["h"].Success && regex.Match(dateTime).Groups["m"].Success)
             {
-                int days = 0;
+                Int32 days = 0;
 
                 if (regex.Match(dateTime).Groups["d1"].Success)
-                    days = int.Parse(s: regex.Match(dateTime).Groups["d1"].Value,
+                    days = Int32.Parse(s: regex.Match(dateTime).Groups["d1"].Value,
                                      provider: System.Globalization.CultureInfo.InvariantCulture);
                 else if (regex.Match(dateTime).Groups["d2"].Success)
-                    days = int.Parse(s: regex.Match(dateTime).Groups["d2"].Value,
+                    days = Int32.Parse(s: regex.Match(dateTime).Groups["d2"].Value,
                                      provider: System.Globalization.CultureInfo.InvariantCulture);
 
-                int hours = int.Parse(s: regex.Match(dateTime).Groups["h"].Value,
+                Int32 hours = Int32.Parse(s: regex.Match(dateTime).Groups["h"].Value,
                                       provider: System.Globalization.CultureInfo.InvariantCulture);
 
-                int minutes = int.Parse(s: regex.Match(dateTime).Groups["m"].Value,
+                Int32 minutes = Int32.Parse(s: regex.Match(dateTime).Groups["m"].Value,
                                         provider: System.Globalization.CultureInfo.InvariantCulture);
 
-                int seconds = 0;
+                Int32 seconds = 0;
 
                 if (regex.Match(dateTime).Groups["s"].Success)
-                    seconds = int.Parse(s: regex.Match(dateTime).Groups["s"].Value,
+                    seconds = Int32.Parse(s: regex.Match(dateTime).Groups["s"].Value,
                                         provider: System.Globalization.CultureInfo.InvariantCulture);
 
                 result = new TimeSpan(days: days,
@@ -96,7 +96,7 @@ public static class Extensions : Object
         return dateTime.ToString("yyy-MM-dd");
     }
 
-    public static String? ToBitmask(this IEnumerable<DateTime> dateTimes, DateTime begin, DateTime end, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
+    public static String? ToBitmask(this IEnumerable<DateTime> dateTimes, DateTime begin, DateTime end, Boolean defaultOnEmpty = false, Char positiveBit = PositiveBit, Char negativeBit = NegativeBit)
     {
         if (dateTimes == default)
             throw new ArgumentNullException(nameof(dateTimes));
@@ -110,7 +110,7 @@ public static class Extensions : Object
         if (dateTimes?.Any() ?? false)
             for (DateTime date = begin; date <= end; date = date.AddDays(1))
             {
-                char bit = dateTimes.Contains(date)
+                Char bit = dateTimes.Contains(date)
                            ? positiveBit
                            : negativeBit;
 
@@ -122,7 +122,7 @@ public static class Extensions : Object
                : result.ToString();
     }
 
-    public static String? ToBitmask(this IEnumerable<DateTime> dateTimes, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
+    public static String? ToBitmask(this IEnumerable<DateTime> dateTimes, Boolean defaultOnEmpty = false, Char positiveBit = PositiveBit, Char negativeBit = NegativeBit)
     {
         if (dateTimes == default)
             throw new ArgumentNullException(nameof(dateTimes));
@@ -144,7 +144,7 @@ public static class Extensions : Object
         return result;
     }
 
-    public static String? ToBitmask(this IEnumerable<int> numbers, int length, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
+    public static String? ToBitmask(this IEnumerable<Int32> numbers, Int32 length, Boolean defaultOnEmpty = false, Char positiveBit = PositiveBit, Char negativeBit = NegativeBit)
     {
         if (numbers == default)
             throw new ArgumentNullException(nameof(numbers));
@@ -152,9 +152,9 @@ public static class Extensions : Object
         System.Text.StringBuilder result = new();
 
         if (numbers?.Any() ?? false)
-            for (int number = 0; number < length; number++)
+            for (Int32 number = 0; number < length; number++)
             {
-                char bit = numbers.Contains(number)
+                Char bit = numbers.Contains(number)
                            ? positiveBit
                            : negativeBit;
 
@@ -166,7 +166,7 @@ public static class Extensions : Object
                : result.ToString();
     }
 
-    public static String? ToBitmask(this IEnumerable<int> bits, bool defaultOnEmpty = false, char positiveBit = PositiveBit, char negativeBit = NegativeBit)
+    public static String? ToBitmask(this IEnumerable<Int32> bits, Boolean defaultOnEmpty = false, Char positiveBit = PositiveBit, Char negativeBit = NegativeBit)
     {
         if (bits == default)
             throw new ArgumentNullException(nameof(bits));
@@ -240,7 +240,7 @@ public static class Extensions : Object
             throw new ArgumentNullException(nameof(stringDateTime));
         // ----------------------------------------------------------------------------------------------------
         DateTime dateTime;
-        bool isDateTime = DateTime.TryParse(stringDateTime, out dateTime);
+        Boolean isDateTime = DateTime.TryParse(stringDateTime, out dateTime);
         // ----------------------------------------------------------------------------------------------------
         return (isDateTime)
                ? dateTime
@@ -349,11 +349,11 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int offset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).Hours;
+        Int32 offset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).Hours;
         String timeZone = "+" + offset.ToString().PadLeft(2, '0');
         if (offset < 0)
         {
-            int i = offset * -1;
+            Int32 i = offset * -1;
             timeZone = "-" + i.ToString().PadLeft(2, '0');
         }
         // ----------------------------------------------------------------------------------------------------
@@ -379,22 +379,22 @@ public static class Extensions : Object
 
         if (!String.IsNullOrWhiteSpace(dateTime))
         {
-            if (double.TryParse(
+            if (Double.TryParse(
                 s: dateTime,
                 style: System.Globalization.NumberStyles.Any,
                 provider: System.Globalization.CultureInfo.CurrentCulture,
-                result: out double current)
+                result: out Double current)
                 && current.ToString(System.Globalization.CultureInfo.CurrentCulture) == dateTime.Trim()
                 && (current < 1 || current % 1 != 0))
             {
                 return DateTime.FromOADate(current) - DateTime.FromOADate(0);
             }
 
-            if (double.TryParse(
+            if (Double.TryParse(
                 s: dateTime,
                 style: System.Globalization.NumberStyles.Any,
                 provider: System.Globalization.CultureInfo.InvariantCulture,
-                result: out double invariant)
+                result: out Double invariant)
                 && invariant.ToString(System.Globalization.CultureInfo.InvariantCulture) == dateTime.Trim()
                 && (invariant < 1 || invariant % 1 != 0))
             {
@@ -483,7 +483,7 @@ public static class Extensions : Object
         return localTime.ToUniversalTime(localTimeZoneName, default);
     }
 
-    public static double ToUnixTime(this DateTime dateTime)
+    public static Double ToUnixTime(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -491,7 +491,7 @@ public static class Extensions : Object
         return dateTime.CompareTo(new DateTime(1970, 1, 1), AT.Enums.DateTimeDifferenceFormat.Seconds);
     }
 
-    public static long ToUnixTimestamp(this DateTime dateTime)
+    public static Int64 ToUnixTimestamp(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -499,6 +499,6 @@ public static class Extensions : Object
         DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, millisecond: 0);
         TimeSpan unixTimeSpan = dateTime - unixEpoch;
         // ----------------------------------------------------------------------------------------------------
-        return (long)unixTimeSpan.TotalSeconds;
+        return (Int64)unixTimeSpan.TotalSeconds;
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
 public static class DataTypeExtensions : Object
 {
-    public static bool IsByte(this String value)
+    public static Boolean IsByte(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -9,7 +9,7 @@ public static class DataTypeExtensions : Object
         return Byte.TryParse(value, out _);
     }
 
-    public static bool IsByte(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsByte(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -17,7 +17,7 @@ public static class DataTypeExtensions : Object
         return Byte.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsSByte(this String value)
+    public static Boolean IsSByte(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -25,7 +25,7 @@ public static class DataTypeExtensions : Object
         return SByte.TryParse(value, out _);
     }
 
-    public static bool IsSByte(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsSByte(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -33,7 +33,7 @@ public static class DataTypeExtensions : Object
         return SByte.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsShort(this String value)
+    public static Boolean IsShort(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -41,7 +41,7 @@ public static class DataTypeExtensions : Object
         return Int16.TryParse(value, out _);
     }
 
-    public static bool IsShort(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsShort(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -49,7 +49,7 @@ public static class DataTypeExtensions : Object
         return Int16.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsUShort(this String value)
+    public static Boolean IsUShort(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -57,7 +57,7 @@ public static class DataTypeExtensions : Object
         return UInt16.TryParse(value, out _);
     }
 
-    public static bool IsUShort(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsUShort(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -65,7 +65,7 @@ public static class DataTypeExtensions : Object
         return UInt16.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsInt(this String value)
+    public static Boolean IsInt(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -73,7 +73,7 @@ public static class DataTypeExtensions : Object
         return Int32.TryParse(value, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out _);
     }
 
-    public static bool IsInt(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsInt(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -81,7 +81,7 @@ public static class DataTypeExtensions : Object
         return Int32.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsUInt(this String value)
+    public static Boolean IsUInt(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -89,7 +89,7 @@ public static class DataTypeExtensions : Object
         return UInt32.TryParse(value, out _);
     }
 
-    public static bool IsUInt(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsUInt(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -97,7 +97,7 @@ public static class DataTypeExtensions : Object
         return UInt32.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsLong(this String value)
+    public static Boolean IsLong(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -105,7 +105,7 @@ public static class DataTypeExtensions : Object
         return Int64.TryParse(value, out _);
     }
 
-    public static bool IsLong(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsLong(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -113,7 +113,7 @@ public static class DataTypeExtensions : Object
         return Int64.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsULong(this String value)
+    public static Boolean IsULong(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -121,7 +121,7 @@ public static class DataTypeExtensions : Object
         return UInt64.TryParse(value, out _);
     }
 
-    public static bool IsULong(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsULong(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -129,17 +129,17 @@ public static class DataTypeExtensions : Object
         return UInt64.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsFloat(this String value)
+    public static Boolean IsFloat(this String value)
     {
         return value.IsSingle();
     }
 
-    public static bool IsFloat(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsFloat(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         return value.IsSingle(style, provider);
     }
 
-    public static bool IsSingle(this String value)
+    public static Boolean IsSingle(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -147,7 +147,7 @@ public static class DataTypeExtensions : Object
         return Single.TryParse(value, out _);
     }
 
-    public static bool IsSingle(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsSingle(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -155,7 +155,7 @@ public static class DataTypeExtensions : Object
         return Single.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsDouble(this String value)
+    public static Boolean IsDouble(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -163,7 +163,7 @@ public static class DataTypeExtensions : Object
         return Double.TryParse(value, out _);
     }
 
-    public static bool IsDouble(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsDouble(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -171,7 +171,7 @@ public static class DataTypeExtensions : Object
         return Double.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsDecimal(this String value)
+    public static Boolean IsDecimal(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -179,7 +179,7 @@ public static class DataTypeExtensions : Object
         return Decimal.TryParse(value, out _);
     }
 
-    public static bool IsDecimal(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
+    public static Boolean IsDecimal(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -187,7 +187,7 @@ public static class DataTypeExtensions : Object
         return Decimal.TryParse(value, style, provider, out _);
     }
 
-    public static bool IsChar(this String value)
+    public static Boolean IsChar(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -195,12 +195,12 @@ public static class DataTypeExtensions : Object
         return Char.TryParse(value, out _);
     }
 
-    public static bool IsBool(this String value)
+    public static Boolean IsBool(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        if (!Boolean.TryParse(value, out bool result))
+        if (!Boolean.TryParse(value, out Boolean result))
             switch (value.ToLower())
             {
                 case "false": result = false; break;
@@ -219,7 +219,7 @@ public static class DataTypeExtensions : Object
         return result;
     }
 
-    public static bool IsDateTime(this String value)
+    public static Boolean IsDateTime(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));

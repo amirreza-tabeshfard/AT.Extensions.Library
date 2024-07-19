@@ -3,14 +3,14 @@
 namespace AT.Extensions.DirectoryInfos.Mover;
 public static class Extensions : Object
 {
-    public static bool MoveDirectory(this String sourceFullFilepath, String destinationFullFilepath)
+    public static Boolean MoveDirectory(this String sourceFullFilepath, String destinationFullFilepath)
     {
         if (sourceFullFilepath.IsNullOrEmpty() || sourceFullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(sourceFullFilepath));
         else if (destinationFullFilepath.IsNullOrEmpty() || destinationFullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(destinationFullFilepath));
         // ----------------------------------------------------------------------------------------------------
-        bool result;
+        Boolean result;
         try
         {
             Directory.Move(sourceFullFilepath, destinationFullFilepath);

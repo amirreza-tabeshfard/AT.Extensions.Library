@@ -10,16 +10,16 @@ public static class Extensions : Object
 {
     #region Private: Method(s)
 
-    private static DateTime WorkMethod(DateTime dateTime, long returnType, AT.Enums.TimeInterval timeInterval)
+    private static DateTime WorkMethod(DateTime dateTime, Int64 returnType, AT.Enums.TimeInterval timeInterval)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        long interval1 = (long)timeInterval;
-        long ticksFromFloor = 0L;
-        int intervalFloor = 0;
-        int floorOffset = 0;
-        int intervalLength = 0;
+        Int64 interval1 = (Int64)timeInterval;
+        Int64 ticksFromFloor = 0L;
+        Int32 intervalFloor = 0;
+        Int32 floorOffset = 0;
+        Int32 intervalLength = 0;
         DateTime floorDate;
         DateTime ceilingDate;
 
@@ -31,22 +31,22 @@ public static class Extensions : Object
         }
         else if (interval1 < 8L)
         {
-            intervalFloor = (int)(interval1) - 1;
-            floorOffset = (int)dateTime.DayOfWeek * -1;
+            intervalFloor = (Int32)(interval1) - 1;
+            floorOffset = (Int32)dateTime.DayOfWeek * -1;
             floorDate = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0, dateTime.Kind).AddDays(-(intervalFloor > floorOffset ? floorOffset + 7 - intervalFloor : floorOffset - intervalFloor));
             if (returnType != 0L)
                 ticksFromFloor = TimeSpan.TicksPerDay * 7L / returnType;
         }
         else
         {
-            intervalLength = interval1 >= 130L ? 12 : (int)(interval1 / 10L);
-            intervalFloor = (int)(interval1 % intervalLength);
+            intervalLength = interval1 >= 130L ? 12 : (Int32)(interval1 / 10L);
+            intervalFloor = (Int32)(interval1 % intervalLength);
             floorOffset = (dateTime.Month - 1) % intervalLength;
             floorDate = new DateTime(dateTime.Year, dateTime.Month, 1, 0, 0, 0, dateTime.Kind).AddMonths(-(intervalFloor > floorOffset ? floorOffset + intervalLength - intervalFloor : floorOffset - intervalFloor));
             if (returnType != 0L)
             {
                 ceilingDate = floorDate.AddMonths(intervalLength);
-                ticksFromFloor = (long)ceilingDate.Subtract(floorDate).Ticks / returnType;
+                ticksFromFloor = (Int64)ceilingDate.Subtract(floorDate).Ticks / returnType;
             }
         }
         // ----------------------------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        return BeginningOfTheDay(dateTime.AddDays(1 - (int)(dateTime.DayOfWeek)));
+        return BeginningOfTheDay(dateTime.AddDays(1 - (Int32)(dateTime.DayOfWeek)));
     }
 
     public static DateTime BeginningOfTheMonth(this DateTime dateTime)
@@ -167,9 +167,9 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int _valueDayOfWeek = (int)dateTime.DayOfWeek;
-        int _targetDayOfWeek = (int)DayOfWeek;
-        int _difference = _targetDayOfWeek - _valueDayOfWeek;
+        Int32 _valueDayOfWeek = (Int32)dateTime.DayOfWeek;
+        Int32 _targetDayOfWeek = (Int32)DayOfWeek;
+        Int32 _difference = _targetDayOfWeek - _valueDayOfWeek;
 
         if (_difference <= 0)
             _difference += 7;
@@ -177,12 +177,12 @@ public static class Extensions : Object
         return dateTime.Date.AddDays(_difference);
     }
 
-    public static DateTime DayOfWeekAfter(this DateTime dateTime, int weeks)
+    public static DateTime DayOfWeekAfter(this DateTime dateTime, Int32 weeks)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int days = weeks * 7;
+        Int32 days = weeks * 7;
         return dateTime.AddDays(days);
     }
 
@@ -191,9 +191,9 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int _valueDayOfWeek = (int)dateTime.DayOfWeek;
-        int _targetDayOfWeek = (int)DayOfWeek;
-        int _difference = _valueDayOfWeek - _targetDayOfWeek;
+        Int32 _valueDayOfWeek = (Int32)dateTime.DayOfWeek;
+        Int32 _targetDayOfWeek = (Int32)DayOfWeek;
+        Int32 _difference = _valueDayOfWeek - _targetDayOfWeek;
 
         if (_difference <= 0)
             _difference += 7;
@@ -201,12 +201,12 @@ public static class Extensions : Object
         return dateTime.Date.AddDays(-_difference);
     }
 
-    public static DateTime DayOfWeekBefore(this DateTime dateTime, int weeks)
+    public static DateTime DayOfWeekBefore(this DateTime dateTime, Int32 weeks)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int days = weeks * 7;
+        Int32 days = weeks * 7;
         return dateTime.AddDays(-days);
     }
 
@@ -215,9 +215,9 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int _valueDayOfWeek = (int)dateTime.DayOfWeek;
-        int _targetDayOfWeek = (int)DayOfWeek;
-        int _difference = _targetDayOfWeek - _valueDayOfWeek;
+        Int32 _valueDayOfWeek = (Int32)dateTime.DayOfWeek;
+        Int32 _targetDayOfWeek = (Int32)DayOfWeek;
+        Int32 _difference = _targetDayOfWeek - _valueDayOfWeek;
 
         if (_difference < 0)
             _difference += 7;
@@ -230,9 +230,9 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int _valueDayOfWeek = (int)dateTime.DayOfWeek;
-        int _targetDayOfWeek = (int)DayOfWeek;
-        int _difference = _valueDayOfWeek - _targetDayOfWeek;
+        Int32 _valueDayOfWeek = (Int32)dateTime.DayOfWeek;
+        Int32 _targetDayOfWeek = (Int32)DayOfWeek;
+        Int32 _difference = _valueDayOfWeek - _targetDayOfWeek;
 
         if (_difference < 0)
             _difference += 7;
@@ -281,7 +281,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        return EndOfTheDay(dateTime.AddDays(7 - (int)(dateTime.DayOfWeek)));
+        return EndOfTheDay(dateTime.AddDays(7 - (Int32)(dateTime.DayOfWeek)));
     }
 
     public static DateTime EndOfTheWeek(this DateTime dateTime, DayOfWeek firstWeekDay = DayOfWeek.Sunday)
@@ -289,7 +289,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int dayDiff = (int)firstWeekDay - (int)dateTime.DayOfWeek;
+        Int32 dayDiff = (Int32)firstWeekDay - (Int32)dateTime.DayOfWeek;
 
         if (dayDiff <= 0)
             dayDiff += 7;
@@ -331,7 +331,7 @@ public static class Extensions : Object
 
     #endregion
 
-    public static DateTime FromUnixTime(this double unixTimestamp)
+    public static DateTime FromUnixTime(this Double unixTimestamp)
     {
         return new DateTime(1970, 1, 1).Add(unixTimestamp, AT.Enums.DateTimeDifferenceFormat.Seconds);
     }
@@ -350,18 +350,18 @@ public static class Extensions : Object
             DateTime from = cycle.Min();
             DateTime to = cycle.Max();
 
-            int duration = to.GetAbsDuration(from).Days + 1;
+            Int32 duration = to.GetAbsDuration(from).Days + 1;
 
             if (duration < 2)
                 result = from;
             else if (dateTime < from)
             {
-                int distance = from.GetAbsDuration(dateTime).Days - 1;
+                Int32 distance = from.GetAbsDuration(dateTime).Days - 1;
                 result = to.AddDays((distance % duration) * -1);
             }
             else if (dateTime > to)
             {
-                int distance = dateTime.GetAbsDuration(to).Days - 1;
+                Int32 distance = dateTime.GetAbsDuration(to).Days - 1;
                 result = from.AddDays(distance % duration);
             }
             else
@@ -376,9 +376,9 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int iCurr = (int)dateTime.DayOfWeek;
-        int iTarg = (int)targetDayOfWeek;
-        int nTarg;
+        Int32 iCurr = (Int32)dateTime.DayOfWeek;
+        Int32 iTarg = (Int32)targetDayOfWeek;
+        Int32 nTarg;
 
         if (iCurr < iTarg)
             nTarg = iTarg - iCurr;
@@ -402,7 +402,7 @@ public static class Extensions : Object
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         System.Globalization.CultureInfo culture = Thread.CurrentThread.CurrentCulture;
-        int diff = dateTime.DayOfWeek - culture.DateTimeFormat.FirstDayOfWeek;
+        Int32 diff = dateTime.DayOfWeek - culture.DateTimeFormat.FirstDayOfWeek;
         // ----------------------------------------------------------------------------------------------------
         if (diff < 0)
             diff += 7;
@@ -434,14 +434,14 @@ public static class Extensions : Object
         return GetFirstDayOfWeek(dateTime).AddDays(6);
     }
 
-    public static DateTime GetLastWeekdayOfMonth(this DayOfWeek day, int year, int month)
+    public static DateTime GetLastWeekdayOfMonth(this DayOfWeek day, Int32 year, Int32 month)
     {
         DateTime lastDayOfTheMonth = new DateTime(year, month, 1)
                                             .AddMonths(1)
                                             .AddDays(-1);
 
-        int searchDay = (int)day;
-        int lastDay = (int)lastDayOfTheMonth.DayOfWeek;
+        Int32 searchDay = (Int32)day;
+        Int32 lastDay = (Int32)lastDayOfTheMonth.DayOfWeek;
 
         return lastDayOfTheMonth.AddDays(lastDay >= searchDay
                                          ? searchDay - lastDay
@@ -463,7 +463,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int daysToAdd = ((int)day - (int)dateTime.DayOfWeek + 7) % 7;
+        Int32 daysToAdd = ((Int32)day - (Int32)dateTime.DayOfWeek + 7) % 7;
         return dateTime.AddDays(daysToAdd);
     }
 
@@ -472,7 +472,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int daysToAdd = ((int)day - (int)dateTime.DayOfWeek - 7) % 7;
+        Int32 daysToAdd = ((Int32)day - (Int32)dateTime.DayOfWeek - 7) % 7;
         return dateTime.AddDays(daysToAdd);
     }
 
@@ -482,10 +482,10 @@ public static class Extensions : Object
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         DateTime result = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second);
-        return new System.Globalization.GregorianCalendar().AddDays(result, -((int)result.DayOfWeek) + 6);
+        return new System.Globalization.GregorianCalendar().AddDays(result, -((Int32)result.DayOfWeek) + 6);
     }
 
-    public static DateTime GetShifted(this DateTime dateTime, int shift)
+    public static DateTime GetShifted(this DateTime dateTime, Int32 shift)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -499,7 +499,7 @@ public static class Extensions : Object
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         DateTime result = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second);
-        return new System.Globalization.GregorianCalendar().AddDays(result, -((int)result.DayOfWeek));
+        return new System.Globalization.GregorianCalendar().AddDays(result, -((Int32)result.DayOfWeek));
     }
 
     #endregion
@@ -664,8 +664,8 @@ public static class Extensions : Object
         if (from == default)
             throw new ArgumentNullException(nameof(from));
         // ----------------------------------------------------------------------------------------------------
-        int start = (int)from.DayOfWeek;
-        int target = (int)dayOfWeek;
+        Int32 start = (Int32)from.DayOfWeek;
+        Int32 target = (Int32)dayOfWeek;
 
         if (target <= start)
             target += 7;
@@ -673,7 +673,7 @@ public static class Extensions : Object
         return from.AddDays(target - start);
     }
 
-    public static DateTime NextAnniversary(this DateTime dateTime, int eventMonth, int eventDay, bool preserveMonth = default)
+    public static DateTime NextAnniversary(this DateTime dateTime, Int32 eventMonth, Int32 eventDay, Boolean preserveMonth = default)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -693,7 +693,7 @@ public static class Extensions : Object
         return calcDate.AddYears(dateTime.Month == 2 && dateTime.Day == 28 ? 1 : 0).AddDays(-1);
     }
 
-    public static DateTime NextAnniversary(this DateTime dateTime, DateTime eventDate, bool preserveMonth = default)
+    public static DateTime NextAnniversary(this DateTime dateTime, DateTime eventDate, Boolean preserveMonth = default)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -748,7 +748,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        DateTime dateTimeTemp = new System.Globalization.GregorianCalendar().AddDays(dateTime, -((int)dateTime.DayOfWeek) + (int)dayOfWeek);
+        DateTime dateTimeTemp = new System.Globalization.GregorianCalendar().AddDays(dateTime, -((Int32)dateTime.DayOfWeek) + (Int32)dayOfWeek);
         return (dateTimeTemp.Day < dateTime.Day)
                ? dateTimeTemp.AddDays(7)
                : dateTimeTemp;
@@ -767,7 +767,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        return new System.Globalization.GregorianCalendar().AddDays(dateTime, -((int)dateTime.DayOfWeek) + 7);
+        return new System.Globalization.GregorianCalendar().AddDays(dateTime, -((Int32)dateTime.DayOfWeek) + 7);
     }
 
     public static DateTime NextWeek(this DateTime dateTime)
@@ -871,7 +871,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int dayDiff = (int)firstWeekDay - (int)dateTime.DayOfWeek;
+        Int32 dayDiff = (Int32)firstWeekDay - (Int32)dateTime.DayOfWeek;
 
         if (dayDiff > 0)
             dayDiff -= 7;
@@ -884,7 +884,7 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        int quarterStartMonth = dateTime.Month - (dateTime.Month % 3) + 1;
+        Int32 quarterStartMonth = dateTime.Month - (dateTime.Month % 3) + 1;
         return new DateTime(dateTime.Year, quarterStartMonth, 1);
     }
 
@@ -1064,25 +1064,25 @@ public static class Extensions : Object
 
     #region Types of day-specific naming
 
-    public static DateTime Dawn(this DateTime dateTime, double Latitude, double Longitude, AT.Enums.TwilightKind Kind)
+    public static DateTime Dawn(this DateTime dateTime, Double Latitude, Double Longitude, AT.Enums.TwilightKind Kind)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan eqTime = dateTime.EquationOfTimeTotal();
-        double m = 720 + (4 * (-Longitude - dateTime.HourAngleDawn(Latitude, Kind))) - eqTime.TotalMinutes;
+        Double m = 720 + (4 * (-Longitude - dateTime.HourAngleDawn(Latitude, Kind))) - eqTime.TotalMinutes;
         TimeSpan val = m.AsMinutesToTimeSpan();
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, val.Hours, val.Minutes, val.Seconds, val.Milliseconds, DateTimeKind.Utc);
     }
 
-    public static DateTime Dusk(this DateTime dateTime, double Latitude, double Longitude, AT.Enums.TwilightKind Kind)
+    public static DateTime Dusk(this DateTime dateTime, Double Latitude, Double Longitude, AT.Enums.TwilightKind Kind)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan eqTime = dateTime.EquationOfTimeTotal();
-        double m = 720 + (4 * (-Longitude - dateTime.HourAngleDusk(Latitude, Kind))) - eqTime.TotalMinutes;
+        Double m = 720 + (4 * (-Longitude - dateTime.HourAngleDusk(Latitude, Kind))) - eqTime.TotalMinutes;
         TimeSpan val = m.AsMinutesToTimeSpan();
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, val.Hours, val.Minutes, val.Seconds, val.Milliseconds, DateTimeKind.Utc);
@@ -1098,37 +1098,37 @@ public static class Extensions : Object
         return dateTime.SetTime(12, 0, 0);
     }
 
-    public static DateTime SolarNoon(this DateTime dateTime, double Longitude)
+    public static DateTime SolarNoon(this DateTime dateTime, Double Longitude)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan _eqTime = dateTime.EquationOfTimeTotal();
-        double m = 720 + (-Longitude * 4) - _eqTime.TotalMinutes;
+        Double m = 720 + (-Longitude * 4) - _eqTime.TotalMinutes;
         TimeSpan val = m.AsMinutesToTimeSpan();
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, val.Hours, val.Minutes, val.Seconds, val.Milliseconds, DateTimeKind.Utc);
     }
 
-    public static DateTime Sunrise(this DateTime dateTime, double Latitude, double Longitude)
+    public static DateTime Sunrise(this DateTime dateTime, Double Latitude, Double Longitude)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan eqTime = dateTime.EquationOfTimeTotal();
-        double m = 720 + (4 * (-Longitude - dateTime.HourAngleSunrise(Latitude))) - eqTime.TotalMinutes;
+        Double m = 720 + (4 * (-Longitude - dateTime.HourAngleSunrise(Latitude))) - eqTime.TotalMinutes;
         TimeSpan val = m.AsMinutesToTimeSpan();
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, val.Hours, val.Minutes, val.Seconds, val.Milliseconds, DateTimeKind.Utc);
     }
 
-    public static DateTime Sunset(this DateTime dateTime, double Latitude, double Longitude)
+    public static DateTime Sunset(this DateTime dateTime, Double Latitude, Double Longitude)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
         TimeSpan eqTime = dateTime.EquationOfTimeTotal();
-        double m = 720 + (4 * (-Longitude - dateTime.HourAngleSunset(Latitude))) - eqTime.TotalMinutes;
+        Double m = 720 + (4 * (-Longitude - dateTime.HourAngleSunset(Latitude))) - eqTime.TotalMinutes;
         TimeSpan val = m.AsMinutesToTimeSpan();
         // ----------------------------------------------------------------------------------------------------
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, val.Hours, val.Minutes, val.Seconds, val.Milliseconds, DateTimeKind.Utc);
@@ -1154,44 +1154,44 @@ public static class Extensions : Object
 
     #region Ago Or Before
 
-    public static DateTime DaysAgo(this DateTime source, int days)
+    public static DateTime DaysAgo(this DateTime source, Int32 days)
     {
         return source.AddDays(-days);
     }
 
-    public static DateTime WeeksAgo(this DateTime source, int weeks)
+    public static DateTime WeeksAgo(this DateTime source, Int32 weeks)
     {
         var days = weeks * 7;
         return source.AddDays(-days);
     }
 
-    public static DateTime MonthsAgo(this DateTime source, int months)
+    public static DateTime MonthsAgo(this DateTime source, Int32 months)
     {
         return source.AddMonths(-months);
     }
 
-    public static DateTime YearsAgo(this DateTime source, int years)
+    public static DateTime YearsAgo(this DateTime source, Int32 years)
     {
         return source.AddYears(-years);
     }
 
-    public static DateTime DaysAfter(this DateTime source, int days)
+    public static DateTime DaysAfter(this DateTime source, Int32 days)
     {
         return source.AddDays(days);
     }
 
-    public static DateTime WeeksAfter(this DateTime source, int weeks)
+    public static DateTime WeeksAfter(this DateTime source, Int32 weeks)
     {
         var days = weeks * 7;
         return source.AddDays(days);
     }
 
-    public static DateTime MonthsAfter(this DateTime source, int months)
+    public static DateTime MonthsAfter(this DateTime source, Int32 months)
     {
         return source.AddMonths(months);
     }
 
-    public static DateTime YearsAfter(this DateTime source, int years)
+    public static DateTime YearsAfter(this DateTime source, Int32 years)
     {
         return source.AddYears(years);
     }

@@ -11,7 +11,7 @@ public static class Extensions : Object
         return new(file.OpenRead());
     }
 
-    public static BinaryReader OpenBinaryReader(this FileInfo file, int bufferLength)
+    public static BinaryReader OpenBinaryReader(this FileInfo file, Int32 bufferLength)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -27,7 +27,7 @@ public static class Extensions : Object
         return new(file.OpenRead(), encoding);
     }
 
-    public static BinaryReader OpenBinaryReader(this FileInfo file, int bufferLength, System.Text.Encoding encoding)
+    public static BinaryReader OpenBinaryReader(this FileInfo file, Int32 bufferLength, System.Text.Encoding encoding)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -55,7 +55,7 @@ public static class Extensions : Object
         return File.ReadAllText(filePath, encoding);
     }
 
-    public static String? ReadAllText(this FileInfo file, bool throwNotExist = true)
+    public static String? ReadAllText(this FileInfo file, Boolean throwNotExist = true)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));

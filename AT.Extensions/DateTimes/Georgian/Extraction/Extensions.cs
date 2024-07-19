@@ -7,14 +7,14 @@ public static class Extensions : Object
 {
     #region Field(s)
 
-    private const double AverageAngle = 0.985653;
-    private const double E360OverPi = 1.915169;
-    private const double MinutesPerDegree = 3.98892;
-    private const double MaxEarthTilt = 23.45;
-    private const double VAtVernalEquinox = 78.74611803;
+    private const Double AverageAngle = 0.985653;
+    private const Double E360OverPi = 1.915169;
+    private const Double MinutesPerDegree = 3.98892;
+    private const Double MaxEarthTilt = 23.45;
+    private const Double VAtVernalEquinox = 78.74611803;
 
     private static readonly DateTime _epochDateTime;
-    private static readonly long _epochTicks;
+    private static readonly Int64 _epochTicks;
 
     #endregion
 
@@ -55,27 +55,27 @@ public static class Extensions : Object
         return Math.Round(((decimal)(today.Year * 12 + today.Month) - (referenceDate.Year * 12 + referenceDate.Month)) / 12, 2);
     }
 
-    public static double AsDegreesToRadians(this double value)
+    public static Double AsDegreesToRadians(this Double value)
     {
         return (Math.PI / 180) * value;
     }
 
-    public static TimeSpan AsMinutesToTimeSpan(this double value)
+    public static TimeSpan AsMinutesToTimeSpan(this Double value)
     {
-        double h = Math.Floor(value / 60);
+        Double h = Math.Floor(value / 60);
         value -= h * 60;
-        double s = (value - (int)value) * 60;
-        double l = (s - (int)s) * 1000;
+        Double s = (value - (Int32)value) * 60;
+        Double l = (s - (Int32)s) * 1000;
 
-        return new TimeSpan(0, (int)h, (int)value, (int)s, (int)l);
+        return new TimeSpan(0, (Int32)h, (Int32)value, (Int32)s, (Int32)l);
     }
 
-    public static double AsRadiansToDegrees(this double value)
+    public static Double AsRadiansToDegrees(this Double value)
     {
         return (180 / Math.PI) * value;
     }
 
-    public static double CompareTo(this DateTime dateTime, DateTime value, AT.Enums.DateTimeDifferenceFormat differenceFormat = AT.Enums.DateTimeDifferenceFormat.Days)
+    public static Double CompareTo(this DateTime dateTime, DateTime value, Enums.DateTimeDifferenceFormat differenceFormat = Enums.DateTimeDifferenceFormat.Days)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -85,19 +85,19 @@ public static class Extensions : Object
         TimeSpan result = dateTime - value;
         return differenceFormat switch
         {
-            AT.Enums.DateTimeDifferenceFormat.Days => result.TotalDays,
-            AT.Enums.DateTimeDifferenceFormat.Hours => result.TotalHours,
-            AT.Enums.DateTimeDifferenceFormat.Milliseconds => result.TotalMilliseconds,
-            AT.Enums.DateTimeDifferenceFormat.Minutes => result.TotalMinutes,
-            AT.Enums.DateTimeDifferenceFormat.Months => result.TotalDays / 30,
-            AT.Enums.DateTimeDifferenceFormat.Seconds => result.TotalSeconds,
-            AT.Enums.DateTimeDifferenceFormat.Weeks => result.TotalDays / 7,
-            AT.Enums.DateTimeDifferenceFormat.Years => result.TotalDays / 365,
+            Enums.DateTimeDifferenceFormat.Days => result.TotalDays,
+            Enums.DateTimeDifferenceFormat.Hours => result.TotalHours,
+            Enums.DateTimeDifferenceFormat.Milliseconds => result.TotalMilliseconds,
+            Enums.DateTimeDifferenceFormat.Minutes => result.TotalMinutes,
+            Enums.DateTimeDifferenceFormat.Months => result.TotalDays / 30,
+            Enums.DateTimeDifferenceFormat.Seconds => result.TotalSeconds,
+            Enums.DateTimeDifferenceFormat.Weeks => result.TotalDays / 7,
+            Enums.DateTimeDifferenceFormat.Years => result.TotalDays / 365,
             _ => default,
         };
     }
 
-    public static int CompareWithoutMinutes(this DateTime dateTime, DateTime toDateTimeCompare)
+    public static Int32 CompareWithoutMinutes(this DateTime dateTime, DateTime toDateTimeCompare)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -110,7 +110,7 @@ public static class Extensions : Object
         return dateTime.CompareTo(toDateTimeCompare);
     }
 
-    public static long DateDiff(this DateTime startDate, String datePart, DateTime endDate)
+    public static Int64 DateDiff(this DateTime startDate, String datePart, DateTime endDate)
     {
         if (startDate == default)
             throw new ArgumentNullException(nameof(startDate));
@@ -227,7 +227,7 @@ public static class Extensions : Object
         return DateDiffVal;
     }
 
-    public static double DateTimeToUnixTimeStamp(this DateTime dateTime)
+    public static Double DateTimeToUnixTimeStamp(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -243,7 +243,7 @@ public static class Extensions : Object
         return DateTime.Now.Subtract(dateTime);
     }
 
-    public static double ElapsedSeconds(this DateTime dateTime)
+    public static Double ElapsedSeconds(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -256,13 +256,13 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        double h = AverageAngle * (dateTime.DayOfYear - 2);
-        double v = h + (E360OverPi * Math.Sin(h.AsDegreesToRadians()));
-        double m = ((h - v) * MinutesPerDegree);
-        double s = (m - (int)m) * 60;
-        double l = (s - (int)s) * 1000;
+        Double h = AverageAngle * (dateTime.DayOfYear - 2);
+        Double v = h + (E360OverPi * Math.Sin(h.AsDegreesToRadians()));
+        Double m = ((h - v) * MinutesPerDegree);
+        Double s = (m - (Int32)m) * 60;
+        Double l = (s - (Int32)s) * 1000;
         // ----------------------------------------------------------------------------------------------------
-        return new TimeSpan(0, 0, (int)m, (int)s, (int)l);
+        return new TimeSpan(0, 0, (Int32)m, (Int32)s, (Int32)l);
     }
 
     public static TimeSpan EquationOfTimeTiltEffect(this DateTime dateTime)
@@ -270,14 +270,14 @@ public static class Extensions : Object
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        double e = AverageAngle * (dateTime.DayOfYear - 80);
+        Double e = AverageAngle * (dateTime.DayOfYear - 80);
         e = (e >= 270 ? e - 360 : (e >= 90 ? e - 180 : e));
-        double b = Math.Atan(Math.Cos(MaxEarthTilt.AsDegreesToRadians()) * Math.Tan(e.AsDegreesToRadians())).AsRadiansToDegrees();
-        double m = ((e - b) * MinutesPerDegree);
-        double s = (m - (int)m) * 60;
-        double l = (s - (int)s) * 1000;
+        Double b = Math.Atan(Math.Cos(MaxEarthTilt.AsDegreesToRadians()) * Math.Tan(e.AsDegreesToRadians())).AsRadiansToDegrees();
+        Double m = ((e - b) * MinutesPerDegree);
+        Double s = (m - (Int32)m) * 60;
+        Double l = (s - (Int32)s) * 1000;
         // ----------------------------------------------------------------------------------------------------
-        return new TimeSpan(0, 0, (int)m, (int)s, (int)l);
+        return new TimeSpan(0, 0, (Int32)m, (Int32)s, (Int32)l);
     }
 
     public static TimeSpan EquationOfTimeTotal(this DateTime dateTime)
@@ -326,7 +326,7 @@ public static class Extensions : Object
         return new TimeSpan(Math.Abs(to.Subtract(from).Ticks));
     }
 
-    public static int GetDayOfMonth(this DateTime dateTime)
+    public static Int32 GetDayOfMonth(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -334,7 +334,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetDayOfMonth(dateTime);
     }
 
-    public static int GetDaysInMonth(this DateTime dateTime)
+    public static Int32 GetDaysInMonth(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -343,7 +343,7 @@ public static class Extensions : Object
         //return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetDaysInMonth(dateTime.Year, dateTime.Month, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
 
-    public static int GetDaysInYear(this DateTime dateTime)
+    public static Int32 GetDaysInYear(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -351,7 +351,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetDaysInYear(dateTime.Year, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
 
-    public static int GetEra(this DateTime dateTime)
+    public static Int32 GetEra(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -359,7 +359,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime);
     }
 
-    public static int GetHour(this DateTime dateTime)
+    public static Int32 GetHour(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -367,7 +367,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetHour(dateTime);
     }
 
-    public static int GetLeapMonth(this DateTime dateTime)
+    public static Int32 GetLeapMonth(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -375,7 +375,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetLeapMonth(dateTime.Year, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
 
-    public static double GetMilliseconds(this DateTime dateTime)
+    public static Double GetMilliseconds(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -409,7 +409,7 @@ public static class Extensions : Object
         return dateTimeSecond;
     }
 
-    public static int GetMinute(this DateTime dateTime)
+    public static Int32 GetMinute(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -417,7 +417,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetMinute(dateTime);
     }
 
-    public static int GetMonth(this DateTime dateTime)
+    public static Int32 GetMonth(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -425,7 +425,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetMonth(dateTime);
     }
 
-    public static int GetMonthDiff(this DateTime dateTimeFirst, DateTime dateTimeSecond)
+    public static Int32 GetMonthDiff(this DateTime dateTimeFirst, DateTime dateTimeSecond)
     {
         if (dateTimeFirst == default)
             throw new ArgumentNullException(nameof(dateTimeFirst));
@@ -440,7 +440,7 @@ public static class Extensions : Object
                + (dateTimeLeft.Year == dateTimeRigth.Year ? default : (dateTimeRigth.Year - dateTimeLeft.Year) * 12);
     }
 
-    public static int GetMonthsInYear(this DateTime dateTime)
+    public static Int32 GetMonthsInYear(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -448,7 +448,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetMonthsInYear(dateTime.Year, System.Globalization.CultureInfo.InvariantCulture.Calendar.GetEra(dateTime));
     }
 
-    public static int GetSecond(this DateTime dateTime)
+    public static Int32 GetSecond(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -456,7 +456,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetSecond(dateTime);
     }
 
-    public static double GetTotalMonthDiff(this DateTime dateTimeFirst, DateTime dateTimeSecond)
+    public static Double GetTotalMonthDiff(this DateTime dateTimeFirst, DateTime dateTimeSecond)
     {
         if (dateTimeFirst == default)
             throw new ArgumentNullException(nameof(dateTimeFirst));
@@ -465,10 +465,10 @@ public static class Extensions : Object
         // ----------------------------------------------------------------------------------------------------
         DateTime dateTimeLeft = (dateTimeFirst < dateTimeSecond) ? dateTimeFirst : dateTimeSecond;
         DateTime dateTimeRigth = (dateTimeFirst >= dateTimeSecond) ? dateTimeFirst : dateTimeSecond;
-        int dateTimeLeftDfM = DateTime.DaysInMonth(dateTimeLeft.Year, dateTimeLeft.Month);
-        int dateTimeRigthDfM = DateTime.DaysInMonth(dateTimeRigth.Year, dateTimeRigth.Month);
+        Int32 dateTimeLeftDfM = DateTime.DaysInMonth(dateTimeLeft.Year, dateTimeLeft.Month);
+        Int32 dateTimeRigthDfM = DateTime.DaysInMonth(dateTimeRigth.Year, dateTimeRigth.Month);
         // ----------------------------------------------------------------------------------------------------
-        double dayFixOne = dateTimeLeft.Day == dateTimeRigth.Day
+        Double dayFixOne = dateTimeLeft.Day == dateTimeRigth.Day
                            ? 0d
                            : dateTimeLeft.Day > dateTimeRigth.Day
                            ? dateTimeRigth.Day * 1d / dateTimeRigthDfM - dateTimeLeft.Day * 1d / dateTimeLeftDfM
@@ -496,7 +496,7 @@ public static class Extensions : Object
         return GetUtcOffset(dateTime, dateTimeZone.ToString());
     }
 
-    public static int GetUtcOffsetInteger(this DateTime dateTime, String dateTimeZoneName)
+    public static Int32 GetUtcOffsetInteger(this DateTime dateTime, String dateTimeZoneName)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -505,7 +505,7 @@ public static class Extensions : Object
                .Hours;
     }
 
-    public static int GetUtcOffsetInteger(this DateTime dateTime, Infrastructure.SystemTimeZone dateTimeZone)
+    public static Int32 GetUtcOffsetInteger(this DateTime dateTime, Infrastructure.SystemTimeZone dateTimeZone)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -513,7 +513,7 @@ public static class Extensions : Object
         return GetUtcOffsetInteger(dateTime, dateTimeZone.ToString());
     }
 
-    public static int GetWeekOfYear(this DateTime dateTime)
+    public static Int32 GetWeekOfYear(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -521,7 +521,7 @@ public static class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(dateTime, System.Globalization.DateTimeFormatInfo.CurrentInfo.CalendarWeekRule, System.Globalization.DateTimeFormatInfo.CurrentInfo.FirstDayOfWeek);
     }
 
-    public static int GetYear(this DateTime dateTime)
+    public static Int32 GetYear(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -531,40 +531,40 @@ public static class Extensions : Object
 
     #endregion
 
-    public static double HourAngle(this DateTime dateTime, double Latitude, double GeometricZenith)
+    public static Double HourAngle(this DateTime dateTime, Double Latitude, Double GeometricZenith)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        double latRad = Latitude.AsDegreesToRadians();
-        double sdRad = dateTime.SolarDeclination().AsDegreesToRadians();
-        double someVal = GeometricZenith.AsDegreesToRadians();
-        double HA = Math.Acos(Math.Cos(someVal) / (Math.Cos(latRad) * Math.Cos(sdRad)) - Math.Tan(latRad) * Math.Tan(sdRad));
+        Double latRad = Latitude.AsDegreesToRadians();
+        Double sdRad = dateTime.SolarDeclination().AsDegreesToRadians();
+        Double someVal = GeometricZenith.AsDegreesToRadians();
+        Double HA = Math.Acos(Math.Cos(someVal) / (Math.Cos(latRad) * Math.Cos(sdRad)) - Math.Tan(latRad) * Math.Tan(sdRad));
         // ----------------------------------------------------------------------------------------------------
         return HA.AsRadiansToDegrees();
     }
 
-    public static double HourAngleDawn(this DateTime dateTime, double Latitude, AT.Enums.TwilightKind Kind)
+    public static Double HourAngleDawn(this DateTime dateTime, Double Latitude, Enums.TwilightKind Kind)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        double _geometricZenith;
+        Double _geometricZenith;
         switch (Kind)
         {
-            case AT.Enums.TwilightKind.Nautical:
+            case Enums.TwilightKind.Nautical:
                 {
                     _geometricZenith = 102;
                 }
                 break;
 
-            case AT.Enums.TwilightKind.Astronomical:
+            case Enums.TwilightKind.Astronomical:
                 {
                     _geometricZenith = 108;
                 }
                 break;
 
-            case AT.Enums.TwilightKind.Civil:
+            case Enums.TwilightKind.Civil:
             default:
                 {
                     _geometricZenith = 96;
@@ -575,7 +575,7 @@ public static class Extensions : Object
         return dateTime.HourAngle(Latitude, _geometricZenith);
     }
 
-    public static double HourAngleDusk(this DateTime dateTime, double Latitude, AT.Enums.TwilightKind Kind)
+    public static Double HourAngleDusk(this DateTime dateTime, Double Latitude, Enums.TwilightKind Kind)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -583,7 +583,7 @@ public static class Extensions : Object
         return -dateTime.HourAngleDawn(Latitude, Kind);
     }
 
-    public static double HourAngleSunrise(this DateTime dateTime, double Latitude)
+    public static Double HourAngleSunrise(this DateTime dateTime, Double Latitude)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -591,7 +591,7 @@ public static class Extensions : Object
         return dateTime.HourAngle(Latitude, 90.833);
     }
 
-    public static double HourAngleSunset(this DateTime dateTime, double Latitude)
+    public static Double HourAngleSunset(this DateTime dateTime, Double Latitude)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -599,7 +599,7 @@ public static class Extensions : Object
         return -dateTime.HourAngleSunrise(Latitude);
     }
 
-    public static int LastLeapYear(this DateTime dateTime)
+    public static Int32 LastLeapYear(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -614,7 +614,7 @@ public static class Extensions : Object
         return dateTime.Year + (dateTime.IsLeapYear() ? 0 : -4);
     }
 
-    public static int LengthOfMonth(this DateTime dateTime)
+    public static Int32 LengthOfMonth(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -667,7 +667,7 @@ public static class Extensions : Object
                .ToString(formatToReturn);
     }
 
-    public static int MaxWeekNumber(this DateTime dateTime, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
+    public static Int32 MaxWeekNumber(this DateTime dateTime, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -675,7 +675,7 @@ public static class Extensions : Object
         return MaxWeekNumber(dateTime.Year, weekRule, weekStart);
     }
 
-    public static int MaxWeekNumber(int year, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
+    public static Int32 MaxWeekNumber(Int32 year, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
     {
         if (year == default)
             throw new ArgumentNullException(nameof(year));
@@ -683,7 +683,7 @@ public static class Extensions : Object
         return new System.Globalization.GregorianCalendar().GetWeekOfYear(new DateTime(year, 12, 31), weekRule, weekStart);
     }
 
-    public static int NextLeapYear(this DateTime dateTime)
+    public static Int32 NextLeapYear(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -709,7 +709,7 @@ public static class Extensions : Object
         return nullResult;
     }
 
-    public static int QuarterOfYear(this DateTime dateTime)
+    public static Int32 QuarterOfYear(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -776,13 +776,13 @@ public static class Extensions : Object
         return new Infrastructure.DateTimeRange(startDateTime, endDateTime);
     }
 
-    public static double SolarDeclination(this DateTime dateTime)
+    public static Double SolarDeclination(this DateTime dateTime)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        double h = AverageAngle * (dateTime.DayOfYear - 2);
-        double v = h + (E360OverPi * Math.Sin(h.AsDegreesToRadians()));
+        Double h = AverageAngle * (dateTime.DayOfYear - 2);
+        Double v = h + (E360OverPi * Math.Sin(h.AsDegreesToRadians()));
         // ----------------------------------------------------------------------------------------------------
         return Math.Asin((MinutesPerDegree / 10) * Math.Sin((v - VAtVernalEquinox).AsDegreesToRadians()))
                .AsRadiansToDegrees();
@@ -808,12 +808,12 @@ public static class Extensions : Object
         return result;
     }
 
-    public static DateTime UnixTimeStampToDateTime(this double unixTimeStamp)
+    public static DateTime UnixTimeStampToDateTime(this Double unixTimeStamp)
     {
         return new DateTime(_epochDateTime.AddSeconds(unixTimeStamp).ToLocalTime().Ticks);
     }
 
-    public static DateTime UnixTimeStampToDateTimeUTC(this double unixTimeStamp)
+    public static DateTime UnixTimeStampToDateTimeUTC(this Double unixTimeStamp)
     {
         return _epochDateTime.AddSeconds(unixTimeStamp);
     }
@@ -828,7 +828,7 @@ public static class Extensions : Object
         return new Infrastructure.DateTimeRange(startDateTime, endDateTime);
     }
 
-    public static int WeekNumber(this DateTime dateTime, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
+    public static Int32 WeekNumber(this DateTime dateTime, System.Globalization.CalendarWeekRule weekRule = System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek weekStart = DayOfWeek.Monday)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -836,7 +836,7 @@ public static class Extensions : Object
         return new System.Globalization.GregorianCalendar().GetWeekOfYear(dateTime, weekRule, weekStart);
     }
 
-    public static double DaysLeft(this DateTime source, DateTime target)
+    public static Double DaysLeft(this DateTime source, DateTime target)
     {
         return (target.Date - source.Date).TotalDays;
     }

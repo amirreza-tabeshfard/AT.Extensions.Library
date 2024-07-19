@@ -3,7 +3,7 @@
 namespace AT.Extensions.Chars.Collections;
 public static class Extensions : Object
 {
-    public static char[] ToArray(this String value)
+    public static Char[] ToArray(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -11,11 +11,11 @@ public static class Extensions : Object
         return value.ToCharArray();
     }
 
-    public static List<char> ToList(this String value)
+    public static List<Char> ToList(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        return new List<char>(value.ToCharArray());
+        return new List<Char>(value.ToCharArray());
     }
 }

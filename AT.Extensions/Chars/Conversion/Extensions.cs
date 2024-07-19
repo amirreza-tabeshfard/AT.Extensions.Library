@@ -3,46 +3,46 @@
 namespace AT.Extensions.Chars.Conversion;
 public static class Extensions : Object
 {
-    public static char ToChar(this String value)
+    public static Char ToChar(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        if (char.TryParse(value, out char result))
+        if (Char.TryParse(value, out Char result))
             return result;
         // ----------------------------------------------------------------------------------------------------
-        throw new InvalidCastException("The input could not be changed into a char.");
+        throw new InvalidCastException("The input could not be changed into a Char.");
     }
 
-    public static char ToLower(this char ch)
+    public static Char ToLower(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.ToLower(ch);
+        return Char.ToLower(ch);
     }
 
-    public static char ToLowerInvariant(this char ch)
+    public static Char ToLowerInvariant(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.ToLowerInvariant(ch);
+        return Char.ToLowerInvariant(ch);
     }
 
-    public static char ToUpper(this char ch)
+    public static Char ToUpper(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.ToUpper(ch);
+        return Char.ToUpper(ch);
     }
 
-    public static char ToUpperInvariant(this char ch)
+    public static Char ToUpperInvariant(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.ToUpperInvariant(ch);
+        return Char.ToUpperInvariant(ch);
     }
 }

@@ -1,10 +1,12 @@
-﻿using AT.Extensions.Strings.Comparison;
-using AT.Extensions.Strings.Conversion;
+﻿using System.Reflection;
+using System.Text;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using System.Reflection;
-using System.Text;
+
+using AT.Extensions.Strings.Comparison;
+using AT.Extensions.Strings.Conversion;
 
 namespace AT.Extensions.Strings.Collections.Generic;
 public static class Extensions : Object
@@ -44,10 +46,10 @@ public static class Extensions : Object
         return System.Text.Json.JsonSerializer.Deserialize<T>(jsonString);
     }
 
-    public static IEnumerable<TFuncResult> ForEach<TFuncResult>(this String self, Func<char, TFuncResult> function)
+    public static IEnumerable<TFuncResult> ForEach<TFuncResult>(this String self, Func<Char, TFuncResult> function)
     {
         IList<TFuncResult> items = new List<TFuncResult>();
-        foreach (char character in self)
+        foreach (Char character in self)
         {
             TFuncResult? result = function(character);
 
@@ -104,7 +106,7 @@ public static class Extensions : Object
         {
             T v;
             var p = new object[] { s, null };
-            if ((bool)mi.Invoke(null, p))
+            if ((Boolean)mi.Invoke(null, p))
                 return (T)p[1];
             else
                 return defaultValue;
@@ -119,7 +121,7 @@ public static class Extensions : Object
         }
     }
 
-    public static bool Is<TValue>(this String value)
+    public static Boolean Is<TValue>(this String value)
     {
         System.ComponentModel.TypeConverter converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(TValue));
         if (converter != null)
@@ -149,12 +151,12 @@ public static class Extensions : Object
         return JsonConvert.DeserializeObject<T>(json, settings);
     }
 
-    public static IEnumerable<T> SplitTo<T>(this String str, params char[] separator) where T : IConvertible
+    public static IEnumerable<T> SplitTo<T>(this String str, params Char[] separator) where T : IConvertible
     {
         return str.Split(separator, StringSplitOptions.None).Select(s => (T)System.Convert.ChangeType(s, typeof(T)));
     }
 
-    public static IEnumerable<T> SplitTo<T>(this String str, StringSplitOptions options, params char[] separator)
+    public static IEnumerable<T> SplitTo<T>(this String str, StringSplitOptions options, params Char[] separator)
         where T : IConvertible
     {
         return str.Split(separator, options).Select(s => (T)System.Convert.ChangeType(s, typeof(T)));
@@ -257,16 +259,16 @@ public static class Extensions : Object
         }
 
         T result;
-        bool isParsed = System.Enum.TryParse(value, true, out result);
+        Boolean isParsed = System.Enum.TryParse(value, true, out result);
         return isParsed ? result : defaultValue;
     }
 
-    public static TEnum? ToEnum<TEnum>(this String value, bool ignoreCase = false) where TEnum : struct
+    public static TEnum? ToEnum<TEnum>(this String value, Boolean ignoreCase = false) where TEnum : struct
     {
         if (!typeof(TEnum).IsEnum)
             throw new ArgumentException($"Type {nameof(TEnum)} must be of type {typeof(System.Enum).FullName}");
 
-        bool isValid = System.Enum.TryParse(value, ignoreCase, out TEnum result);
+        Boolean isValid = System.Enum.TryParse(value, ignoreCase, out TEnum result);
 
         if (!isValid)
             return null;

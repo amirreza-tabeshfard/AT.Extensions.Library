@@ -13,7 +13,7 @@ public static class Extensions : Object
         return sourceFile.CopyTo(Path.Combine(destinationDirectory.FullName, Path.GetFileName(sourceFile.Name)));
     }
 
-    public static FileInfo CopyTo(this FileInfo sourceFile, DirectoryInfo destinationDirectory, bool isOverwrite)
+    public static FileInfo CopyTo(this FileInfo sourceFile, DirectoryInfo destinationDirectory, Boolean isOverwrite)
     {
         if (sourceFile == default)
             throw new ArgumentNullException(nameof(sourceFile));
@@ -37,7 +37,7 @@ public static class Extensions : Object
         sourceFile.CopyTo(destinationFile.FullName);
     }
 
-    public static void CopyTo(this FileInfo sourceFile, FileInfo destinationFile, bool isOverwrite)
+    public static void CopyTo(this FileInfo sourceFile, FileInfo destinationFile, Boolean isOverwrite)
     {
         if (sourceFile == default)
             throw new ArgumentNullException(nameof(sourceFile));
@@ -47,7 +47,7 @@ public static class Extensions : Object
         sourceFile.CopyTo(destinationFile.FullName, isOverwrite);
     }
 
-    public static Task CopyToAsync(this Stream input, Stream output, int bufferLength = 0x1000, CancellationToken cancel = default)
+    public static Task CopyToAsync(this Stream input, Stream output, Int32 bufferLength = 0x1000, CancellationToken cancel = default)
     {
         return bufferLength < 1
                ? throw new ArgumentOutOfRangeException(nameof(bufferLength), "Copy buffer length less than one byte")
@@ -71,8 +71,8 @@ public static class Extensions : Object
         else if (buffer.Length == 0)
             throw new ArgumentException("Copy buffer size is 0", nameof(buffer));
         // ----------------------------------------------------------------------------------------------------
-        int bufferLength = buffer.Length;
-        int readed;
+        Int32 bufferLength = buffer.Length;
+        Int32 readed;
         do
         {
             Cancel.ThrowIfCancellationRequested();
@@ -84,7 +84,7 @@ public static class Extensions : Object
         } while (readed > 0);
     }
 
-    public static async Task CopyToAsync(this Stream input, Stream output, byte[] buffer, long length, IProgress<double>? progress = null, CancellationToken cancel = default)
+    public static async Task CopyToAsync(this Stream input, Stream output, byte[] buffer, Int64 length, IProgress<Double>? progress = null, CancellationToken cancel = default)
     {
         if (input == default)
             throw new ArgumentNullException(nameof(input));
@@ -101,14 +101,14 @@ public static class Extensions : Object
         else if (buffer.Length == 0)
             throw new ArgumentException("Copy buffer size is 0", nameof(buffer));
         // ----------------------------------------------------------------------------------------------------
-        int readed;
-        int totalReaded = 0;
-        double lastPercent = 0d;
+        Int32 readed;
+        Int32 totalReaded = 0;
+        Double lastPercent = 0d;
         do
         {
             cancel.ThrowIfCancellationRequested();
             readed = await input
-                     .ReadAsync(buffer, 0, (int)Math.Min(buffer.Length, length - totalReaded), cancel)
+                     .ReadAsync(buffer, 0, (Int32)Math.Min(buffer.Length, length - totalReaded), cancel)
                      .ConfigureAwait(false);
 
             if (readed == 0)
@@ -117,7 +117,7 @@ public static class Extensions : Object
             totalReaded += readed;
             cancel.ThrowIfCancellationRequested();
             await output.WriteAsync(buffer, 0, readed, cancel).ConfigureAwait(false);
-            double percent = (double)totalReaded / length;
+            Double percent = (Double)totalReaded / length;
             if (percent - lastPercent >= 0.01)
                 progress?.Report(lastPercent = percent);
         } while (readed > 0 && totalReaded < length);

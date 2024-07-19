@@ -7,7 +7,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
 
     public readonly DateTime End;
 
-    public readonly bool IsMoment;
+    public readonly Boolean IsMoment;
 
     #endregion
 
@@ -91,35 +91,35 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
 
     #region Method(s)
 
-    public static DateTimeRange FromSecond(int year, int month, int day, int hour, int minute, int second)
+    public static DateTimeRange FromSecond(Int32 year, Int32 month, Int32 day, Int32 hour, Int32 minute, Int32 second)
     {
         var start = new DateTime(year, month, day, hour, minute, second);
         var range = new DateTimeRange(start, EndOfSecond(start));
         return range;
     }
 
-    public static DateTimeRange FromMinute(int year, int month, int day, int hour, int minute)
+    public static DateTimeRange FromMinute(Int32 year, Int32 month, Int32 day, Int32 hour, Int32 minute)
     {
         var start = new DateTime(year, month, day, hour, minute, 0);
         var range = new DateTimeRange(start, EndOfMinute(start));
         return range;
     }
 
-    public static DateTimeRange FromHour(int year, int month, int day, int hour)
+    public static DateTimeRange FromHour(Int32 year, Int32 month, Int32 day, Int32 hour)
     {
         var start = new DateTime(year, month, day, hour, 0, 0);
         var range = new DateTimeRange(start, EndOfMinute(start));
         return range;
     }
 
-    public static DateTimeRange FromDate(int year, int month, int day)
+    public static DateTimeRange FromDate(Int32 year, Int32 month, Int32 day)
     {
         var start = new DateTime(year, month, day);
         var range = new DateTimeRange(start, EndOfTheDay(start));
         return range;
     }
 
-    public static DateTimeRange FromMonth(int year, int month)
+    public static DateTimeRange FromMonth(Int32 year, Int32 month)
     {
         var start = new DateTime(year, month, 1);
         var range = new DateTimeRange(
@@ -128,7 +128,7 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
         return range;
     }
 
-    public static DateTimeRange FromYear(int year)
+    public static DateTimeRange FromYear(Int32 year)
     {
         var range = new DateTimeRange(
             new DateTime(year, 1, 1),
@@ -136,22 +136,22 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
         return range;
     }
 
-    public bool Contains(DateTime moment)
+    public Boolean Contains(DateTime moment)
     {
         return this.Start <= moment && this.End >= moment;
     }
 
-    public bool Contains(DateTimeRange that)
+    public Boolean Contains(DateTimeRange that)
     {
         return this.Start <= that.Start && this.End >= that.End;
     }
 
-    public bool Intersects(DateTimeRange that)
+    public Boolean Intersects(DateTimeRange that)
     {
         return this.Start <= that.End && this.End >= that.Start;
     }
 
-    public bool Equals(DateTimeRange other)
+    public Boolean Equals(DateTimeRange other)
     {
         return this.Start == other.Start &&
             this.End == other.End;
@@ -161,12 +161,12 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
 
     #region Operator(s)
 
-    public static bool operator ==(DateTimeRange r1, DateTimeRange r2)
+    public static Boolean operator ==(DateTimeRange r1, DateTimeRange r2)
     {
         return r1.Equals(r2);
     }
 
-    public static bool operator !=(DateTimeRange r1, DateTimeRange r2)
+    public static Boolean operator !=(DateTimeRange r1, DateTimeRange r2)
     {
         return !r1.Equals(r2);
     }
@@ -175,12 +175,12 @@ public struct DateTimeRange : IEquatable<DateTimeRange>
 
     #region Override(s)
 
-    public override bool Equals(object obj)
+    public override Boolean Equals(object obj)
     {
         return obj is DateTimeRange range && this.Equals(range);
     }
 
-    public override int GetHashCode()
+    public override Int32 GetHashCode()
     {
         return (13 * this.Start.GetHashCode()) + this.End.GetHashCode();
     }

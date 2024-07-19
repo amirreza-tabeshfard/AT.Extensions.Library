@@ -10,12 +10,12 @@ public static class CultureInfoData : Object
 
     public static (System.Globalization.CultureInfo? info, CultureData? data) InfoData;
 
-    public static bool InitializeCultureData(System.Globalization.CultureInfo culture)
+    public static Boolean InitializeCultureData(System.Globalization.CultureInfo culture)
     {
         if (Equals(InfoData.info, culture))
             return true;
 
-        bool succeeded = false;
+        Boolean succeeded = false;
 
         try
         {

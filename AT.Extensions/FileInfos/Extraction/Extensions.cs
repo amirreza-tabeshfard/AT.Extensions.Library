@@ -7,7 +7,7 @@ public static class Extensions : Object
 {
     #region Field(s)
 
-    private static readonly HashSet<char> _NotValidPathChars;
+    private static readonly HashSet<Char> _NotValidPathChars;
 
     #endregion
 
@@ -61,15 +61,15 @@ public static class Extensions : Object
         return Path.GetFileNameWithoutExtension(file.Name);
     }
 
-    public static long GetFileSize(this String filePath)
+    public static Int64 GetFileSize(this String filePath)
     {
         if (filePath.IsNullOrEmpty() || filePath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(filePath));
         // ----------------------------------------------------------------------------------------------------
-        long result = default;
+        Int64 result = default;
         FileInfo? fileInfo = default;
         // ---------------------------------------------------
-        if (filePath.IsFileExists() is default(bool))
+        if (filePath.IsFileExists() is default(Boolean))
             result = -1;
         else
             fileInfo = new FileInfo(filePath);
@@ -93,7 +93,7 @@ public static class Extensions : Object
         // ----------------------------------------------------------------------------------------------------
         String? result = default;
         HashSet<String> hashSetNames = new(names);
-        for (int i = 1; hashSetNames.Contains(name); i++)
+        for (Int32 i = 1; hashSetNames.Contains(name); i++)
             result = String.Format(pattern, name, i);
         // ----------------------------------------------------------------------------------------------------
         return result;
@@ -117,7 +117,7 @@ public static class Extensions : Object
         return Path.Combine(file.Directory!.FullName, file.GetFileNameWithoutExtension());
     }
 
-    public static String GetValidFileName(this String Name, char replacementSymbol = '_')
+    public static String GetValidFileName(this String Name, Char replacementSymbol = '_')
     {
         if (String.IsNullOrWhiteSpace(Name))
             return "new_file";

@@ -4,9 +4,9 @@ using AT.Extensions.Strings.Conversion;
 namespace AT.Extensions.Strings.Extraction;
 public static class VoidExtensions : Object
 {
-    public static void ForEach(this String self, Action<char> action)
+    public static void ForEach(this String self, Action<Char> action)
     {
-        foreach (char character in self)
+        foreach (Char character in self)
             action(character);
     }
 
@@ -70,11 +70,11 @@ public static class VoidExtensions : Object
 
     public static void ToMorseCodeSound(this String str)
     {
-        int freq = 500;
-        int timeUnitMs = 100;
+        Int32 freq = 500;
+        Int32 timeUnitMs = 100;
         System.Diagnostics.Stopwatch sw = new();
 
-        foreach (char c in str.ToMorseCode(false))
+        foreach (Char c in str.ToMorseCode(false))
         {
             if (c == '.')
             {

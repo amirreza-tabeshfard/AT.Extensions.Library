@@ -1,44 +1,44 @@
 ﻿namespace AT.Extensions.Chars.Comparison;
 public static class Extensions : Object
 {
-    public static bool IsDigit(this char ch)
+    public static Boolean IsDigit(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.IsDigit(ch);
+        return Char.IsDigit(ch);
     }
 
-    public static bool IsLetter(this char ch)
+    public static Boolean IsLetter(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.IsLetter(ch);
+        return Char.IsLetter(ch);
     }
 
-    public static bool IsLetterOrDigit(this char ch)
+    public static Boolean IsLetterOrDigit(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.IsLetterOrDigit(ch);
+        return Char.IsLetterOrDigit(ch);
     }
 
-    public static bool IsLower(this char ch)
+    public static Boolean IsLower(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.IsLower(ch);
+        return Char.IsLower(ch);
     }
 
-    public static bool IsNumeric(this char ch)
+    public static Boolean IsNumeric(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        bool result = default;
+        Boolean result = default;
         // ----------------------------------------------------------------------------------------------------
         if (ch.IsDigit())
             result = true;
@@ -49,31 +49,31 @@ public static class Extensions : Object
         return result;
     }
 
-    public static bool IsPunctuation(this char ch)
+    public static Boolean IsPunctuation(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.IsPunctuation(ch);
+        return Char.IsPunctuation(ch);
     }
 
-    public static bool IsSymbol(this char ch)
+    public static Boolean IsSymbol(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.IsSymbol(ch);
+        return Char.IsSymbol(ch);
     }
 
-    public static bool IsUpper(this char ch)
+    public static Boolean IsUpper(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.IsUpper(ch);
+        return Char.IsUpper(ch);
     }
 
-    public static bool? IsVowel(this char ch)
+    public static Boolean? IsVowel(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
@@ -86,11 +86,11 @@ public static class Extensions : Object
         };
     }
 
-    public static bool IsWhiteSpace(this char ch)
+    public static Boolean IsWhiteSpace(this Char ch)
     {
         if (ch == default)
             throw new ArgumentNullException(nameof(ch));
         // ----------------------------------------------------------------------------------------------------
-        return char.IsWhiteSpace(ch);
+        return Char.IsWhiteSpace(ch);
     }
 }

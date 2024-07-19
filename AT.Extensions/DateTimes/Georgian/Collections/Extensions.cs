@@ -9,11 +9,11 @@ public static class Extensions : Object
 {
     #region Field(s)
 
-    private static readonly Dictionary<int, IReadOnlyCollection<DateTime>>? _holidaysCache = default;
+    private static readonly Dictionary<Int32, IReadOnlyCollection<DateTime>>? _holidaysCache = default;
 
     private const String FromToDatesSeparator = ">";
-    private const char NegativeBit = '0';
-    private const char PositiveBit = '1';
+    private const Char NegativeBit = '0';
+    private const Char PositiveBit = '1';
 
     private static readonly String[] fromToDatesSeparators = new String[] { FromToDatesSeparator };
 
@@ -57,13 +57,13 @@ public static class Extensions : Object
         }
     }
 
-    private static IEnumerable<int> GetBits(this String bitMask, char positiveBit = PositiveBit)
+    private static IEnumerable<Int32> GetBits(this String bitMask, Char positiveBit = PositiveBit)
     {
         if (bitMask?.Any() ?? false)
         {
-            char[] bits = bitMask.ToCharArray();
+            Char[] bits = bitMask.ToCharArray();
 
-            for (int i = 0; i < bits.Length; i++)
+            for (Int32 i = 0; i < bits.Length; i++)
                 if (bits[i] == positiveBit)
                     yield return i;
         }
@@ -71,7 +71,7 @@ public static class Extensions : Object
 
     #endregion
 
-    public static IReadOnlyCollection<DateTime>? AllHolidays(this int year)
+    public static IReadOnlyCollection<DateTime>? AllHolidays(this Int32 year)
     {
         if (_holidaysCache is not null)
             if (!_holidaysCache.ContainsKey(year))
@@ -97,7 +97,7 @@ public static class Extensions : Object
         return default;
     }
 
-    public static IEnumerable<DateTime> GenerateBusinessDaysList(this DateTime fisrtDateTime, DateTime lastDateTime, IEnumerable<DateTime> holidays, List<int> weekends)
+    public static IEnumerable<DateTime> GenerateBusinessDaysList(this DateTime fisrtDateTime, DateTime lastDateTime, IEnumerable<DateTime> holidays, List<Int32> weekends)
     {
         if (fisrtDateTime == default)
             throw new ArgumentNullException(nameof(fisrtDateTime));
@@ -108,13 +108,13 @@ public static class Extensions : Object
         // ----------------------------------------------------------------------------------------------------
         List<DateTime> result = GenerateDateList(fisrtDateTime, lastDateTime).ToList();
         // ----------------------------------------------------------------------------------------------------
-        foreach (int d in weekends)
-            for (int i = 0; i < result.Count; i++)
-                if ((int)result[i].DayOfWeek == d)
+        foreach (Int32 d in weekends)
+            for (Int32 i = 0; i < result.Count; i++)
+                if ((Int32)result[i].DayOfWeek == d)
                     result.RemoveAt(i);
 
         foreach (DateTime d in holidays)
-            for (int i = 0; i < result.Count; i++)
+            for (Int32 i = 0; i < result.Count; i++)
                 if (result[i] == d)
                     result.RemoveAt(i);
         // ----------------------------------------------------------------------------------------------------
@@ -138,12 +138,12 @@ public static class Extensions : Object
         return result;
     }
 
-    public static List<int>? GetCalendarChangedList(this DateTime dateTime, AT.Enums.CalendarFormat format)
+    public static List<Int32>? GetCalendarChangedList(this DateTime dateTime, AT.Enums.CalendarFormat format)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         // ----------------------------------------------------------------------------------------------------
-        List<int>? result = default;
+        List<Int32>? result = default;
         System.Globalization.Calendar? calendar = default;
         switch (format)
         {
@@ -166,7 +166,7 @@ public static class Extensions : Object
         if (calendar is not null)
         {
             result = new();
-            result.AddRange(new int[] {
+            result.AddRange(new Int32[] {
                     calendar.GetYear(dateTime),
                     calendar.GetMonth(dateTime),
                     calendar.GetDayOfMonth(dateTime)
@@ -183,8 +183,8 @@ public static class Extensions : Object
         // ----------------------------------------------------------------------------------------------------
         DateTime datePointer = dateTime.AddDays(-8);
 
-        int datePointerWeekNo = datePointer.WeekNumber(weekRule, weekStart);
-        int weekNo = dateTime.WeekNumber(weekRule, weekStart);
+        Int32 datePointerWeekNo = datePointer.WeekNumber(weekRule, weekStart);
+        Int32 weekNo = dateTime.WeekNumber(weekRule, weekStart);
 
         while (datePointerWeekNo <= weekNo)
         {
@@ -203,9 +203,9 @@ public static class Extensions : Object
         else if (toDate == default)
             throw new ArgumentNullException(nameof(toDate));
         // ----------------------------------------------------------------------------------------------------
-        IEnumerable<int> range = Enumerable.Range(start: 0, count: new TimeSpan(ticks: toDate.Ticks - self.Ticks).Days);
+        IEnumerable<Int32> range = Enumerable.Range(start: 0, count: new TimeSpan(ticks: toDate.Ticks - self.Ticks).Days);
 
-        foreach (int p in range)
+        foreach (Int32 p in range)
             yield return self.Date.AddDays(p);
     }
 
@@ -224,12 +224,12 @@ public static class Extensions : Object
                 yield return date;
     }
 
-    public static IEnumerable<DateTime> GetDates(this String bitMask, DateTime startDate, DateTime? endDate = default, char positiveBit = PositiveBit)
+    public static IEnumerable<DateTime> GetDates(this String bitMask, DateTime startDate, DateTime? endDate = default, Char positiveBit = PositiveBit)
     {
         if (startDate == default)
             throw new ArgumentNullException(nameof(startDate));
         // ----------------------------------------------------------------------------------------------------
-        int[]? bits = default;
+        Int32[]? bits = default;
 
         if (!bitMask.IsNullOrEmpty() || !bitMask.IsNullOrWhiteSpace())
             bits = bitMask?.GetBits(positiveBit: positiveBit)
@@ -242,7 +242,7 @@ public static class Extensions : Object
 
             do
             {
-                foreach (int bit in bits)
+                foreach (Int32 bit in bits)
                 {
                     DateTime result = startDate.AddDays(bit);
 
@@ -282,7 +282,7 @@ public static class Extensions : Object
         return result ?? Enumerable.Empty<DateTime>();
     }
 
-    public static IEnumerable<DateTime> GetShifted(this IEnumerable<DateTime> dates, int shift)
+    public static IEnumerable<DateTime> GetShifted(this IEnumerable<DateTime> dates, Int32 shift)
     {
         if (dates is not null)
             if (dates?.Any() ?? false)

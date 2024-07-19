@@ -21,12 +21,12 @@ public static class Extensions
 
     #endregion
 
-    public static bool IsDirectoryExists(this String path)
+    public static Boolean IsDirectoryExists(this String path)
     {
         if (path.IsNullOrEmpty() || path.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(path));
         // ----------------------------------------------------------------------------------------------------
-        bool result = default;    
+        Boolean result = default;    
         // ----------------------------------------------------------------------------------------------------
         if (Directory.Exists(path))
             result = true;
@@ -34,7 +34,7 @@ public static class Extensions
         return result;
     }
 
-    public static bool IsDirectoryHaveLockFile(this DirectoryInfo target)
+    public static Boolean IsDirectoryHaveLockFile(this DirectoryInfo target)
     {
         if (target == default)
             throw new ArgumentNullException(nameof(target));
@@ -47,7 +47,7 @@ public static class Extensions
                .Any(d => d.IsLockFileInDirectory());
     }
 
-    public static bool IsLockFileInDirectory(this DirectoryInfo directory)
+    public static Boolean IsLockFileInDirectory(this DirectoryInfo directory)
     {
         if (directory == default)
             throw new ArgumentNullException(nameof(directory));

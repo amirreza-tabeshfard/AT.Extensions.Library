@@ -13,7 +13,7 @@ public static class Extensions : Object
 
     #endregion
 
-    public static System.Diagnostics.Process? ExecuteAsAdmin(this FileInfo file, String args = "", bool isUseShellExecute = true)
+    public static System.Diagnostics.Process? ExecuteAsAdmin(this FileInfo file, String args = "", Boolean isUseShellExecute = true)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -21,7 +21,7 @@ public static class Extensions : Object
         return file.Execute(args, isUseShellExecute, "runas");
     }
 
-    public static System.Diagnostics.Process? Execute(this FileInfo file, String args, bool isUseShellExecute, String verb)
+    public static System.Diagnostics.Process? Execute(this FileInfo file, String args, Boolean isUseShellExecute, String verb)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -33,7 +33,7 @@ public static class Extensions : Object
         });
     }
 
-    public static System.Diagnostics.Process Execute(this String file, String args = "", bool isUseShellExecute = true)
+    public static System.Diagnostics.Process Execute(this String file, String args = "", Boolean isUseShellExecute = true)
     {
         if (file.IsNullOrEmpty() || file.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(file));
@@ -41,7 +41,7 @@ public static class Extensions : Object
         return System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(file, args) { UseShellExecute = isUseShellExecute }).NotNull();
     }
 
-    public static System.Diagnostics.Process Execute(this FileInfo file, String args = "", bool isUseShellExecute = true)
+    public static System.Diagnostics.Process Execute(this FileInfo file, String args = "", Boolean isUseShellExecute = true)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));

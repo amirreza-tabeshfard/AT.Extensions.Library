@@ -1,7 +1,7 @@
 ﻿namespace AT.Extensions.DateTimes.Persian;
 public static class Extensions : object
 {
-    public static String GetPersianAge(this DateTime birthDate, out int day, out int month, out int year, out int week)
+    public static String GetPersianAge(this DateTime birthDate, out Int32 day, out Int32 month, out Int32 year, out Int32 week)
     {
         String result = String.Empty;
         TimeSpan x = DateTime.Now - birthDate;
@@ -34,16 +34,16 @@ public static class Extensions : object
         TimeSpan x = DateTime.Now - birthDate;
         DateTime dateTime = DateTime.MinValue + x;
 
-        int year = dateTime.Year - 1;
-        int month = dateTime.Month - 1;
-        int day = dateTime.Day - 1;
-        int week = day / 7;
+        Int32 year = dateTime.Year - 1;
+        Int32 month = dateTime.Month - 1;
+        Int32 day = dateTime.Day - 1;
+        Int32 week = day / 7;
 
         day = day % 7;
 
-        int hour = dateTime.Hour;
-        int minute = dateTime.Minute;
-        int second = dateTime.Second;
+        Int32 hour = dateTime.Hour;
+        Int32 minute = dateTime.Minute;
+        Int32 second = dateTime.Second;
 
         if (year != 0)
             result += $"{year} سال ";
@@ -72,18 +72,18 @@ public static class Extensions : object
     public static String ToPersianDateYMD(this DateTime date)
     {
         System.Globalization.PersianCalendar persianCalendar = new System.Globalization.PersianCalendar();
-        int intYear = persianCalendar.GetYear(date);
-        int intMonth = persianCalendar.GetMonth(date);
-        int intDay = persianCalendar.GetDayOfMonth(date);
+        Int32 intYear = persianCalendar.GetYear(date);
+        Int32 intMonth = persianCalendar.GetMonth(date);
+        Int32 intDay = persianCalendar.GetDayOfMonth(date);
         return intYear.ToString() + "/" + intMonth.ToString() + "/" + intDay.ToString();
     }
 
     public static String ToPersianDateDMY(this DateTime date)
     {
         System.Globalization.PersianCalendar PC = new System.Globalization.PersianCalendar();
-        int intYear = PC.GetYear(date);
-        int intMonth = PC.GetMonth(date);
-        int intDay = PC.GetDayOfMonth(date);
+        Int32 intYear = PC.GetYear(date);
+        Int32 intMonth = PC.GetMonth(date);
+        Int32 intDay = PC.GetDayOfMonth(date);
         return intDay.ToString() + "/" + intMonth.ToString() + "/" + intYear.ToString();
     }
 
@@ -92,9 +92,9 @@ public static class Extensions : object
         if (date != default)
         {
             System.Globalization.PersianCalendar PC = new System.Globalization.PersianCalendar();
-            int intYear = PC.GetYear(date);
-            int intMonth = PC.GetMonth(date);
-            int intDayOfMonth = PC.GetDayOfMonth(date);
+            Int32 intYear = PC.GetYear(date);
+            Int32 intMonth = PC.GetMonth(date);
+            Int32 intDayOfMonth = PC.GetDayOfMonth(date);
             DayOfWeek enDayOfWeek = PC.GetDayOfWeek(date);
             String monthName, dayName;
 

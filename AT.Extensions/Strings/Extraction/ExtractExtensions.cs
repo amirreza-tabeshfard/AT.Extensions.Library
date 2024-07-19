@@ -3,7 +3,7 @@
 namespace AT.Extensions.Strings.Extraction;
 public static class ExtractExtensions : Object
 {
-    public static int? ExtractFirstInt(this String? value)
+    public static Int32? ExtractFirstInt(this String? value)
     {
         if (value == default)
             return null;

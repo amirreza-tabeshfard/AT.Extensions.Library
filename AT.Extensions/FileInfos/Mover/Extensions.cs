@@ -21,7 +21,7 @@ public static class Extensions : Object
         return new(Path.ChangeExtension(file.ParamNotNull(nameof(file)).FullName, extension));
     }
 
-    public static FileInfo MoveTo(this FileInfo sourceFile, FileInfo destinationFile, bool isOverride = true)
+    public static FileInfo MoveTo(this FileInfo sourceFile, FileInfo destinationFile, Boolean isOverride = true)
     {
         if (sourceFile == default)
             throw new ArgumentNullException(nameof(sourceFile));
@@ -40,7 +40,7 @@ public static class Extensions : Object
         return destinationFile;
     }
 
-    public static FileInfo MoveTo(this FileInfo sourceFile, DirectoryInfo destinationInfo, bool isOverride = false)
+    public static FileInfo MoveTo(this FileInfo sourceFile, DirectoryInfo destinationInfo, Boolean isOverride = false)
     {
         if (sourceFile == default)
             throw new ArgumentNullException(nameof(sourceFile));

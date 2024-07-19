@@ -7,7 +7,7 @@ public static class Extensions : Object
 {
     #region Method(s): Private
 
-    private static char LastImpl(String source, Func<char, bool> predicate, bool throwExceptionOnEmptyOrNotFound)
+    private static Char LastImpl(String source, Func<Char, Boolean> predicate, Boolean throwExceptionOnEmptyOrNotFound)
     {
         if (source.IsNullOrEmpty() || source.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(source));
@@ -20,8 +20,8 @@ public static class Extensions : Object
             return default;
         }
         // ----------------------------------------------------------------------------------------------------
-        char[] chars = source.ToCharArray();
-        int count = source.Length;
+        Char[] chars = source.ToCharArray();
+        Int32 count = source.Length;
         while (count-- > 0)
         {
             if (predicate(chars[count]))
@@ -36,7 +36,7 @@ public static class Extensions : Object
 
     #endregion
 
-    public static char? FirstLetter(this String value)
+    public static Char? FirstLetter(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -48,7 +48,7 @@ public static class Extensions : Object
         return default;
     }
 
-    public static char GetElementAt(this String value, int index)
+    public static Char GetElementAt(this String value, Int32 index)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -58,7 +58,7 @@ public static class Extensions : Object
         return value[index];
     }
 
-    public static char GetElementAtOrDefault(this String value, int index)
+    public static Char GetElementAtOrDefault(this String value, Int32 index)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -69,7 +69,7 @@ public static class Extensions : Object
         return value[index];
     }
 
-    public static char GetFirst(this String value)
+    public static Char GetFirst(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -79,7 +79,7 @@ public static class Extensions : Object
         return value[0];
     }
 
-    public static char GetFirstOrDefault(this String value)
+    public static Char GetFirstOrDefault(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -87,7 +87,7 @@ public static class Extensions : Object
         return value.Length == 0 ? default : value[0];
     }
 
-    public static char GetLast(this String value)
+    public static Char GetLast(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -97,7 +97,7 @@ public static class Extensions : Object
         return value[value.Length - 1];
     }
 
-    public static char GetLast(this String value, Func<char, bool> predicate)
+    public static Char GetLast(this String value, Func<Char, Boolean> predicate)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -106,7 +106,7 @@ public static class Extensions : Object
         return LastImpl(value, predicate, true);
     }
 
-    public static char GetLastOrDefault(this String value)
+    public static Char GetLastOrDefault(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -114,7 +114,7 @@ public static class Extensions : Object
         return value.Length == 0 ? default : value[value.Length - 1];
     }
 
-    public static char GetLastOrDefault(this String value, Func<char, bool> predicate)
+    public static Char GetLastOrDefault(this String value, Func<Char, Boolean> predicate)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -123,7 +123,7 @@ public static class Extensions : Object
         return LastImpl(value, predicate, false);
     }
 
-    public static char? LastLetter(this String value)
+    public static Char? LastLetter(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));

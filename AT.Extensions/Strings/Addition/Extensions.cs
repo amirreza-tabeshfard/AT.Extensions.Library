@@ -4,7 +4,7 @@ using AT.Extensions.Strings.Comparison;
 namespace AT.Extensions.Strings.Addition;
 public static class Extensions : Object
 {
-    public static String? AddWhitespaceLeft(this String value, int length)
+    public static String? AddWhitespaceLeft(this String value, Int32 length)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -14,7 +14,7 @@ public static class Extensions : Object
         return String.Concat(new String(' ', length), value);
     }
 
-    public static String? AddWhitespaceRight(this String value, int length)
+    public static String? AddWhitespaceRight(this String value, Int32 length)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -24,7 +24,7 @@ public static class Extensions : Object
         return String.Concat(value, new String(' ', length));
     }
 
-    public static String Append(this String self, IEnumerable<String> lines, bool asAppendLine = false, bool appendWithWhiteSpace = false)
+    public static String Append(this String self, IEnumerable<String> lines, Boolean asAppendLine = false, Boolean appendWithWhiteSpace = false)
     {
         System.Text.StringBuilder builder = new();
 
@@ -59,7 +59,7 @@ public static class Extensions : Object
         return builder.ToString();
     }
 
-    public static String AppendIf(this String str, bool condition, String appendMe)
+    public static String AppendIf(this String str, Boolean condition, String appendMe)
     {
         if (condition)
         {
@@ -76,7 +76,7 @@ public static class Extensions : Object
         return Path.Combine(parts);
     }
 
-    public static String AppendPrefixIfMissing(this String value, String prefix, bool ignoreCase = true)
+    public static String AppendPrefixIfMissing(this String value, String prefix, Boolean ignoreCase = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -87,7 +87,7 @@ public static class Extensions : Object
         return prefix + value;
     }
 
-    public static String AppendSuffixIfMissing(this String value, String suffix, bool ignoreCase = true)
+    public static String AppendSuffixIfMissing(this String value, String suffix, Boolean ignoreCase = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -148,7 +148,7 @@ public static class Extensions : Object
         return sb.ToString();
     }
 
-    public static String CreateParameters(this String value, bool useOr)
+    public static String CreateParameters(this String value, Boolean useOr)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -159,7 +159,7 @@ public static class Extensions : Object
         if (searchParamters == default)
             return @params.ToString();
 
-        for (int i = 0; i <= searchParamters.Count() - 1; i++)
+        for (Int32 i = 0; i <= searchParamters.Count() - 1; i++)
         {
             String key = searchParamters.Keys.ElementAt(i);
             String val = (String)searchParamters[key];
@@ -181,27 +181,27 @@ public static class Extensions : Object
     {
         System.Text.StringBuilder builder = new(s.Length * 2);
 
-        bool lastIsUpper = false;
-        bool lastIsWhitespace = false;
+        Boolean lastIsUpper = false;
+        Boolean lastIsWhitespace = false;
 
-        for (int i = 0; i < s.Length; i++)
+        for (Int32 i = 0; i < s.Length; i++)
         {
-            char c = s[i];
-            bool isUpper = char.IsUpper(c);
-            bool nextIsLower = i + 1 < s.Length && char.IsLower(s[i + 1]);
+            Char c = s[i];
+            Boolean isUpper = Char.IsUpper(c);
+            Boolean nextIsLower = i + 1 < s.Length && Char.IsLower(s[i + 1]);
 
             if (isUpper && builder.Length > 0 && (!lastIsUpper || nextIsLower) && !lastIsWhitespace)
                 builder.Append(' ');
 
             builder.Append(c);
             lastIsUpper = isUpper;
-            lastIsWhitespace = char.IsWhiteSpace(c);
+            lastIsWhitespace = Char.IsWhiteSpace(c);
         }
 
         return builder.ToString();
     }
 
-    public static String InsertIntoEachLine(this String input, int startIndex, String value)
+    public static String InsertIntoEachLine(this String input, Int32 startIndex, String value)
     {
         String[] delims = { Environment.NewLine };
         var parts = input.Split(delims, StringSplitOptions.None);

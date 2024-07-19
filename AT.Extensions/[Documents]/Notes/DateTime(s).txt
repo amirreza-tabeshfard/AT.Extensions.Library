@@ -8,7 +8,7 @@ Here are 50 possible categories for the methods of the DateTimeExtensions class,
 
 •  Formatting methods: These are methods that return a String representation of a date, using a predefined or custom format. For example, ToShortDateString, ToLongTimeString, ToCustomFormat, etc.
 
-•  Comparison methods: These are methods that compare two dates and return a bool or int value, indicating whether they are equal, greater, or less than each other. For example, IsSameDay, IsLeapYear, CompareTo, etc.
+•  Comparison methods: These are methods that compare two dates and return a Boolean or Int32 value, indicating whether they are equal, greater, or less than each other. For example, IsSameDay, IsLeapYear, CompareTo, etc.
 
 •  Conversion methods: These are methods that convert a date to a different time zone, culture, or calendar. For example, ToLocalTime, ToUniversalTime, ToTimeZone, ToGregorianCalendar, etc.
 

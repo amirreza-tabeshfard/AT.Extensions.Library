@@ -1,13 +1,12 @@
 ﻿using AT.Extensions.Strings.Comparison;
 using AT.Extensions.Strings.Extraction;
-using Newtonsoft.Json.Linq;
 
 namespace AT.Extensions.Strings.Collections;
 public static class Extensions : Object
 {
     #region Field(s)
 
-    private static readonly Dictionary<char, byte> CharToNibbleMapping = new Dictionary<char, byte>
+    private static readonly Dictionary<Char, byte> CharToNibbleMapping = new Dictionary<Char, byte>
         {
             { '0', 0 }, { '1', 1 }, { '2', 2 }, { '3', 3 }, { '4', 4 }, { '5', 5 }, { '6', 6 }, { '7', 7 }, { '8', 8 }, { '9', 9 },
             { 'A', 10 }, { 'a', 10}, { 'B', 11 }, { 'b', 11 }, { 'C', 12 }, { 'c', 12 }, { 'D', 13 }, { 'd', 13 }, { 'E', 14 }, { 'e', 14 }, { 'F', 15 }, { 'f', 15 }
@@ -17,19 +16,19 @@ public static class Extensions : Object
 
     #region Method(s): Private
 
-    private static AT.Infrastructure.TextElementSegment CreateSegment(int offset, int length)
+    private static AT.Infrastructure.TextElementSegment CreateSegment(Int32 offset, Int32 length)
     {
         return new AT.Infrastructure.TextElementSegment(offset, length);
     }
 
     #endregion
 
-    public static IEnumerable<String> AllBetween(this String input, char enclosureCharacter)
+    public static IEnumerable<String> AllBetween(this String input, Char enclosureCharacter)
     {
         return AllBetween(input, enclosureCharacter, enclosureCharacter);
     }
 
-    public static IEnumerable<String> AllBetween(this String input, char firstEnclosureCharacter, char secondEnclosureCharacter)
+    public static IEnumerable<String> AllBetween(this String input, Char firstEnclosureCharacter, Char secondEnclosureCharacter)
     {
         if (input == default)
             throw new ArgumentNullException("input");
@@ -60,18 +59,18 @@ public static class Extensions : Object
         return AllBetweenImpl(input, firstEnclosure, secondEnclosure, comparisonType);
     }
 
-    private static IEnumerable<String> AllBetweenCore(this String input, char firstEnclosureCharacter, char secondEnclosureCharacter)
+    private static IEnumerable<String> AllBetweenCore(this String input, Char firstEnclosureCharacter, Char secondEnclosureCharacter)
     {
-        int firstEnclosureCharacterIndex = input.IndexOf(firstEnclosureCharacter);
+        Int32 firstEnclosureCharacterIndex = input.IndexOf(firstEnclosureCharacter);
         while (firstEnclosureCharacterIndex != -1 && firstEnclosureCharacterIndex < input.Length - 1)
         {
-            int firstAdjustedIndex = firstEnclosureCharacterIndex + 1;
-            int secondEnclosureCharacterIndex = input.IndexOf(secondEnclosureCharacter, firstAdjustedIndex);
+            Int32 firstAdjustedIndex = firstEnclosureCharacterIndex + 1;
+            Int32 secondEnclosureCharacterIndex = input.IndexOf(secondEnclosureCharacter, firstAdjustedIndex);
             if (secondEnclosureCharacterIndex == -1)
                 break;
             else
             {
-                int length = secondEnclosureCharacterIndex - firstAdjustedIndex;
+                Int32 length = secondEnclosureCharacterIndex - firstAdjustedIndex;
 
                 String part = input.Substring(firstAdjustedIndex, length);
 
@@ -84,18 +83,18 @@ public static class Extensions : Object
 
     private static IEnumerable<String> AllBetweenImpl(this String input, String firstEnclosure, String secondEnclosure, StringComparison comparisonType)
     {
-        int firstEnclosureIndex = input.IndexOf(firstEnclosure, comparisonType);
+        Int32 firstEnclosureIndex = input.IndexOf(firstEnclosure, comparisonType);
         while (firstEnclosureIndex != -1 && firstEnclosureIndex + firstEnclosure.Length < input.Length)
         {
-            int firstAdjustedIndex = firstEnclosureIndex + firstEnclosure.Length;
-            int secondEnclosureIndex = input.IndexOf(secondEnclosure, firstAdjustedIndex, comparisonType);
+            Int32 firstAdjustedIndex = firstEnclosureIndex + firstEnclosure.Length;
+            Int32 secondEnclosureIndex = input.IndexOf(secondEnclosure, firstAdjustedIndex, comparisonType);
             if (secondEnclosureIndex == -1)
             {
                 break;
             }
             else
             {
-                int length = secondEnclosureIndex - firstAdjustedIndex;
+                Int32 length = secondEnclosureIndex - firstAdjustedIndex;
 
                 String substring = input.Substring(firstAdjustedIndex, length);
 
@@ -106,9 +105,9 @@ public static class Extensions : Object
         }
     }
 
-    public static IOrderedEnumerable<(int Length, int Count)> CountWordLengths(this String text)
+    public static IOrderedEnumerable<(Int32 Length, Int32 Count)> CountWordLengths(this String text)
     {
-        var defaultValue = Enumerable.Empty<(int Length, int Count)>().OrderBy(wordLength => wordLength.Length);
+        var defaultValue = Enumerable.Empty<(Int32 Length, Int32 Count)>().OrderBy(wordLength => wordLength.Length);
 
         if (String.IsNullOrWhiteSpace(text))
             return defaultValue;
@@ -120,14 +119,14 @@ public static class Extensions : Object
         return result;
     }
 
-    public static IEnumerable<int> ExtractInts(this String? value)
+    public static IEnumerable<Int32> ExtractInts(this String? value)
     {
         if (value == default)
-            return Enumerable.Empty<int>();
-        return System.Text.RegularExpressions.Regex.Matches(value, @"-?( )?\d+").Select(i => int.Parse(i.Value.Replace(" ", "")));
+            return Enumerable.Empty<Int32>();
+        return System.Text.RegularExpressions.Regex.Matches(value, @"-?( )?\d+").Select(i => Int32.Parse(i.Value.Replace(" ", "")));
     }
 
-    public static byte[]? FromBase64StringToByteArray(this String? value, bool shouldReturnNullIfConversionFailed = true)
+    public static byte[]? FromBase64StringToByteArray(this String? value, Boolean shouldReturnNullIfConversionFailed = true)
     {
         if (value is null)
             return Array.Empty<byte>();
@@ -145,7 +144,7 @@ public static class Extensions : Object
         }
     }
 
-    public static byte[]? FromBase64UrlStringToByteArray(this String? value, bool shouldReturnNullIfConversionFailed = true)
+    public static byte[]? FromBase64UrlStringToByteArray(this String? value, Boolean shouldReturnNullIfConversionFailed = true)
     {
         if (value is null)
             return Array.Empty<byte>();
@@ -191,7 +190,7 @@ public static class Extensions : Object
         return values;
     }
 
-    public static byte[]? FromHexStringToByteArray(this String? value, bool shouldReturnNullIfConversionFailed = true)
+    public static byte[]? FromHexStringToByteArray(this String? value, Boolean shouldReturnNullIfConversionFailed = true)
     {
         if (value is null)
             return Array.Empty<byte>();
@@ -226,12 +225,12 @@ public static class Extensions : Object
         return output;
     }
 
-    public static int[] GetAscii(this String str)
+    public static Int32[] GetAscii(this String str)
     {
-        int[] asciiArr = new int[str.Length];
-        for (int i = 0; i < str.Length; i++)
+        Int32[] asciiArr = new Int32[str.Length];
+        for (Int32 i = 0; i < str.Length; i++)
         {
-            asciiArr[i] = (int)str[i];
+            asciiArr[i] = (Int32)str[i];
         }
         return asciiArr;
     }
@@ -273,12 +272,12 @@ public static class Extensions : Object
             key => key[0].ToLower().Trim(), value => value[1]);
     }
 
-    public static IEnumerable<String> Range(this String str, int start, int end, params char[] split)
+    public static IEnumerable<String> Range(this String str, Int32 start, Int32 end, params Char[] split)
     {
         return str.Split(split).Skip(start).Take(end - start + 1);
     }
 
-    public static IEnumerable<String> Range(this String str, int start, int end, params String[] split)
+    public static IEnumerable<String> Range(this String str, Int32 start, Int32 end, params String[] split)
     {
         return str.Split(split, StringSplitOptions.RemoveEmptyEntries).Skip(start).Take(end - start);
     }
@@ -293,7 +292,7 @@ public static class Extensions : Object
         }
     }
 
-    public static IEnumerable<String> Sentences(this String text, bool cleanNewLine = true, bool cleanWhitepace = true)
+    public static IEnumerable<String> Sentences(this String text, Boolean cleanNewLine = true, Boolean cleanWhitepace = true)
     {
         IEnumerable<String> defaultValue = Enumerable.Empty<String>();
 
@@ -312,7 +311,7 @@ public static class Extensions : Object
         return result;
     }
 
-    public static IEnumerable<String> SplitAndTrim(this String value, params char[] separators)
+    public static IEnumerable<String> SplitAndTrim(this String value, params Char[] separators)
     {
         return value.Trim().Split(separators, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
     }
@@ -348,14 +347,14 @@ public static class Extensions : Object
 
     public static IEnumerable<AT.Infrastructure.TextElementSegment> TextElementSegments(String input)
     {
-        int[] elementOffsets = System.Globalization.StringInfo.ParseCombiningCharacters(input);
+        Int32[] elementOffsets = System.Globalization.StringInfo.ParseCombiningCharacters(input);
 
-        int lastOffset = -1;
-        foreach (int offset in elementOffsets)
+        Int32 lastOffset = -1;
+        foreach (Int32 offset in elementOffsets)
         {
             if (lastOffset != -1)
             {
-                int elementLength = offset - lastOffset;
+                Int32 elementLength = offset - lastOffset;
                 AT.Infrastructure.TextElementSegment segment = CreateSegment(lastOffset, elementLength);
                 yield return segment;
             }
@@ -365,7 +364,7 @@ public static class Extensions : Object
 
         if (lastOffset != -1)
         {
-            int lastSegmentLength = input.Length - lastOffset;
+            Int32 lastSegmentLength = input.Length - lastOffset;
 
             AT.Infrastructure.TextElementSegment segment = CreateSegment(lastOffset, lastSegmentLength);
             yield return segment;
@@ -374,19 +373,19 @@ public static class Extensions : Object
 
     public static byte[] ToBytes(this String val)
     {
-        var bytes = new byte[val.Length * sizeof(char)];
+        var bytes = new byte[val.Length * sizeof(Char)];
         Buffer.BlockCopy(val.ToCharArray(), 0, bytes, 0, bytes.Length);
         return bytes;
     }
 
-    public static ICollection<String> ToChunks(this String str, int chunkSize)
+    public static ICollection<String> ToChunks(this String str, Int32 chunkSize)
     {
         System.Collections.ObjectModel.Collection<String> c = new();
         if (str != null)
         {
-            int cnt = 0;
+            Int32 cnt = 0;
             System.Text.StringBuilder sb = new();
-            foreach (char ch in str)
+            foreach (Char ch in str)
             {
                 sb.Append(ch);
                 if (++cnt == chunkSize)
@@ -401,7 +400,7 @@ public static class Extensions : Object
         return c;
     }
 
-    public static List<String> ToCollection(this String input, char delimiter = ',')
+    public static List<String> ToCollection(this String input, Char delimiter = ',')
     {
         if (!input.Contains(delimiter))
         {
@@ -410,10 +409,10 @@ public static class Extensions : Object
         return input.Split(delimiter).ToList();
     }
 
-    public static String[] ToDelimitedArray(this String content, char delimiter = ',')
+    public static String[] ToDelimitedArray(this String content, Char delimiter = ',')
     {
         String[] array = content.Split(delimiter);
-        for (int i = 0; i < array.Length; i++)
+        for (Int32 i = 0; i < array.Length; i++)
         {
             array[i] = array[i].Trim();
         }
@@ -421,11 +420,11 @@ public static class Extensions : Object
         return array;
     }
 
-    public static List<String> Tokenize(this String s, Func<char, bool> predicate)
+    public static List<String> Tokenize(this String s, Func<Char, Boolean> predicate)
     {
         List<String> tokens = new();
         String? token;
-        int pos = 0;
+        Int32 pos = 0;
 
         while ((token = s.GetNextToken(predicate, ref pos)) != null)
             tokens.Add(token);
@@ -433,12 +432,12 @@ public static class Extensions : Object
         return tokens;
     }
 
-    public static List<String> Tokenize(this String s, String delimiterChars, bool ignoreCase = false)
+    public static List<String> Tokenize(this String s, String delimiterChars, Boolean ignoreCase = false)
     {
-        HashSet<char> hashSet = new(delimiterChars, Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
+        HashSet<Char> hashSet = new(delimiterChars, Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
         List<String> tokens = new();
         String? token;
-        int pos = 0;
+        Int32 pos = 0;
 
         while ((token = s.GetNextToken(hashSet.Contains, ref pos)) != null)
             tokens.Add(token);

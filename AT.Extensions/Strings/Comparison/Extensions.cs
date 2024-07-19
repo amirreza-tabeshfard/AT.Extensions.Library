@@ -5,62 +5,62 @@ public static partial class Extensions : Object
 {
     #region Method(s): Private
 
-    private class CaseSensitiveEqualityComparer : IEqualityComparer<char>
+    private class CaseSensitiveEqualityComparer : IEqualityComparer<Char>
     {
-        public bool Equals(char c1, char c2)
+        public Boolean Equals(Char c1, Char c2)
         {
             return c1.Equals(c2);
         }
 
-        public int GetHashCode([System.Diagnostics.CodeAnalysis.DisallowNull] char obj)
+        public Int32 GetHashCode([System.Diagnostics.CodeAnalysis.DisallowNull] Char obj)
         {
             return obj.GetHashCode();
         }
     }
 
-    private class CaseInsensitiveEqualityComparer : IEqualityComparer<char>
+    private class CaseInsensitiveEqualityComparer : IEqualityComparer<Char>
     {
-        public bool Equals(char c1, char c2)
+        public Boolean Equals(Char c1, Char c2)
         {
-            return char.ToUpper(c1).Equals(char.ToUpper(c2));
+            return Char.ToUpper(c1).Equals(Char.ToUpper(c2));
         }
 
-        public int GetHashCode([System.Diagnostics.CodeAnalysis.DisallowNull] char obj)
+        public Int32 GetHashCode([System.Diagnostics.CodeAnalysis.DisallowNull] Char obj)
         {
-            return char.ToUpper(obj).GetHashCode();
+            return Char.ToUpper(obj).GetHashCode();
         }
     }
 
-    private class CaseSensitiveComparer : IComparer<char>
+    private class CaseSensitiveComparer : IComparer<Char>
     {
-        public int Compare(char c1, char c2)
+        public Int32 Compare(Char c1, Char c2)
         {
             return c1.CompareTo(c2);
         }
     }
 
-    private class CaseInsensitiveComparer : IComparer<char>
+    private class CaseInsensitiveComparer : IComparer<Char>
     {
-        public int Compare(char c1, char c2)
+        public Int32 Compare(Char c1, Char c2)
         {
-            return char.ToUpper(c1).CompareTo(char.ToUpper(c2));
+            return Char.ToUpper(c1).CompareTo(Char.ToUpper(c2));
         }
     }
 
     internal static class CharComparer
     {
-        public static IEqualityComparer<char> GetEqualityComparer(bool ignoreCase) => ignoreCase ?
+        public static IEqualityComparer<Char> GetEqualityComparer(Boolean ignoreCase) => ignoreCase ?
             new CaseInsensitiveEqualityComparer() :
             new CaseSensitiveEqualityComparer();
 
-        public static IComparer<char> GetComparer(bool ignoreCase) => ignoreCase ?
+        public static IComparer<Char> GetComparer(Boolean ignoreCase) => ignoreCase ?
             new CaseInsensitiveComparer() :
             new CaseSensitiveComparer();
     }
 
     #endregion
 
-    public static bool Any(this String source)
+    public static Boolean Any(this String source)
     {
         if (source == default)
         {
@@ -69,31 +69,31 @@ public static partial class Extensions : Object
         return source.Length != 0;
     }
 
-    public static bool AsBool(this String value)
+    public static Boolean AsBool(this String value)
     {
         return value.AsBool(false);
     }
 
-    public static bool AsBool(this String value, bool defaultValue)
+    public static Boolean AsBool(this String value, Boolean defaultValue)
     {
-        bool result;
-        if (!bool.TryParse(value, out result))
+        Boolean result;
+        if (!Boolean.TryParse(value, out result))
             return defaultValue;
         return result;
     }
 
-    public static bool CheckIfPalindrome(this String dataText)
+    public static Boolean CheckIfPalindrome(this String dataText)
     {
-        int counter = dataText.Length / 2;
+        Int32 counter = dataText.Length / 2;
 
-        for (int i = 0; i < counter; i++)
+        for (Int32 i = 0; i < counter; i++)
             if (dataText[i].ToString().ToLower() != dataText[dataText.Length - 1 - i].ToString().ToLower())
                 return false;
 
         return true;
     }
 
-    public static bool Contains(this String source, char value)
+    public static Boolean Contains(this String source, Char value)
     {
         if (source == default)
         {
@@ -102,12 +102,12 @@ public static partial class Extensions : Object
         return source.IndexOf(value) >= 0;
     }
 
-    public static bool Contains(this String source, String text, StringComparison stringComparison)
+    public static Boolean Contains(this String source, String text, StringComparison stringComparison)
     {
         return source.IndexOf(text, stringComparison) >= 0;
     }
 
-    public static bool Contains(this String input, String value, int startIndex, int count, StringComparison comparisonType)
+    public static Boolean Contains(this String input, String value, Int32 startIndex, Int32 count, StringComparison comparisonType)
     {
         if (input == default)
             throw new ArgumentNullException("input");
@@ -118,25 +118,25 @@ public static partial class Extensions : Object
         if (count < 0 || count > input.Length - startIndex)
             throw new ArgumentOutOfRangeException("count", "count should be larger or equal to 0 and smaller than input.Length - startIndex");
 
-        int firstIndex = input.IndexOf(value, startIndex, count, comparisonType);
+        Int32 firstIndex = input.IndexOf(value, startIndex, count, comparisonType);
 
-        bool result = firstIndex != -1;
+        Boolean result = firstIndex != -1;
 
         return result;
     }
 
-    public static bool Contains(this String text, IEnumerable<String> options)
+    public static Boolean Contains(this String text, IEnumerable<String> options)
     {
         if (text == default) return false;
         return options.Any(opción => text.Contains(opción));
     }
 
-    public static bool Contains(this IEnumerable<String> input, String value, StringComparison stringComparison)
+    public static Boolean Contains(this IEnumerable<String> input, String value, StringComparison stringComparison)
     {
         return input.Any(item => item.Equals(value, stringComparison));
     }
 
-    public static bool Contains2(this String input, String value, StringComparison comparisonType)
+    public static Boolean Contains2(this String input, String value, StringComparison comparisonType)
     {
         if (input == default)
             throw new ArgumentNullException("input");
@@ -144,37 +144,37 @@ public static partial class Extensions : Object
         return Contains(input, value, 0, input.Length, comparisonType);
     }
 
-    public static bool Contains3(this String source, String value, StringComparison comparison)
+    public static Boolean Contains3(this String source, String value, StringComparison comparison)
     {
         return source.IndexOf(value, comparison) >= 0;
     }
 
-    public static bool Contains4(this String input, String value, StringComparison stringComparison)
+    public static Boolean Contains4(this String input, String value, StringComparison stringComparison)
     {
         return input.IndexOf(value, stringComparison) >= 0;
     }
 
-    public static bool Contains5(this String source, String input, StringComparison comparison)
+    public static Boolean Contains5(this String source, String input, StringComparison comparison)
     {
         return source.IndexOf(input, comparison) >= 0;
     }
 
-    public static bool ContainsAny(this String value, String findChars, bool ignoreCase = false)
+    public static Boolean ContainsAny(this String value, String findChars, Boolean ignoreCase = false)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         else if (findChars.IsNullOrEmpty() || findChars.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(findChars));
         // ----------------------------------------------------------------------------------------------------
-        HashSet<char> hashSet = new(findChars, CharComparer.GetEqualityComparer(ignoreCase));
-        foreach (char c in value)
+        HashSet<Char> hashSet = new(findChars, CharComparer.GetEqualityComparer(ignoreCase));
+        foreach (Char c in value)
             if (hashSet.Contains(c))
                 return true;
         // ----------------------------------------------------------------------------------------------------
         return default;
     }
 
-    public static bool ContainsAny(this String str, params char[] values)
+    public static Boolean ContainsAny(this String str, params Char[] values)
     {
         SharperHacks.CoreLibs.Constraints.Verify.IsNotNull(str, nameof(str));
 
@@ -188,7 +188,7 @@ public static partial class Extensions : Object
         return false;
     }
 
-    public static bool ContainsAny(this String str, params String[] values)
+    public static Boolean ContainsAny(this String str, params String[] values)
     {
         SharperHacks.CoreLibs.Constraints.Verify.IsNotNull(str, nameof(str));
 
@@ -202,12 +202,12 @@ public static partial class Extensions : Object
         return false;
     }
 
-    public static bool ContainsDigits(this String str)
+    public static Boolean ContainsDigits(this String str)
     {
         return str.Any(x => x >= '0' && x <= '9');
     }
 
-    public static bool ContainsIgnoreAccents(this String source, String value, bool ignoreCase = true)
+    public static Boolean ContainsIgnoreAccents(this String source, String value, Boolean ignoreCase = true)
     {
         var compareOptions = System.Globalization.CompareOptions.IgnoreNonSpace;
         if (ignoreCase)
@@ -217,55 +217,55 @@ public static partial class Extensions : Object
         return System.Globalization.CultureInfo.InvariantCulture.CompareInfo.IndexOf(source, value, compareOptions) != -1;
     }
 
-    public static bool ContainsIgnoreCase(this String source, String value)
+    public static Boolean ContainsIgnoreCase(this String source, String value)
     {
         return source.Contains(value, StringComparison.OrdinalIgnoreCase);
     }
 
-    public static bool ContainsIgnoreCase2(this String input, String substringValue)
+    public static Boolean ContainsIgnoreCase2(this String input, String substringValue)
     {
         return (input == default || substringValue == default)
             ? input == substringValue
             : input.IndexOf(substringValue, StringComparison.InvariantCultureIgnoreCase) >= 0;
     }
 
-    public static bool ContainsIgnoreSpaces(this String s, String substring, bool ignoreCase = true, bool ignoreCommas = false)
+    public static Boolean ContainsIgnoreSpaces(this String s, String substring, Boolean ignoreCase = true, Boolean ignoreCommas = false)
     {
         String withoutSpaces = s.Replace(" ", "");
         String withoutSpaces2 = substring.Replace(" ", "");
-        bool r = withoutSpaces.ContainsInvariant(withoutSpaces2, ignoreCase, ignoreCommas);
+        Boolean r = withoutSpaces.ContainsInvariant(withoutSpaces2, ignoreCase, ignoreCommas);
         return r;
     }
 
-    public static bool ContainsInvariant(this String s, String substring)
+    public static Boolean ContainsInvariant(this String s, String substring)
     {
-        int index = s.IndexOfInvariant(substring);
+        Int32 index = s.IndexOfInvariant(substring);
         return (index != -1);
     }
 
-    public static bool ContainsInvariant(this String s, String substring, bool ignoreCase, bool ignoreCommas)
+    public static Boolean ContainsInvariant(this String s, String substring, Boolean ignoreCase, Boolean ignoreCommas)
     {
         if (ignoreCommas)
         {
             s = s.Replace(",", "");
             substring = substring.Replace(",", "");
         }
-        bool r = ignoreCase ? s.ContainsInvariantIgnoreCase(substring) : s.ContainsInvariant(substring);
+        Boolean r = ignoreCase ? s.ContainsInvariantIgnoreCase(substring) : s.ContainsInvariant(substring);
         return r;
     }
 
-    public static bool ContainsInvariantIgnoreCase(this String s, String substring)
+    public static Boolean ContainsInvariantIgnoreCase(this String s, String substring)
     {
-        int index = s.IndexOfInvariantIgnoreCase(substring);
+        Int32 index = s.IndexOfInvariantIgnoreCase(substring);
         return (index != -1);
     }
 
-    public static bool ContainsLower(this String str)
+    public static Boolean ContainsLower(this String str)
     {
         return str.Any(x => x >= 'a' && x <= 'z');
     }
 
-    public static bool ContainsNarrowString(this String value)
+    public static Boolean ContainsNarrowString(this String value)
     {
         if (value == default)
         {
@@ -274,18 +274,18 @@ public static partial class Extensions : Object
 
         System.Text.Encoding enc = System.Text.Encoding.GetEncoding("Shift_JIS");
 
-        int stringBytes = enc.GetByteCount(value);
+        Int32 stringBytes = enc.GetByteCount(value);
 
         return stringBytes != value.Length * 2;
 
     }
 
-    public static bool ContainsUpper(this String str)
+    public static Boolean ContainsUpper(this String str)
     {
         return str.Any(x => x >= 'A' && x <= 'Z');
     }
 
-    public static bool ContainsWideString(this String value)
+    public static Boolean ContainsWideString(this String value)
     {
         if (value == default)
         {
@@ -299,24 +299,24 @@ public static partial class Extensions : Object
 
         System.Text.Encoding enc = System.Text.Encoding.GetEncoding("Shift_JIS");
 
-        int stringBytes = enc.GetByteCount(value);
+        Int32 stringBytes = enc.GetByteCount(value);
 
         return stringBytes != value.Length;
     }
 
-    public static bool DoesNotEndWith(this String val, String suffix)
+    public static Boolean DoesNotEndWith(this String val, String suffix)
     {
         return val == default || suffix == default ||
                !val.EndsWith(suffix, StringComparison.InvariantCulture);
     }
 
-    public static bool DoesNotStartWith(this String val, String prefix)
+    public static Boolean DoesNotStartWith(this String val, String prefix)
     {
         return val == default || prefix == default ||
                !val.StartsWith(prefix, StringComparison.InvariantCulture);
     }
 
-    public static bool EndsWithIgnoreCase(this String val, String suffix)
+    public static Boolean EndsWithIgnoreCase(this String val, String suffix)
     {
         if (val == default)
         {
@@ -333,14 +333,14 @@ public static partial class Extensions : Object
         return val.EndsWith(suffix, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public static bool EndsWithIgnoreCase2(this String input, String value)
+    public static Boolean EndsWithIgnoreCase2(this String input, String value)
     {
         return input.EndsWith(value, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public static bool EndsWithInvariant(this String s, String suffix)
+    public static Boolean EndsWithInvariant(this String s, String suffix)
     {
-        bool r = false;
+        Boolean r = false;
         if (s != null && suffix != null)
         {
             r = s.EndsWith(suffix, StringComparison.Ordinal);
@@ -348,9 +348,9 @@ public static partial class Extensions : Object
         return r;
     }
 
-    public static bool EndsWithInvariantIgnoreCase(this String s, String suffix)
+    public static Boolean EndsWithInvariantIgnoreCase(this String s, String suffix)
     {
-        bool r = false;
+        Boolean r = false;
         if (s != null && suffix != null)
         {
             r = s.EndsWith(suffix, StringComparison.OrdinalIgnoreCase);
@@ -358,17 +358,17 @@ public static partial class Extensions : Object
         return r;
     }
 
-    public static bool EqualsIgnoreCase(this String thisString, String otherString)
+    public static Boolean EqualsIgnoreCase(this String thisString, String otherString)
     {
         return thisString.Equals(otherString, StringComparison.CurrentCultureIgnoreCase);
     }
 
-    public static bool EqualsIgnoreCase2(this String instance, String value)
+    public static Boolean EqualsIgnoreCase2(this String instance, String value)
     {
         return String.Equals(instance, value, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public static bool Match(this String self, String pattern)
+    public static Boolean Match(this String self, String pattern)
     {
         if (String.IsNullOrWhiteSpace(pattern))
             throw new ArgumentException("Regex pattern cannot be empty.", nameof(pattern));
@@ -376,7 +376,7 @@ public static partial class Extensions : Object
         return System.Text.RegularExpressions.Regex.IsMatch(self, pattern);
     }
 
-    public static bool SequenceEqual(this String first, String second)
+    public static Boolean SequenceEqual(this String first, String second)
     {
         if (first == default)
         {
@@ -389,7 +389,7 @@ public static partial class Extensions : Object
         return first == second;
     }
 
-    public static bool SequenceEqual(this String first, String second, StringComparison comparison)
+    public static Boolean SequenceEqual(this String first, String second, StringComparison comparison)
     {
         if (first == default)
         {
@@ -402,7 +402,7 @@ public static partial class Extensions : Object
         return String.Equals(first, second, comparison);
     }
 
-    public static bool SpanSearcherContains(ReadOnlySpan<char> stringToSearch, String searchFor, int startAt = 0, int endAt = -1)
+    public static Boolean SpanSearcherContains(ReadOnlySpan<Char> stringToSearch, String searchFor, Int32 startAt = 0, Int32 endAt = -1)
     {
         if (stringToSearch == default) return false;
         if (stringToSearch.IsEmpty) return false;
@@ -416,16 +416,16 @@ public static partial class Extensions : Object
         if (endAt < startAt) throw new ArgumentException("Ending index cannot be less than the starting index");
         if (endAt > stringToSearch.Length) endAt = stringToSearch.Length;
 
-        ReadOnlySpan<char> lookingFor = searchFor;
+        ReadOnlySpan<Char> lookingFor = searchFor;
 
-        for (int i = startAt; i <= endAt - lookingFor.Length; i++)
+        for (Int32 i = startAt; i <= endAt - lookingFor.Length; i++)
             if (stringToSearch.Slice(i, lookingFor.Length).SequenceEqual(lookingFor))
                 return true;
 
         return false;
     }
 
-    public static bool StartsWithIgnoreCase(this String val, String prefix)
+    public static Boolean StartsWithIgnoreCase(this String val, String prefix)
     {
         if (val == default)
         {
@@ -442,14 +442,14 @@ public static partial class Extensions : Object
         return val.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public static bool StartsWithIgnoreCase2(this String input, String value)
+    public static Boolean StartsWithIgnoreCase2(this String input, String value)
     {
         return input.StartsWith(value, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public static bool StartsWithInvariant(this String s, String prefix)
+    public static Boolean StartsWithInvariant(this String s, String prefix)
     {
-        bool r = false;
+        Boolean r = false;
         if (s != null && prefix != null)
         {
             r = s.StartsWith(prefix, StringComparison.Ordinal);
@@ -457,21 +457,21 @@ public static partial class Extensions : Object
         return r;
     }
     
-    public static bool StartsWithInvariant(this String s, String prefix1, String prefix2)
+    public static Boolean StartsWithInvariant(this String s, String prefix1, String prefix2)
     {
-        bool r = s.StartsWithInvariant(prefix1) || s.StartsWithInvariant(prefix2);
+        Boolean r = s.StartsWithInvariant(prefix1) || s.StartsWithInvariant(prefix2);
         return r;
     }
     
-    public static bool StartsWithInvariant(this String s, String prefix1, String prefix2, String prefix3)
+    public static Boolean StartsWithInvariant(this String s, String prefix1, String prefix2, String prefix3)
     {
-        bool r = s.StartsWithInvariant(prefix1, prefix2) || s.StartsWithInvariant(prefix3);
+        Boolean r = s.StartsWithInvariant(prefix1, prefix2) || s.StartsWithInvariant(prefix3);
         return r;
     }
 
-    public static bool StartsWithInvariantIgnoreCase(this String s, String prefix)
+    public static Boolean StartsWithInvariantIgnoreCase(this String s, String prefix)
     {
-        bool r = false;
+        Boolean r = false;
         if (s != null && prefix != null)
         {
             r = s.StartsWith(prefix, StringComparison.OrdinalIgnoreCase);

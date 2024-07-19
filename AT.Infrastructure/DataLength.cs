@@ -5,11 +5,11 @@ public static class DataLength : Object
     {
         #region Field(s)
 
-        public const int B = 1;
-        public const int kB = 0x400 * B;
-        public const int MB = 0x400 * kB;
-        public const int GB = 0x400 * MB;
-        public const long TB = 1024L * GB;
+        public const Int32 B = 1;
+        public const Int32 kB = 0x400 * B;
+        public const Int32 MB = 0x400 * kB;
+        public const Int32 GB = 0x400 * MB;
+        public const Int64 TB = 1024L * GB;
 
         #endregion
 

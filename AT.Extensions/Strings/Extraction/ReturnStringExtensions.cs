@@ -96,46 +96,46 @@ public static class ReturnStringExtensions : Object
 
     #region Method(s): Private
 
-    private static void EachChar(System.Text.StringBuilder builder, int start, int end, Func<char, char> action)
+    private static void EachChar(System.Text.StringBuilder builder, Int32 start, Int32 end, Func<Char, Char> action)
     {
         System.Diagnostics.Debug.Assert(start <= end);
         System.Diagnostics.Debug.Assert(end <= builder.Length);
 
-        for (int i = start; i < end; i++)
+        for (Int32 i = start; i < end; i++)
         {
             builder[i] = action(builder[i]);
         }
     }
 
-    private static bool IncludesLowerCase(String s, int start, int end)
+    private static Boolean IncludesLowerCase(String s, Int32 start, Int32 end)
     {
         System.Diagnostics.Debug.Assert(start <= end);
         System.Diagnostics.Debug.Assert(end <= s.Length);
 
-        for (int i = start; i < end; i++)
+        for (Int32 i = start; i < end; i++)
         {
-            if (char.IsLower(s[i]))
+            if (Char.IsLower(s[i]))
                 return true;
         }
 
         return false;
     }
 
-    private static bool IncludesLowerCase(System.Text.StringBuilder builder, int start, int end)
+    private static Boolean IncludesLowerCase(System.Text.StringBuilder builder, Int32 start, Int32 end)
     {
         System.Diagnostics.Debug.Assert(start <= end);
         System.Diagnostics.Debug.Assert(end <= builder.Length);
 
-        for (int i = start; i < end; i++)
+        for (Int32 i = start; i < end; i++)
         {
-            if (char.IsLower(builder[i]))
+            if (Char.IsLower(builder[i]))
                 return true;
         }
 
         return false;
     }
 
-    private static void SetWordTitleCase(System.Text.StringBuilder builder, int wordStart, int wordEnd, ref bool inSentence)
+    private static void SetWordTitleCase(System.Text.StringBuilder builder, Int32 wordStart, Int32 wordEnd, ref Boolean inSentence)
     {
         System.Diagnostics.Debug.Assert(wordStart != -1);
         System.Diagnostics.Debug.Assert(wordStart <= wordEnd);
@@ -143,11 +143,11 @@ public static class ReturnStringExtensions : Object
 
         // Set word to lower case if not acronym
         if (IncludesLowerCase(builder, wordStart, wordEnd))
-            EachChar(builder, wordStart, wordEnd, c => char.ToLower(c));
+            EachChar(builder, wordStart, wordEnd, c => Char.ToLower(c));
 
         if (!inSentence || !Collections.Extensions.UncapitalizedTitleWords.Contains(builder.ToString(wordStart, wordEnd - wordStart)))
         {
-            builder[wordStart] = char.ToUpper(builder[wordStart]);
+            builder[wordStart] = Char.ToUpper(builder[wordStart]);
             inSentence = true;
         }
 
@@ -169,7 +169,7 @@ public static class ReturnStringExtensions : Object
         }
     }
 
-    private static long GetGreatestCommonDivisor(long a, long b)
+    private static Int64 GetGreatestCommonDivisor(Int64 a, Int64 b)
     {
         while (a != 0 && b != 0)
         {
@@ -188,14 +188,14 @@ public static class ReturnStringExtensions : Object
             return String.Empty;
 
         // Consider precision value to convert fractional part to integral equivalent
-        long pVal = 1000000000;
+        Int64 pVal = 1000000000;
 
         // Calculate GCD of integral equivalent of fractional part and precision value
-        long gcd = GetGreatestCommonDivisor((long)Math.Round(value * pVal), pVal);
+        Int64 gcd = GetGreatestCommonDivisor((Int64)Math.Round(value * pVal), pVal);
 
         // Calculate numerator and denominator
-        long numerator = (long)Math.Round(value * pVal) / gcd;
-        long denominator = pVal / gcd;
+        Int64 numerator = (Int64)Math.Round(value * pVal) / gcd;
+        Int64 denominator = pVal / gcd;
 
         return $"{numerator}/{denominator}";
     }
@@ -203,18 +203,18 @@ public static class ReturnStringExtensions : Object
     private static void FormatNumber(System.Text.StringBuilder builder, String digits)
     {
         String s;
-        bool allZeros = true;
+        Boolean allZeros = true;
 
-        for (int i = digits.Length - 1; i >= 0; i--)
+        for (Int32 i = digits.Length - 1; i >= 0; i--)
         {
-            int ndigit = digits[i] - '0';
-            int column = digits.Length - (i + 1);
+            Int32 ndigit = digits[i] - '0';
+            Int32 column = digits.Length - (i + 1);
 
             // Determine if ones, tens, or hundreds column
             switch (column % 3)
             {
                 case 0:        // Ones position
-                    bool showThousands = true;
+                    Boolean showThousands = true;
                     if (i == 0)
                     {
                         // First digit in number (last in loop)
@@ -291,7 +291,7 @@ public static class ReturnStringExtensions : Object
         return System.Text.Encoding.ASCII.GetString(bytes);
     }
 
-    private static String GenerateSlug(String value, int? maxLength = null)
+    private static String GenerateSlug(String value, Int32? maxLength = null)
     {
         // prepare String, remove accents, lower case and convert hyphens to whitespace
         var result = RemoveAccent(value).Replace("-", " ").ToLowerInvariant();
@@ -316,12 +316,12 @@ public static class ReturnStringExtensions : Object
         System.Text.StringBuilder builder = new(s);
 
         if (builder.Length > 0)
-            builder[0] = char.ToUpper(builder[0]);
+            builder[0] = Char.ToUpper(builder[0]);
 
         return builder.ToString();
     }
 
-    private static void SetWordSentenceCase(System.Text.StringBuilder builder, int wordStart, int wordEnd, ref bool inSentence)
+    private static void SetWordSentenceCase(System.Text.StringBuilder builder, Int32 wordStart, Int32 wordEnd, ref Boolean inSentence)
     {
         System.Diagnostics.Debug.Assert(wordStart != -1);
         System.Diagnostics.Debug.Assert(wordStart <= wordEnd);
@@ -329,11 +329,11 @@ public static class ReturnStringExtensions : Object
 
         // Set word to lower case if not acronym
         if (IncludesLowerCase(builder, wordStart, wordEnd))
-            EachChar(builder, wordStart, wordEnd, c => char.ToLower(c));
+            EachChar(builder, wordStart, wordEnd, c => Char.ToLower(c));
 
         if (!inSentence)
         {
-            builder[wordStart] = char.ToUpper(builder[wordStart]);
+            builder[wordStart] = Char.ToUpper(builder[wordStart]);
             inSentence = true;
         }
 
@@ -345,9 +345,9 @@ public static class ReturnStringExtensions : Object
     {
         System.Text.StringBuilder builder = new(s);
 
-        bool inSentence = false;
-        int wordStart = -1;
-        int i;
+        Boolean inSentence = false;
+        Int32 wordStart = -1;
+        Int32 i;
 
         for (i = 0; i < builder.Length; i++)
         {
@@ -375,9 +375,9 @@ public static class ReturnStringExtensions : Object
     {
         System.Text.StringBuilder builder = new(s);
 
-        bool inSentence = false;
-        int wordStart = -1;
-        int i;
+        Boolean inSentence = false;
+        Int32 wordStart = -1;
+        Int32 i;
 
         for (i = 0; i < builder.Length; i++)
         {
@@ -403,7 +403,7 @@ public static class ReturnStringExtensions : Object
 
     #endregion
 
-    public static String? After(this String value, String search, bool ignoreCase = false)
+    public static String? After(this String value, String search, Boolean ignoreCase = false)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -411,7 +411,7 @@ public static class ReturnStringExtensions : Object
             throw new ArgumentNullException(nameof(search));
         // ----------------------------------------------------------------------------------------------------
         StringComparison culture = default;
-        int index = default;
+        Int32 index = default;
         String? result = default;
         // ----------------------------------------------------------------------------------------------------
         culture = ignoreCase
@@ -457,8 +457,8 @@ public static class ReturnStringExtensions : Object
         if (json.IsEmpty()) return json;
 
         const String INDENT_STRING = "    ";
-        int indentation = 0;
-        int quoteCount = 0;
+        Int32 indentation = 0;
+        Int32 quoteCount = 0;
 
         try
         {
@@ -526,7 +526,7 @@ public static class ReturnStringExtensions : Object
         return value.IsEmpty() ? String.Empty : value;
     }
 
-    public static String Before(this String input, String search, bool ignoreCase = false)
+    public static String Before(this String input, String search, Boolean ignoreCase = false)
     {
         if (!search.IsNullOrEmpty())
         {
@@ -534,7 +534,7 @@ public static class ReturnStringExtensions : Object
                 ? StringComparison.InvariantCultureIgnoreCase
                 : StringComparison.InvariantCulture;
 
-            int idx = input?.IndexOf(search, culture) ?? -1;
+            Int32 idx = input?.IndexOf(search, culture) ?? -1;
             if (idx >= 0)
             {
                 input = input.Substring(0, idx);
@@ -549,12 +549,12 @@ public static class ReturnStringExtensions : Object
         return input.Before(search, true);
     }
 
-    public static String Between(this String input, char enclosureCharacter)
+    public static String Between(this String input, Char enclosureCharacter)
     {
         return Between(input, enclosureCharacter, enclosureCharacter);
     }
 
-    public static String Between(this String input, char firstEnclosureCharacter, char secondEnclosureCharacter)
+    public static String Between(this String input, Char firstEnclosureCharacter, Char secondEnclosureCharacter)
     {
         // preconditions
         if (input == default)
@@ -562,22 +562,22 @@ public static class ReturnStringExtensions : Object
 
         String result;
 
-        int firstEnclosureCharacterIndex = input.IndexOf(firstEnclosureCharacter);
+        Int32 firstEnclosureCharacterIndex = input.IndexOf(firstEnclosureCharacter);
         if (firstEnclosureCharacterIndex == -1 || firstEnclosureCharacterIndex == input.Length - 1)
         {
             result = null;
         }
         else
         {
-            int firstAdjustedIndex = firstEnclosureCharacterIndex + 1;
-            int secondEnclosureCharacterIndex = input.IndexOf(secondEnclosureCharacter, firstAdjustedIndex);
+            Int32 firstAdjustedIndex = firstEnclosureCharacterIndex + 1;
+            Int32 secondEnclosureCharacterIndex = input.IndexOf(secondEnclosureCharacter, firstAdjustedIndex);
             if (secondEnclosureCharacterIndex == -1)
             {
                 result = null;
             }
             else
             {
-                int length = secondEnclosureCharacterIndex - firstAdjustedIndex;
+                Int32 length = secondEnclosureCharacterIndex - firstAdjustedIndex;
 
                 result = input.Substring(firstAdjustedIndex, length);
             }
@@ -608,22 +608,22 @@ public static class ReturnStringExtensions : Object
 
         String result;
 
-        int firstEnclosureIndex = input.IndexOf(firstEnclosure, comparisonType);
+        Int32 firstEnclosureIndex = input.IndexOf(firstEnclosure, comparisonType);
         if (firstEnclosureIndex == -1 || firstEnclosureIndex + firstEnclosure.Length == input.Length)
         {
             result = null;
         }
         else
         {
-            int firstAdjustedIndex = firstEnclosureIndex + firstEnclosure.Length;
-            int secondEnclosureIndex = input.IndexOf(secondEnclosure, firstAdjustedIndex, comparisonType);
+            Int32 firstAdjustedIndex = firstEnclosureIndex + firstEnclosure.Length;
+            Int32 secondEnclosureIndex = input.IndexOf(secondEnclosure, firstAdjustedIndex, comparisonType);
             if (secondEnclosureIndex == -1)
             {
                 result = null;
             }
             else
             {
-                int length = secondEnclosureIndex - firstAdjustedIndex;
+                Int32 length = secondEnclosureIndex - firstAdjustedIndex;
 
                 result = input.Substring(firstAdjustedIndex, length);
             }
@@ -635,8 +635,8 @@ public static class ReturnStringExtensions : Object
     public static String CamelcaseEveryChar(this String message)
     {
         System.Text.StringBuilder result = new();
-        int counter = 0;
-        foreach (char character in message)
+        Int32 counter = 0;
+        foreach (Char character in message)
         {
             result.Append(counter % 2 == 0 ? character.ToString().ToUpper() : character.ToString().ToLower());
             counter++;
@@ -651,7 +651,7 @@ public static class ReturnStringExtensions : Object
 
         foreach (String word in splittedMessage)
         {
-            for (int i = 0; i < word.Length; i++)
+            for (Int32 i = 0; i < word.Length; i++)
                 result.Append(i % 2 == 0 ? word[i].ToString().ToUpper() : word[i].ToString().ToLower());
 
             result.Append(' ');
@@ -675,11 +675,11 @@ public static class ReturnStringExtensions : Object
     public static String Capitalize1(this String stringValue)
     {
         System.Text.StringBuilder result = new System.Text.StringBuilder(stringValue);
-        result[0] = char.ToUpper(result[0]);
-        for (int i = 1; i < result.Length; ++i)
+        result[0] = Char.ToUpper(result[0]);
+        for (Int32 i = 1; i < result.Length; ++i)
         {
-            if (char.IsWhiteSpace(result[i - 1]) && !char.IsWhiteSpace(result[i]))
-                result[i] = char.ToUpper(result[i]);
+            if (Char.IsWhiteSpace(result[i - 1]) && !Char.IsWhiteSpace(result[i]))
+                result[i] = Char.ToUpper(result[i]);
         }
         return result.ToString();
     }
@@ -693,17 +693,17 @@ public static class ReturnStringExtensions : Object
         return s.Substring(0, 1).ToUpper() + s.Substring(1).ToLower();
     }
 
-    public static String CapitalizeAfterCharacter(this String value, char separator, bool minimizeOtherChar = false)
+    public static String CapitalizeAfterCharacter(this String value, Char separator, Boolean minimizeOtherChar = false)
     {
         return CapitalizeAfterCharacters(value, new[] { separator }, minimizeOtherChar);
     }
 
-    public static String CapitalizeAfterCharacters(this String value, IEnumerable<char> separators, bool minimizeOtherChar = false)
+    public static String CapitalizeAfterCharacters(this String value, IEnumerable<Char> separators, Boolean minimizeOtherChar = false)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        char[] stringToCapitalize = value.ToCharArray();
+        Char[] stringToCapitalize = value.ToCharArray();
         if (!separators.Any() || !stringToCapitalize.Intersect(separators).Any())
         {
             string firstChar = value.Substring(0, 1).ToUpper();
@@ -715,13 +715,13 @@ public static class ReturnStringExtensions : Object
         else
         {
             System.Text.StringBuilder stringCapitalized = new System.Text.StringBuilder();
-            char lastCharacter = separators.First();
-            foreach (char character in stringToCapitalize)
+            Char lastCharacter = separators.First();
+            foreach (Char character in stringToCapitalize)
             {
                 if (separators.Contains(lastCharacter))
-                    stringCapitalized.Append(char.ToUpper(character));
+                    stringCapitalized.Append(Char.ToUpper(character));
                 else
-                    stringCapitalized.Append(minimizeOtherChar ? char.ToLower(character) : character);
+                    stringCapitalized.Append(minimizeOtherChar ? Char.ToLower(character) : character);
 
                 lastCharacter = character;
             }
@@ -729,16 +729,16 @@ public static class ReturnStringExtensions : Object
         }
     }
 
-    public static String CapitalizeEachLine(this String value, bool minimizeOtherChar = false)
+    public static String CapitalizeEachLine(this String value, Boolean minimizeOtherChar = false)
     {
         var sentencesTrimmed = value.Split('\n').Select(sentence => sentence.Trim());
         var textTrimed = String.Join('\n', sentencesTrimmed);
         return textTrimed.CapitalizeAfterCharacter('\n', minimizeOtherChar);
     }
 
-    public static String CapitalizeEachWord(this String value, bool minimizeOtherChar = false)
+    public static String CapitalizeEachWord(this String value, Boolean minimizeOtherChar = false)
     {
-        return value.CapitalizeAfterCharacters(new char[] { ' ', '\t', '\n', '\r' }, minimizeOtherChar);
+        return value.CapitalizeAfterCharacters(new Char[] { ' ', '\t', '\n', '\r' }, minimizeOtherChar);
     }
 
     public static String CapitalizeFirstLetter(this String text)
@@ -766,19 +766,19 @@ public static class ReturnStringExtensions : Object
 
     public static String CommonPathPrefix(String s1, String s2)
     {
-        int _, __;
+        Int32 _, __;
         return CommonPathPrefix(s1, s2, out _, out __);
     }
 
-    public static String CommonPathPrefix(String s1, String s2, out int suffix1Length, out int suffix2Length)
+    public static String CommonPathPrefix(String s1, String s2, out Int32 suffix1Length, out Int32 suffix2Length)
     {
         String[] splits1 = s1.Split('/');
         String[] splits2 = s2.Split('/');
-        int count1 = splits1.Count();
-        int count2 = splits2.Count();
-        int count = Math.Max(count1, count2);
-        int nMatching = 0;
-        for (int i = 0; i < count; i++)
+        Int32 count1 = splits1.Count();
+        Int32 count2 = splits2.Count();
+        Int32 count = Math.Max(count1, count2);
+        Int32 nMatching = 0;
+        for (Int32 i = 0; i < count; i++)
         {
             if (splits1[i] == splits2[i])
             {
@@ -811,7 +811,7 @@ public static class ReturnStringExtensions : Object
     public static String CleanWhiteSpace2(this String input)
     {
         var stringWithSpaces = new String(input.Trim().ToCharArray()
-                               .Select(c => char.IsWhiteSpace(c) ? ' ' : c)
+                               .Select(c => Char.IsWhiteSpace(c) ? ' ' : c)
                                .ToArray());
         while (stringWithSpaces.Contains("  "))
             stringWithSpaces = stringWithSpaces.Replace("  ", " ");
@@ -952,7 +952,7 @@ public static class ReturnStringExtensions : Object
         return source == "" ? new String('\0', 1) : source;
     }
 
-    public static String DeleteExtension(this String source, char Delimeter = '.')
+    public static String DeleteExtension(this String source, Char Delimeter = '.')
     {
         if (source.IndexOf(Delimeter) < 0)
             return source;
@@ -964,12 +964,12 @@ public static class ReturnStringExtensions : Object
         return Path.GetDirectoryName(path);
     }
 
-    public static String Distinct(this String s, bool ignoreCase = false)
+    public static String Distinct(this String s, Boolean ignoreCase = false)
     {
         System.Text.StringBuilder builder = new(s.Length);
-        HashSet<char> hashSet = new(s.Length, Strings.Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
+        HashSet<Char> hashSet = new(s.Length, Strings.Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
 
-        foreach (char c in s)
+        foreach (Char c in s)
         {
             if (hashSet.Add(c))
                 builder.Append(c);
@@ -1025,12 +1025,12 @@ public static class ReturnStringExtensions : Object
         return String.Join(" ", str.Split(' ').Select(x => x.FirstWordUpper()));
     }
 
-    public static String Except(this String s, IEnumerable<char> exceptChars, bool ignoreCase = false)
+    public static String Except(this String s, IEnumerable<Char> exceptChars, Boolean ignoreCase = false)
     {
         System.Text.StringBuilder builder = new(s.Length);
-        HashSet<char> hashSet = new(exceptChars, Strings.Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
+        HashSet<Char> hashSet = new(exceptChars, Strings.Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
 
-        foreach (char c in s)
+        foreach (Char c in s)
         {
             if (!hashSet.Contains(c))
                 builder.Append(c);
@@ -1039,12 +1039,12 @@ public static class ReturnStringExtensions : Object
         return builder.ToString();
     }
 
-    public static String Except(this String s, String exceptChars, bool ignoreCase = false)
+    public static String Except(this String s, String exceptChars, Boolean ignoreCase = false)
     {
-        return Except(s, (IEnumerable<char>)exceptChars, ignoreCase);
+        return Except(s, (IEnumerable<Char>)exceptChars, ignoreCase);
     }
 
-    public static String Excerpt(this String input, int characters)
+    public static String Excerpt(this String input, Int32 characters)
     {
         if (input.Length <= characters)
             return input;
@@ -1056,11 +1056,11 @@ public static class ReturnStringExtensions : Object
         return "\"{0}\"".ToFormat(file);
     }
 
-    public static String Filter(this String s, Func<char, bool> predicate)
+    public static String Filter(this String s, Func<Char, Boolean> predicate)
     {
         System.Text.StringBuilder builder = new(s.Length);
 
-        foreach (char c in s)
+        foreach (Char c in s)
         {
             if (predicate(c))
                 builder.Append(c);
@@ -1069,7 +1069,7 @@ public static class ReturnStringExtensions : Object
         return builder.ToString();
     }
 
-    public static String First(this String str, params char[] split)
+    public static String First(this String str, params Char[] split)
     {
         return str.Split(split).FirstOrDefault();
     }
@@ -1143,11 +1143,11 @@ public static class ReturnStringExtensions : Object
 
     public static String FromNumber(float value, AT.Enums.DecimalFormat decimalFormat) => FromNumber((decimal)value, decimalFormat);
 
-    public static String FromNumber(double value, AT.Enums.DecimalFormat decimalFormat) => FromNumber((decimal)value, decimalFormat);
+    public static String FromNumber(Double value, AT.Enums.DecimalFormat decimalFormat) => FromNumber((decimal)value, decimalFormat);
 
     public static String FromNumber(decimal value, AT.Enums.DecimalFormat decimalFormat)
     {
-        bool isNegative = false;
+        Boolean isNegative = false;
         if (value < 0m)
         {
             value = Math.Abs(value);
@@ -1155,7 +1155,7 @@ public static class ReturnStringExtensions : Object
         }
 
         String integerPart = value.ToString();
-        int i = integerPart.IndexOf('.');
+        Int32 i = integerPart.IndexOf('.');
         if (i >= 0)
             integerPart = integerPart[0..i];
         decimal @decimal = value - Math.Truncate(value);
@@ -1185,11 +1185,11 @@ public static class ReturnStringExtensions : Object
         return builder.ToString();
     }
 
-    public static String FromNumber(int value) => FromNumber((long)value);
+    public static String FromNumber(Int32 value) => FromNumber((Int64)value);
 
-    public static String FromNumber(long value)
+    public static String FromNumber(Int64 value)
     {
-        bool isNegative = false;
+        Boolean isNegative = false;
         if (value < 0)
         {
             value = Math.Abs(value);
@@ -1203,9 +1203,9 @@ public static class ReturnStringExtensions : Object
         return builder.ToString();
     }
 
-    public static String FromNumber(int value, out bool isNegative) => FromNumber((long)value, out isNegative);
+    public static String FromNumber(Int32 value, out Boolean isNegative) => FromNumber((Int64)value, out isNegative);
 
-    public static String FromNumber(long value, out bool isNegative)
+    public static String FromNumber(Int64 value, out Boolean isNegative)
     {
         if (value < 0)
         {
@@ -1242,7 +1242,7 @@ public static class ReturnStringExtensions : Object
 
     public static String GetDigits(this String value)
     {
-        return new String(value.Where(c => char.IsDigit(c)).ToArray());
+        return new String(value.Where(c => Char.IsDigit(c)).ToArray());
     }
 
     public static String GetEmptyStringIfNull(this String val)
@@ -1250,13 +1250,13 @@ public static class ReturnStringExtensions : Object
         return (val != null ? val.Trim() : "");
     }
 
-    public static String GetExtension(this String source, char Delimeter = '.')
+    public static String GetExtension(this String source, Char Delimeter = '.')
     {
         //return source.Substring(source.LastIndexOf(Delimeter) + 1);
         return source[(source.LastIndexOf(Delimeter) + 1)..];
     }
 
-    public static String GetFirstCharactersAfterSeparators(this String value, IEnumerable<char> separators)
+    public static String GetFirstCharactersAfterSeparators(this String value, IEnumerable<Char> separators)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -1268,7 +1268,7 @@ public static class ReturnStringExtensions : Object
             return value.GetFirst().ToString();
 
         string[] words = value.Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-        IEnumerable<char> firstCharacters = words.Select(word => word[0]);
+        IEnumerable<Char> firstCharacters = words.Select(word => word[0]);
         // ----------------------------------------------------------------------------------------------------
         return String.Join(string.Empty, firstCharacters);
     }
@@ -1279,7 +1279,7 @@ public static class ReturnStringExtensions : Object
         return GetFirstLettersAfterSeparators(value, separators);
     }
 
-    public static String GetFirstLettersAfterSeparators(this String value, IEnumerable<char> separators)
+    public static String GetFirstLettersAfterSeparators(this String value, IEnumerable<Char> separators)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -1290,7 +1290,7 @@ public static class ReturnStringExtensions : Object
         if (!separators.Any())
             return value.FirstLetter()?.ToString() ?? String.Empty;
 
-        IEnumerable<char?> firstLetters = value.Split(separators.ToArray())
+        IEnumerable<Char?> firstLetters = value.Split(separators.ToArray())
                                                .Select(word => word.FirstLetter());
         // ----------------------------------------------------------------------------------------------------
         return String.Join(string.Empty, firstLetters);
@@ -1304,27 +1304,27 @@ public static class ReturnStringExtensions : Object
 
     public static String GetLetterOrDigit(this String value)
     {
-        return new String(value.Where(c => char.IsLetterOrDigit(c)).ToArray());
+        return new String(value.Where(c => Char.IsLetterOrDigit(c)).ToArray());
     }
 
     public static String GetLetters(this String value)
     {
-        return new String(value.Where(c => char.IsLetter(c)).ToArray());
+        return new String(value.Where(c => Char.IsLetter(c)).ToArray());
     }
 
     public static String GetLettersAndSpaces(this String value)
     {
-        return new String(value.Where(c => char.IsLetter(c) || char.IsWhiteSpace(c)).ToArray());
+        return new String(value.Where(c => Char.IsLetter(c) || Char.IsWhiteSpace(c)).ToArray());
     }
 
-    public static String? GetNextToken(this String s, Func<char, bool> predicate, ref int pos)
+    public static String? GetNextToken(this String s, Func<Char, Boolean> predicate, ref Int32 pos)
     {
         // Skip delimiters
         while (pos < s.Length && predicate(s[pos]))
             pos++;
 
         // Parse token
-        int start = pos;
+        Int32 start = pos;
         while (pos < s.Length && !predicate(s[pos]))
             pos++;
 
@@ -1335,9 +1335,9 @@ public static class ReturnStringExtensions : Object
         return null;
     }
 
-    public static String? GetNextToken(this String s, String delimiterChars, ref int pos, bool ignoreCase = false)
+    public static String? GetNextToken(this String s, String delimiterChars, ref Int32 pos, Boolean ignoreCase = false)
     {
-        HashSet<char> hashSet = new(delimiterChars, Strings.Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
+        HashSet<Char> hashSet = new(delimiterChars, Strings.Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
         return s.GetNextToken(hashSet.Contains, ref pos);
     }
 
@@ -1357,7 +1357,7 @@ public static class ReturnStringExtensions : Object
 
     public static String GetNumbers(this String text)
     {
-        return new String(text?.Where(c => char.IsDigit(c)).ToArray());
+        return new String(text?.Where(c => Char.IsDigit(c)).ToArray());
     }
 
     public static String GetSafeString(this String value)
@@ -1365,7 +1365,7 @@ public static class ReturnStringExtensions : Object
         if (String.IsNullOrWhiteSpace(value)) return "";
         byte[] bytes = System.Text.Encoding.Default.GetBytes(value);
         value = System.Text.Encoding.UTF8.GetString(bytes);
-        return new String(value.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || char.IsPunctuation(c) || char.IsControl(c)).ToArray());
+        return new String(value.Where(c => Char.IsLetterOrDigit(c) || Char.IsWhiteSpace(c) || Char.IsPunctuation(c) || Char.IsControl(c)).ToArray());
     }
 
     public static String IndentEachLine(this String s, String prefix = "  ")
@@ -1379,7 +1379,7 @@ public static class ReturnStringExtensions : Object
         {
             String[] split = s.SplitIntoLines();
             r = "";
-            bool first = true;
+            Boolean first = true;
             foreach (String line in split)
             {
                 if (first)
@@ -1396,17 +1396,17 @@ public static class ReturnStringExtensions : Object
         return r;
     }
 
-    public static String Intersect(this String s, IEnumerable<char> intersectChars, bool ignoreCase = false)
+    public static String Intersect(this String s, IEnumerable<Char> intersectChars, Boolean ignoreCase = false)
     {
         System.Text.StringBuilder builder = new(s.Length);
-        HashSet<char> hashSet = new(s.Length, Strings.Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
+        HashSet<Char> hashSet = new(s.Length, Strings.Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
 
-        foreach (char c in intersectChars)
+        foreach (Char c in intersectChars)
         {
             hashSet.Add(c);
         }
 
-        foreach (char c in s)
+        foreach (Char c in s)
         {
             if (hashSet.Remove(c))
                 builder.Append(c);
@@ -1415,9 +1415,9 @@ public static class ReturnStringExtensions : Object
         return builder.ToString();
     }
 
-    public static String Intersect(this String s, String intersectChars, bool ignoreCase = false)
+    public static String Intersect(this String s, String intersectChars, Boolean ignoreCase = false)
     {
-        return Intersect(s, (IEnumerable<char>)intersectChars, ignoreCase);
+        return Intersect(s, (IEnumerable<Char>)intersectChars, ignoreCase);
     }
 
     public static String Join(this String[] values, String separator)
@@ -1454,7 +1454,7 @@ public static class ReturnStringExtensions : Object
         return System.Text.RegularExpressions.Regex.Replace(value, @"[^0-9]", String.Empty);
     }
 
-    public static String KeepLettersOnly(this String value, bool withAccentedLetters = true)
+    public static String KeepLettersOnly(this String value, Boolean withAccentedLetters = true)
     {
         if (withAccentedLetters)
             return System.Text.RegularExpressions.Regex.Replace(value, @"[^\w]*[0-9_]*", String.Empty);
@@ -1462,7 +1462,7 @@ public static class ReturnStringExtensions : Object
             return System.Text.RegularExpressions.Regex.Replace(value, "[^0a-zA-Z]", String.Empty);
     }
 
-    public static String KeepLettersOrDigitsOnly(this String value, bool withAccentedLetters = true)
+    public static String KeepLettersOrDigitsOnly(this String value, Boolean withAccentedLetters = true)
     {
         if (withAccentedLetters)
             return System.Text.RegularExpressions.Regex.Replace(value, @"[^\w]*[_]*", String.Empty);
@@ -1470,7 +1470,7 @@ public static class ReturnStringExtensions : Object
             return System.Text.RegularExpressions.Regex.Replace(value, "[^0-9a-zA-Z]", String.Empty);
     }
 
-    public static String? Last(this String str, params char[] split)
+    public static String? Last(this String str, params Char[] split)
     {
         return str.Split(split).LastOrDefault();
     }
@@ -1494,7 +1494,7 @@ public static class ReturnStringExtensions : Object
         return str.Last(' ');
     }
 
-    public static String Left(this String source, int length)
+    public static String Left(this String source, Int32 length)
     {
         if (source.Length <= length)
             return source;
@@ -1503,7 +1503,7 @@ public static class ReturnStringExtensions : Object
             return source[..length]; // (New Version)
     }
 
-    public static String? Left(this String? value, int length, bool withEllipsis = false)
+    public static String? Left(this String? value, Int32 length, Boolean withEllipsis = false)
     {
         // TODO manage bad length
         if (value == default)
@@ -1519,7 +1519,7 @@ public static class ReturnStringExtensions : Object
         }
     }
 
-    public static String Left2(this String input, int length)
+    public static String Left2(this String input, Int32 length)
     {
         if (input == default)
             throw new ArgumentNullException("input");
@@ -1531,7 +1531,7 @@ public static class ReturnStringExtensions : Object
         return result;
     }
 
-    public static String Left3(this String value, int length)
+    public static String Left3(this String value, Int32 length)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -1541,14 +1541,14 @@ public static class ReturnStringExtensions : Object
         return value.Substring(0, length);
     }
 
-    public static String Left4(this String text, int size)
+    public static String Left4(this String text, Int32 size)
     {
         if (text == default) return null;
         if (size > text.Length) return text;
         return text.Substring(0, size);
     }
 
-    public static String Left5(this String value, int length)
+    public static String Left5(this String value, Int32 length)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -1560,12 +1560,12 @@ public static class ReturnStringExtensions : Object
         return value.Substring(0, length);
     }
 
-    public static String LeftOf(this String input, char character)
+    public static String LeftOf(this String input, Char character)
     {
         return LeftOf(input, character, 0);
     }
 
-    public static String LeftOf(this String input, char character, int skip)
+    public static String LeftOf(this String input, Char character, Int32 skip)
     {
         // preconditions
         if (input == default)
@@ -1581,8 +1581,8 @@ public static class ReturnStringExtensions : Object
         }
         else
         {
-            int characterPosition = 0;
-            int charactersFound = -1;
+            Int32 characterPosition = 0;
+            Int32 charactersFound = -1;
 
             while (charactersFound < skip)
             {
@@ -1620,7 +1620,7 @@ public static class ReturnStringExtensions : Object
         return LeftOf(input, value, 0, comparisonType);
     }
 
-    public static String LeftOf(this String input, String value, int skip, StringComparison comparisonType)
+    public static String LeftOf(this String input, String value, Int32 skip, StringComparison comparisonType)
     {
         // preconditions
         if (input == default)
@@ -1638,8 +1638,8 @@ public static class ReturnStringExtensions : Object
         }
         else
         {
-            int valuePosition = 0;
-            int valuesFound = -1;
+            Int32 valuePosition = 0;
+            Int32 valuesFound = -1;
 
             while (valuesFound < skip)
             {
@@ -1667,14 +1667,14 @@ public static class ReturnStringExtensions : Object
         return result;
     }
 
-    public static String LeftOfLast(this String input, char character)
+    public static String LeftOfLast(this String input, Char character)
     {
         // preconditions
         if (input == default)
             throw new ArgumentNullException("input");
 
         String result;
-        int lastCharacterPosition = input.LastIndexOf(character);
+        Int32 lastCharacterPosition = input.LastIndexOf(character);
 
         if (lastCharacterPosition == -1)
         {
@@ -1702,7 +1702,7 @@ public static class ReturnStringExtensions : Object
             throw new ArgumentNullException("value");
 
         String result;
-        int lastValuePosition = input.LastIndexOf(value, comparisonType);
+        Int32 lastValuePosition = input.LastIndexOf(value, comparisonType);
 
         if (lastValuePosition == -1)
         {
@@ -1716,7 +1716,7 @@ public static class ReturnStringExtensions : Object
         return result;
     }
 
-    public static String Limit(this String source, int maxLength, String suffix = null)
+    public static String Limit(this String source, Int32 maxLength, String suffix = null)
     {
         if (suffix.IsNotNullOrEmpty())
         {
@@ -1731,14 +1731,14 @@ public static class ReturnStringExtensions : Object
         return String.Concat(source.Substring(0, maxLength).Trim(), suffix ?? String.Empty);
     }
 
-    public static String LimitLength(this String source, int maxLength)
+    public static String LimitLength(this String source, Int32 maxLength)
     {
         if (source.Length <= maxLength)
             return source;
         return source.Substring(0, maxLength);
     }
 
-    public static String LimitSentenceLength(this String paragraph, int maximumLenght)
+    public static String LimitSentenceLength(this String paragraph, Int32 maximumLenght)
     {
         //null check
         if (paragraph == default) return null;
@@ -1768,7 +1768,7 @@ public static class ReturnStringExtensions : Object
         return paragraphToReturn;
     }
 
-    public static String MaxLengthTrim(this String str, int maxLength)
+    public static String MaxLengthTrim(this String str, Int32 maxLength)
     {
         if (str == default)
             return str;
@@ -1777,16 +1777,16 @@ public static class ReturnStringExtensions : Object
         return str;
     }
 
-    public static String Mid(this String source, int startIndex)
+    public static String Mid(this String source, Int32 startIndex)
     {
-        return Mid(source, startIndex, int.MaxValue);
+        return Mid(source, startIndex, Int32.MaxValue);
     }
 
-    public static String Mid(this String source, int startIndex, int length)
+    public static String Mid(this String source, Int32 startIndex, Int32 length)
     {
         if (source.Length <= startIndex)
             return String.Empty;
-        else if (length == int.MaxValue || source.Length <= startIndex + length)
+        else if (length == Int32.MaxValue || source.Length <= startIndex + length)
             //return source.Substring(startIndex); // [OLD Version]
             return source[startIndex..]; // [New Version]
         else
@@ -1805,13 +1805,13 @@ public static class ReturnStringExtensions : Object
 
     public static String NormalizeWhiteSpace(this String s)
     {
-        bool wasSpace = false;
+        Boolean wasSpace = false;
 
         System.Text.StringBuilder builder = new(s.Length);
 
-        foreach (char c in s)
+        foreach (Char c in s)
         {
-            if (char.IsWhiteSpace(c))
+            if (Char.IsWhiteSpace(c))
             {
                 if (builder.Length > 0)
                     wasSpace = true;
@@ -1885,7 +1885,7 @@ public static class ReturnStringExtensions : Object
         var rootParts = root.GetPathParts();
 
         var length = pathParts.Count > rootParts.Count ? rootParts.Count : pathParts.Count;
-        for (int i = 0; i < length; i++)
+        for (Int32 i = 0; i < length; i++)
         {
             if (pathParts.First() == rootParts.First())
             {
@@ -1898,7 +1898,7 @@ public static class ReturnStringExtensions : Object
             }
         }
 
-        for (int i = 0; i < rootParts.Count; i++)
+        for (Int32 i = 0; i < rootParts.Count; i++)
         {
             pathParts.Insert(0, "..");
         }
@@ -1906,7 +1906,7 @@ public static class ReturnStringExtensions : Object
         return pathParts.Count > 0 ? Path.Combine(pathParts.ToArray()) : String.Empty;
     }
 
-    public static String PluralString(this String noun, int n, bool includeN)
+    public static String PluralString(this String noun, Int32 n, Boolean includeN)
     {
         if (n == 1)
         {
@@ -1935,7 +1935,7 @@ public static class ReturnStringExtensions : Object
         );
     }
 
-    public static String RegexReplace(this String input, String pattern, Func<int, String, String> replaceCallback)
+    public static String RegexReplace(this String input, String pattern, Func<Int32, String, String> replaceCallback)
     {
         return input.RegexReplace
         (
@@ -1959,7 +1959,7 @@ public static class ReturnStringExtensions : Object
         );
     }
 
-    public static String RegexReplace(this String input, String pattern, System.Text.RegularExpressions.RegexOptions options, Func<int, String, String> replaceCallback)
+    public static String RegexReplace(this String input, String pattern, System.Text.RegularExpressions.RegexOptions options, Func<Int32, String, String> replaceCallback)
     {
         if (input is null) { throw new ArgumentNullException(nameof(input)); }
         if (replaceCallback is null) { throw new ArgumentNullException(nameof(replaceCallback)); }
@@ -1991,9 +1991,9 @@ public static class ReturnStringExtensions : Object
         var normalizedString = text.Normalize(System.Text.NormalizationForm.FormD);
         var stringBuilder = new System.Text.StringBuilder(capacity: normalizedString.Length);
 
-        for (int i = 0; i < normalizedString.Length; i++)
+        for (Int32 i = 0; i < normalizedString.Length; i++)
         {
-            char c = normalizedString[i];
+            Char c = normalizedString[i];
             var unicodeCategory = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(c);
             if (unicodeCategory != System.Globalization.UnicodeCategory.NonSpacingMark)
             {
@@ -2012,7 +2012,7 @@ public static class ReturnStringExtensions : Object
         return new String(input.ToCharArray().Where(c => !Char.IsWhiteSpace(c)).ToArray());
     }
 
-    public static String RemoveCharacters(this String input, List<char> chars)
+    public static String RemoveCharacters(this String input, List<Char> chars)
     {
         String result = input;
         foreach (var c in chars)
@@ -2028,8 +2028,8 @@ public static class ReturnStringExtensions : Object
         String r = str;
         if (removeUs != null)
         {
-            char[] chars = removeUs.ToCharArray();
-            foreach (char c in chars)
+            Char[] chars = removeUs.ToCharArray();
+            foreach (Char c in chars)
             {
                 r = r.Replace(c.ToString(), "");
             }
@@ -2037,10 +2037,10 @@ public static class ReturnStringExtensions : Object
         return r;
     }
 
-    public static String RemoveChars(this String s, params char[] chars)
+    public static String RemoveChars(this String s, params Char[] chars)
     {
         var sb = new System.Text.StringBuilder(s.Length);
-        foreach (char c in s.Where(c => !chars.Contains(c)))
+        foreach (Char c in s.Where(c => !chars.Contains(c)))
         {
             sb.Append(c);
         }
@@ -2058,7 +2058,7 @@ public static class ReturnStringExtensions : Object
         String normalizedString = text.Normalize(System.Text.NormalizationForm.FormD);
         System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
 
-        foreach (char c in normalizedString)
+        foreach (Char c in normalizedString)
         {
             var unicodeCategory = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(c);
             if (unicodeCategory != System.Globalization.UnicodeCategory.NonSpacingMark) stringBuilder.Append(c);
@@ -2083,7 +2083,7 @@ public static class ReturnStringExtensions : Object
         // ----------------------------------------------------------------------------------------------------
         string normalizedString = value.Normalize(System.Text.NormalizationForm.FormD);
         System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
-        foreach (char normalized in normalizedString)
+        foreach (Char normalized in normalizedString)
         {
             System.Globalization.UnicodeCategory unicodeCategory = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(normalized);
             if (unicodeCategory != System.Globalization.UnicodeCategory.NonSpacingMark)
@@ -2115,17 +2115,17 @@ public static class ReturnStringExtensions : Object
     {
         if (input.Contains(toMatch))
         {
-            int lastIndex = input.LastIndexOf(toMatch);
+            Int32 lastIndex = input.LastIndexOf(toMatch);
             return input.Substring(0, lastIndex);
         }
         else return input;
     }
 
-    public static String RemoveLastOccuranceOf(this String input, char toMatch)
+    public static String RemoveLastOccuranceOf(this String input, Char toMatch)
     {
         if (input.Contains(toMatch))
         {
-            int lastIndex = input.LastIndexOf(toMatch);
+            Int32 lastIndex = input.LastIndexOf(toMatch);
             return input.Substring(0, lastIndex);
         }
         else return input;
@@ -2137,7 +2137,7 @@ public static class ReturnStringExtensions : Object
         if (remove != null)
         {
             List<String> lines = s.SplitIntoLines().ToList();
-            for (int i = lines.Count - 1; i >= 0; i--)
+            for (Int32 i = lines.Count - 1; i >= 0; i--)
             {
                 String line = lines[i];
                 if (remove(line))
@@ -2150,12 +2150,12 @@ public static class ReturnStringExtensions : Object
         return r;
     }
 
-    public static String RemoveNonAlphaNum(this String source, bool keepBlank = false)
+    public static String RemoveNonAlphaNum(this String source, Boolean keepBlank = false)
     {
         return System.Text.RegularExpressions.Regex.Replace(System.Text.RegularExpressions.Regex.Replace(source, keepBlank ? "[^a-zA-Z\x20]" : "[^a-zA-Z]", ""), "\x20$", "");
     }
 
-    public static String RemovePrefix(this String value, String prefix, bool ignoreCase = true)
+    public static String RemovePrefix(this String value, String prefix, Boolean ignoreCase = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -2166,7 +2166,7 @@ public static class ReturnStringExtensions : Object
         return value;
     }
 
-    public static String? RemoveSuffix(this String value, String suffix, bool ignoreCase = true)
+    public static String? RemoveSuffix(this String value, String suffix, Boolean ignoreCase = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -2185,7 +2185,7 @@ public static class ReturnStringExtensions : Object
     public static String RemoveWhiteSpace(this String input)
     {
         return new String(input.ToCharArray()
-                               .Where(c => !char.IsWhiteSpace(c))
+                               .Where(c => !Char.IsWhiteSpace(c))
                                .ToArray());
 
     }
@@ -2210,12 +2210,12 @@ public static class ReturnStringExtensions : Object
 
     public static String RenameFileIfExists(String FullFilePath)
     {
-        int currentFileNumber = 1;
+        Int32 currentFileNumber = 1;
         while (File.Exists(FullFilePath))
         {
 
             String extension = "";
-            int extensionIndex = FullFilePath.LastIndexOf('.');
+            Int32 extensionIndex = FullFilePath.LastIndexOf('.');
             if (extensionIndex != -1)
             {
                 extension = FullFilePath.Substring(extensionIndex);
@@ -2224,9 +2224,9 @@ public static class ReturnStringExtensions : Object
 
             if (FullFilePath.Length != 0 && FullFilePath[FullFilePath.Length - 1] == ')')
             {
-                int openPranthesesIndex = FullFilePath.Length - 2;
+                Int32 openPranthesesIndex = FullFilePath.Length - 2;
 
-                bool isFound = false;
+                Boolean isFound = false;
                 while (openPranthesesIndex >= 0)
                 {
                     if (FullFilePath[openPranthesesIndex] == '(')
@@ -2239,8 +2239,8 @@ public static class ReturnStringExtensions : Object
 
                 if (isFound)
                 {
-                    int fileNumber;
-                    if (int.TryParse(FullFilePath.Substring(openPranthesesIndex + 1, FullFilePath.Length - 1 - openPranthesesIndex - 1), out fileNumber))
+                    Int32 fileNumber;
+                    if (Int32.TryParse(FullFilePath.Substring(openPranthesesIndex + 1, FullFilePath.Length - 1 - openPranthesesIndex - 1), out fileNumber))
                     {
                         currentFileNumber = fileNumber + 1;
                         FullFilePath = FullFilePath.Substring(0, openPranthesesIndex);
@@ -2259,7 +2259,7 @@ public static class ReturnStringExtensions : Object
         return FullFilePath;
     }
 
-    public static String? Repeat(this String value, int n)
+    public static String? Repeat(this String value, Int32 n)
     {
         if (n < 0)
             return null;
@@ -2269,7 +2269,7 @@ public static class ReturnStringExtensions : Object
             return String.Concat(Enumerable.Repeat(value, n));
     }
 
-    public static String Replace(this String s, params char[] chars)
+    public static String Replace(this String s, params Char[] chars)
     {
         return chars.Aggregate(s, (current, c) => current.Replace(c.ToString(System.Globalization.CultureInfo.InvariantCulture), ""));
     }
@@ -2283,14 +2283,14 @@ public static class ReturnStringExtensions : Object
         return Replace(input, oldValue, newValue, 0, input.Length, comparisonType);
     }
 
-    public static String Replace(this String input, String oldValue, String newValue, int startIndex, int count, StringComparison comparisonType)
+    public static String Replace(this String input, String oldValue, String newValue, Int32 startIndex, Int32 count, StringComparison comparisonType)
     {
-        int total;
+        Int32 total;
 
         return Replace(input, oldValue, newValue, startIndex, count, comparisonType, out total);
     }
 
-    public static String Replace(this String input, String oldValue, String newValue, int startIndex, int count, StringComparison comparisonType, out int total)
+    public static String Replace(this String input, String oldValue, String newValue, Int32 startIndex, Int32 count, StringComparison comparisonType, out Int32 total)
     {
         // preconditions
         if (input == default)
@@ -2307,7 +2307,7 @@ public static class ReturnStringExtensions : Object
         String result;
 
         // the initial length of the result for stringBuilder assumes that there is only 1 value to replace
-        int initialLength = Math.Max(input.Length - oldValue.Length, 0);
+        Int32 initialLength = Math.Max(input.Length - oldValue.Length, 0);
         if (newValue != null)
             initialLength += newValue.Length;
 
@@ -2318,15 +2318,15 @@ public static class ReturnStringExtensions : Object
             resultBuilder.Append(input, 0, startIndex);
         }
 
-        int currentIndex = startIndex;
-        int maxIndex = startIndex + count;
+        Int32 currentIndex = startIndex;
+        Int32 maxIndex = startIndex + count;
 
         total = 0;
 
         while (currentIndex < maxIndex)
         {
-            int lastIndex = currentIndex;
-            int newIndex = input.IndexOf(oldValue, lastIndex, maxIndex - lastIndex, comparisonType);
+            Int32 lastIndex = currentIndex;
+            Int32 newIndex = input.IndexOf(oldValue, lastIndex, maxIndex - lastIndex, comparisonType);
 
             if (newIndex != -1)
             {
@@ -2344,7 +2344,7 @@ public static class ReturnStringExtensions : Object
         }
 
         // append the final part
-        int finalCount = input.Length - currentIndex;
+        Int32 finalCount = input.Length - currentIndex;
         resultBuilder.Append(input, currentIndex, finalCount);
 
         result = resultBuilder.ToString();
@@ -2356,8 +2356,8 @@ public static class ReturnStringExtensions : Object
     {
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
-        int previousIndex = 0;
-        int index = str.IndexOf(oldValue, comparison);
+        Int32 previousIndex = 0;
+        Int32 index = str.IndexOf(oldValue, comparison);
         while (index != -1)
         {
             sb.Append(str.Substring(previousIndex, index - previousIndex));
@@ -2375,7 +2375,7 @@ public static class ReturnStringExtensions : Object
 
     public static String ReplaceFirst(this String text, String search, String replace)
     {
-        int pos = text.IndexOf(search);
+        Int32 pos = text.IndexOf(search);
         if (pos < 0)
         {
             return text;
@@ -2420,7 +2420,7 @@ public static class ReturnStringExtensions : Object
         );
     }
 
-    public static String ReplaceIgnoreCase2(this String input, String oldValue, Func<int, String, String> replaceCallback)
+    public static String ReplaceIgnoreCase2(this String input, String oldValue, Func<Int32, String, String> replaceCallback)
     {
         if (input is null) { throw new ArgumentNullException(nameof(input)); }
 
@@ -2451,7 +2451,7 @@ public static class ReturnStringExtensions : Object
         return System.Text.RegularExpressions.Regex.Replace(val, @"^[\r\n]+|\.|[\r\n]+$", "");
     }
 
-    public static String ReplaceWhitespace(this String text, String replacement = "", bool groupreplace = true)
+    public static String ReplaceWhitespace(this String text, String replacement = "", Boolean groupreplace = true)
     {
         if (String.IsNullOrWhiteSpace(text))
             return String.Empty;
@@ -2459,7 +2459,7 @@ public static class ReturnStringExtensions : Object
         return System.Text.RegularExpressions.Regex.Replace(text, groupreplace ? @"[\s]+" : @"\s", replacement);
     }
 
-    public static String Resize(this String value, int count, bool isEndModified = true, char paddingChar = ' ')
+    public static String Resize(this String value, Int32 count, Boolean isEndModified = true, Char paddingChar = ' ')
     {
         if (count < 0)
             throw new ArgumentOutOfRangeException(nameof(count));
@@ -2512,15 +2512,15 @@ public static class ReturnStringExtensions : Object
 
     public static String Reverse(this String self)
     {
-        ICollection<char> reversedCharacters = new List<char>();
+        ICollection<Char> reversedCharacters = new List<Char>();
 
-        for (int i = self.Length - 1; i >= 0; i--)
+        for (Int32 i = self.Length - 1; i >= 0; i--)
             reversedCharacters.Add(self[i]);
 
         return String.Join(String.Empty, reversedCharacters);
     }
 
-    public static String Reverse(this String input, int startIndex, int count)
+    public static String Reverse(this String input, Int32 startIndex, Int32 count)
     {
         // preconditions
         if (input == default)
@@ -2535,7 +2535,7 @@ public static class ReturnStringExtensions : Object
         // prevent reversing 0 characters
         if (count > 0)
         {
-            char[] characters = input.ToCharArray();
+            Char[] characters = input.ToCharArray();
 
             // reverse the intended characters
             Array.Reverse(characters, startIndex, count);
@@ -2559,7 +2559,7 @@ public static class ReturnStringExtensions : Object
     {
         System.Text.StringBuilder builder = new(s.Length);
 
-        for (int i = s.Length - 1; i >= 0; i--)
+        for (Int32 i = s.Length - 1; i >= 0; i--)
             builder.Append(s[i]);
 
         return builder.ToString();
@@ -2567,8 +2567,8 @@ public static class ReturnStringExtensions : Object
 
     public static String Reverse4(this String val)
     {
-        var chars = new char[val.Length];
-        for (int i = val.Length - 1, j = 0; i >= 0; --i, ++j)
+        var chars = new Char[val.Length];
+        for (Int32 i = val.Length - 1, j = 0; i >= 0; --i, ++j)
         {
             chars[j] = val[i];
         }
@@ -2576,7 +2576,7 @@ public static class ReturnStringExtensions : Object
         return val;
     }
 
-    public static String ReverseSlash(this String val, int direction)
+    public static String ReverseSlash(this String val, Int32 direction)
     {
         switch (direction)
         {
@@ -2592,14 +2592,14 @@ public static class ReturnStringExtensions : Object
     public static String ReverseString(this String str)
     {
         String s = "";
-        for (int i = str.Length - 1; i >= 0; i--)
+        for (Int32 i = str.Length - 1; i >= 0; i--)
         {
             s += str[i];
         }
         return s;
     }
 
-    public static String Right(this String source, int length)
+    public static String Right(this String source, Int32 length)
     {
         if (length >= source.Length)
             return source;
@@ -2608,7 +2608,7 @@ public static class ReturnStringExtensions : Object
             return source[^length..]; // (New Version)
     }
 
-    public static String? Right(this String value, int length, bool withEllipsis = false)
+    public static String? Right(this String value, Int32 length, Boolean withEllipsis = false)
     {
         // TODO manage bad length
         if (value == default)
@@ -2624,7 +2624,7 @@ public static class ReturnStringExtensions : Object
         }
     }
 
-    public static String Right2(this String input, int length)
+    public static String Right2(this String input, Int32 length)
     {
         // preconditions
         if (input == default)
@@ -2632,13 +2632,13 @@ public static class ReturnStringExtensions : Object
         if (length < 0 || length > input.Length)
             throw new ArgumentOutOfRangeException("length", "length cannot be higher than the amount of available characters in the input or lower than 0");
 
-        int startIndex = input.Length - length;
+        Int32 startIndex = input.Length - length;
         String result = input.Substring(startIndex);
 
         return result;
     }
 
-    public static String Right3(this String value, int length)
+    public static String Right3(this String value, Int32 length)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -2648,7 +2648,7 @@ public static class ReturnStringExtensions : Object
         return value.Substring(value.Length - length);
     }
 
-    public static String Right4(this String value, int length)
+    public static String Right4(this String value, Int32 length)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -2660,12 +2660,12 @@ public static class ReturnStringExtensions : Object
         return value.Substring(value.Length - length, length);
     }
 
-    public static String RightOf(this String input, char character)
+    public static String RightOf(this String input, Char character)
     {
         return RightOf(input, character, 0);
     }
 
-    public static String RightOf(this String input, char character, int skip)
+    public static String RightOf(this String input, Char character, Int32 skip)
     {
         // preconditions
         if (input == default)
@@ -2681,8 +2681,8 @@ public static class ReturnStringExtensions : Object
         }
         else
         {
-            int characterPosition = input.Length;
-            int foundCharacters = -1;
+            Int32 characterPosition = input.Length;
+            Int32 foundCharacters = -1;
 
             while (foundCharacters < skip)
             {
@@ -2725,7 +2725,7 @@ public static class ReturnStringExtensions : Object
         return RightOf(input, value, 0, comparisonType);
     }
 
-    public static String RightOf(this String input, String value, int skip, StringComparison comparisonType)
+    public static String RightOf(this String input, String value, Int32 skip, StringComparison comparisonType)
     {
         // preconditions
         if (input == default)
@@ -2742,8 +2742,8 @@ public static class ReturnStringExtensions : Object
         }
         else
         {
-            int valuePosition = -1;
-            int valuesFound = -1;
+            Int32 valuePosition = -1;
+            Int32 valuesFound = -1;
 
             while (valuesFound < skip)
             {
@@ -2771,14 +2771,14 @@ public static class ReturnStringExtensions : Object
         return result;
     }
 
-    public static String RightOfLast(this String input, char character)
+    public static String RightOfLast(this String input, Char character)
     {
         // preconditions
         if (input == default)
             throw new ArgumentNullException("input");
 
         String result;
-        int lastCharacterPosition = input.LastIndexOf(character);
+        Int32 lastCharacterPosition = input.LastIndexOf(character);
 
         if (lastCharacterPosition == -1)
         {
@@ -2806,7 +2806,7 @@ public static class ReturnStringExtensions : Object
             throw new ArgumentNullException("value");
 
         String result;
-        int lastValuePosition = input.LastIndexOf(value, comparisonType);
+        Int32 lastValuePosition = input.LastIndexOf(value, comparisonType);
 
         if (lastValuePosition == -1)
         {
@@ -2860,9 +2860,9 @@ public static class ReturnStringExtensions : Object
         {
             return ((float)value).ToString("R");
         }
-        else if (value is double)
+        else if (value is Double)
         {
-            return ((double)value).ToString("R");
+            return ((Double)value).ToString("R");
         }
         else if (value is DateTime)
         {
@@ -2874,7 +2874,7 @@ public static class ReturnStringExtensions : Object
         }
     }
 
-    public static String Shorten(this String source, int maxLength)
+    public static String Shorten(this String source, Int32 maxLength)
     {
         if (source.Length <= maxLength)
             return source;
@@ -2882,7 +2882,7 @@ public static class ReturnStringExtensions : Object
         return String.Concat(source.AsSpan(0, maxLength - 3), "...");
     }
 
-    public static String Skip(this String source, int count)
+    public static String Skip(this String source, Int32 count)
     {
         if (source == default)
         {
@@ -2895,7 +2895,7 @@ public static class ReturnStringExtensions : Object
                          : source.Substring(count);
     }
 
-    public static String Slug(this String text, int maxLength)
+    public static String Slug(this String text, Int32 maxLength)
     {
         if (maxLength <= 0)
             throw new ArgumentOutOfRangeException(nameof(maxLength));
@@ -2918,12 +2918,12 @@ public static class ReturnStringExtensions : Object
             .Where(x => x.IsLetterOrDigit() || x == '-'));
     }
 
-    public static String Sort(this String s, bool ignoreCase = false)
+    public static String Sort(this String s, Boolean ignoreCase = false)
     {
         System.Text.StringBuilder builder = new(s.Length);
-        IComparer<char> comparer = Strings.Comparison.Extensions.CharComparer.GetComparer(ignoreCase);
+        IComparer<Char> comparer = Strings.Comparison.Extensions.CharComparer.GetComparer(ignoreCase);
 
-        foreach (char c in s.OrderBy(c => c, comparer))
+        foreach (Char c in s.OrderBy(c => c, comparer))
         {
             builder.Append(c);
         }
@@ -2967,7 +2967,7 @@ public static class ReturnStringExtensions : Object
 
     public static String SubstringFromFirstOccurrence(this String str, String afterThis)
     {
-        int index = str.IndexOfInvariant(afterThis);
+        Int32 index = str.IndexOfInvariant(afterThis);
         String r;
         if (index == -1)
         {
@@ -2982,7 +2982,7 @@ public static class ReturnStringExtensions : Object
 
     public static String SubstringFromLastOccurrence(this String str, String afterMe)
     {
-        int index = str.LastIndexOfInvariant(afterMe);
+        Int32 index = str.LastIndexOfInvariant(afterMe);
         String r;
         if (index == -1)
         {
@@ -3001,7 +3001,7 @@ public static class ReturnStringExtensions : Object
         {
             return null;
         }
-        int index = str.IndexOfInvariant(toThis);
+        Int32 index = str.IndexOfInvariant(toThis);
         if (index == -1)
         {
             return str;
@@ -3009,7 +3009,7 @@ public static class ReturnStringExtensions : Object
         return str.Substring(0, index);
     }
 
-    public static String Take(this String source, int count)
+    public static String Take(this String source, Int32 count)
     {
         if (source == default)
         {
@@ -3045,19 +3045,19 @@ public static class ReturnStringExtensions : Object
 
     public static String TrimEnd(this String input, String endsWith, StringComparison comparisonType)
     {
-        // its safe to call trimStart with int.MaxValue as max since a String cannot the currently restricted 2gb size limit.
+        // its safe to call trimStart with Int32.MaxValue as max since a String cannot the currently restricted 2gb size limit.
         // however, this might change in the future
-        return TrimEnd(input, endsWith, comparisonType, int.MaxValue);
+        return TrimEnd(input, endsWith, comparisonType, Int32.MaxValue);
     }
 
-    public static String TrimEnd(this String input, String endsWith, StringComparison comparisonType, int max)
+    public static String TrimEnd(this String input, String endsWith, StringComparison comparisonType, Int32 max)
     {
-        int count;
+        Int32 count;
 
         return TrimEnd(input, endsWith, comparisonType, max, out count);
     }
 
-    public static String TrimEnd(this String input, String endsWith, StringComparison comparisonType, int max, out int total)
+    public static String TrimEnd(this String input, String endsWith, StringComparison comparisonType, Int32 max, out Int32 total)
     {
         // preconditions
         if (input == default)
@@ -3111,19 +3111,19 @@ public static class ReturnStringExtensions : Object
 
     public static String TrimStart(this String input, String startsWith, StringComparison comparisonType)
     {
-        // its safe to call trimStart with int.MaxValue as max since a String cannot the currently restricted 2gb size limit.
+        // its safe to call trimStart with Int32.MaxValue as max since a String cannot the currently restricted 2gb size limit.
         // however, this might change in the future
-        return TrimStart(input, startsWith, comparisonType, int.MaxValue);
+        return TrimStart(input, startsWith, comparisonType, Int32.MaxValue);
     }
 
-    public static String TrimStart(this String input, String startsWith, StringComparison comparisonType, int max)
+    public static String TrimStart(this String input, String startsWith, StringComparison comparisonType, Int32 max)
     {
-        int count;
+        Int32 count;
 
         return TrimStart(input, startsWith, comparisonType, max, out count);
     }
 
-    public static String TrimStart(this String input, String startsWith, StringComparison comparisonType, int max, out int total)
+    public static String TrimStart(this String input, String startsWith, StringComparison comparisonType, Int32 max, out Int32 total)
     {
         // preconditions
         if (input == default)
@@ -3165,17 +3165,17 @@ public static class ReturnStringExtensions : Object
         return TrimStart(input, startsWith, comparisonType, 1);
     }
 
-    public static String Truncate(this String input, int length, String ellipsis)
+    public static String Truncate(this String input, Int32 length, String ellipsis)
     {
         return Truncate(input, length, ellipsis, true);
     }
 
-    public static String Truncate(this String input, int length, String ellipsis, bool inclusiveEllipsis)
+    public static String Truncate(this String input, Int32 length, String ellipsis, Boolean inclusiveEllipsis)
     {
         return Truncate(input, length, ellipsis, inclusiveEllipsis, null, false, StringComparison.Ordinal);
     }
 
-    public static String Truncate(this String value, int length, String ellipsis, bool inclusiveEllipsis, String boundary, bool emptyOnNoBoundary, StringComparison comparisonType)
+    public static String Truncate(this String value, Int32 length, String ellipsis, Boolean inclusiveEllipsis, String boundary, Boolean emptyOnNoBoundary, StringComparison comparisonType)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -3192,16 +3192,16 @@ public static class ReturnStringExtensions : Object
 
         if (value.Length > length)
         {
-            int checkLength = length;
+            Int32 checkLength = length;
 
             if (inclusiveEllipsis && !ellipsis.IsNullOrEmpty())
                 checkLength -= ellipsis.Length;
             if (!boundary.IsNullOrEmpty() || !boundary.IsNullOrWhiteSpace())
             {
-                int boundaryIndex = value.LastIndexOf(boundary, checkLength, checkLength, comparisonType);
+                Int32 boundaryIndex = value.LastIndexOf(boundary, checkLength, checkLength, comparisonType);
                 if (boundaryIndex != -1)
                 {
-                    int boundaryLength = boundaryIndex; // we want to stop right before the boundary starts so we can use the index of the boundary as the length.
+                    Int32 boundaryLength = boundaryIndex; // we want to stop right before the boundary starts so we can use the index of the boundary as the length.
 
                     result = value.Left(boundaryLength);
                 }
@@ -3229,7 +3229,7 @@ public static class ReturnStringExtensions : Object
         return result;
     }
 
-    public static String Truncate(this String s, int maxLength, bool smartTrim = true, bool appendEllipsis = true)
+    public static String Truncate(this String s, Int32 maxLength, Boolean smartTrim = true, Boolean appendEllipsis = true)
     {
         const String ellipsis = "...";
 
@@ -3246,7 +3246,7 @@ public static class ReturnStringExtensions : Object
                     appendEllipsis = false;
             }
 
-            int length = maxLength;
+            Int32 length = maxLength;
 
             if (smartTrim)
             {
@@ -3254,7 +3254,7 @@ public static class ReturnStringExtensions : Object
 
                 //while (length > 0 && s.IsWordCharacter(length))
                 //    length--;
-                while (length > 0 && char.IsWhiteSpace(s[length - 1]))
+                while (length > 0 && Char.IsWhiteSpace(s[length - 1]))
                     length--;
                 if (length == 0)
                     length = maxLength;
@@ -3269,7 +3269,7 @@ public static class ReturnStringExtensions : Object
         return s;
     }
 
-    public static String Truncate(this String value, int maxLength)
+    public static String Truncate(this String value, Int32 maxLength)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -3283,7 +3283,7 @@ public static class ReturnStringExtensions : Object
         return value;
     }
 
-    public static String Truncate2(this String? value, int maxLength, String? truncateSymbol = EllipsisAsciiSymbol)
+    public static String Truncate2(this String? value, Int32 maxLength, String? truncateSymbol = EllipsisAsciiSymbol)
     {
         if (maxLength < 1)
             throw new ArgumentOutOfRangeException(nameof(maxLength), String.Format(AT.Infrastructure.ExceptionMessages.ParamCannotBeLessThan_ParamName_MinValue_ActualValue, nameof(maxLength), 1, maxLength));
@@ -3301,7 +3301,7 @@ public static class ReturnStringExtensions : Object
         return value;
     }
 
-    public static String Truncate3(this String value, int maxLength, String suffix = "")
+    public static String Truncate3(this String value, Int32 maxLength, String suffix = "")
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -3309,19 +3309,19 @@ public static class ReturnStringExtensions : Object
         return value.Length <= maxLength ? value : value.Substring(0, maxLength) + suffix;
     }
 
-    public static String Union(this String s, IEnumerable<char> unionChars, bool ignoreCase = false)
+    public static String Union(this String s, IEnumerable<Char> unionChars, Boolean ignoreCase = false)
     {
-        int unionCharsCount = unionChars.Count();
+        Int32 unionCharsCount = unionChars.Count();
         System.Text.StringBuilder builder = new(s.Length + unionCharsCount);
-        HashSet<char> hashSet = new(s.Length + unionCharsCount, Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
+        HashSet<Char> hashSet = new(s.Length + unionCharsCount, Comparison.Extensions.CharComparer.GetEqualityComparer(ignoreCase));
 
-        foreach (char c in s)
+        foreach (Char c in s)
         {
             if (hashSet.Add(c))
                 builder.Append(c);
         }
 
-        foreach (char c in unionChars)
+        foreach (Char c in unionChars)
         {
             if (hashSet.Add(c))
                 builder.Append(c);
@@ -3330,9 +3330,9 @@ public static class ReturnStringExtensions : Object
         return builder.ToString();
     }
 
-    public static String Union(this String s, String unionChars, bool ignoreCase = false)
+    public static String Union(this String s, String unionChars, Boolean ignoreCase = false)
     {
-        return Union(s, (IEnumerable<char>)unionChars, ignoreCase);
+        return Union(s, (IEnumerable<Char>)unionChars, ignoreCase);
     }
 
     public static String WithTrailingSlash(this String value)

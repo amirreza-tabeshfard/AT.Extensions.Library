@@ -4,7 +4,7 @@ using System;
 namespace AT.Extensions.DateTimes.Georgian.Addition;
 public static class Extensions : Object
 {
-    public static DateTime Add(this DateTime dateTime, double value, Enums.DateTimeDifferenceFormat differenceFormat)
+    public static DateTime Add(this DateTime dateTime, Double value, Enums.DateTimeDifferenceFormat differenceFormat)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -23,7 +23,7 @@ public static class Extensions : Object
         };
     }
 
-    public static TimeSpan AddDays(this TimeSpan time, int days)
+    public static TimeSpan AddDays(this TimeSpan time, Int32 days)
     {
         if (time == default)
             throw new ArgumentNullException(nameof(time));
@@ -37,7 +37,7 @@ public static class Extensions : Object
         return time.Add(additionalDays);
     }
 
-    public static DateTime AddWorkDays(this DateTime dateTime, int days)
+    public static DateTime AddWorkDays(this DateTime dateTime, Int32 days)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -45,7 +45,7 @@ public static class Extensions : Object
         while (dateTime.DayOfWeek.IsWeekday())
             dateTime = dateTime.AddDays(value: 1.0);
 
-        for (int i = 0; i < days; ++i)
+        for (Int32 i = 0; i < days; ++i)
         {
             dateTime = dateTime.AddDays(value: 1.0);
 
@@ -56,7 +56,7 @@ public static class Extensions : Object
         return dateTime;
     }
 
-    public static DateTime AddWeeks(this DateTime dateTime, double value)
+    public static DateTime AddWeeks(this DateTime dateTime, Double value)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -64,14 +64,14 @@ public static class Extensions : Object
         return dateTime.AddDays(value * 7);
     }
 
-    public static DateTime AddBusinessDays(this DateTime dateTime, uint daysToAdd, IEnumerable<DateTime>? holidays)
+    public static DateTime AddBusinessDays(this DateTime dateTime, UInt32 daysToAdd, IEnumerable<DateTime>? holidays)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
         else ArgumentNullException.ThrowIfNull(holidays);
         // ----------------------------------------------------------------------------------------------------
         List<DateTime>? holidaysList = holidays.ToList();
-        for (int i = 0; i < daysToAdd; i++)
+        for (Int32 i = 0; i < daysToAdd; i++)
             switch (dateTime.DayOfWeek)
             {
                 case DayOfWeek.Friday:
@@ -96,7 +96,7 @@ public static class Extensions : Object
         return dateTime;
     }
 
-    public static DateTime SetTime(this DateTime dateTime, int hour, int minute, int second, int millisecond = default)
+    public static DateTime SetTime(this DateTime dateTime, Int32 hour, Int32 minute, Int32 second, Int32 millisecond = default)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -106,7 +106,7 @@ public static class Extensions : Object
         return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, hour, minute, second, millisecond);
     }
 
-    public static DateTime SetDay(this DateTime dateTime, int day)
+    public static DateTime SetDay(this DateTime dateTime, Int32 day)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -116,7 +116,7 @@ public static class Extensions : Object
         return dateTime.AddDays(-1 * dateTime.Day).AddDays(day);
     }
 
-    public static DateTime SetYear(this DateTime dateTime, int year)
+    public static DateTime SetYear(this DateTime dateTime, Int32 year)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));

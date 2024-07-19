@@ -1,12 +1,12 @@
 ﻿namespace AT.Extensions.DirectoryInfos.Extraction;
 public static class Extensions : Object
 {
-    public static long GetSize(this DirectoryInfo directoryInfo)
+    public static Int64 GetSize(this DirectoryInfo directoryInfo)
     {
         if (directoryInfo == default)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        long length = directoryInfo
+        Int64 length = directoryInfo
                       .GetFiles()
                       .Sum(nextfile => nextfile.Exists ? nextfile.Length : 0);
 

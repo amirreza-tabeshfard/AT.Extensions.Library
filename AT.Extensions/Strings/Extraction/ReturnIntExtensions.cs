@@ -4,20 +4,20 @@ using AT.Extensions.Strings.Comparison;
 namespace AT.Extensions.Strings.Extraction;
 public static class ReturnIntExtensions : Object
 {
-    public static int AsInt(this String value)
+    public static Int32 AsInt(this String value)
     {
         return value.AsInt(0);
     }
 
-    public static int AsInt(this String value, int defaultValue)
+    public static Int32 AsInt(this String value, Int32 defaultValue)
     {
-        int result;
-        if (!int.TryParse(value, out result))
+        Int32 result;
+        if (!Int32.TryParse(value, out result))
             return defaultValue;
         return result;
     }
 
-    public static int Count(this String source)
+    public static Int32 Count(this String source)
     {
         if (source == default)
         {
@@ -26,19 +26,19 @@ public static class ReturnIntExtensions : Object
         return source.Length;
     }
 
-    public static int CountNonSpecialSymbols(this String str)
+    public static Int32 CountNonSpecialSymbols(this String str)
     {
-        int count = 0;
-        count = str.Count(c => char.IsLetterOrDigit(c));
+        Int32 count = 0;
+        count = str.Count(c => Char.IsLetterOrDigit(c));
         return count;
     }
 
-    public static int CountOccurrences(this String val, String stringToMatch)
+    public static Int32 CountOccurrences(this String val, String stringToMatch)
     {
         return System.Text.RegularExpressions.Regex.Matches(val, stringToMatch, System.Text.RegularExpressions.RegexOptions.IgnoreCase).Count;
     }
 
-    public static int CountSentences(this String text)
+    public static Int32 CountSentences(this String text)
     {
         if (String.IsNullOrWhiteSpace(text))
             return -1;
@@ -46,12 +46,12 @@ public static class ReturnIntExtensions : Object
         return text.Sentences()?.Count() ?? -1;
     }
 
-    public static int CountSubstring(this String input, String value)
+    public static Int32 CountSubstring(this String input, String value)
     {
         return CountSubstring(input, value, StringComparison.Ordinal);
     }
 
-    public static int CountSubstring(this String input, String value, StringComparison comparisonType)
+    public static Int32 CountSubstring(this String input, String value, StringComparison comparisonType)
     {
         // preconditions
         if (input == default)
@@ -60,7 +60,7 @@ public static class ReturnIntExtensions : Object
         return CountSubstring(input, value, 0, input.Length, comparisonType);
     }
 
-    public static int CountSubstring(this String input, String value, int startIndex, int count, StringComparison comparisonType)
+    public static Int32 CountSubstring(this String input, String value, Int32 startIndex, Int32 count, StringComparison comparisonType)
     {
         // preconditions
         if (input == default)
@@ -72,19 +72,19 @@ public static class ReturnIntExtensions : Object
         if (count < 0 || count > input.Length - startIndex)
             throw new ArgumentOutOfRangeException("count", "count should be larger or equal to 0 and smaller than input.Length - startIndex");
 
-        int occurences = 0;
-        int valueLength = value.Length;
+        Int32 occurences = 0;
+        Int32 valueLength = value.Length;
 
         // prevent empty startsWiths from being counted
         if (valueLength > 0)
         {
-            int currentIndex = startIndex;
-            int maxIndex = startIndex + count;
+            Int32 currentIndex = startIndex;
+            Int32 maxIndex = startIndex + count;
 
             while (currentIndex < maxIndex)
             {
-                int lastIndex = currentIndex;
-                int newIndex = input.IndexOf(value, lastIndex, maxIndex - lastIndex, comparisonType);
+                Int32 lastIndex = currentIndex;
+                Int32 newIndex = input.IndexOf(value, lastIndex, maxIndex - lastIndex, comparisonType);
 
                 if (newIndex != -1)
                 {
@@ -101,12 +101,12 @@ public static class ReturnIntExtensions : Object
         return occurences;
     }
 
-    public static int CountSubstringEnd(this String input, String endsWith)
+    public static Int32 CountSubstringEnd(this String input, String endsWith)
     {
         return CountSubstringEnd(input, endsWith, StringComparison.Ordinal);
     }
 
-    public static int CountSubstringEnd(this String input, String endsWith, StringComparison comparisonType)
+    public static Int32 CountSubstringEnd(this String input, String endsWith, StringComparison comparisonType)
     {
         // preconditions
         if (input == default)
@@ -114,8 +114,8 @@ public static class ReturnIntExtensions : Object
         if (endsWith == default)
             throw new ArgumentNullException("endsWith");
 
-        int occurences = 0;
-        int endsWithLength = endsWith.Length;
+        Int32 occurences = 0;
+        Int32 endsWithLength = endsWith.Length;
 
         // prevent empty startsWiths from being counted
         if (endsWithLength > 0)
@@ -125,7 +125,7 @@ public static class ReturnIntExtensions : Object
             // keep on looping until no occurrence is found which is guarded by the break statement
             while (true)
             {
-                bool occurenceResult = currentComparand.EndsWith(endsWith, comparisonType);
+                Boolean occurenceResult = currentComparand.EndsWith(endsWith, comparisonType);
 
                 if (occurenceResult)
                 {
@@ -142,12 +142,12 @@ public static class ReturnIntExtensions : Object
         return occurences;
     }
 
-    public static int CountSubstringStart(this String input, String startsWith)
+    public static Int32 CountSubstringStart(this String input, String startsWith)
     {
         return CountSubstringStart(input, startsWith, StringComparison.Ordinal);
     }
 
-    public static int CountSubstringStart(this String input, String startsWith, StringComparison comparisonType)
+    public static Int32 CountSubstringStart(this String input, String startsWith, StringComparison comparisonType)
     {
         // preconditions
         if (input == default)
@@ -155,8 +155,8 @@ public static class ReturnIntExtensions : Object
         if (startsWith == default)
             throw new ArgumentNullException("startsWith");
 
-        int occurences = 0;
-        int startsWithLength = startsWith.Length;
+        Int32 occurences = 0;
+        Int32 startsWithLength = startsWith.Length;
 
         // prevent empty startsWiths from being counted
         if (startsWithLength > 0)
@@ -166,7 +166,7 @@ public static class ReturnIntExtensions : Object
             // keep on looping until no occurrence is found which is guarded by the break statement
             while (true)
             {
-                bool occurenceResult = currentComparand.StartsWith(startsWith, comparisonType);
+                Boolean occurenceResult = currentComparand.StartsWith(startsWith, comparisonType);
 
                 if (occurenceResult)
                 {
@@ -183,7 +183,7 @@ public static class ReturnIntExtensions : Object
         return occurences;
     }
 
-    public static int CountUniqueWords(this String text)
+    public static Int32 CountUniqueWords(this String text)
     {
         if (String.IsNullOrWhiteSpace(text))
             return -1;
@@ -191,7 +191,7 @@ public static class ReturnIntExtensions : Object
         return text.UniqueWords()?.Count() ?? -1;
     }
 
-    public static int CountWords(this String text)
+    public static Int32 CountWords(this String text)
     {
         if (String.IsNullOrWhiteSpace(text))
             return -1;
@@ -199,14 +199,14 @@ public static class ReturnIntExtensions : Object
         return text.Words()?.Count() ?? -1;
     }
 
-    public static int CountWords2(this String s)
+    public static Int32 CountWords2(this String s)
     {
-        bool wasSpace = true;
-        int words = 0;
+        Boolean wasSpace = true;
+        Int32 words = 0;
 
-        foreach (char c in s)
+        foreach (Char c in s)
         {
-            if (char.IsWhiteSpace(c))
+            if (Char.IsWhiteSpace(c))
             {
                 wasSpace = true;
             }
@@ -221,14 +221,14 @@ public static class ReturnIntExtensions : Object
         return words;
     }
 
-    public static int CountWords3(this String str)
+    public static Int32 CountWords3(this String str)
     {
         String sTemp = System.Text.RegularExpressions.Regex.Replace(str, "( ){2,}", " ");
-        return sTemp.Split(new char[] { ' ' }).Length; //, ',', '.', '?', '!' 
+        return sTemp.Split(new Char[] { ' ' }).Length; //, ',', '.', '?', '!' 
 
     }
 
-    public static int GetByteSize(this String val, System.Text.Encoding encoding)
+    public static Int32 GetByteSize(this String val, System.Text.Encoding encoding)
     {
         if (val == default)
         {
@@ -241,9 +241,9 @@ public static class ReturnIntExtensions : Object
         return encoding.GetByteCount(val);
     }
 
-    public static int Hash(this String text)
+    public static Int32 Hash(this String text)
     {
-        uint uiHash = 0;
+        UInt32 uiHash = 0;
 
         foreach (byte letter in System.Text.Encoding.Unicode.GetBytes(text))
         {
@@ -255,15 +255,15 @@ public static class ReturnIntExtensions : Object
         uiHash += (uiHash << 3);
         uiHash ^= (uiHash >> 11);
         uiHash += (uiHash << 15);
-        return (int)(uiHash % int.MaxValue);
+        return (Int32)(uiHash % Int32.MaxValue);
     }
 
-    public static int IndexOfInvariant(this String s, String substring)
+    public static Int32 IndexOfInvariant(this String s, String substring)
     {
         return s.SafeIndexOf(substring, StringComparison.Ordinal);
     }
 
-    public static int IndexOfInvariant(this String value, String substring, int startIndex)
+    public static Int32 IndexOfInvariant(this String value, String substring, Int32 startIndex)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -273,22 +273,22 @@ public static class ReturnIntExtensions : Object
         return value.IndexOf(substring, startIndex, StringComparison.Ordinal);
     }
 
-    public static int IndexOfInvariantIgnoreCase(this String s, String substring)
+    public static Int32 IndexOfInvariantIgnoreCase(this String s, String substring)
     {
         return s.SafeIndexOf(substring, StringComparison.OrdinalIgnoreCase);
     }
 
-    public static int LastIndexOfInvariant(this String s, String substring)
+    public static Int32 LastIndexOfInvariant(this String s, String substring)
     {
         return s.LastIndexOf(substring, StringComparison.Ordinal);
     }
 
-    public static int PrefixCount(this String value, String prefix)
+    public static Int32 PrefixCount(this String value, String prefix)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        int result = default;
+        Int32 result = default;
         // ----------------------------------------------------------------------------------------------------
         if (prefix.IsNullOrEmpty() || prefix.IsNullOrWhiteSpace())
             result = -1;
@@ -302,7 +302,7 @@ public static class ReturnIntExtensions : Object
         return result;
     }
 
-    public static int SafeIndexOf(this String value, String substring, StringComparison comparison)
+    public static Int32 SafeIndexOf(this String value, String substring, StringComparison comparison)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -312,7 +312,7 @@ public static class ReturnIntExtensions : Object
         return value.IndexOf(substring, comparison);
     }
 
-    public static int SafeLength(this String value)
+    public static Int32 SafeLength(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -320,15 +320,15 @@ public static class ReturnIntExtensions : Object
         return value.Length;
     }
 
-    public static int Size(this String value)
+    public static Int32 Size(this String value)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
-        return value.Length * sizeof(char);
+        return value.Length * sizeof(Char);
     }
 
-    public static int Size(this String value, System.Text.Encoding encoding)
+    public static Int32 Size(this String value, System.Text.Encoding encoding)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -338,12 +338,12 @@ public static class ReturnIntExtensions : Object
         return encoding.GetByteCount(value);
     }
 
-    public static int SizeAs(this String input, System.Text.Encoding targetEncoding)
+    public static Int32 SizeAs(this String input, System.Text.Encoding targetEncoding)
     {
         return SizeAs(input, targetEncoding, System.Text.Encoding.Unicode);
     }
 
-    public static int SizeAs(this String input, System.Text.Encoding targetEncoding, System.Text.Encoding sourceEncoding)
+    public static Int32 SizeAs(this String input, System.Text.Encoding targetEncoding, System.Text.Encoding sourceEncoding)
     {
         if (input == default)
             throw new ArgumentNullException("input");
@@ -359,13 +359,13 @@ public static class ReturnIntExtensions : Object
         return targetBytes.Length;
     }
 
-    public static int Width(this String input)
+    public static Int32 Width(this String input)
     {
         if (input == default)
             throw new ArgumentNullException("input");
 
         System.Globalization.TextElementEnumerator elementEnumerator = System.Globalization.StringInfo.GetTextElementEnumerator(input);
-        int count = 0;
+        Int32 count = 0;
 
         while (elementEnumerator.MoveNext())
         {

@@ -5,7 +5,7 @@ using AT.Extensions.Strings.Comparison;
 namespace AT.Extensions.FileInfos.Collections;
 public static class Extensions : Object
 {
-    public static List<Dictionary<FileInfo, bool>>? DeleteFiles(this DirectoryInfo directoryInfo, out int count)
+    public static List<Dictionary<FileInfo, Boolean>>? DeleteFiles(this DirectoryInfo directoryInfo, out Int32 count)
     {
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
@@ -13,7 +13,7 @@ public static class Extensions : Object
         return directoryInfo.DeleteFiles(null, out count, Array.Empty<String>());
     }
 
-    public static List<Dictionary<FileInfo, bool>>? DeleteFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, out int count)
+    public static List<Dictionary<FileInfo, Boolean>>? DeleteFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, out Int32 count)
     {
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
@@ -21,13 +21,13 @@ public static class Extensions : Object
         return directoryInfo.DeleteFiles(searchOption, out count, Array.Empty<String>());
     }
 
-    public static List<Dictionary<FileInfo, bool>>? DeleteFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, out int count, params String[] patterns)
+    public static List<Dictionary<FileInfo, Boolean>>? DeleteFiles(this DirectoryInfo directoryInfo, SearchOption? searchOption, out Int32 count, params String[] patterns)
     {
         if (directoryInfo is null)
             throw new ArgumentNullException(nameof(directoryInfo));
         // ----------------------------------------------------------------------------------------------------
-        Dictionary<FileInfo, bool>? keyValues;
-        List<Dictionary<FileInfo, bool>>? result = default;
+        Dictionary<FileInfo, Boolean>? keyValues;
+        List<Dictionary<FileInfo, Boolean>>? result = default;
         FileInfo[]? getFiles;
         List<FileInfo>? files = new();
         count = default;
@@ -219,7 +219,7 @@ public static class Extensions : Object
             yield return reader.ReadByte();
     }
 
-    public static IEnumerable<byte[]>? ReadAllBytes(this FileInfo file, int length)
+    public static IEnumerable<byte[]>? ReadAllBytes(this FileInfo file, Int32 length)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));
@@ -260,7 +260,7 @@ public static class Extensions : Object
             yield return reader.ReadLine();
     }
 
-    public static IEnumerable<String?>? ReadAllLines(this FileInfo file, Action<StreamReader>? initializer, int bufferSize = 3 * AT.Infrastructure.DataLength.Bytes.MB)
+    public static IEnumerable<String?>? ReadAllLines(this FileInfo file, Action<StreamReader>? initializer, Int32 bufferSize = 3 * AT.Infrastructure.DataLength.Bytes.MB)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));

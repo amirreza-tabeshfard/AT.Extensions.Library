@@ -5,7 +5,7 @@ using AT.Extensions.FileInfos.Creation;
 namespace AT.Extensions.FileInfos.Zipper;
 public static class Extensions
 {
-    public static FileInfo Zip(this FileInfo file, String? archiveFileName = null, bool isOverride = true)
+    public static FileInfo Zip(this FileInfo file, String? archiveFileName = null, Boolean isOverride = true)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));
@@ -36,7 +36,7 @@ public static class Extensions
         return new FileInfo(archiveFileName);
     }
 
-    public static async Task<FileInfo> ZipAsync(this FileInfo file, byte[] buffer, String? archiveFileName = null, bool isOverride = true, IProgress<double>? progress = null, CancellationToken cancel = default)
+    public static async Task<FileInfo> ZipAsync(this FileInfo file, byte[] buffer, String? archiveFileName = null, Boolean isOverride = true, IProgress<Double>? progress = null, CancellationToken cancel = default)
     {
         if (file == default)
             throw new ArgumentNullException(nameof(file));

@@ -1,20 +1,20 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
 public static class LongExtensions : Object
 {
-    public static long AsLong(this String value)
+    public static Int64 AsLong(this String value)
     {
         return value.AsLong(0);
     }
 
-    public static long AsLong(this String value, int defaultValue)
+    public static Int64 AsLong(this String value, Int32 defaultValue)
     {
-        long result;
-        if (!long.TryParse(value, out result))
+        Int64 result;
+        if (!Int64.TryParse(value, out result))
             return defaultValue;
         return result;
     }
 
-    public static long Length(this String source)
+    public static Int64 Length(this String source)
     {
         if (source == default)
         {

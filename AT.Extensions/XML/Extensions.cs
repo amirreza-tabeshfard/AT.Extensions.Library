@@ -12,7 +12,7 @@ public static class Extensions : Object
         });
     }
 
-    public static IEnumerable<XmlNode> FindElements(this XmlDocument xmlDocument, Func<XmlNode, bool> whereExression)
+    public static IEnumerable<XmlNode> FindElements(this XmlDocument xmlDocument, Func<XmlNode, Boolean> whereExression)
     {
         var foundXmlNodes = new List<XmlNode>();
         xmlDocument.FirstChild.ParentNode.TraverseXml(x =>
@@ -40,7 +40,7 @@ public static class Extensions : Object
         return foundXmlNodes;
     }
 
-    public static IEnumerable<XmlNode> FindElementsByAttributes(this XmlDocument xmlDocument, Func<XmlAttribute, bool> whereExpression)
+    public static IEnumerable<XmlNode> FindElementsByAttributes(this XmlDocument xmlDocument, Func<XmlAttribute, Boolean> whereExpression)
     {
         var foundXmlNodes = new List<XmlNode>();
         xmlDocument.FirstChild.ParentNode.TraverseXml(x =>
@@ -56,7 +56,7 @@ public static class Extensions : Object
         return foundXmlNodes;
     }
 
-    public static void RemoveElements(this XmlDocument xmlDocument, Func<XmlNode, bool> whereExpression)
+    public static void RemoveElements(this XmlDocument xmlDocument, Func<XmlNode, Boolean> whereExpression)
     {
         var elementsToRemove = xmlDocument.FindElements(whereExpression);
         if (!elementsToRemove.Any())
@@ -85,7 +85,7 @@ public static class Extensions : Object
         return flattenedXml;
     }
 
-    public static void AlphabetizeElementChildren(this XmlDocument xmlDocument, Func<XmlNode, bool> whereExpression)
+    public static void AlphabetizeElementChildren(this XmlDocument xmlDocument, Func<XmlNode, Boolean> whereExpression)
     {
         var elementsToAlphabetize = xmlDocument.FindElements(whereExpression);
         elementsToAlphabetize.ToList().ForEach(x =>

@@ -8,11 +8,11 @@ public static partial class Extensions : object
 {
     #region Field(s)
 
-    private static readonly char[] NibbleToStringMappingUpperCase = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-    private static readonly char[] NibbleToStringMappingLowerCase = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private static readonly Char[] NibbleToStringMappingUpperCase = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+    private static readonly Char[] NibbleToStringMappingLowerCase = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
     static String whiteSpace = " ";
-    static int notFoundIndexValue = -1;
+    static Int32 notFoundIndexValue = -1;
 
     private static readonly String[] DecimalMeasurementSuffixes = new[]
 {
@@ -143,10 +143,10 @@ public static partial class Extensions : object
         return value.EveryLetterUpper().Replace(" ", "");
     }
 
-    private static int FindFirstLetterIndex(String str)
+    private static Int32 FindFirstLetterIndex(String str)
     {
-        int index = notFoundIndexValue;
-        for (int i = 0; i < str.Length; i++)
+        Int32 index = notFoundIndexValue;
+        for (Int32 i = 0; i < str.Length; i++)
         {
             if (str.Substring(i, 1) != whiteSpace)
             {
@@ -577,7 +577,7 @@ public static partial class Extensions : object
 
     #region Return: String
 
-    public static String ToAcronym(this String value, bool onlyPrincipalWords = true)
+    public static String ToAcronym(this String value, Boolean onlyPrincipalWords = true)
     {
         if (value.IsNullOrEmpty())
             throw new ArgumentNullException(nameof(value));
@@ -585,7 +585,7 @@ public static partial class Extensions : object
         return value.ToAcronym(System.Globalization.CultureInfo.CurrentCulture, onlyPrincipalWords);
     }
 
-    public static String ToAcronym(this String value, System.Globalization.CultureInfo culture, bool onlyPrincipalWords = true)
+    public static String ToAcronym(this String value, System.Globalization.CultureInfo culture, Boolean onlyPrincipalWords = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -606,7 +606,7 @@ public static partial class Extensions : object
         }
     }
 
-    public static String ToAlphabetic(this String value, bool preserveWhitespace = true)
+    public static String ToAlphabetic(this String value, Boolean preserveWhitespace = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -617,7 +617,7 @@ public static partial class Extensions : object
         return result.ToString();
     }
 
-    public static String ToAlphanumeric(this String value, bool preserveWhitespace = true)
+    public static String ToAlphanumeric(this String value, Boolean preserveWhitespace = true)
     {
         if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(value));
@@ -645,7 +645,7 @@ public static partial class Extensions : object
         return Convert.ToBase64String(values);
     }
 
-    public static String ToBase64UrlString(this byte[]? values, bool removePadding = true)
+    public static String ToBase64UrlString(this byte[]? values, Boolean removePadding = true)
     {
         if (values is null || values == default)
             throw new ArgumentNullException(nameof(values));
@@ -689,7 +689,7 @@ public static partial class Extensions : object
         return value;
     }
 
-    public static String ToCommaSeparated(this List<String> values, char separator)
+    public static String ToCommaSeparated(this List<String> values, Char separator)
     {
         if (values is null || values == default)
             throw new ArgumentNullException(nameof(values));
@@ -728,13 +728,13 @@ public static partial class Extensions : object
         return String.Join("", parts);
     }
 
-    public static String ToHexString(this byte[]? value, bool upperCase = true)
+    public static String ToHexString(this byte[]? value, Boolean upperCase = true)
     {
         if (value is null)
             return String.Empty;
 
         var mapping = upperCase ? NibbleToStringMappingUpperCase : NibbleToStringMappingLowerCase;
-        var hexString = new char[value.Length * 2];
+        var hexString = new Char[value.Length * 2];
 
         var charIndex = 0;
         for (var i = 0; i < value.Length; i += 1, charIndex += 2)
@@ -746,15 +746,15 @@ public static partial class Extensions : object
         return new String(hexString);
     }
 
-    public static String ToHumanReadableFileSize(this long input, bool binary = true)
+    public static String ToHumanReadableFileSize(this Int64 input, Boolean binary = true)
     {
-        bool negative = false;
+        Boolean negative = false;
         if (input < 0) { input *= -1; negative = true; }
 
-        double value = input;
-        double divisor = binary ? 1024d : 1000d;
-        int idx = 0;
-        int maxIdx = binary
+        Double value = input;
+        Double divisor = binary ? 1024d : 1000d;
+        Int32 idx = 0;
+        Int32 maxIdx = binary
             ? BinaryMeasurementSuffixes.Length
             : DecimalMeasurementSuffixes.Length;
 
@@ -819,11 +819,11 @@ public static partial class Extensions : object
             .Trim('-');
     }
 
-    public static String ToMorseCode(this String str, bool translateSpace = true)
+    public static String ToMorseCode(this String str, Boolean translateSpace = true)
     {
         System.Text.StringBuilder morseStringBuilder = new System.Text.StringBuilder();
 
-        Dictionary<char, String> morseCharacters = new Dictionary<char, String>()
+        Dictionary<Char, String> morseCharacters = new Dictionary<Char, String>()
             {
                 {'a', ".-"},
                 {'b', "-..."},
@@ -908,7 +908,7 @@ public static partial class Extensions : object
             throw new ArgumentNullException(nameof(value));
         // ----------------------------------------------------------------------------------------------------
         String upperLetter = String.Empty;
-        int firstLetterIndex = FindFirstLetterIndex(value);
+        Int32 firstLetterIndex = FindFirstLetterIndex(value);
 
         if (firstLetterIndex == notFoundIndexValue)
             return value;
@@ -947,7 +947,7 @@ public static partial class Extensions : object
         return value;
     }
 
-    public static String ToSentenceCase(this String text, bool cleanWhitespace = true)
+    public static String ToSentenceCase(this String text, Boolean cleanWhitespace = true)
     {
         if (String.IsNullOrWhiteSpace(text))
             return text;
@@ -1006,7 +1006,7 @@ public static partial class Extensions : object
         {
             String lower = word.Value.ToLower();
 
-            bool lastWord = !word.NextMatch().Success;
+            Boolean lastWord = !word.NextMatch().Success;
 
             return word.Index > 0 && !lastWord && word.Value.Length <= 3
                     && (AT.Infrastructure.CultureInfoData.InfoData.data?.Articles?.Contains(lower) ?? false)
@@ -1052,12 +1052,12 @@ public static partial class Extensions : object
 
     public static String ToValidFilename(this String s)
     {
-        char[] invalid = Path.GetInvalidFileNameChars();
+        Char[] invalid = Path.GetInvalidFileNameChars();
         String invalidString = new String(invalid);
-        char[] titleChars = s.ToCharArray();
-        char[] output = new Char[s.Length];
-        int outputLength = 0;
-        foreach (char input in titleChars)
+        Char[] titleChars = s.ToCharArray();
+        Char[] output = new Char[s.Length];
+        Int32 outputLength = 0;
+        foreach (Char input in titleChars)
         {
             if (invalidString.IndexOf(input) == -1)
             {
@@ -1116,7 +1116,7 @@ public static partial class Extensions : object
 
         System.Security.SecureString secureString = new();
 
-        foreach (char c in plainText)
+        foreach (Char c in plainText)
             secureString.AppendChar(c);
 
         secureString.MakeReadOnly();

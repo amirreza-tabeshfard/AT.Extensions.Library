@@ -5,7 +5,7 @@ public static class Extensions : Object
 {
     #region Field(s)
 
-    private static readonly HashSet<char> _NotValidPathChars;
+    private static readonly HashSet<Char> _NotValidPathChars;
 
     #endregion
 
@@ -18,7 +18,7 @@ public static class Extensions : Object
 
     #endregion
 
-    public static bool IsEOF(this BinaryReader reader)
+    public static Boolean IsEOF(this BinaryReader reader)
     {
         if (reader == default)
             throw new ArgumentNullException(nameof(reader));
@@ -26,7 +26,7 @@ public static class Extensions : Object
         return reader.BaseStream.Position == reader.BaseStream.Length;
     }
 
-    public static bool IsFileExists(this String path)
+    public static Boolean IsFileExists(this String path)
     {
         if (path.IsNullOrEmpty() || path.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(path));
@@ -37,14 +37,14 @@ public static class Extensions : Object
         return false;
     }
 
-    public static bool IsMoveFile(this String sourceFullFilepath, String destinationFullFilepath)
+    public static Boolean IsMoveFile(this String sourceFullFilepath, String destinationFullFilepath)
     {
         if (sourceFullFilepath.IsNullOrEmpty() || sourceFullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(sourceFullFilepath));
         else if (destinationFullFilepath.IsNullOrEmpty() || destinationFullFilepath.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(destinationFullFilepath));
         // ----------------------------------------------------------------------------------------------------
-        bool isSuccess = default;
+        Boolean isSuccess = default;
         try
         {
             File.Move(sourceFullFilepath, destinationFullFilepath);
@@ -62,7 +62,7 @@ public static class Extensions : Object
         return isSuccess;
     }
 
-    public static bool IsValidFileName(this String name)
+    public static Boolean IsValidFileName(this String name)
     {
         if (name.IsNullOrEmpty() || name.IsNullOrWhiteSpace())
             throw new ArgumentNullException(nameof(name));

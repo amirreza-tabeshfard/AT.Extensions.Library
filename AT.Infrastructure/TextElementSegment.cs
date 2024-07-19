@@ -1,10 +1,10 @@
 ﻿namespace AT.Infrastructure;
 public struct TextElementSegment
 {
-    private readonly int offset;
-    private readonly int length;
+    private readonly Int32 offset;
+    private readonly Int32 length;
 
-    public TextElementSegment(int offset, int length)
+    public TextElementSegment(Int32 offset, Int32 length)
     {
         if (offset < 0)
             throw new ArgumentOutOfRangeException("offset should be larger or equal to 0");
@@ -15,7 +15,7 @@ public struct TextElementSegment
         this.length = length;
     }
 
-    public int Offset { get { return offset; } }
+    public Int32 Offset { get { return offset; } }
 
-    public int Length { get { return length; } }
+    public Int32 Length { get { return length; } }
 }

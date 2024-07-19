@@ -1,13 +1,13 @@
 ﻿namespace AT.Extensions.FileInfos.Boundary;
 public static class Extensions : Object
 {
-    public static async Task CheckFileAccessAsync(this FileInfo file, int timeout = 1000, int iterationCount = 100, CancellationToken cancel = default)
+    public static async Task CheckFileAccessAsync(this FileInfo file, Int32 timeout = 1000, Int32 iterationCount = 100, CancellationToken cancel = default)
     {
         if (file is null)
             throw new ArgumentNullException(nameof(file));
         // ----------------------------------------------------------------------------------------------------
         file.ThrowIfNotFound();
-        for (int i = 0; i < iterationCount; i++)
+        for (Int32 i = 0; i < iterationCount; i++)
             try
             {
                 cancel.ThrowIfCancellationRequested();

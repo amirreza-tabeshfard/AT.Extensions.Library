@@ -1,7 +1,7 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Calculation;
 public static class Extensions : Object
 {
-    public static int Age(this DateTime dateOfBirth)
+    public static Int32 Age(this DateTime dateOfBirth)
     {
         if (dateOfBirth == default)
             throw new ArgumentNullException(nameof(dateOfBirth));
@@ -12,7 +12,7 @@ public static class Extensions : Object
         return DateTime.Today.Year - dateOfBirth.Year;
     }
 
-    public static int AgeMonths(this DateTime referenceDate, DateTime today)
+    public static Int32 AgeMonths(this DateTime referenceDate, DateTime today)
     {
         if (referenceDate == default)
             throw new ArgumentNullException(nameof(referenceDate));
@@ -24,7 +24,7 @@ public static class Extensions : Object
         return (today.Year * 12 + today.Month) - (referenceDate.Year * 12 + referenceDate.Month);
     }
 
-    public static int AgeYears(this DateTime referenceDate, DateTime today)
+    public static Int32 AgeYears(this DateTime referenceDate, DateTime today)
     {
         if (referenceDate == default)
             throw new ArgumentNullException(nameof(referenceDate));
