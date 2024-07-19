@@ -64,6 +64,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <Version>1.0.0.1</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <!-- 
@@ -92,6 +93,12 @@
     <PackageReference Include="SharperHacks.CoreLibs.Constraints" Version="3.0.0" />
     <ProjectReference Include="..\AT.Enums\AT.Enums.csproj" />
     <ProjectReference Include="..\AT.Infrastructure\AT.Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
