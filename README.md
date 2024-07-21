@@ -12,7 +12,11 @@ English | [Persian](./README.fa-IR.md)
 	</p>
 </div>
 
-## Information
+<details>
+
+<summary>Information</summary>
+
+### The table presented here is dedicated to project implementation methods
 | Row  | Category | Number Of Methods
 | :---: | :---: | :---:
 | 01 | `CharExtension` | ---
@@ -22,3 +26,5 @@ English | [Persian](./README.fa-IR.md)
 | 05 | `HttpHandlerExtension` | ---
 | 06 | `StringExtension` | ---
 | 07 | `XMLExtension` | ---
+
+</details>
