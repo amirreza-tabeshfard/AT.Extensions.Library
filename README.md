@@ -17,7 +17,7 @@ English | [Persian](./README.fa-IR.md)
 <details>
 <summary>Information</summary>
 
-### The table presented here is dedicated to project implementation methods
+### The table of methods implemented in the project
 | Row  | Category | Number Of Methods
 | :---: | :---: | :---:
 | 01 | CharExtension | ---
