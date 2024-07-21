@@ -17,7 +17,7 @@
 <details>
 <summary>Information</summary>
 
-### The table presented here is dedicated to project implementation methods
+### جدول Method های پیاده سازی شده در پروژه
 | Row  | Category | Number Of Methods
 | :---: | :---: | :---:
 | 01 | CharExtension | ---
