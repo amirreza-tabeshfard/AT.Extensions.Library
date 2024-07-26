@@ -1,9 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
-using AT.Extensions.Strings.Extraction;
-using MimeDetective.Storage;
 
 namespace AT.Extensions.Chars.Extraction;
-public static class Extensions : Object
+public static class GetExtensions : Object
 {
     #region Method(s): Private
 
@@ -35,18 +33,6 @@ public static class Extensions : Object
     }
 
     #endregion
-
-    public static Char? FirstLetter(this String value)
-    {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
-        // ----------------------------------------------------------------------------------------------------
-        String letters = value.KeepLettersOnly();
-        if (!letters.IsNullOrEmpty() || !letters.IsNullOrWhiteSpace())
-            return letters.GetFirst();
-        // ----------------------------------------------------------------------------------------------------
-        return default;
-    }
 
     public static Char GetElementAt(this String value, Int32 index)
     {
@@ -121,17 +107,5 @@ public static class Extensions : Object
         else ArgumentNullException.ThrowIfNull(predicate);
         // ----------------------------------------------------------------------------------------------------
         return LastImpl(value, predicate, false);
-    }
-
-    public static Char? LastLetter(this String value)
-    {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
-        // ----------------------------------------------------------------------------------------------------
-        String letters = value.KeepLettersOnly();
-        if (!letters.IsNullOrEmpty() || !letters.IsNullOrWhiteSpace())
-            return letters.GetLast();
-        // ----------------------------------------------------------------------------------------------------
-        return default;
     }
 }

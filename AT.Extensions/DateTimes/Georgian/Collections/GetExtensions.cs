@@ -1,30 +1,18 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Boundary;
 using AT.Extensions.DateTimes.Georgian.Conversion;
 using AT.Extensions.DateTimes.Georgian.Extraction;
-using AT.Extensions.DateTimes.Georgian.Holiday;
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Collections;
-public static class Extensions : Object
+public static class GetExtensions : Object
 {
     #region Field(s)
-
-    private static readonly Dictionary<Int32, IReadOnlyCollection<DateTime>>? _holidaysCache = default;
 
     private const String FromToDatesSeparator = ">";
     private const Char NegativeBit = '0';
     private const Char PositiveBit = '1';
 
     private static readonly String[] fromToDatesSeparators = new String[] { FromToDatesSeparator };
-
-    #endregion
-
-    #region Constructor
-
-    static Extensions()
-    {
-        _holidaysCache = new();
-    }
 
     #endregion
 
@@ -71,74 +59,7 @@ public static class Extensions : Object
 
     #endregion
 
-    public static IReadOnlyCollection<DateTime>? AllHolidays(this Int32 year)
-    {
-        if (_holidaysCache is not null)
-            if (!_holidaysCache.ContainsKey(year))
-            {
-                _holidaysCache[year] = new List<DateTime>()
-                {
-                    year.Easter(),
-                    year.Ascension(),
-                    year.Whit(),
-                    year.NewYear(),
-                    year.Labor(),
-                    year.WorldWarTwo(),
-                    year.Bastille(),
-                    year.AssumptionOfMary(),
-                    year.AllSaints(),
-                    year.Armistice(),
-                    year.Christmas(),
-                };
-
-                return _holidaysCache[year];
-            }
-
-        return default;
-    }
-
-    public static IEnumerable<DateTime> GenerateBusinessDaysList(this DateTime fisrtDateTime, DateTime lastDateTime, IEnumerable<DateTime> holidays, List<Int32> weekends)
-    {
-        if (fisrtDateTime == default)
-            throw new ArgumentNullException(nameof(fisrtDateTime));
-        else if (lastDateTime == default)
-            throw new ArgumentNullException(nameof(lastDateTime));
-        else if (fisrtDateTime > lastDateTime)
-            throw new ArgumentException("Incorrect last date " + lastDateTime);
-        // ----------------------------------------------------------------------------------------------------
-        List<DateTime> result = GenerateDateList(fisrtDateTime, lastDateTime).ToList();
-        // ----------------------------------------------------------------------------------------------------
-        foreach (Int32 d in weekends)
-            for (Int32 i = 0; i < result.Count; i++)
-                if ((Int32)result[i].DayOfWeek == d)
-                    result.RemoveAt(i);
-
-        foreach (DateTime d in holidays)
-            for (Int32 i = 0; i < result.Count; i++)
-                if (result[i] == d)
-                    result.RemoveAt(i);
-        // ----------------------------------------------------------------------------------------------------
-        return result.OrderBy(d => d.Date);
-    }
-
-    public static IEnumerable<DateTime> GenerateDateList(this DateTime fisrtDateTime, DateTime lastDateTime)
-    {
-        if (fisrtDateTime == default)
-            throw new ArgumentNullException(nameof(fisrtDateTime));
-        else if (lastDateTime == default)
-            throw new ArgumentNullException(nameof(lastDateTime));
-        else if (fisrtDateTime > lastDateTime)
-            throw new ArgumentException("Incorrect last date " + lastDateTime);
-        // ----------------------------------------------------------------------------------------------------
-        List<DateTime> result = new List<DateTime>();
-
-        for (DateTime day = fisrtDateTime.Date; day.Date <= lastDateTime.Date; day = day.AddDays(1))
-            result.Add(day);
-        // ----------------------------------------------------------------------------------------------------
-        return result;
-    }
-
-    public static List<Int32>? GetCalendarChangedList(this DateTime dateTime, AT.Enums.CalendarFormat format)
+    public static List<Int32>? GetCalendarChangedList(this DateTime dateTime, Enums.CalendarFormat format)
     {
         if (dateTime == default)
             throw new ArgumentNullException(nameof(dateTime));
@@ -147,20 +68,20 @@ public static class Extensions : Object
         System.Globalization.Calendar? calendar = default;
         switch (format)
         {
-            case AT.Enums.CalendarFormat.ChineseLunisolar: calendar = new System.Globalization.ChineseLunisolarCalendar(); break;
-            case AT.Enums.CalendarFormat.Gregorian: calendar = new System.Globalization.GregorianCalendar(); break;
-            case AT.Enums.CalendarFormat.Hebrew: calendar = new System.Globalization.HebrewCalendar(); break;
-            case AT.Enums.CalendarFormat.Hijri: calendar = new System.Globalization.HijriCalendar(); break;
-            case AT.Enums.CalendarFormat.Japanese: calendar = new System.Globalization.JapaneseCalendar(); break;
-            case AT.Enums.CalendarFormat.JapaneseLunisolar: calendar = new System.Globalization.JapaneseLunisolarCalendar(); break;
-            case AT.Enums.CalendarFormat.Julian: calendar = new System.Globalization.JulianCalendar(); break;
-            case AT.Enums.CalendarFormat.Korean: calendar = new System.Globalization.KoreanCalendar(); break;
-            case AT.Enums.CalendarFormat.KoreanLunisolar: calendar = new System.Globalization.KoreanLunisolarCalendar(); break;
-            case AT.Enums.CalendarFormat.Persian: calendar = new System.Globalization.PersianCalendar(); break;
-            case AT.Enums.CalendarFormat.Taiwan: calendar = new System.Globalization.TaiwanCalendar(); break;
-            case AT.Enums.CalendarFormat.TaiwanLunisolar: calendar = new System.Globalization.TaiwanLunisolarCalendar(); break;
-            case AT.Enums.CalendarFormat.ThaiBuddhist: calendar = new System.Globalization.ThaiBuddhistCalendar(); break;
-            case AT.Enums.CalendarFormat.UmAlQura: calendar = new System.Globalization.UmAlQuraCalendar(); break;
+            case Enums.CalendarFormat.ChineseLunisolar: calendar = new System.Globalization.ChineseLunisolarCalendar(); break;
+            case Enums.CalendarFormat.Gregorian: calendar = new System.Globalization.GregorianCalendar(); break;
+            case Enums.CalendarFormat.Hebrew: calendar = new System.Globalization.HebrewCalendar(); break;
+            case Enums.CalendarFormat.Hijri: calendar = new System.Globalization.HijriCalendar(); break;
+            case Enums.CalendarFormat.Japanese: calendar = new System.Globalization.JapaneseCalendar(); break;
+            case Enums.CalendarFormat.JapaneseLunisolar: calendar = new System.Globalization.JapaneseLunisolarCalendar(); break;
+            case Enums.CalendarFormat.Julian: calendar = new System.Globalization.JulianCalendar(); break;
+            case Enums.CalendarFormat.Korean: calendar = new System.Globalization.KoreanCalendar(); break;
+            case Enums.CalendarFormat.KoreanLunisolar: calendar = new System.Globalization.KoreanLunisolarCalendar(); break;
+            case Enums.CalendarFormat.Persian: calendar = new System.Globalization.PersianCalendar(); break;
+            case Enums.CalendarFormat.Taiwan: calendar = new System.Globalization.TaiwanCalendar(); break;
+            case Enums.CalendarFormat.TaiwanLunisolar: calendar = new System.Globalization.TaiwanLunisolarCalendar(); break;
+            case Enums.CalendarFormat.ThaiBuddhist: calendar = new System.Globalization.ThaiBuddhistCalendar(); break;
+            case Enums.CalendarFormat.UmAlQura: calendar = new System.Globalization.UmAlQuraCalendar(); break;
         }
 
         if (calendar is not null)

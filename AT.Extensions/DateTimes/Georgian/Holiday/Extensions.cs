@@ -17,48 +17,6 @@ public static class Extensions : Object
 
     #endregion
 
-    public static DateTime Easter(this Int32 year)
-    {
-        (Int32 month, Int32 day) = ExecuteEasterAlgorithm(year);
-
-        return new DateTime(year, month, day);
-    }
-
-    public static DateTime Ascension(this Int32 year)
-    {
-        return Easter(year).AddDays(38);
-    }
-
-    public static DateTime Whit(this Int32 year)
-    {
-        return Easter(year).AddDays(49);
-    }
-
-    public static DateTime NewYear(this Int32 year)
-    {
-        return new(year, 1, 1);
-    }
-
-    public static DateTime Labor(this Int32 year)
-    {
-        return new(year, 5, 1);
-    }
-
-    public static DateTime WorldWarTwo(this Int32 year)
-    {
-        return new(year, 5, 8);
-    }
-
-    public static DateTime Bastille(this Int32 year)
-    {
-        return new(year, 7, 14);
-    }
-
-    public static DateTime AssumptionOfMary(this Int32 year)
-    {
-        return new(year, 8, 15);
-    }
-
     public static DateTime AllSaints(this Int32 year)
     {
         return new(year, 11, 1);
@@ -69,8 +27,50 @@ public static class Extensions : Object
         return new(year, 11, 11);
     }
 
+    public static DateTime Ascension(this Int32 year)
+    {
+        return Easter(year).AddDays(38);
+    }
+
+    public static DateTime AssumptionOfMary(this Int32 year)
+    {
+        return new(year, 8, 15);
+    }
+
+    public static DateTime Bastille(this Int32 year)
+    {
+        return new(year, 7, 14);
+    }
+
     public static DateTime Christmas(this Int32 year)
     {
         return new(year, 12, 25);
+    }
+
+    public static DateTime Easter(this Int32 year)
+    {
+        (Int32 month, Int32 day) = ExecuteEasterAlgorithm(year);
+
+        return new DateTime(year, month, day);
+    }
+
+    public static DateTime Labor(this Int32 year)
+    {
+        return new(year, 5, 1);
+    }
+
+    public static DateTime NewYear(this Int32 year)
+    {
+        return new(year, 1, 1);
+    }
+
+    public static DateTime Whit(this Int32 year)
+    {
+        return Easter(year).AddDays(49);
+    }
+
+    public static DateTime WorldWarTwo(this Int32 year)
+    {
+        return new(year, 5, 8);
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Calculation;
-public static class Extensions : Object
+public static class AgeExtensions : Object
 {
     public static Int32 Age(this DateTime dateOfBirth)
     {

@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Chars.Conversion;
-public static class Extensions : Object
+public static class ToExtensions : Object
 {
     public static Char ToChar(this String value)
     {

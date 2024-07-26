@@ -3,7 +3,7 @@ using AT.Extensions.DateTimes.Georgian.Boundary;
 using AT.Extensions.DateTimes.Georgian.Collections;
 
 namespace AT.Extensions.DateTimes.Georgian.Comparison;
-public static class Extensions : Object
+public static class IsExtensions : Object
 {
     public static Boolean IsAfter(this DateTime current, DateTime other)
     {
@@ -391,29 +391,5 @@ public static class Extensions : Object
     public static Boolean IsWeekend(this DayOfWeek dayOfWeek)
     {
         return !dayOfWeek.IsWeekday();
-    }
-
-    public static Boolean WillChangeDate(this DateTime dateTime, Double value, Enums.DateTimeDifferenceFormat differenceFormat = Enums.DateTimeDifferenceFormat.Hours)
-    {
-        if (dateTime == default)
-            throw new ArgumentNullException(nameof(dateTime));
-        // ----------------------------------------------------------------------------------------------------
-        return dateTime.Date != dateTime.Add(value, differenceFormat).Date;
-    }
-
-    public static Boolean WillChangeMonth(this DateTime dateTime, Double value, Enums.DateTimeDifferenceFormat differenceFormat = Enums.DateTimeDifferenceFormat.Days)
-    {
-        if (dateTime == default)
-            throw new ArgumentNullException(nameof(dateTime));
-        // ----------------------------------------------------------------------------------------------------
-        return dateTime.Month != dateTime.Add(value, differenceFormat).Month;
-    }
-
-    public static Boolean WillChangeYear(this DateTime dateTime, Double value, Enums.DateTimeDifferenceFormat differenceFormat = Enums.DateTimeDifferenceFormat.Days)
-    {
-        if (dateTime == default)
-            throw new ArgumentNullException(nameof(dateTime));
-        // ----------------------------------------------------------------------------------------------------
-        return dateTime.Year != dateTime.Add(value, differenceFormat).Year;
     }
 }

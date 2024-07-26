@@ -3,7 +3,7 @@ using AT.Extensions.DateTimes.Georgian.Extraction;
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Conversion;
-public static class Extensions : Object
+public static class ToExtensions : Object
 {
     #region Field(s)
 
@@ -16,7 +16,7 @@ public static class Extensions : Object
 
     #region Constructor
 
-    static Extensions()
+    static ToExtensions()
     {
         timespanRegex = new System.Text.RegularExpressions.Regex(@"((?<h>\d{2})(?<m>\d{2})(?<s>\d{2})?)|(((?<d1>\d{1,2})\.)?(?<h>\d{1,2})\:(?<m>\d{1,2})(\:(?<s>\d{1,2}))?(\[\+(?<d2>\d)\])?)");
     }
@@ -79,22 +79,6 @@ public static class Extensions : Object
     }
 
     #endregion
-
-    public static String ConvertTo24HourFormatWithSeconds(this DateTime dateTime)
-    {
-        if (dateTime == default)
-            throw new ArgumentNullException(nameof(dateTime));
-        // ----------------------------------------------------------------------------------------------------
-        return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
-    }
-
-    public static String ConvertToFormatDateOnly(this DateTime dateTime)
-    {
-        if (dateTime == default)
-            throw new ArgumentNullException(nameof(dateTime));
-        // ----------------------------------------------------------------------------------------------------
-        return dateTime.ToString("yyy-MM-dd");
-    }
 
     public static String? ToBitmask(this IEnumerable<DateTime> dateTimes, DateTime begin, DateTime end, Boolean defaultOnEmpty = false, Char positiveBit = PositiveBit, Char negativeBit = NegativeBit)
     {
@@ -343,7 +327,6 @@ public static class Extensions : Object
         return System.String.Format("to_date('{0}','dd.mm.yyyy hh24.mi.ss')", dateTime.ToString("dd.MM.yyyy HH:mm:ss"));
     }
 
-    [Obsolete]
     public static String? ToRFC822DateString(this DateTime dateTime)
     {
         if (dateTime == default)
