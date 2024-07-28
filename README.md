@@ -39,4 +39,5 @@ English | [Persian](./README.fa-IR.md)
 | 06 | AT.Extensions.DateTimes.Georgian.Conversion | 30 |
 | 07 | AT.Extensions.DateTimes.Georgian.Extraction | 90 |
 | 08 | AT.Extensions.DateTimes.Georgian.Holiday | 11 |
+| 09 | AT.Extensions.DateTimes.Persian | 5 |
 </details>
