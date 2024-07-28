@@ -21,7 +21,8 @@ English | [Persian](./README.fa-IR.md)
 	</p>
 </div>
 
-### The table of methods implemented in the project
+> [!NOTE]
+> The table of methods implemented in the project
 <details>
 <summary>Chars</summary>
 
