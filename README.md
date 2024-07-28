@@ -14,18 +14,19 @@ English | [Persian](./README.fa-IR.md)
 	</p>
 </div>
 
-<details>
-<summary>Information</summary>
-
 ### The table of methods implemented in the project
-| Row  | Category | Number Of Methods
-| :---: | :---: | :---:
-| 01 | CharExtension | ---
-| 02 | DateTimeExtension | ---
-| 03 | DirectoryInfoExtension | ---
-| 04 | FileInfoExtension | ---
-| 05 | HttpHandlerExtension | ---
-| 06 | StringExtension | ---
-| 07 | XMLExtension | ---
-
-</details>
+| Row | Category | Namespace | Number of Methods |
+|:---:|:---:|:---:|:---:|
+| 01 | Chars | AT.Extensions.Chars.Collections | 2 |
+| 01 | Chars | AT.Extensions.Chars.Comparison | 10 |
+| 01 | Chars | AT.Extensions.Chars.Conversion | 5 |
+| 01 | Chars | AT.Extensions.Chars.Extraction | 10 |
+| 02 | DateTimes | AT.Extensions.DateTimes.Georgian.Addition | 8 |
+| 02 | DateTimes | AT.Extensions.DateTimes.Georgian.Boundary | 117 |
+| 02 | DateTimes | AT.Extensions.DateTimes.Georgian.Calculation | 3 |
+| 02 | DateTimes | AT.Extensions.DateTimes.Georgian.Collections | 10 |
+| 02 | DateTimes | AT.Extensions.DateTimes.Georgian.Comparison | 38 |
+| 02 | DateTimes | AT.Extensions.DateTimes.Georgian.Conversion | 30 |
+| 02 | DateTimes | AT.Extensions.DateTimes.Georgian.Extraction | 90 |
+| 02 | DateTimes | AT.Extensions.DateTimes.Georgian.Holiday | 11 |
+|  |  |  |  |
