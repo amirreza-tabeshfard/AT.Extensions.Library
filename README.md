@@ -5,7 +5,14 @@ English | [Persian](./README.fa-IR.md)
 </p>
 
 <h1 align="center">
-	AT.Extensions.Library
+	AT.Extensions.Library	
+	<div>
+		(
+			<a href="https://www.nuget.org/packages/AT.Extensions.Library" target="_blank" >
+				NuGet	
+			</a>
+		)
+	</div>
 </h1>
 
 <div>
@@ -14,18 +21,31 @@ English | [Persian](./README.fa-IR.md)
 	</p>
 </div>
 
+> [!NOTE]
+> The table of methods implemented in the project
 <details>
-<summary>Information</summary>
+<summary>Chars</summary>
 
-### The table of methods implemented in the project
-| Row  | Category | Number Of Methods
-| :---: | :---: | :---:
-| 01 | CharExtension | ---
-| 02 | DateTimeExtension | ---
-| 03 | DirectoryInfoExtension | ---
-| 04 | FileInfoExtension | ---
-| 05 | HttpHandlerExtension | ---
-| 06 | StringExtension | ---
-| 07 | XMLExtension | ---
+| Row | Namespace | Number of Methods |
+|:---:|:---:|:---:|
+| 01 | AT.Extensions.Chars.Collections | 2 |
+| 02 | AT.Extensions.Chars.Comparison | 10 |
+| 03 | AT.Extensions.Chars.Conversion | 5 |
+| 04 | AT.Extensions.Chars.Extraction | 10 |
+</details>
 
+<details>
+<summary>DateTimes</summary>
+
+| Row | Namespace | Number of Methods |
+|:---:|:---:|:---:|
+| 01 | AT.Extensions.DateTimes.Georgian.Addition | 8 |
+| 02 | AT.Extensions.DateTimes.Georgian.Boundary | 117 |
+| 03 | AT.Extensions.DateTimes.Georgian.Calculation | 3 |
+| 04 | AT.Extensions.DateTimes.Georgian.Collections | 10 |
+| 05 | AT.Extensions.DateTimes.Georgian.Comparison | 38 |
+| 06 | AT.Extensions.DateTimes.Georgian.Conversion | 30 |
+| 07 | AT.Extensions.DateTimes.Georgian.Extraction | 90 |
+| 08 | AT.Extensions.DateTimes.Georgian.Holiday | 11 |
+| 09 | AT.Extensions.DateTimes.Persian | 5 |
 </details>
