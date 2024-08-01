@@ -62,6 +62,6 @@ English | [Persian](./README.fa-IR.md)
 
 
 ## Download
-| Row | Full Name | Version | Link
-|:---:|:---:|:---:|:---:|
-|01|AT.Extensions.Library|1.0.0.1|[Link](https://www.nuget.org/packages/AT.Extensions.Library)|
+| Row | Full Name | Version | Upload Date | Link
+|:---:|:---:|:---:|:---:|:---:|
+| 01 | AT.Extensions.Library | 1.0.0.1 | Friday, July 19, 2024 | [Link](https://www.nuget.org/packages/AT.Extensions.Library)|
