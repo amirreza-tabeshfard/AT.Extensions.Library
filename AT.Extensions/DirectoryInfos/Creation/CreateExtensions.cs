@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DirectoryInfos.Creation;
-public static class Extensions : Object
+public static class CreateExtensions : Object
 {
     public static void CreateDirectory(this String path)
     {
@@ -10,8 +10,7 @@ public static class Extensions : Object
         // ----------------------------------------------------------------------------------------------------
         DirectoryInfo directoryInfo = new(path);
         // ----------------------------------------------------------------------------------------------------
-        if (directoryInfo.Parent is not null)
-            directoryInfo.Parent.CreateDirectory();
+        directoryInfo.Parent?.CreateDirectory();
 
         if (!directoryInfo.Exists)
             directoryInfo.Create();
@@ -19,11 +18,9 @@ public static class Extensions : Object
 
     public static void CreateDirectory(this DirectoryInfo directoryInfo)
     {
-        if (directoryInfo == default)
-            throw new ArgumentNullException(nameof(directoryInfo));
+        ArgumentNullException.ThrowIfNull(directoryInfo);
         // ----------------------------------------------------------------------------------------------------
-        if (directoryInfo.Parent is not null)
-            directoryInfo.Parent.CreateDirectory();
+        directoryInfo.Parent?.CreateDirectory();
 
         if (!directoryInfo.Exists)
             directoryInfo.Create();

@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DirectoryInfos.Comparison;
-public static class Extensions
+public static class IsExtensions
 {
     #region Method(s): Private
 
@@ -36,8 +36,7 @@ public static class Extensions
 
     public static Boolean IsDirectoryHaveLockFile(this DirectoryInfo target)
     {
-        if (target == default)
-            throw new ArgumentNullException(nameof(target));
+        ArgumentNullException.ThrowIfNull(target);
         // ----------------------------------------------------------------------------------------------------
         return target
                .ThrowIfNotFound()
@@ -49,8 +48,7 @@ public static class Extensions
 
     public static Boolean IsLockFileInDirectory(this DirectoryInfo directory)
     {
-        if (directory == default)
-            throw new ArgumentNullException(nameof(directory));
+        ArgumentNullException.ThrowIfNull(directory);
         // ----------------------------------------------------------------------------------------------------
         return directory
                .GetFiles()

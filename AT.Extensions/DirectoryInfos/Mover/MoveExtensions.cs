@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DirectoryInfos.Mover;
-public static class Extensions : Object
+public static class MoveExtensions : Object
 {
     public static Boolean MoveDirectory(this String sourceFullFilepath, String destinationFullFilepath)
     {
@@ -11,6 +11,7 @@ public static class Extensions : Object
             throw new ArgumentNullException(nameof(destinationFullFilepath));
         // ----------------------------------------------------------------------------------------------------
         Boolean result;
+        // ----------------------------------------------------------------------------------------------------
         try
         {
             Directory.Move(sourceFullFilepath, destinationFullFilepath);
@@ -20,6 +21,7 @@ public static class Extensions : Object
         {
             throw new Exception(ex.Message);
         }
+        // ----------------------------------------------------------------------------------------------------
         return result;
     }
 }

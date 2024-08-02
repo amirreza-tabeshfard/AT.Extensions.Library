@@ -2,15 +2,13 @@
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DirectoryInfos.Deleted;
-public static class Extensions
+public static class DeleteExtensions
 {
     public static void DeleteDirectory(this DirectoryInfo directoryInfo)
     {
-        if (directoryInfo == default)
-            throw new ArgumentNullException(nameof(directoryInfo));
+        ArgumentNullException.ThrowIfNull(directoryInfo);
         // ----------------------------------------------------------------------------------------------------
-        if (directoryInfo.Parent is not null)
-            directoryInfo.Parent.DeleteDirectory();
+        directoryInfo.Parent?.DeleteDirectory();
 
         if (directoryInfo.Exists)
             directoryInfo.Delete();
@@ -23,8 +21,7 @@ public static class Extensions
         // ----------------------------------------------------------------------------------------------------
         DirectoryInfo directoryInfo = new(path);
         // ----------------------------------------------------------------------------------------------------
-        if (directoryInfo.Parent is not null)
-            directoryInfo.Parent.CreateDirectory();
+        directoryInfo.Parent?.CreateDirectory();
 
         if (directoryInfo.Exists)
             directoryInfo.Delete();
