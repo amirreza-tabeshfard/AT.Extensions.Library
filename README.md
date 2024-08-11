@@ -91,6 +91,14 @@ English | [Persian](./README.fa-IR.md)
 | 11 | AT.Extensions.FileInfos.Zipper | 2 |
 </details>
 
+<details>
+<summary>HttpHandler</summary>
+
+| Row | Namespace | Number of Methods |
+|:---:|:---:|:---:|
+| 01 | AT.Extensions.HttpHandler.Collections.Generic | 5 |
+</details>
+
 ## Download
 | Row | Full Name | Version | Upload Date | Link
 |:---:|:---:|:---:|:---:|:---:|
