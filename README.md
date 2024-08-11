@@ -1,9 +1,5 @@
 English | [Persian](./README.fa-IR.md)
 
-<p align="center">
-	<img align="center" src="https://www.extensionmethod.com/wp-content/uploads/2020/09/ExtensionMethod_Logo_final_2.png">
-</p>
-
 <h1 align="center">
 	AT.Extensions.Library	
 	<div>
