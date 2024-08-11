@@ -73,6 +73,24 @@ English | [Persian](./README.fa-IR.md)
 | 06 | AT.Extensions.DirectoryInfos.Mover | 1 |
 </details>
 
+<details>
+<summary>FileInfos</summary>
+
+| Row | Namespace | Number of Methods |
+|:---:|:---:|:---:|
+| 01 | AT.Extensions.FileInfos.Boundary | 2 |
+| 02 | AT.Extensions.FileInfos.Collections | 18 |
+| 03 | AT.Extensions.FileInfos.Comparison | 4 |
+| 04 | AT.Extensions.FileInfos.Copy | 9 |
+| 05 | AT.Extensions.FileInfos.Creation | 8 |
+| 06 | AT.Extensions.FileInfos.Extraction | 7 |
+| 07 | AT.Extensions.FileInfos.Mover | 3 |
+| 08 | AT.Extensions.FileInfos.Process | 5 |
+| 09 | AT.Extensions.FileInfos.Reader | 7 |
+| 10 | AT.Extensions.FileInfos.Writer | 6 |
+| 11 | AT.Extensions.FileInfos.Zipper | 2 |
+</details>
+
 ## Download
 | Row | Full Name | Version | Upload Date | Link
 |:---:|:---:|:---:|:---:|:---:|
