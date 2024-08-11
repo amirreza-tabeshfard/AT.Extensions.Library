@@ -60,6 +60,18 @@ English | [Persian](./README.fa-IR.md)
 | 09 | AT.Extensions.DateTimes.Persian | 5 |
 </details>
 
+<details>
+<summary>DirectoryInfos</summary>
+
+| Row | Namespace | Number of Methods |
+|:---:|:---:|:---:|
+| 01 | AT.Extensions.DirectoryInfos.Collections | 6 |
+| 02 | AT.Extensions.Strings.Comparison | 3 |
+| 03 | AT.Extensions.Strings.Comparison | 2 |
+| 04 | AT.Extensions.DirectoryInfos.Deleted | 2 |
+| 05 | AT.Extensions.DirectoryInfos.Extraction | 1 |
+| 06 | AT.Extensions.DirectoryInfos.Mover | 1 |
+</details>
 
 ## Download
 | Row | Full Name | Version | Upload Date | Link
