@@ -1,32 +1,12 @@
 ﻿using AT.Extensions.FileInfos.Creation;
 
 namespace AT.Extensions.FileInfos.Mover;
-public static class Extensions : Object
+public static class MoveToExtensions : Object
 {
-    #region Method(s): Private
-
-    private static T ParamNotNull<T>(this T? obj, String ParameterName, String? Message = null)
-        where T : class
-    {
-        return obj ?? throw new ArgumentException(Message ?? $"Missing reference for parameter {ParameterName}", ParameterName);
-    }
-
-    #endregion
-
-    public static FileInfo ChangeExtension(this FileInfo file, String? extension)
-    {
-        if (file == default)
-            throw new ArgumentNullException(nameof(file));
-        // ----------------------------------------------------------------------------------------------------
-        return new(Path.ChangeExtension(file.ParamNotNull(nameof(file)).FullName, extension));
-    }
-
     public static FileInfo MoveTo(this FileInfo sourceFile, FileInfo destinationFile, Boolean isOverride = true)
     {
-        if (sourceFile == default)
-            throw new ArgumentNullException(nameof(sourceFile));
-        else if (destinationFile == default)
-            throw new ArgumentNullException(nameof(destinationFile));
+        ArgumentNullException.ThrowIfNull(sourceFile);
+        ArgumentNullException.ThrowIfNull(destinationFile);
         // ----------------------------------------------------------------------------------------------------
         destinationFile.Refresh();
 
@@ -42,10 +22,8 @@ public static class Extensions : Object
 
     public static FileInfo MoveTo(this FileInfo sourceFile, DirectoryInfo destinationInfo, Boolean isOverride = false)
     {
-        if (sourceFile == default)
-            throw new ArgumentNullException(nameof(sourceFile));
-        else if (destinationInfo == default)
-            throw new ArgumentNullException(nameof(destinationInfo));
+        ArgumentNullException.ThrowIfNull(sourceFile);
+        ArgumentNullException.ThrowIfNull(destinationInfo);
         // ----------------------------------------------------------------------------------------------------
         FileInfo destinationFile = destinationInfo.CreateFileInfo(sourceFile.Name);
 

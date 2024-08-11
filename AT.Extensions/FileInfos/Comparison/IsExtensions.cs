@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.FileInfos.Comparison;
-public static class Extensions : Object
+public static class IsExtensions : Object
 {
     #region Field(s)
 
@@ -11,7 +11,7 @@ public static class Extensions : Object
 
     #region Constructor
 
-    static Extensions()
+    static IsExtensions()
     {
         _NotValidPathChars = new(Path.GetInvalidFileNameChars());
     }
@@ -20,8 +20,7 @@ public static class Extensions : Object
 
     public static Boolean IsEOF(this BinaryReader reader)
     {
-        if (reader == default)
-            throw new ArgumentNullException(nameof(reader));
+        ArgumentNullException.ThrowIfNull(reader);
         // ----------------------------------------------------------------------------------------------------
         return reader.BaseStream.Position == reader.BaseStream.Length;
     }
@@ -53,10 +52,6 @@ public static class Extensions : Object
         catch (Exception ex)
         {
             throw new Exception(ex.Message);
-        }
-        finally
-        {
-
         }
         // ----------------------------------------------------------------------------------------------------
         return isSuccess;

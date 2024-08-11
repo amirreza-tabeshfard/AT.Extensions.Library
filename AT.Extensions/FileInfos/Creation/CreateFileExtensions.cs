@@ -1,40 +1,8 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.FileInfos.Creation;
-public static class Extensions : Object
+public static class CreateFileExtensions : Object
 {
-    public static BinaryWriter CreateBinary(this FileInfo file)
-    {
-        if (file is null)
-            throw new ArgumentNullException(nameof(file));
-        // ----------------------------------------------------------------------------------------------------
-        return new(file.Create());
-    }
-
-    public static BinaryWriter CreateBinary(this FileInfo file, Int32 bufferLength)
-    {
-        if (file is null)
-            throw new ArgumentNullException(nameof(file));
-        // ----------------------------------------------------------------------------------------------------
-        return new(new FileStream(file.FullName, FileMode.Create, FileAccess.Write, FileShare.None, bufferLength));
-    }
-
-    public static BinaryWriter CreateBinary(this FileInfo file, System.Text.Encoding encoding)
-    {
-        if (file is null)
-            throw new ArgumentNullException(nameof(file));
-        // ----------------------------------------------------------------------------------------------------
-        return new(file.Create(), encoding);
-    }
-
-    public static BinaryWriter CreateBinary(this FileInfo file, Int32 bufferLength, System.Text.Encoding encoding)
-    {
-        if (file is null)
-            throw new ArgumentNullException(nameof(file));
-        // ----------------------------------------------------------------------------------------------------
-        return new(new FileStream(file.FullName, FileMode.Create, FileAccess.Write, FileShare.None, bufferLength), encoding);
-    }
-
     public static FileStream? CreateFile(this String fullFilepath)
     {
         if (fullFilepath.IsNullOrEmpty() || fullFilepath.IsNullOrWhiteSpace())
@@ -69,13 +37,5 @@ public static class Extensions : Object
         using FileStream? result = File.Create(fullFilepath, bufferSize, options);
         // ----------------------------------------------------------------------------------------------------
         return result;
-    }
-
-    public static FileInfo CreateFileInfo(this DirectoryInfo directory, String fileRelativePath)
-    {
-        if (directory is null)
-            throw new ArgumentNullException(nameof(directory));
-        // ----------------------------------------------------------------------------------------------------
-        return new(Path.Combine(directory.FullName, fileRelativePath.Replace(':', '.')));
     }
 }

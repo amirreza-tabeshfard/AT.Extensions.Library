@@ -1,7 +1,5 @@
-﻿using AT.Extensions.Strings.Comparison;
-
-namespace AT.Extensions.FileInfos.Process;
-public static class Extensions : Object
+﻿namespace AT.Extensions.FileInfos.Process;
+public static class ExecuteExtensions : Object
 {
     #region Method(s): Private
 
@@ -13,18 +11,10 @@ public static class Extensions : Object
 
     #endregion
 
-    public static System.Diagnostics.Process? ExecuteAsAdmin(this FileInfo file, String args = "", Boolean isUseShellExecute = true)
-    {
-        if (file == default)
-            throw new ArgumentNullException(nameof(file));
-        // ----------------------------------------------------------------------------------------------------
-        return file.Execute(args, isUseShellExecute, "runas");
-    }
-
     public static System.Diagnostics.Process? Execute(this FileInfo file, String args, Boolean isUseShellExecute, String verb)
     {
-        if (file == default)
-            throw new ArgumentNullException(nameof(file));
+        ArgumentNullException.ThrowIfNull(file);
+        ArgumentNullException.ThrowIfNull(args);
         // ----------------------------------------------------------------------------------------------------
         return System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(file.FullName, args)
         {
@@ -35,25 +25,17 @@ public static class Extensions : Object
 
     public static System.Diagnostics.Process Execute(this String file, String args = "", Boolean isUseShellExecute = true)
     {
-        if (file.IsNullOrEmpty() || file.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(file));
+        ArgumentException.ThrowIfNullOrEmpty(file);
+        ArgumentNullException.ThrowIfNull(args);
         // ----------------------------------------------------------------------------------------------------
         return System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(file, args) { UseShellExecute = isUseShellExecute }).NotNull();
     }
 
     public static System.Diagnostics.Process Execute(this FileInfo file, String args = "", Boolean isUseShellExecute = true)
     {
-        if (file == default)
-            throw new ArgumentNullException(nameof(file));
+        ArgumentNullException.ThrowIfNull(file);
+        ArgumentNullException.ThrowIfNull(args);
         // ----------------------------------------------------------------------------------------------------
         return System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(isUseShellExecute ? file.ToString() : file.FullName, args) { UseShellExecute = isUseShellExecute }).NotNull();
-    }
-
-    public static System.Diagnostics.Process? ShowInExplorer(this FileSystemInfo file)
-    {
-        if (file == default)
-            throw new ArgumentNullException(nameof(file));
-        // ----------------------------------------------------------------------------------------------------
-        return System.Diagnostics.Process.Start("explorer", $"/select,\"{file.FullName}\"");
     }
 }
