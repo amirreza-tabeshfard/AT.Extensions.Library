@@ -3,202 +3,182 @@ public static class DataTypeExtensions : Object
 {
     public static Boolean IsByte(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Byte.TryParse(value, out _);
     }
 
     public static Boolean IsByte(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Byte.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsSByte(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return SByte.TryParse(value, out _);
     }
 
     public static Boolean IsSByte(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return SByte.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsShort(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Int16.TryParse(value, out _);
     }
 
     public static Boolean IsShort(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Int16.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsUShort(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return UInt16.TryParse(value, out _);
     }
 
     public static Boolean IsUShort(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return UInt16.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsInt(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Int32.TryParse(value, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out _);
     }
 
     public static Boolean IsInt(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Int32.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsUInt(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return UInt32.TryParse(value, out _);
     }
 
     public static Boolean IsUInt(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return UInt32.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsLong(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Int64.TryParse(value, out _);
     }
 
     public static Boolean IsLong(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Int64.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsULong(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return UInt64.TryParse(value, out _);
     }
 
     public static Boolean IsULong(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return UInt64.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsFloat(this String value)
     {
+        ArgumentException.ThrowIfNullOrEmpty(value);
+        // ----------------------------------------------------------------------------------------------------
         return value.IsSingle();
     }
 
     public static Boolean IsFloat(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
+        ArgumentException.ThrowIfNullOrEmpty(value);
+        // ----------------------------------------------------------------------------------------------------
         return value.IsSingle(style, provider);
     }
 
     public static Boolean IsSingle(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Single.TryParse(value, out _);
     }
 
     public static Boolean IsSingle(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Single.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsDouble(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Double.TryParse(value, out _);
     }
 
     public static Boolean IsDouble(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Double.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsDecimal(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Decimal.TryParse(value, out _);
     }
 
     public static Boolean IsDecimal(this String value, System.Globalization.NumberStyles style, IFormatProvider provider)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Decimal.TryParse(value, style, provider, out _);
     }
 
     public static Boolean IsChar(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return Char.TryParse(value, out _);
     }
 
     public static Boolean IsBool(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         if (!Boolean.TryParse(value, out Boolean result))
             switch (value.ToLower())
@@ -221,8 +201,7 @@ public static class DataTypeExtensions : Object
 
     public static Boolean IsDateTime(this String value)
     {
-        if (value.IsNullOrEmpty() || value.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(value));
+        ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------
         return DateTime.TryParse(value, out _);
     }
