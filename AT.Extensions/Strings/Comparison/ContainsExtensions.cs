@@ -1,7 +1,4 @@
 ﻿using AT.Extensions.Strings.Extraction;
-using MimeDetective.Storage;
-using Newtonsoft.Json.Linq;
-using System.Data.SqlTypes;
 using static AT.Extensions.Strings.Comparison.StartsWithExtensions;
 
 namespace AT.Extensions.Strings.Comparison;

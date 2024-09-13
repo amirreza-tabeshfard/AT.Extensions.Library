@@ -12,14 +12,6 @@ public static class EndsWithExtensions : Object
         return value.EndsWith(suffix, StringComparison.InvariantCultureIgnoreCase);
     }
 
-    public static Boolean EndsWithIgnoreCase2(this String input, String value)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(input);
-        ArgumentException.ThrowIfNullOrEmpty(value);
-        // ----------------------------------------------------------------------------------------------------
-        return input.EndsWith(value, StringComparison.InvariantCultureIgnoreCase);
-    }
-
     public static Boolean EndsWithInvariant(this String value, String suffix)
     {
         ArgumentException.ThrowIfNullOrEmpty(value);

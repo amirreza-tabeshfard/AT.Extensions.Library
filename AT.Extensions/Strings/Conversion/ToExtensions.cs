@@ -151,7 +151,7 @@ public static class ToExtensions : Object
         if (value.IsKebabCase())
             return value.FromKebabCase();
         // ----------------------------------------------------------------------------------------------------
-        return value.EveryLetterUpper().Replace(" ", "");
+        return value.EveryLetterUpper().Replace(" ", string.Empty);
     }
 
     #endregion
@@ -228,17 +228,6 @@ public static class ToExtensions : Object
     }
 
     public static String ToCamelCase(this String value)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(value);
-        // ----------------------------------------------------------------------------------------------------
-        return Infrastructure.RegularExpressions.AlphaNumeric().Replace(value, new System.Text.RegularExpressions.MatchEvaluator(WordEvaluator)).ToAlphanumeric(false);
-        static String WordEvaluator(System.Text.RegularExpressions.Match word)
-        {
-            return word.Value.ToSentenceCase();
-        }
-    }
-
-    public static String ToCamelCase2(this String value)
     {
         ArgumentException.ThrowIfNullOrEmpty(value);
         // ----------------------------------------------------------------------------------------------------

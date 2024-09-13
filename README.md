@@ -1,4 +1,4 @@
-English | [Persian](./README.fa-IR.md)
+English
 
 <h1 align="center">
 	AT.Extensions.Library
@@ -84,6 +84,19 @@ English | [Persian](./README.fa-IR.md)
 | Row | Namespace | Number of Methods |
 |:---:|:---:|:---:|
 | 01 | AT.Extensions.HttpHandler.Collections.Generic | 5 |
+</details>
+
+<details>
+<summary>Strings</summary>
+
+| Row | Namespace | Number of Methods |
+|:---:|:---:|:---:|
+| 01 | AT.Extensions.Strings.Addition | 14 |
+| 02 | AT.Extensions.Strings.Collections | 36 |
+| 03 | AT.Extensions.Strings.Collections.Generic | 18 |
+| 04 | AT.Extensions.Strings.Comparison | 101 |
+| 05 | AT.Extensions.Strings.Conversion | 38 |
+| 06 | AT.Extensions.Strings.Extraction | 257 |
 </details>
 
 ## Download
