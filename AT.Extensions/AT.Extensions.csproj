@@ -63,7 +63,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.0.58</Version>
+    <Version>1.0.0.62</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>Logo.jpg</PackageIcon>
   </PropertyGroup>
@@ -73,7 +73,7 @@
 	-->
   <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
     <PackageReference Include="Mime-Detective" Version="24.7.1" />
     <PackageReference Include="Enable.Common.Argument" Version="2.0.1" />
     <PackageReference Include="SharperHacks.CoreLibs.Constants" Version="3.2.0" />
@@ -87,7 +87,7 @@
 	-->
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
     <PackageReference Include="Mime-Detective" Version="24.7.1" />
     <PackageReference Include="Enable.Common.Argument" Version="2.0.1" />
     <PackageReference Include="SharperHacks.CoreLibs.Constants" Version="4.0.0" />
