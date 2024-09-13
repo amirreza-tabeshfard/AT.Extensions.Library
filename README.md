@@ -1,5 +1,3 @@
-English
-
 <h1 align="center">
 	AT.Extensions.Library
 </h1>
