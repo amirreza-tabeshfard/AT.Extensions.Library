@@ -63,7 +63,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.0.70</Version>
+    <Version>1.0.0.73</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>Logo.jpg</PackageIcon>
   </PropertyGroup>
