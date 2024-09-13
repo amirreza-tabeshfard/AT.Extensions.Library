@@ -100,4 +100,5 @@
 ## Download
 | Row | Full Name | Version | Upload Date | Link
 |:---:|:---:|:---:|:---:|:---:|
-| 01 | AT.Extensions.Library | 1.0.0.1 | Friday, July 19, 2024 | [Link](https://www.nuget.org/packages/AT.Extensions.Library/1.0.0.1)|
+| 01 | AT.Extensions.Library | 1.0.0.63 | Friday, September 13, 2024  | [Link](https://www.nuget.org/packages/AT.Extensions.Library/1.0.0.63)|
+| 02 | AT.Extensions.Library | 1.0.0.1 | Friday, July 19, 2024 | [Link](https://www.nuget.org/packages/AT.Extensions.Library/1.0.0.1)|
