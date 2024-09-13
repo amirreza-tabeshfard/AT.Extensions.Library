@@ -73,7 +73,7 @@ The primary goal of creating this «Nuget: `AT.Extensions.Library`» is to enabl
 | 05 | AT.Extensions.Strings.Conversion | 38 |
 | 06 | AT.Extensions.Strings.Extraction | 257 |
 
-## Download
+# Downloads
 | Row | Full Name | Version | Upload Date | Link
 |:---:|:---:|:---:|:---:|:---:|
 | 01 | AT.Extensions.Library | 1.0.0.1 | Friday, July 19, 2024 | [Link](https://www.nuget.org/packages/AT.Extensions.Library/1.0.0.1)
