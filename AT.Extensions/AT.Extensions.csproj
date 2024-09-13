@@ -9,7 +9,7 @@
     <Title>Extensions (Library)</Title>
     <Authors>Amirreza Tabeshfard</Authors>
     <Company>WebNest [Feature]</Company>
-    <Description>The primary goal of creating this «Nuget» is to enable developers to effortlessly and confidently utilize this «Library» instead of spending time and effort creating numerous and scattered "Extension Methods" in their projects. This approach not only enhances the efficiency and speed of project development but also significantly contributes to the standardization and integration of code. By leveraging this "Library," developers can benefit from advanced features and optimizations, allowing them to focus on the core and critical aspects of their projects. This strategy not only improves the productivity of development teams but also reduces errors and issues arising from repetitive and non-standard code. Additionally, using this "Library" allows developers to tap into collective experiences and knowledge, avoiding the need to reinvent the wheel and instead relying on proven and efficient solutions. Consequently, projects progress more rapidly, and the final product's quality is significantly enhanced.</Description>
+    <Description>The primary goal of creating this «Nuget: AT.Extensions.Library» is to enable developers to effortlessly and confidently utilize this «Library» instead of spending time and effort creating numerous and scattered «Extension Methods» in their projects. This approach not only enhances the efficiency and speed of project development but also significantly contributes to the standardization and integration of code. By leveraging this «Library», developers can benefit from advanced features and optimizations, allowing them to focus on the core and critical aspects of their projects. This strategy not only improves the productivity of development teams but also reduces errors and issues arising from repetitive and non-standard code. Additionally, using this «Library» allows developers to tap into collective experiences and knowledge, avoiding the need to reinvent the wheel and instead relying on proven and efficient solutions. Consequently, projects progress more rapidly, and the final product's quality is significantly enhanced.</Description>
     <Product>AT.Extensions.Library</Product>
     <Copyright>Copyright 2024 (c) Amirreza Tabeshfard. All rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/amirreza-tabeshfard/AT.Extensions.Library</PackageProjectUrl>
@@ -63,7 +63,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.0.62</Version>
+    <Version>1.0.0.63</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>Logo.jpg</PackageIcon>
   </PropertyGroup>
