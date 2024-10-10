@@ -1,5 +1,4 @@
-# AT.Extensions.Library
-
+# AT.Extensions.Library (About)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
@@ -37,8 +36,8 @@ The primary goal of creating this «Nuget: `AT.Extensions.Library`» is to enabl
 | Row | Namespace | Number of Methods |
 |:---:|:---:|:---:|
 | 01 | AT.Extensions.DirectoryInfos.Collections | 6 |
-| 02 | AT.Extensions.Strings.Comparison | 3 |
-| 03 | AT.Extensions.Strings.Comparison | 2 |
+| 02 | AT.Extensions.DirectoryInfos.Comparison | 3 |
+| 03 | AT.Extensions.DirectoryInfos.Creation | 2 |
 | 04 | AT.Extensions.DirectoryInfos.Deleted | 2 |
 | 05 | AT.Extensions.DirectoryInfos.Extraction | 1 |
 | 06 | AT.Extensions.DirectoryInfos.Mover | 1 |
