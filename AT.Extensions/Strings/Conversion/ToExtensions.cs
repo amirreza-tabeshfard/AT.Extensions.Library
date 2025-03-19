@@ -373,7 +373,6 @@ public static class ToExtensions : Object
     {
         ArgumentNullException.ThrowIfNull(secureString);
         // ----------------------------------------------------------------------------------------------------
-        Enable.Common.Argument.IsNotNull(secureString, nameof(secureString));
         IntPtr ptr = IntPtr.Zero;
         // ----------------------------------------------------------------------------------------------------
         try
