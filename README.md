@@ -73,30 +73,30 @@ The primary goal of creating this «Nuget: `AT.Extensions.Library`» is to enabl
 | 06 | AT.Extensions.Strings.Extraction | 257 |
 
 ### XML
-| Row | Namespace | Number of Methods | Have Summary | Number of Test Cases ( xUnit ) |
-|:---:|:---:|:---:|:---:|:---:|
-| 01 | AT.Extensions.XML.Boundary.BuildXML | ?? | No | ?? |
-| 02 | AT.Extensions.XML.Boundary.Compress | ?? | No | ?? |
-| 03 | AT.Extensions.XML.Boundary.Decompress | ?? | No | ?? |
-| 04 | AT.Extensions.XML.Boundary.Decrypt | ?? | No | ?? |
-| 05 | AT.Extensions.XML.Boundary.Encrypt | ?? | No | ?? |
-| 06 | AT.Extensions.XML.Boundary.Load | ?? | No | ?? |
-| 07 | AT.Extensions.XML.Boundary.Merge | ?? | No | ?? |
-| 08 | AT.Extensions.XML.Boundary.Parse | ?? | No | ?? |
-| 09 | AT.Extensions.XML.Boundary.Validate | ?? | No | ?? |
-| 10 | AT.Extensions.XML.Boundary.Verify | ?? | No | ?? |
-| 11 | AT.Extensions.XML.Collections | ?? | No | ?? |
-| 12 | AT.Extensions.XML.Comparison.Compare | ?? | No | ?? |
-| 13 | AT.Extensions.XML.Comparison.Equal | ?? | No | ?? |
-| 14 | AT.Extensions.XML.Comparison.Has | ?? | No | ?? |
-| 15 | AT.Extensions.XML.Comparison.Is | ?? | No | ?? |
-| 16 | AT.Extensions.XML.Conversion | ?? | No | ?? |
-| 17 | AT.Extensions.XML.Creation.Append | ?? | No | ?? |
-| 18 | AT.Extensions.XML.Creation.Create | ?? | No | ?? |
-| 19 | AT.Extensions.XML.Deletion | ?? | No | ?? |
-| 20 | AT.Extensions.XML.Extraction.Evaluate | ?? | No | ?? |
-| 21 | AT.Extensions.XML.Extraction.Execute | ?? | No | ?? |
-| 22 | AT.Extensions.XML.Extraction.Extract | ?? | No | ?? |
-| 23 | AT.Extensions.XML.Extraction.Get | ?? | No | ?? |
-| 24 | AT.Extensions.XML.Modification.Rename | ?? | No | ?? |
-| 25 | AT.Extensions.XML.Modification.Replace | ?? | No | ?? |
+| Row | Namespace | Number of Methods | Number of Test Cases ( xUnit ) |
+|:---:|:---:|:---:|:---:|
+| 01 | AT.Extensions.XML.Boundary.BuildXML | ?? | ?? |
+| 02 | AT.Extensions.XML.Boundary.Compress | ?? | ?? |
+| 03 | AT.Extensions.XML.Boundary.Decompress | ?? | ?? |
+| 04 | AT.Extensions.XML.Boundary.Decrypt | ?? | ?? |
+| 05 | AT.Extensions.XML.Boundary.Encrypt | ?? | ?? |
+| 06 | AT.Extensions.XML.Boundary.Load | ?? | ?? |
+| 07 | AT.Extensions.XML.Boundary.Merge | ?? | ?? |
+| 08 | AT.Extensions.XML.Boundary.Parse | ?? | ?? |
+| 09 | AT.Extensions.XML.Boundary.Validate | ?? | ?? |
+| 10 | AT.Extensions.XML.Boundary.Verify | ?? | ?? |
+| 11 | AT.Extensions.XML.Collections | ?? | ?? |
+| 12 | AT.Extensions.XML.Comparison.Compare | ?? | ?? |
+| 13 | AT.Extensions.XML.Comparison.Equal | ?? | ?? |
+| 14 | AT.Extensions.XML.Comparison.Has | ?? | ?? |
+| 15 | AT.Extensions.XML.Comparison.Is | ?? | ?? |
+| 16 | AT.Extensions.XML.Conversion | ?? | ?? |
+| 17 | AT.Extensions.XML.Creation.Append | ?? | ?? |
+| 18 | AT.Extensions.XML.Creation.Create | ?? | ?? |
+| 19 | AT.Extensions.XML.Deletion | ?? | ?? |
+| 20 | AT.Extensions.XML.Extraction.Evaluate | ?? | ?? |
+| 21 | AT.Extensions.XML.Extraction.Execute | ?? | ?? |
+| 22 | AT.Extensions.XML.Extraction.Extract | ?? | ?? |
+| 23 | AT.Extensions.XML.Extraction.Get | ?? | ?? |
+| 24 | AT.Extensions.XML.Modification.Rename | ?? | ?? |
+| 25 | AT.Extensions.XML.Modification.Replace | ?? | ?? |
