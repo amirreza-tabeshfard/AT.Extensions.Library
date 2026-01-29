@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class ForEachExtensions : Object
+public static class ForEachExtensions
 {
     public static void ForEach(this String value, Action<Char> action)
     {

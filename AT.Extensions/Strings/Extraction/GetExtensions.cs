@@ -3,7 +3,7 @@ using AT.Extensions.Chars.Extraction;
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static partial class GetExtensions : object
+public static partial class GetExtensions
 {
     #region Method(s): Private
 

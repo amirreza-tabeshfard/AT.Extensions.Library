@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class AllBetweenExtensions : Object
+public static class AllBetweenExtensions
 {
     #region Method(s): Private
 

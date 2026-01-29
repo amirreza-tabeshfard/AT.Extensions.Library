@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class DateTimeExtensions : Object
+public static class DateTimeExtensions
 {
     #region Private: Method(s)
 

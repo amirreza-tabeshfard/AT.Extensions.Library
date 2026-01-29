@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Persian;
-public static class ToExtensions : object
+public static class ToExtensions
 {
     public static String ToPersianDateYMD(this DateTime date)
     {

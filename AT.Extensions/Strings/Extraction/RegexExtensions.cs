@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class RegexExtensions : Object
+public static class RegexExtensions
 {
     #region Field(s)
 

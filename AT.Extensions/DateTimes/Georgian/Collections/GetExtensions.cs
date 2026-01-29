@@ -4,7 +4,7 @@ using AT.Extensions.DateTimes.Georgian.Extraction;
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Collections;
-public static class GetExtensions : Object
+public static class GetExtensions
 {
     #region Field(s)
 

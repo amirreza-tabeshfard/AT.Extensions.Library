@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DirectoryInfos.Extraction;
-public static class GetExtensions : Object
+public static class GetExtensions
 {
     public static Int64 GetSize(this DirectoryInfo directoryInfo)
     {

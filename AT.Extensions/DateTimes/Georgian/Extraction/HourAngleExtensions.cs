@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class HourAngleExtensions : Object
+public static class HourAngleExtensions
 {
     public static Double HourAngle(this DateTime dateTime, Double Latitude, Double GeometricZenith)
     {

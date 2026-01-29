@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class AppendLineExtensions : Object
+public static class AppendLineExtensions
 {
     public static System.Text.StringBuilder AppendLineFormat(this System.Text.StringBuilder input, String format, object arg0)
     {

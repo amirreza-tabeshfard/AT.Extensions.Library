@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class LastExtensions : Object
+public static class LastExtensions
 {
     public static DateTime LastSecond(this DateTime dateTime)
     {

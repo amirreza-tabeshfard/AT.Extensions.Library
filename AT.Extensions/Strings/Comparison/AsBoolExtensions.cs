@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class AsBoolExtensions : Object
+public static class AsBoolExtensions
 {
     public static Boolean AsBool(this String value, Boolean defaultValue)
     {

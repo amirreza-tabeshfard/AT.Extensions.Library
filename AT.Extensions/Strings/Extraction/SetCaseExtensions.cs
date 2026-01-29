@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class SetCaseExtensions : Object
+public static class SetCaseExtensions
 {
     #region Method(s): Private
 

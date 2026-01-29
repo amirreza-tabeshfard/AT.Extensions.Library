@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class AsPrettyExtensions : Object
+public static class AsPrettyExtensions
 {
     public static String AsPrettyJson(this String json)
     {

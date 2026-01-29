@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DirectoryInfos.Collections;
-public static class EnumerateExtensions : Object
+public static class EnumerateExtensions
 {
     public static IEnumerable<DirectoryInfo>? EnumerateDirectories(this DirectoryInfo directoryInfo)
     {

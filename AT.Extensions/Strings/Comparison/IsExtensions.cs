@@ -2,7 +2,7 @@
 using AT.Extensions.Strings.Extraction;
 
 namespace AT.Extensions.Strings.Comparison;
-public static partial class IsExtensions : Object
+public static partial class IsExtensions
 {
     #region Method(s): Private
 

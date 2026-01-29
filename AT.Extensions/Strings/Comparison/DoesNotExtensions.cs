@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class DoesNotExtensions : Object
+public static class DoesNotExtensions
 {
     public static Boolean DoesNotEndWith(this String value, String suffix)
     {

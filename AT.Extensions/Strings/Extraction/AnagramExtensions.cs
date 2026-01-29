@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class AnagramExtensions : Object
+public static class AnagramExtensions
 {
     public static String? Anagram(this String value)
     {

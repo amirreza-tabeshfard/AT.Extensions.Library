@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class ReadLinesExtensions : Object
+public static class ReadLinesExtensions
 {
     public static IEnumerable<String> ReadLines(this String value)
     {

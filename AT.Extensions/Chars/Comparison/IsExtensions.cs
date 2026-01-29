@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Chars.Comparison;
-public static class IsExtensions : Object
+public static class IsExtensions
 {
     public static Boolean IsDigit(this Char ch)
     {

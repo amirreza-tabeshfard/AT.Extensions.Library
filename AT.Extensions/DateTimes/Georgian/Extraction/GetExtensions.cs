@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class GetExtensions : Object
+public static class GetExtensions
 {
     public static TimeSpan GetAbsDuration(this TimeSpan from, TimeSpan to)
     {

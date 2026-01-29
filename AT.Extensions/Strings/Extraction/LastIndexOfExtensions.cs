@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static  class LastIndexOfExtensions : Object
+public static  class LastIndexOfExtensions
 {
     public static Int32 LastIndexOfInvariant(this String value, String substring)
     {

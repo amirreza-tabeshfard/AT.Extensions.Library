@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DirectoryInfos.Collections;
-public static class GetExtensions : Object
+public static class GetExtensions
 {
     public static DirectoryInfo[]? GetDirectories(this DirectoryInfo directoryInfo)
     {

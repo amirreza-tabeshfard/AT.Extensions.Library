@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class ExcerptExtensions : Object
+public static class ExcerptExtensions
 {
     public static String Excerpt(this String value, Int32 characters)
     {

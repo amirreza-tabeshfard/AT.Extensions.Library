@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class WordsExtensions : Object
+public static class WordsExtensions
 {
     public static IEnumerable<String> Words(this String value)
     {

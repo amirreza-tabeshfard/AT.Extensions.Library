@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Conversion;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class ConvertExtensions : Object
+public static class ConvertExtensions
 {
     #region Enum(s)
 

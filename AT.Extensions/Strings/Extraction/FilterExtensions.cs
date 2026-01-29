@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class FilterExtensions : Object
+public static class FilterExtensions
 {
     public static String Filter(this String value, Func<Char, Boolean> predicate)
     {

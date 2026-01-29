@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class AsExtensions : Object
+public static class AsExtensions
 {
     public static Double AsDegreesToRadians(this Double value)
     {

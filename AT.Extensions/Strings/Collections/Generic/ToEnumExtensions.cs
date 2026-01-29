@@ -2,7 +2,7 @@
 using System.Reflection;
 
 namespace AT.Extensions.Strings.Collections.Generic;
-public static class ToEnumExtensions : Object
+public static class ToEnumExtensions
 {
     public static TEnum ToEnum<TEnum>(this String text) 
         where TEnum : struct

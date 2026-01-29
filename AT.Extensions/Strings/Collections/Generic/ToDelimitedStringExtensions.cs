@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections.Generic;
-public static class ToDelimitedStringExtensions : Object
+public static class ToDelimitedStringExtensions
 {
     public static String ToDelimitedString<T>(this IEnumerable<T>? collection, String delimiter = ", ", String? endDelimiter = null)
     {

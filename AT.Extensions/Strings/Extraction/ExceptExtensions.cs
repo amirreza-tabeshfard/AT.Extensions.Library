@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class ExceptExtensions : Object
+public static class ExceptExtensions
 {
     public static String Except(this String value, IEnumerable<Char> exceptChars, Boolean ignoreCase = false)
     {

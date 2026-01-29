@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class QueryStringExtensions : Object
+public static class QueryStringExtensions
 {
     public static IDictionary<String, String>? QueryStringToDictionary(this String queryString)
     {

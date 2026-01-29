@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Chars.Extraction;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class CapitalizeExtensions : Object
+public static class CapitalizeExtensions
 {
     public static String Capitalize(this String value)
     {

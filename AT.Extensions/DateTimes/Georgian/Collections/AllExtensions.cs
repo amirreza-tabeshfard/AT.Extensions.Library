@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Holiday;
 
 namespace AT.Extensions.DateTimes.Georgian.Collections;
-public static class AllExtensions : Object
+public static class AllExtensions
 {
     #region Field(s)
 

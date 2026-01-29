@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class SubstringExtensions : Object
+public static class SubstringExtensions
 {
     public static String SubstringFromFirstOccurrence(this String value, String afterThis)
     {

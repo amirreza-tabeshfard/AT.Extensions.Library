@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class PrefixExtensions : Object
+public static class PrefixExtensions
 {
     public static Int32 PrefixCount(this String value, String prefix)
     {

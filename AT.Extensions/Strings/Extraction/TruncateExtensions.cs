@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class TruncateExtensions : Object
+public static class TruncateExtensions
 {
     public static String Truncate(this String value, Int32 maxLength)
     {

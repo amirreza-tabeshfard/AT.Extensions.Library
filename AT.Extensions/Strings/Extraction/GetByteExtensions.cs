@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class GetByteExtensions : Object
+public static class GetByteExtensions
 {
     public static Int32 GetByteSize(this String value, System.Text.Encoding encoding)
     {

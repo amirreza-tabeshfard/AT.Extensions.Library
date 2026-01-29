@@ -3,7 +3,7 @@ using AT.Extensions.FileInfos.Comparison;
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.FileInfos.Collections;
-public static class ReadAllBytesExtensions : Object
+public static class ReadAllBytesExtensions
 {
     public static byte[] ReadAllBytes(this String filePath)
     {

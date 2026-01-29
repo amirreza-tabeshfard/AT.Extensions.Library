@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Process;
-public static class ExecuteAsAdminExtensions : Object
+public static class ExecuteAsAdminExtensions
 {
     public static System.Diagnostics.Process? ExecuteAsAdmin(this FileInfo file, String args = "", Boolean isUseShellExecute = true)
     {

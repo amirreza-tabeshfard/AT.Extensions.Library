@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class StringWithExtensions : Object
+public static class StringWithExtensions
 {
     public static String StringWithPrefix(this String value, String prefix)
     {

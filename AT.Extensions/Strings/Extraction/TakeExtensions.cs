@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class TakeExtensions : Object
+public static class TakeExtensions
 {
     public static String? Take(this String value, Int32 count)
     {

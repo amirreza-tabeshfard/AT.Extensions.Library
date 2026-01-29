@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class IgnoreExtensions : Object
+public static class IgnoreExtensions
 {
     public static DateTime IgnoreTimeSpan(this DateTime dateTime, TimeSpan timeSpan)
     {

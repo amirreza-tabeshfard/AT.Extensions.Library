@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Addition;
-public static class InsertExtensions : Object
+public static class InsertExtensions
 {
     public static String InsertCamelCaseSpaces(this String value)
     {

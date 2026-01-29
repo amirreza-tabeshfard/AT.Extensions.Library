@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class SequenceExtensions : Object
+public static class SequenceExtensions
 {
     public static Boolean SequenceEqual(this String first, String second)
     {

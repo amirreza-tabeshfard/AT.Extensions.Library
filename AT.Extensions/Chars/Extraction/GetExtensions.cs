@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Chars.Extraction;
-public static class GetExtensions : Object
+public static class GetExtensions
 {
     #region Method(s): Private
 

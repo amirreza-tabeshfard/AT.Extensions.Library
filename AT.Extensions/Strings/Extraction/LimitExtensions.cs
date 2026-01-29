@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class LimitExtensions : Object
+public static class LimitExtensions
 {
     public static String Limit(this String value, Int32 maxLength, String? suffix = default)
     {

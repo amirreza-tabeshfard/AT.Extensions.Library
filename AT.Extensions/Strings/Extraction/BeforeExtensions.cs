@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class BeforeExtensions : Object
+public static class BeforeExtensions
 {
     public static String Before(this String value, String search, Boolean ignoreCase = false)
     {

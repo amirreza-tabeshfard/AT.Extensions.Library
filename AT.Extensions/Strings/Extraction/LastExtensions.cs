@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class LastExtensions : Object
+public static class LastExtensions
 {
     public static String? Last(this String value, params Char[] split)
     {

@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class SortExtensions : Object
+public static class SortExtensions
 {
     public static String Sort(this String value, Boolean ignoreCase = false)
     {

@@ -2,7 +2,7 @@
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static  class ServerTimeToExtensions : Object
+public static  class ServerTimeToExtensions
 {
     public static DateTime ServerTimeToLocalTime(this DateTime dateTime, String timeZoneName)
     {

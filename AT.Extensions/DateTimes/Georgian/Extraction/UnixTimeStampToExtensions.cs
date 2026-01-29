@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static  class UnixTimeStampToExtensions : Object
+public static  class UnixTimeStampToExtensions
 {
     #region Field(s)
 

@@ -2,7 +2,7 @@
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.FileInfos.Collections;
-public static class ReadAllLinesExtensions : Object
+public static class ReadAllLinesExtensions
 {
     public static String[] ReadAllLines(this String filePath)
     {

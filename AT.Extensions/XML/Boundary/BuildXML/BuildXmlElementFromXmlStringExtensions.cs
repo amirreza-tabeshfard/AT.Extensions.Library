@@ -1,216 +1,321 @@
-﻿namespace AT.Extensions.XML.Boundary.BuildXML;
-public static class BuildXmlElementFromXmlStringExtensions
-    : Object
+﻿using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
+
+namespace AT.Extensions.XML.Boundary.BuildXML;
+/// <summary>
+/// Private Mathod(s)
+/// </summary>
+public static partial class BuildXmlElementFromXmlStringExtensions
 {
-    public static System.Xml.XmlElement? BuildXmlElementFromXmlString(this String xml)
+    private static XmlElement SafeParse<T>(T input, Func<T, StringReader> readerFactory)
     {
-        ArgumentException.ThrowIfNullOrEmpty(xml);
-        ArgumentException.ThrowIfNullOrWhiteSpace(xml);
-        // ----------------------------------------------------------------------------------------------------
         try
         {
-            System.Xml.XmlDocument doc = new();
-            doc.LoadXml(xml);
+            using StringReader reader = readerFactory(input);
+            XmlDocument doc = new();
+            doc.Load(reader);
+
+            if (doc.DocumentElement == null)
+                throw new XmlException("The XML document was loaded successfully, but it does not contain a valid root element. This may indicate that the input XML is empty, improperly formatted, or missing the root-level tag. Please ensure that the XML input has a single well-formed root element.");
+
             return doc.DocumentElement;
         }
-        catch (OutOfMemoryException ex) when (ex.Message.Contains("Out of memory"))
+        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("reader"))
         {
-            throw new InvalidOperationException("XML is too large to process. Memory allocation failed.", ex);
+            throw new InvalidOperationException("An argument exception occurred while loading the XML reader.", ex);
         }
-        catch (System.Xml.XmlException ex) when (ex.Message.Contains("XML") && ex.Message.Contains("not well-formed"))
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("s"))
         {
-            throw new ArgumentException("The XML format is invalid: The structure is not well-formed.", ex);
+            throw new InvalidOperationException("The input string for the XML content is null.", ex);
         }
-        catch (System.Xml.XmlException ex) when (ex.Message.Equals("Data at the root level is invalid"))
+        catch (InvalidOperationException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new ArgumentException("Invalid XML format: Root level data is not valid.", ex);
+            throw new InvalidOperationException("An invalid operation occurred within the System.Xml namespace.", ex);
         }
-        catch (System.Xml.XmlException ex) when (ex.Message.Equals("There is an error in XML document"))
+        catch (NotSupportedException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new ArgumentException("Invalid XML format: There is an error in the XML document.", ex);
+            throw new InvalidOperationException("A not supported operation was attempted while parsing XML.", ex);
         }
-        catch (System.InvalidOperationException ex) when (ex.Message.Contains("Element not found"))
+        catch (ObjectDisposedException ex) when (ex.ObjectName is not null && ex.ObjectName.Equals("StringReader"))
         {
-            throw new InvalidOperationException("XML document does not contain the expected root element.", ex);
+            throw new InvalidOperationException("The StringReader object was disposed before XML parsing could complete.", ex);
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("xml"))
+        catch (IOException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new ArgumentException("The provided XML string cannot be null or empty.", ex);
+            throw new InvalidOperationException("An I/O error occurred while loading the XML content.", ex);
         }
-        catch (ArgumentException ex) when (ex.Message.Equals("The value cannot be null or empty"))
+        catch (XmlException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new ArgumentException("The XML string is null or empty, which is invalid input.", ex);
+            throw new InvalidOperationException("An XML parsing error occurred while trying to load the document.", ex);
         }
-        catch (ArgumentException ex) when (ex.Message.Contains("white space"))
+        catch (XPathException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new ArgumentException("The provided XML string contains only white spaces, which is invalid input.", ex);
-        }
-        catch (ApplicationException ex) when (ex.Message.Contains("unexpected error"))
-        {
-            throw new ApplicationException("An unexpected error occurred while processing XML. Please check the XML content.", ex);
+            throw new InvalidOperationException("An XPath-related error occurred during XML parsing.", ex);
         }
         catch (Exception ex)
         {
-            throw new ApplicationException("An unforeseen error occurred while handling the XML.", ex);
+            throw new InvalidOperationException($"Failed to build XmlElement from input of type {typeof(T).Name}.", ex);
         }
     }
 
-    public static System.Xml.XmlElement BuildXmlElementFromXmlString(this String xml, System.Xml.XmlElement parent)
+    private static XmlElement ConvertToXmlElement<T>(T value, Func<T, String> converter, String elementName)
     {
-        ArgumentException.ThrowIfNullOrEmpty(xml);
-        ArgumentException.ThrowIfNullOrWhiteSpace(xml);
-        ArgumentNullException.ThrowIfNull(parent);
-        // ----------------------------------------------------------------------------------------------------
         try
         {
-            System.Xml.XmlElement element = parent.OwnerDocument?.CreateElement(parent.Name)
-                                            ?? throw new InvalidOperationException("Parent document is null.");
-            element.InnerXml = xml;
-            parent.AppendChild(element);
+            String content = converter(value);
+            XmlDocument xmlDoc = new();
+            XmlElement element = xmlDoc.CreateElement(elementName);
+            element.InnerText = content;
             return element;
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("parent"))
+        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
         {
-            throw new ArgumentNullException("Parent element is null. Ensure a valid XML element is provided.", ex);
+            throw new InvalidOperationException("The specified element name is invalid for creating an XML element.", ex);
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("xml"))
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
         {
-            throw new ArgumentNullException("The XML string parameter cannot be null.", ex);
+            throw new InvalidOperationException("The element name provided is null. A valid name must be specified to create an XML element.", ex);
         }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("Parent document is null"))
+        catch (InvalidOperationException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException("Parent document is null. Ensure that the parent element has a valid owner document.", ex);
+            throw new InvalidOperationException("An invalid operation occurred while creating or configuring the XML element.", ex);
         }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("Error creating XML element"))
+        catch (NotSupportedException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException("Error occurred while creating XML element. Verify the parent element is valid and properly initialized.", ex);
+            throw new InvalidOperationException("The operation attempted is not supported by the current XML implementation.", ex);
         }
-        catch (System.Xml.XmlException ex) when (ex.Message.Contains("Invalid XML"))
+        catch (NullReferenceException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new System.Xml.XmlException("Invalid XML content detected in 'xml' parameter. The XML structure may be malformed.", ex);
+            throw new InvalidOperationException("A null reference occurred while accessing the XML document or element structure.", ex);
         }
-        catch (System.Xml.XmlException ex) when (ex.Message.Contains("The 'xml' string could not be loaded"))
+        catch (FormatException ex) when (ex.Source is not null && ex.Source.Equals("mscorlib"))
         {
-            throw new System.Xml.XmlException("The XML string cannot be parsed correctly. Ensure the XML is well-formed and valid.", ex);
+            throw new InvalidOperationException("The content produced by the converter function is in an invalid format and could not be assigned to the XML element.", ex);
         }
-        catch (Exception ex) when (ex is InvalidOperationException)
+        catch (XmlException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException("An unexpected error occurred while appending the XML element. Check the XML structure and parent element.", ex);
+            throw new InvalidOperationException("An XML-specific error occurred while creating or manipulating the XML element.", ex);
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("An unforeseen error occurred while processing the XML element. Please check the inputs.", ex);
+            throw new InvalidOperationException($"Failed to convert value of type '{typeof(T).Name}' to XmlElement.", ex);
         }
     }
+}
 
-    public static System.Xml.XmlElement BuildXmlElementFromXmlString(this String xml, String rootName)
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Reference Types )
+/// ( Total Methods: 13 )
+/// </summary>
+public static partial class BuildXmlElementFromXmlStringExtensions
+{
+    public static XmlElement BuildXmlElementFromXmlString(this Object obj)
     {
-        ArgumentException.ThrowIfNullOrEmpty(xml);
-        ArgumentException.ThrowIfNullOrWhiteSpace(xml);
-        ArgumentException.ThrowIfNullOrEmpty(rootName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(rootName);
-        // ----------------------------------------------------------------------------------------------------
-        try
-        {
-            System.Xml.XmlDocument doc = new();
-            System.Xml.XmlElement root = doc.CreateElement(rootName);
-            doc.AppendChild(root);
-
-            root.InnerXml = xml;
-
-            return root;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("xml"))
-        {
-            throw new ArgumentNullException("The XML string cannot be null or empty.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("rootName"))
-        {
-            throw new ArgumentNullException("The root element name cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.Message.Contains("Invalid root element name"))
-        {
-            throw new ArgumentException("The root element name provided is invalid. Ensure it's a non-empty, valid XML element name.", ex);
-        }
-        catch (System.Xml.XmlException ex) when (ex.Message.Contains("Invalid XML format"))
-        {
-            throw new System.Xml.XmlException("Invalid XML format in the provided string. The XML content may be malformed.", ex);
-        }
-        catch (System.Xml.XmlException ex) when (ex.Message.Contains("The 'xml' string could not be loaded"))
-        {
-            throw new System.Xml.XmlException("XML content is not well-formed. Please check the XML string for errors.", ex);
-        }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("An error occurred while appending the root element"))
-        {
-            throw new InvalidOperationException("An error occurred while appending the root element. Ensure the document structure is correct.", ex);
-        }
-        catch (Exception ex) when (ex is ArgumentException)
-        {
-            throw new ArgumentException("An unexpected error occurred due to an invalid argument.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException("An unexpected error occurred while creating the XML element. Please check the inputs and try again.", ex);
-        }
+        return SafeParse(obj, x => new StringReader(x.ToString() ?? String.Empty));
     }
 
-    public static System.Xml.XmlElement BuildXmlElementFromXmlString(this String xml, String schema, Boolean validate)
+    public static XmlElement BuildXmlElementFromXmlString(this String xml)
     {
-        ArgumentException.ThrowIfNullOrEmpty(xml);
-        ArgumentException.ThrowIfNullOrWhiteSpace(xml);
-        ArgumentException.ThrowIfNullOrEmpty(schema);
-        ArgumentException.ThrowIfNullOrWhiteSpace(schema);
-        // ----------------------------------------------------------------------------------------------------
-        try
-        {
-            System.Xml.XmlDocument doc = new();
-            doc.LoadXml(xml);
+        return SafeParse(xml, x => new StringReader(x));
+    }
 
-            if (validate)
-            {
-                System.Xml.Schema.XmlSchemaSet schemaSet = new();
+    public static XmlElement BuildXmlElementFromXmlString(this StringBuilder sb)
+    {
+        return SafeParse(sb, x => new StringReader(x.ToString()));
+    }
 
-                using StringReader stringReader = new(schema);
-                using System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(stringReader);
+    public static XmlElement BuildXmlElementFromXmlString(this XDocument doc)
+    {
+        return SafeParse(doc, x => new StringReader(x.ToString()));
+    }
 
-                schemaSet.Add("", xmlReader);
-                doc.Schemas.Add(schemaSet);
-                doc.Validate(null);
-            }
+    public static XmlElement BuildXmlElementFromXmlString(this XmlDocument doc)
+    {
+        return SafeParse(doc, x => new StringReader(x.OuterXml));
+    }
 
-            return doc.DocumentElement!;
-        }
-        catch (ArgumentException ex) when (ex.Message.Contains("Invalid XML format"))
+    public static XmlElement BuildXmlElementFromXmlString(this XmlNode node)
+    {
+        return SafeParse(node, x => new StringReader(x.OuterXml));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Stream stream)
+    {
+        return SafeParse(stream, x =>
         {
-            throw new ArgumentException("The provided XML is malformed. Please ensure the XML string is valid.", ex);
-        }
-        catch (ArgumentException ex) when (ex.Message.Contains("Invalid XML schema provided"))
+            if (!x.CanRead)
+                throw new InvalidOperationException("Stream is not readable.");
+            // ----------------------------------------------------------------------------------------------------
+            using StreamReader reader = new(x, System.Text.Encoding.UTF8);
+            // ----------------------------------------------------------------------------------------------------
+            return new StringReader(reader.ReadToEnd());
+        });
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this MemoryStream ms)
+    {
+        return SafeParse(ms, x =>
         {
-            throw new ArgumentException("The provided XML schema is invalid or malformed. Ensure the schema is well-formed XML.", ex);
-        }
-        catch (System.Xml.Schema.XmlSchemaValidationException ex) when (ex.Message.Contains("XML validation failed"))
+            x.Position = 0;
+            using StreamReader reader = new(x, System.Text.Encoding.UTF8);
+            // ----------------------------------------------------------------------------------------------------
+            return new StringReader(reader.ReadToEnd());
+        });
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this TextReader reader)
+    {
+        return SafeParse(reader, x =>
         {
-            throw new ArgumentException("XML validation failed. The provided XML does not conform to the schema.", ex);
-        }
-        catch (IOException ex) when (ex.Message.Contains("Error reading the XML schema"))
+            String content = x.ReadToEnd();
+            // ----------------------------------------------------------------------------------------------------
+            return new StringReader(content);
+        });
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this FileInfo file)
+    {
+        return SafeParse(file, x =>
         {
-            throw new IOException("There was an error reading the XML schema. Check the schema format or file path.", ex);
-        }
-        catch (System.Xml.XmlException ex) when (ex.Message.Contains("Invalid XML format"))
+            if (!x.Exists)
+                throw new FileNotFoundException("File not found.", x.FullName);
+            // ----------------------------------------------------------------------------------------------------
+            return new StringReader(File.ReadAllText(x.FullName));
+        });
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Uri uri)
+    {
+        return SafeParse(uri, x =>
         {
-            throw new ArgumentException("The XML format is invalid. Please ensure the XML string is correctly structured.", ex);
-        }
-        catch (System.Xml.XmlException ex) when (ex.Message.Contains("Error reading XML"))
+            if (!x.IsAbsoluteUri || String.IsNullOrWhiteSpace(x.AbsoluteUri))
+                throw new ArgumentException("Invalid URI for XML input.");
+            // ----------------------------------------------------------------------------------------------------
+            using StreamReader wc = new StreamReader(x.AbsoluteUri);
+            // ----------------------------------------------------------------------------------------------------
+            return new StringReader(wc.ReadToEnd());
+        });
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this XElement xElem)
+    {
+        return SafeParse(xElem, x => new StringReader(x.ToString()));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this XmlReader xmlReader)
+    {
+        return SafeParse(xmlReader, x =>
         {
-            throw new ArgumentException("There was an error reading the provided XML string. Verify the XML string is accessible and valid.", ex);
-        }
-        catch (Exception ex) when (ex is ArgumentException)
-        {
-            throw new ArgumentException("An unexpected argument error occurred while processing the XML.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException("An unexpected error occurred while processing the XML document. Please check your input.", ex);
-        }
+            XmlDocument doc = new();
+            doc.Load(x);
+            // ----------------------------------------------------------------------------------------------------
+            return new StringReader(doc.OuterXml);
+        });
+    }
+}
+
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Value Types )
+/// ( Total Methods: 19 )
+/// </summary>
+public static partial class BuildXmlElementFromXmlStringExtensions
+{
+    public static XmlElement BuildXmlElementFromXmlString(this Byte value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(Byte));
+    }
+    
+    public static XmlElement BuildXmlElementFromXmlString(this SByte value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(SByte));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Int16 value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(Int16));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this UInt16 value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(UInt16));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Int32 value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(Int32));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this UInt32 value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(UInt32));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Int64 value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(Int64));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this UInt64 value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(Int64));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this IntPtr value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(IntPtr));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this UIntPtr value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(UIntPtr));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Single value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(Single));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Double value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(Double));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Decimal value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(System.Globalization.CultureInfo.InvariantCulture), nameof(Decimal));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Boolean value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString().ToLower(), nameof(Boolean));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Char value)
+    {
+        return ConvertToXmlElement(value, x => XmlConvert.EncodeName(x.ToString()), nameof(Char));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this DateTime value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString("o", System.Globalization.CultureInfo.InvariantCulture), nameof(DateTime));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this TimeSpan value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString("c", System.Globalization.CultureInfo.InvariantCulture), nameof(TimeSpan));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this Guid value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(), nameof(Guid));
+    }
+
+    public static XmlElement BuildXmlElementFromXmlString(this DayOfWeek value)
+    {
+        return ConvertToXmlElement(value, x => x.ToString(), nameof(DayOfWeek));
     }
 }

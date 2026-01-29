@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Addition;
-public static class AddExtensions : Object
+public static class AddExtensions
 {
     public static DateTime Add(this DateTime dateTime, Double value, Enums.DateTimeDifferenceFormat differenceFormat)
     {

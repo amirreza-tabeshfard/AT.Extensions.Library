@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Extraction;
 
 namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class EndOfExtensions : Object
+public static class EndOfExtensions
 {
     public static DateTime EndOfSecond(this DateTime dateTime)
     {

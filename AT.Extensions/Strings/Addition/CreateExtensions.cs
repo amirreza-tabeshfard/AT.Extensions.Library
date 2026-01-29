@@ -2,7 +2,7 @@
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Addition;
-public static class CreateExtensions : Object
+public static class CreateExtensions
 {
     public static String CreateHashSha256(this String value)
     {

@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class DiffExtensions : Object
+public static class DiffExtensions
 {
     public static Int64 DateDiff(this DateTime startDate, String datePart, DateTime endDate)
     {

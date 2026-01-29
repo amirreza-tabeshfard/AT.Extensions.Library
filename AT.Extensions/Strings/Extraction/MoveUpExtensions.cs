@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class MoveUpExtensions : Object
+public static class MoveUpExtensions
 {
     public static String? MoveUp(this String relativeUrl)
     {

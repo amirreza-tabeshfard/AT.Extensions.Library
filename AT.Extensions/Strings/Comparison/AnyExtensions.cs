@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class AnyExtensions : Object
+public static class AnyExtensions
 {
     public static Boolean Any(this String value)
     {

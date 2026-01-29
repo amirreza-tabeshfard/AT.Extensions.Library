@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class SafeExtensions : Object
+public static class SafeExtensions
 {
     public static Int32 SafeIndexOf(this String value, String substring, StringComparison comparison)
     {

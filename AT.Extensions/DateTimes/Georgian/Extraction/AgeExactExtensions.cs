@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class AgeExactExtensions : Object
+public static class AgeExactExtensions
 {
     public static decimal AgeExactYears(this DateTime referenceDate, DateTime today)
     {

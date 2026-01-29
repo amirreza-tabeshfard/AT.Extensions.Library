@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Reader;
-public static class OpenBinaryReaderExtensions : Object
+public static class OpenBinaryReaderExtensions
 {
     public static BinaryReader OpenBinaryReader(this FileInfo file)
     {

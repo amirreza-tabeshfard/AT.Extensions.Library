@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class FromBase64UrlStringExtensions : Object
+public static class FromBase64UrlStringExtensions
 {
     public static byte[]? FromBase64UrlStringToByteArray(this String? value, Boolean shouldReturnNullIfConversionFailed = true)
     {

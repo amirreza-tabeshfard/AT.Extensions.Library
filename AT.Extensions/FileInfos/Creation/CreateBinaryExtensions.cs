@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Creation;
-public static class CreateBinaryExtensions : Object
+public static class CreateBinaryExtensions
 {
     public static BinaryWriter CreateBinary(this FileInfo file)
     {

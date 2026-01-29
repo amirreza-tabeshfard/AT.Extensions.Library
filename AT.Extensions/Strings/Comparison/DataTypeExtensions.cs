@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class DataTypeExtensions : Object
+public static class DataTypeExtensions
 {
     public static Boolean IsByte(this String value)
     {

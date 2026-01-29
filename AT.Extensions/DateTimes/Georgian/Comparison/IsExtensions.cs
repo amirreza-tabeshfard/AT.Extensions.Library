@@ -3,7 +3,7 @@ using AT.Extensions.DateTimes.Georgian.Boundary;
 using AT.Extensions.DateTimes.Georgian.Collections;
 
 namespace AT.Extensions.DateTimes.Georgian.Comparison;
-public static class IsExtensions : Object
+public static class IsExtensions
 {
     public static Boolean IsAfter(this DateTime current, DateTime other)
     {

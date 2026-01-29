@@ -1,5 +1,5 @@
 ﻿namespace AT.Infrastructure;
-public static class LocalTimeZoneConfig : Object
+public static class LocalTimeZoneConfig
 {
     #region Field(s)
 

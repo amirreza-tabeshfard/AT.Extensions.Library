@@ -2,7 +2,7 @@
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class FirstExtensions : Object
+public static class FirstExtensions
 {
     public static String? FirstCharacter(this String value)
     {

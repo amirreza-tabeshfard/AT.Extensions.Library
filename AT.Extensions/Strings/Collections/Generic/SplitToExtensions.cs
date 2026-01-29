@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections.Generic;
-public static class SplitToExtensions : Object
+public static class SplitToExtensions
 {
     public static IEnumerable<T> SplitTo<T>(this String value, params Char[] separator) 
         where T : IConvertible

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Collections;
-public static class DeleteFilesExtensions : Object
+public static class DeleteFilesExtensions
 {
     public static List<Dictionary<FileInfo, Boolean>>? DeleteFiles(this DirectoryInfo directoryInfo, out Int32 count)
     {

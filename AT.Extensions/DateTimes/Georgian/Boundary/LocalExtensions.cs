@@ -2,7 +2,7 @@
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class LocalExtensions : Object
+public static class LocalExtensions
 {
     public static DateTime Local(this DateTime utcDate, String timeZoneName)
     {

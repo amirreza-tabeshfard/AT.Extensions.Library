@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class ElapsedExtensions : Object
+public static class ElapsedExtensions
 {
     public static TimeSpan Elapsed(this DateTime dateTime)
     {

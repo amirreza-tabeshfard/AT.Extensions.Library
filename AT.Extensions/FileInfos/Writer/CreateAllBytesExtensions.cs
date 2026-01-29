@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Writer;
-public static class CreateAllBytesExtensions : Object
+public static class CreateAllBytesExtensions
 {
     public static void CreateAllBytes(this FileInfo file, byte[] data)
     {

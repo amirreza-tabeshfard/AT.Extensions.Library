@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class WrapInQuotesExtensions : Object
+public static class WrapInQuotesExtensions
 {
     #region Field(s)
 

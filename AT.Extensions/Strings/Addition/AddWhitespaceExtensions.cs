@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Addition;
-public static class AddWhitespaceExtensions : Object
+public static class AddWhitespaceExtensions
 {
     public static String? AddWhitespaceLeft(this String value, Int32 length)
     {

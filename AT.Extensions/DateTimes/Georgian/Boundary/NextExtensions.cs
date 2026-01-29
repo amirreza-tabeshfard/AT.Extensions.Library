@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class NextExtensions : Object
+public static class NextExtensions
 {
     public static DateTime Next(this DateTime from, DayOfWeek dayOfWeek)
     {

@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.FileInfos.Creation;
 
 namespace AT.Extensions.FileInfos.Mover;
-public static class MoveToExtensions : Object
+public static class MoveToExtensions
 {
     public static FileInfo MoveTo(this FileInfo sourceFile, FileInfo destinationFile, Boolean isOverride = true)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class DayOfWeekExtensions : Object
+public static class DayOfWeekExtensions
 {
     public static DateTime DayOfWeekAfter(this DateTime dateTime, DayOfWeek DayOfWeek)
     {

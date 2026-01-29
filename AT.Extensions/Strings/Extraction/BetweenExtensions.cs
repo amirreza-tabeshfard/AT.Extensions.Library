@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class BetweenExtensions : Object
+public static class BetweenExtensions
 {
     public static String? Between(this String value, Char enclosureCharacter)
     {

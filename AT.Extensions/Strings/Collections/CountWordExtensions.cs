@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class CountWordExtensions : Object
+public static class CountWordExtensions
 {
     public static IOrderedEnumerable<(Int32 Length, Int32 Count)> CountWordLengths(this String value)
     {

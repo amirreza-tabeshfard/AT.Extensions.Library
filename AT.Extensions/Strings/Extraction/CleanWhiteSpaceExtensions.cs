@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class CleanWhiteSpaceExtensions : Object
+public static class CleanWhiteSpaceExtensions
 {
     public static String CleanWhiteSpace(this String value)
     {

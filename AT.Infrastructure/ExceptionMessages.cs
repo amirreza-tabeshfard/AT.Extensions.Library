@@ -1,5 +1,5 @@
 ﻿namespace AT.Infrastructure;
-public static class ExceptionMessages : Object
+public static class ExceptionMessages
 {
     public const String StringParamCannotBeNullOrEmpty_ParamName = "{0} can't be null or empty.";
     public const String ParamCannotBeLessThan_ParamName_MinValue_ActualValue = "{0} can't be less then {1}. Value was {2}.";

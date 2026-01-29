@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class CombineExtenstions : Object
+public static class CombineExtenstions
 {
     public static String CombineToPath(this String path, String root)
     {

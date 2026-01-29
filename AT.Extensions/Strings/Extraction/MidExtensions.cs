@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class MidExtensions : Object
+public static class MidExtensions
 {
     public static String Mid(this String value, Int32 startIndex)
     {

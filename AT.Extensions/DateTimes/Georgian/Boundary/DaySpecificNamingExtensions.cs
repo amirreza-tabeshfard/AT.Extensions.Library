@@ -2,7 +2,7 @@
 using AT.Extensions.DateTimes.Georgian.Extraction;
 
 namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class DaySpecificNamingExtensions : Object
+public static class DaySpecificNamingExtensions
 {
     public static DateTime Dawn(this DateTime dateTime, Double Latitude, Double Longitude, AT.Enums.TwilightKind Kind)
     {

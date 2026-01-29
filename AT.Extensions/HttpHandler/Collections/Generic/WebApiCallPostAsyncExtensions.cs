@@ -1,7 +1,7 @@
 ﻿using System.Web;
 
 namespace AT.Extensions.HttpHandler.Collections.Generic;
-public static class WebApiCallPostAsyncExtensions : Object
+public static class WebApiCallPostAsyncExtensions
 {
     public async static Task<T> WebApiCallPostAsync<T, U>(this String fullUrl, U model)
         where T : class, new()

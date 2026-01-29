@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class SizeExtensions : Object
+public static class SizeExtensions
 {
     public static Int32 Size(this String value)
     {

@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Extraction;
 
 namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class BeginningOfExtensions : Object
+public static class BeginningOfExtensions
 {
     public static DateTime BeginningOfTheDay(this DateTime dateTime)
     {

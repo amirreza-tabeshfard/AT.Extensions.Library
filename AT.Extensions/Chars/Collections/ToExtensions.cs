@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Chars.Collections;
-public static class ToExtensions : Object
+public static class ToExtensions
 {
     public static Char[] ToArray(this String value)
     {

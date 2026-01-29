@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Creation;
-public static class CreateFileInfoExtensions : Object
+public static class CreateFileInfoExtensions
 {
     public static FileInfo CreateFileInfo(this DirectoryInfo directory, String fileRelativePath)
     {

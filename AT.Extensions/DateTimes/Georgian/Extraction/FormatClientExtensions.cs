@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class FormatClientExtensions : Object
+public static class FormatClientExtensions
 {
     #region Private: Method(s)
 

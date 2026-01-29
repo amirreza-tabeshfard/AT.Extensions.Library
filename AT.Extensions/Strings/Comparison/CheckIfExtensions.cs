@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class CheckIfExtensions : Object
+public static class CheckIfExtensions
 {
     public static Boolean CheckIfPalindrome(this String value)
     {

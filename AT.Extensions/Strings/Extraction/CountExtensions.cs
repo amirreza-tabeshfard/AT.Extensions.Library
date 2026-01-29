@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Collections;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class CountExtensions : Object
+public static class CountExtensions
 {
     public static Int32 Count(this String value)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class MaxExtensions : Object
+public static class MaxExtensions
 {
     public static String MaxLengthTrim(this String value, Int32 maxLength)
     {

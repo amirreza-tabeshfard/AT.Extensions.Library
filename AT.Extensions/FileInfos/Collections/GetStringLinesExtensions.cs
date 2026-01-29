@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Collections;
-public static class GetStringLinesExtensions : Object
+public static class GetStringLinesExtensions
 {
     public static IEnumerable<String?>? GetStringLines(this FileInfo file)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Collections;
-public static class EnumerateFilesExtensions : Object
+public static class EnumerateFilesExtensions
 {
     public static IEnumerable<FileInfo> EnumerateFiles(this DirectoryInfo directoryInfo)
     {

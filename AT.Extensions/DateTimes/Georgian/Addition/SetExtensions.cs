@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Addition;
-public static class SetExtensions : Object
+public static class SetExtensions
 {
     public static DateTime SetTime(this DateTime dateTime, Int32 hour, Int32 minute, Int32 second, Int32 millisecond = default)
     {

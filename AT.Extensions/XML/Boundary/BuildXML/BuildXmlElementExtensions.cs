@@ -1,116 +1,246 @@
-﻿namespace AT.Extensions.XML.Boundary.BuildXML;
-public static class BuildXmlElementExtensions
-    : Object
+﻿using System.Globalization;
+using System.Security;
+using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+
+namespace AT.Extensions.XML.Boundary.BuildXML;
+/// <summary>
+/// Private Mathod(s)
+/// </summary>
+public static partial class BuildXmlElementExtensions
 {
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName)
+    private static XElement CreateElement(String elementName, Object value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        // ----------------------------------------------------------------------------------------------------
-        return new System.Xml.Linq.XElement(elementName);
+        try
+        {
+            return new XElement(elementName, value ?? String.Empty);
+        }
+        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
+        {
+            throw new ArgumentException("Invalid XML element name provided.", ex);
+        }
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
+        {
+            throw new ArgumentNullException("XML element name cannot be null.", ex);
+        }
+        catch (InvalidOperationException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
+        {
+            throw new InvalidOperationException("Failed to create XElement due to invalid operation in XML context.", ex);
+        }
+        catch (NotSupportedException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
+        {
+            throw new NotSupportedException("The provided value type is not supported by XElement.", ex);
+        }
+        catch (ObjectDisposedException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
+        {
+            throw new ObjectDisposedException("An object used in XML creation has already been disposed.", ex);
+        }
+        catch (OutOfMemoryException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
+        {
+            throw new OutOfMemoryException("Insufficient memory while creating XElement.", ex);
+        }
+        catch (SecurityException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
+        {
+            throw new SecurityException("Security restrictions prevented XML element creation.", ex);
+        }
+        catch (XmlException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
+        {
+            throw new XmlException("An error occurred while creating XML content.", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("An unexpected error occurred while creating XElement.", ex);
+        }
+    }
+}
+
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Reference Types )
+/// ( Total Methods: 15 )
+/// </summary>
+public static partial class BuildXmlElementExtensions
+   
+{
+    public static XElement BuildXmlElement(this Object value)
+    {
+        return CreateElement("ObjectElement", value.ToString());
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, String value)
+    public static XElement BuildXmlElement(this String value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(value);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(value);
-        // ----------------------------------------------------------------------------------------------------
-        return new System.Xml.Linq.XElement(elementName, value);
+        return CreateElement("StringElement", value);
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, String attributeName, String attributeValue)
+    public static XElement BuildXmlElement(this StringBuilder value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeValue);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeValue);
-        // ----------------------------------------------------------------------------------------------------
-        return new System.Xml.Linq.XElement(elementName, new System.Xml.Linq.XAttribute(attributeName, attributeValue));
+        return CreateElement("StringBuilderElement", value);
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, Dictionary<String, String> attributes)
+    public static XElement BuildXmlElement(this Uri value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentNullException.ThrowIfNull(attributes);
-        // ----------------------------------------------------------------------------------------------------
-        return new System.Xml.Linq.XElement(elementName, attributes.Select(a => new System.Xml.Linq.XAttribute(a.Key, a.Value)));
+        return CreateElement("UriElement", value.AbsoluteUri);
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, params System.Xml.Linq.XElement[] children)
+    public static XElement BuildXmlElement(this DateTime? value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentNullException.ThrowIfNull(children);
-        // ----------------------------------------------------------------------------------------------------
-        return new System.Xml.Linq.XElement(elementName, children);
+        return CreateElement("DateTimeElement", value.Value.ToString("o"));
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, System.Xml.Linq.XNamespace ns)
+    public static XElement BuildXmlElement(this XElement value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentNullException.ThrowIfNull(ns);
-        // ----------------------------------------------------------------------------------------------------
-        return new System.Xml.Linq.XElement(ns + elementName);
+        return CreateElement("XElementElement", value.ToString());
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, System.Xml.Linq.XNamespace ns, Dictionary<String, String> attributes)
+    public static XElement BuildXmlElement(this XDocument value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentNullException.ThrowIfNull(ns);
-        ArgumentNullException.ThrowIfNull(attributes);
-        // ----------------------------------------------------------------------------------------------------
-        return new System.Xml.Linq.XElement(ns + elementName, attributes.Select(a => new System.Xml.Linq.XAttribute(a.Key, a.Value)));
+        return CreateElement("XDocumentElement", value.Root);
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, System.Xml.Linq.XNamespace ns, Dictionary<String, String> attributes, params System.Xml.Linq.XElement[] children)
+    public static XElement BuildXmlElement(this Exception value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentNullException.ThrowIfNull(ns);
-        ArgumentNullException.ThrowIfNull(attributes);
-        ArgumentNullException.ThrowIfNull(children);
-        // ----------------------------------------------------------------------------------------------------
-        return new System.Xml.Linq.XElement(ns + elementName, attributes.Select(a => new System.Xml.Linq.XAttribute(a.Key, a.Value)), children);
+        return CreateElement("Message", value.Message);
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, String value, Dictionary<String, String>? attributes)
+    public static XElement BuildXmlElement(this Type value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(value);
-        ArgumentNullException.ThrowIfNull(attributes);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.Linq.XElement element = new(elementName, value);
-        // ----------------------------------------------------------------------------------------------------
-        if (attributes is not null)
-            foreach (KeyValuePair<string, string> attr in attributes)
-                element.Add(new System.Xml.Linq.XAttribute(attr.Key, attr.Value));
-        // ----------------------------------------------------------------------------------------------------
-        return element;
+        return CreateElement("TypeElement", value.FullName);
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElement(this String elementName, System.Xml.Linq.XNamespace ns, Dictionary<String, String> attributes, String value, params System.Xml.Linq.XElement[] children)
+    public static XElement BuildXmlElement(this MemoryStream value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentNullException.ThrowIfNull(ns);
-        ArgumentNullException.ThrowIfNull(attributes);
-        ArgumentException.ThrowIfNullOrEmpty(value);
-        ArgumentException.ThrowIfNullOrWhiteSpace(value);
-        ArgumentNullException.ThrowIfNull(children);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.Linq.XElement element = new(ns + elementName, value, children);
-        // ----------------------------------------------------------------------------------------------------
-        foreach (KeyValuePair<string, string> attr in attributes)
-            element.Add(new System.Xml.Linq.XAttribute(attr.Key, attr.Value));
-        // ----------------------------------------------------------------------------------------------------
-        return element;
+        value.Position = 0;
+        using var reader = new StreamReader(value);
+        String content = reader.ReadToEnd();
+        return CreateElement("MemoryStreamElement", content);
+    }
+
+    public static XElement BuildXmlElement(this StreamReader value)
+    {
+        return CreateElement("StreamReaderElement", value.ReadToEnd());
+    }
+
+    public static XElement BuildXmlElement(this CultureInfo value)
+    {
+        return CreateElement("CultureElement", value.Name);
+    }
+
+    public static XElement BuildXmlElement(this FileInfo value)
+    {
+        return CreateElement("FileInfoElement", value.FullName);
+    }
+
+    public static XElement BuildXmlElement(this DirectoryInfo value)
+    {
+        return CreateElement("DirectoryInfoElement", value.FullName);
+    }
+
+    public static XElement BuildXmlElement(this Version value)
+    {
+        return CreateElement("VersionElement", value.ToString());
+    }
+}
+
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Value Types )
+/// ( Total Methods: 19 )
+/// </summary>
+public static partial class BuildXmlElementExtensions
+{
+    public static XElement BuildXmlElement(this Byte value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this SByte value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Int16 value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this UInt16 value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Int32 value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this UInt32 value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Int64 value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this UInt64 value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this IntPtr value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this UIntPtr value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Single value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Double value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Decimal value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Boolean value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Char value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this DateTime value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this TimeSpan value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this Guid value)
+    {
+        return CreateElement("Boundary", value);
+    }
+
+    public static XElement BuildXmlElement(this DayOfWeek value)
+    {
+        return CreateElement("Boundary", value);
     }
 }

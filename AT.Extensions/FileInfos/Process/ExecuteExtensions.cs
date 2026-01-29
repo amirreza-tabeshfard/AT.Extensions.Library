@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Process;
-public static class ExecuteExtensions : Object
+public static class ExecuteExtensions
 {
     #region Method(s): Private
 

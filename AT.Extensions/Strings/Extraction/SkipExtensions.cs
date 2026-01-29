@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class SkipExtensions : Object
+public static class SkipExtensions
 {
     public static String Skip(this String value, Int32 count)
     {

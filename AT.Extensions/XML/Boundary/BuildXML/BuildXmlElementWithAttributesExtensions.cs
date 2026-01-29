@@ -1,693 +1,484 @@
-﻿namespace AT.Extensions.XML.Boundary.BuildXML;
-public static class BuildXmlElementWithAttributesExtensions
-    : Object
+﻿using System.Globalization;
+using System.Reflection;
+using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+
+namespace AT.Extensions.XML.Boundary.BuildXML;
+/// <summary>
+/// Private Mathod(s)
+/// </summary>
+public static partial class BuildXmlElementWithAttributesExtensions
 {
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, String attributeValue)
+    private static XmlElement CreateXmlElementWithAttributes(Object input, Func<XmlDocument, Object, XmlElement> buildFunc)
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeValue);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeValue);
-        // ----------------------------------------------------------------------------------------------------
         try
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-            newElement.SetAttributeValue(attributeName, attributeValue);
-            element.Add(newElement);
-
-            return element;
+            XmlDocument doc = new XmlDocument();
+            return buildFunc(doc, input);
         }
-        catch (System.Xml.XmlException ex) when (ex.Message.Contains("Element") && ex.LineNumber > 0)
+        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("input"))
         {
-            throw new InvalidOperationException($"XML element error occurred: {ex.Message} at line {ex.LineNumber}.", ex);
+            throw new InvalidOperationException("The input argument is invalid.", ex);
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
+        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("buildFunc"))
         {
-            throw new InvalidOperationException("Argument null exception occurred for parameter: element.", ex);
+            throw new InvalidOperationException("The build function argument is invalid.", ex);
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("input"))
         {
-            throw new InvalidOperationException("Argument null exception occurred for parameter: elementName.", ex);
+            throw new InvalidOperationException("Input cannot be null.", ex);
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("buildFunc"))
         {
-            throw new InvalidOperationException("Argument null exception occurred for parameter: attributeName.", ex);
+            throw new InvalidOperationException("Build function cannot be null.", ex);
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
+        catch (ArgumentOutOfRangeException ex) when (ex.ParamName is not null && ex.ParamName.Equals("input"))
         {
-            throw new InvalidOperationException("Argument null exception occurred for parameter: attributeValue.", ex);
+            throw new InvalidOperationException("Input argument is out of range.", ex);
         }
-        catch (ArgumentException ex) when (ex.Message.Contains("empty"))
+        catch (InvalidOperationException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException($"Argument exception due to empty parameter: {ex.Message}.", ex);
+            throw new InvalidOperationException("An invalid XML operation occurred.", ex);
         }
-        catch (ArgumentException ex) when (ex.Message.Contains("whitespace"))
+        catch (NotSupportedException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException($"Argument exception due to parameter containing only whitespace: {ex.Message}.", ex);
+            throw new InvalidOperationException("The requested XML operation is not supported.", ex);
         }
-        catch (ArgumentException ex) when (ex.Message.Contains("value"))
+        catch (ObjectDisposedException ex) when (ex.ObjectName is not null && ex.ObjectName.Equals("XmlDocument"))
         {
-            throw new InvalidOperationException($"Argument exception due to invalid attribute value: {ex.Message}.", ex);
+            throw new InvalidOperationException("The XmlDocument instance was already disposed.", ex);
         }
-        catch (InvalidOperationException ex) when (ex.Message.Equals("Invalid operation when adding XML element"))
+        catch (TargetInvocationException ex) when (ex.InnerException is not null)
         {
-            throw new InvalidOperationException($"Invalid operation while adding XML element: {ex.Message}.", ex);
+            throw new InvalidOperationException("An exception was thrown by the invoked build function.", ex);
         }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("building XML"))
+        catch (UnauthorizedAccessException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException($"Error occurred during the process of building XML element: {ex.Message}.", ex);
+            throw new InvalidOperationException("Unauthorized access while processing XML.", ex);
         }
-        catch (Exception ex) when (ex is ArgumentOutOfRangeException)
+        catch (XmlException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException($"Argument out of range exception occurred: {ex.Message}", ex);
-        }
-        catch (Exception ex) when (ex.Message.Contains("unexpected"))
-        {
-            throw new InvalidOperationException($"An unexpected error occurred: {ex.Message}", ex);
-        }
-    }
-
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, Int32 attributeValue)
-    {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        // ----------------------------------------------------------------------------------------------------
-        try
-        {
-            System.Xml.Linq.XElement newElement = new(elementName);
-            newElement.SetAttributeValue(attributeName, attributeValue);
-            element.Add(newElement);
-
-            return element;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for the 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for the 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for the 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for the 'attributeValue' parameter.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
-        }
-        catch (System.Xml.XmlException ex)
-        {
-            throw new InvalidOperationException($"XML processing error occurred: {ex.Message}", ex);
-        }
-        catch (FormatException ex)
-        {
-            throw new InvalidOperationException($"Format exception: {ex.Message}", ex);
-        }
-        catch (InvalidOperationException ex)
-        {
-            throw new InvalidOperationException($"Operation error occurred while building XML element: {ex.Message}", ex);
+            throw new InvalidOperationException("Malformed XML was produced by the build function.", ex);
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException($"An unexpected error occurred: {ex.Message}", ex);
+            throw new InvalidOperationException("An unexpected error occurred while building XmlElement.", ex);
         }
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, Boolean attributeValue)
+    private static XmlElement CreateXmlElement<T>(T value, String elementName, Action<XmlElement, T> attributeBuilder)
+        where T : struct
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        // ----------------------------------------------------------------------------------------------------
         try
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-            newElement.SetAttributeValue(attributeName, attributeValue);
-            element.Add(newElement);
-
+            var doc = new XmlDocument();
+            var element = doc.CreateElement(elementName);
+            attributeBuilder(element, value);
             return element;
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeValue' parameter.", ex);
-        }
         catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
         {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
+            throw new InvalidOperationException("Element name argument is invalid.", ex);
         }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
+        catch (ArgumentException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
+            throw new InvalidOperationException("Argument exception raised from XML subsystem.", ex);
         }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeBuilder"))
         {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
+            throw new InvalidOperationException("Attribute builder delegate is null.", ex);
         }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("value"))
         {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
+            throw new InvalidOperationException("Input value is null.", ex);
         }
-        catch (System.Xml.XmlException ex)
+        catch (FormatException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException($"XML processing error: {ex.Message}", ex);
+            throw new InvalidOperationException("Invalid format encountered while building XML.", ex);
         }
-        catch (FormatException ex)
+        catch (InvalidOperationException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
         {
-            throw new InvalidOperationException($"Format exception: {ex.Message}", ex);
+            throw new InvalidOperationException("XML document is in an invalid state.", ex);
         }
-        catch (InvalidOperationException ex)
+        catch (InvalidOperationException ex) when (ex.Source is not null && ex.Source.Equals("mscorlib"))
         {
-            throw new InvalidOperationException($"Operation error occurred while building XML element: {ex.Message}", ex);
+            throw new InvalidOperationException("Invalid operation detected in core runtime.", ex);
+        }
+        catch (NullReferenceException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
+        {
+            throw new InvalidOperationException("Null reference encountered during XML element creation.", ex);
+        }
+        catch (NullReferenceException ex) when (ex.Source is not null && ex.Source.Equals("System.Private.CoreLib"))
+        {
+            throw new InvalidOperationException("Null reference detected in core library.", ex);
+        }
+        catch (XmlException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
+        {
+            throw new InvalidOperationException("Malformed XML detected while creating element.", ex);
+        }
+        catch (XmlException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.ReaderWriter"))
+        {
+            throw new InvalidOperationException("XML reader/writer failure occurred.", ex);
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException($"An unexpected error occurred: {ex.Message}", ex);
+            throw new InvalidOperationException($"Unexpected error while building XmlElement for type {typeof(T).Name}.", ex);
         }
     }
+}
 
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, DateTime attributeValue)
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Reference Types )
+/// ( Total Methods: 15 )
+/// </summary>
+public static partial class BuildXmlElementWithAttributesExtensions
+
+{
+    public static XmlElement BuildXmlElementWithAttributes(this String input)
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        // ----------------------------------------------------------------------------------------------------
-        try
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-            newElement.SetAttributeValue(attributeName, attributeValue.ToString("o"));
-            element.Add(newElement);
-
+            var element = doc.CreateElement("String");
+            element.InnerText = input;
+            element.SetAttribute("Length", input.Length.ToString());
             return element;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeValue' parameter.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
-        }
-        catch (FormatException ex)
-        {
-            throw new InvalidOperationException($"DateTime format error: {ex.Message}", ex);
-        }
-        catch (System.Xml.XmlException ex)
-        {
-            throw new InvalidOperationException($"XML processing error: {ex.Message}", ex);
-        }
-        catch (InvalidOperationException ex)
-        {
-            throw new InvalidOperationException($"Operation error occurred while building XML element: {ex.Message}", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"An unexpected error occurred: {ex.Message}", ex);
-        }
+        });
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, Decimal attributeValue)
+    public static XmlElement BuildXmlElementWithAttributes(this StringBuilder input)
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        // ----------------------------------------------------------------------------------------------------
-        try
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-            newElement.SetAttributeValue(attributeName, attributeValue.ToString("F2"));
-            element.Add(newElement);
-
+            var value = input.ToString();
+            var element = doc.CreateElement("StringBuilder");
+            element.InnerText = value;
+            element.SetAttribute("Capacity", input.Capacity.ToString());
             return element;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeValue' parameter.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
-        }
-        catch (FormatException ex) when (ex.Message.Contains("Invalid"))
-        {
-            throw new InvalidOperationException($"Invalid format for decimal value: {ex.Message}", ex);
-        }
-        catch (OverflowException ex)
-        {
-            throw new InvalidOperationException($"Overflow error: The decimal value is out of range: {ex.Message}", ex);
-        }
-        catch (System.Xml.XmlException ex)
-        {
-            throw new InvalidOperationException($"XML processing error: {ex.Message}", ex);
-        }
-        catch (InvalidOperationException ex)
-        {
-            throw new InvalidOperationException($"Error occurred during the operation: {ex.Message}", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Unexpected error: {ex.Message}", ex);
-        }
+        });
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, Guid attributeValue)
+    public static XmlElement BuildXmlElementWithAttributes(this Uri input)
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        // ----------------------------------------------------------------------------------------------------
-        try
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-            newElement.SetAttributeValue(attributeName, attributeValue.ToString());
-            element.Add(newElement);
-
+            var element = doc.CreateElement("Uri");
+            element.SetAttribute("AbsoluteUri", input.AbsoluteUri);
+            element.SetAttribute("Host", input.Host);
+            element.SetAttribute("Scheme", input.Scheme);
             return element;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeValue' parameter.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
-        }
-        catch (FormatException ex) when (ex.Message.Contains("Invalid"))
-        {
-            throw new InvalidOperationException($"Invalid GUID format: {ex.Message}", ex);
-        }
-        catch (System.Xml.XmlException ex)
-        {
-            throw new InvalidOperationException($"XML processing error: {ex.Message}", ex);
-        }
-        catch (InvalidOperationException ex)
-        {
-            throw new InvalidOperationException($"Invalid operation during XML element creation: {ex.Message}", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Unexpected error: {ex.Message}", ex);
-        }
+        });
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, Double attributeValue)
+    public static XmlElement BuildXmlElementWithAttributes(this XmlDocument input)
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        // ----------------------------------------------------------------------------------------------------
-        try
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-            newElement.SetAttributeValue(attributeName, attributeValue.ToString("F4"));
-            element.Add(newElement);
-
+            var element = doc.CreateElement("XmlDocument");
+            element.SetAttribute("DocumentElement", input.DocumentElement?.Name ?? "None");
             return element;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeValue' parameter.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
-        }
-        catch (FormatException ex) when (ex.Message.Contains("Invalid"))
-        {
-            throw new InvalidOperationException($"Invalid format for Double value: {ex.Message}", ex);
-        }
-        catch (System.Xml.XmlException ex)
-        {
-            throw new InvalidOperationException($"XML processing error: {ex.Message}", ex);
-        }
-        catch (InvalidOperationException ex)
-        {
-            throw new InvalidOperationException($"Invalid operation during XML element creation: {ex.Message}", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Unexpected error: {ex.Message}", ex);
-        }
+        });
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, List<String> attributeValue)
+    public static XmlElement BuildXmlElementWithAttributes(this FileInfo input)
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        // ----------------------------------------------------------------------------------------------------
-        try
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-            newElement.SetAttributeValue(attributeName, String.Join(",", attributeValue));
-            element.Add(newElement);
-
+            var element = doc.CreateElement("File");
+            element.SetAttribute("Name", input.Name);
+            element.SetAttribute("Length", input.Length.ToString());
+            element.SetAttribute("Extension", input.Extension);
             return element;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeValue' parameter.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.Message.Contains("List"))
-        {
-            throw new InvalidOperationException("Argument exception: Invalid 'List<String>' parameter.", ex);
-        }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("List"))
-        {
-            throw new InvalidOperationException($"Operation error while processing List<String>: {ex.Message}", ex);
-        }
-        catch (System.Xml.XmlException ex)
-        {
-            throw new InvalidOperationException($"XML processing error: {ex.Message}", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Unexpected error: {ex.Message}", ex);
-        }
+        });
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, Dictionary<String, String> attributeValue)
+    public static XmlElement BuildXmlElementWithAttributes(this DirectoryInfo input)
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        // ----------------------------------------------------------------------------------------------------
-        try
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-
-            foreach (KeyValuePair<string, string> kvp in attributeValue)
-                newElement.SetAttributeValue(kvp.Key, kvp.Value);
-
-            element.Add(newElement);
-
+            var element = doc.CreateElement("Directory");
+            element.SetAttribute("Name", input.Name);
+            element.SetAttribute("FullPath", input.FullName);
             return element;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
-        {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeValue' parameter.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
-        {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.Message.Contains("Dictionary"))
-        {
-            throw new InvalidOperationException("Argument exception: Invalid 'Dictionary<String, String>' parameter.", ex);
-        }
-        catch (KeyNotFoundException ex) when (ex.Message.Contains("Key"))
-        {
-            throw new InvalidOperationException("Key not found in the dictionary while processing attributes.", ex);
-        }
-        catch (InvalidOperationException ex) when (ex.Message.Contains("foreach"))
-        {
-            throw new InvalidOperationException("Invalid operation error while iterating over the dictionary keys.", ex);
-        }
-        catch (System.Xml.XmlException ex)
-        {
-            throw new InvalidOperationException($"XML processing error: {ex.Message}", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Unexpected error: {ex.Message}", ex);
-        }
+        });
     }
 
-    public static System.Xml.Linq.XElement BuildXmlElementWithAttributes(this System.Xml.Linq.XElement element, String elementName, String attributeName, object[] attributeValue)
+    public static XmlElement BuildXmlElementWithAttributes(this Version input)
     {
-        ArgumentNullException.ThrowIfNull(element);
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(attributeName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(attributeName);
-        ArgumentNullException.ThrowIfNull(attributeValue);
-        // ----------------------------------------------------------------------------------------------------
-        try
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            System.Xml.Linq.XElement newElement = new(elementName);
-
-            string joinedValues = String.Join(",", attributeValue.Select(v => v?.ToString() ?? string.Empty));
-            newElement.SetAttributeValue(attributeName, joinedValues);
-
-            element.Add(newElement);
-
+            var element = doc.CreateElement("Version");
+            element.SetAttribute("Major", input.Major.ToString());
+            element.SetAttribute("Minor", input.Minor.ToString());
             return element;
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("element"))
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this DateTimeOffset input)
+    {
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            throw new InvalidOperationException("Argument null exception occurred for 'element' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
+            var element = doc.CreateElement("DateTimeOffset");
+            element.SetAttribute("DateTime", input.ToString("o"));
+            element.SetAttribute("Offset", input.Offset.ToString());
+            return element;
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this TimeZoneInfo input)
+    {
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            throw new InvalidOperationException("Argument null exception occurred for 'elementName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
+            var element = doc.CreateElement("TimeZone");
+            element.SetAttribute("Id", input.Id);
+            element.SetAttribute("DisplayName", input.DisplayName);
+            return element;
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this XDocument input)
+    {
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeName' parameter.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
+            var element = doc.CreateElement("XDocument");
+            element.SetAttribute("Root", input.Root?.Name.LocalName ?? "None");
+            return element;
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this CultureInfo input)
+    {
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            throw new InvalidOperationException("Argument null exception occurred for 'attributeValue' parameter.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
+            var element = doc.CreateElement("Culture");
+            element.SetAttribute("Name", input.Name);
+            element.SetAttribute("DisplayName", input.DisplayName);
+            return element;
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Exception input)
+    {
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
+            var element = doc.CreateElement("Exception");
+            element.SetAttribute("Message", input.Message);
+            element.SetAttribute("Type", input.GetType().FullName);
+            return element;
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Assembly input)
+    {
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or empty.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("elementName"))
+            var element = doc.CreateElement("Assembly");
+            element.SetAttribute("FullName", input.FullName);
+            element.SetAttribute("Location", input.Location ?? "Unknown");
+            return element;
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this HttpRequestMessage input)
+    {
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            throw new InvalidOperationException("Argument exception: 'elementName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeName"))
+            var element = doc.CreateElement("HttpRequest");
+            element.SetAttribute("Method", input.Method.Method);
+            element.SetAttribute("RequestUri", input.RequestUri?.ToString() ?? "null");
+            return element;
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this XmlElement input)
+    {
+        return CreateXmlElementWithAttributes(input, (doc, obj) =>
         {
-            throw new InvalidOperationException("Argument exception: 'attributeName' cannot be null or whitespace.", ex);
-        }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("attributeValue"))
+            var element = doc.CreateElement("XmlElementWrapper");
+            element.SetAttribute("OriginalName", input.Name);
+            element.InnerXml = input.OuterXml;
+            return element;
+        });
+    }
+}
+
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Value Types )
+/// ( Total Methods: 19 )
+/// </summary>
+public static partial class BuildXmlElementWithAttributesExtensions
+
+{
+    public static XmlElement BuildXmlElementWithAttributes(this Byte value)
+    {
+        return CreateXmlElement(value, "Byte", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("Binary", Convert.ToString(val, 2).PadLeft(8, '0'));
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this SByte value)
+    {
+        return CreateXmlElement(value, "SByte", (el, val) =>
         {
-            throw new InvalidOperationException("Argument null exception: 'attributeValue' cannot be null.", ex);
-        }
-        catch (InvalidCastException ex) when (ex.Message.Contains("Object of type"))
+            el.InnerText = val.ToString();
+            el.SetAttribute("Binary", Convert.ToString(val, 2).PadLeft(8, '0'));
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Int16 value)
+    {
+        return CreateXmlElement(value, "Int16", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("IsEven", (val % 2 == 0).ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this UInt16 value)
+    {
+        return CreateXmlElement(value, "UInt16", (el, val) =>
         {
-            throw new InvalidOperationException("Invalid cast exception occurred during processing of attribute values.", ex);
-        }
-        catch (InvalidCastException ex) when (ex.Message.Contains("array"))
+            el.InnerText = val.ToString();
+            el.SetAttribute("IsEven", (val % 2 == 0).ToString());
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Int32 value)
+    {
+        return CreateXmlElement(value, "Int32", (el, val) =>
+                {
+                    el.InnerText = val.ToString();
+                    el.SetAttribute("IsPositive", (val >= 0).ToString());
+                });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this UInt32 value)
+    {
+        return CreateXmlElement(value, "UInt32", (el, val) =>
         {
-            throw new InvalidOperationException("Invalid cast exception while processing the array elements.", ex);
-        }
-        catch (NullReferenceException ex) when (ex.Message.Contains("array"))
+            el.InnerText = val.ToString();
+            el.SetAttribute("IsPositive", (val >= 0).ToString());
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Int64 value)
+    {
+        return CreateXmlElement(value, "Int64", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("Bytes", BitConverter.GetBytes(val).Length.ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this UInt64 value)
+    {
+        return CreateXmlElement(value, "UInt64", (el, val) =>
         {
-            throw new InvalidOperationException("Null reference exception occurred while processing array elements.", ex);
-        }
-        catch (NullReferenceException ex) when (ex.Message.Contains("attributeValue"))
+            el.InnerText = val.ToString();
+            el.SetAttribute("Bytes", BitConverter.GetBytes(val).Length.ToString());
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this IntPtr value)
+    {
+        return CreateXmlElement(value, "IntPtr", (el, val) =>
         {
-            throw new InvalidOperationException("Null reference exception occurred due to 'attributeValue' being null.", ex);
-        }
-        catch (NullReferenceException ex) when (ex.Message.Contains("element"))
+            el.InnerText = val.ToString();
+            el.SetAttribute("PointerSize", IntPtr.Size.ToString());
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this UIntPtr value)
+    {
+        return CreateXmlElement(value, "UIntPtr", (el, val) =>
         {
-            throw new InvalidOperationException("Null reference exception occurred due to 'element' being null.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"Unexpected error: {ex.Message}", ex);
-        }
+            el.InnerText = val.ToString();
+            el.SetAttribute("PointerSize", UIntPtr.Size.ToString());
+        });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Single value)
+    {
+        return CreateXmlElement(value, "Single", (el, val) =>
+            {
+                el.InnerText = val.ToString("R");
+                el.SetAttribute("IsNaN", float.IsNaN(val).ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Double value)
+    {
+        return CreateXmlElement(value, "Double", (el, val) =>
+            {
+                el.InnerText = val.ToString("R");
+                el.SetAttribute("IsInfinity", double.IsInfinity(val).ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Decimal value)
+    {
+        return CreateXmlElement(value, "Decimal", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("Precision", Decimal.GetBits(val)[3].ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Boolean value)
+    {
+        return CreateXmlElement(value, "Boolean", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("Negation", (!val).ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Char value)
+    {
+        return CreateXmlElement(value, "Char", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("Unicode", ((int)val).ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this DateTime value)
+    {
+        return CreateXmlElement(value, "DateTime", (el, val) =>
+            {
+                el.InnerText = val.ToString("o");
+                el.SetAttribute("Kind", val.Kind.ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this TimeSpan value)
+    {
+        return CreateXmlElement(value, "TimeSpan", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("TotalSeconds", val.TotalSeconds.ToString("F2"));
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this Guid value)
+    {
+        return CreateXmlElement(value, "Guid", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("IsEmpty", (val == Guid.Empty).ToString());
+            });
+    }
+
+    public static XmlElement BuildXmlElementWithAttributes(this DayOfWeek value)
+    {
+        return CreateXmlElement(value, "DayOfWeek", (el, val) =>
+            {
+                el.InnerText = val.ToString();
+                el.SetAttribute("Numeric", ((int)val).ToString());
+            });
     }
 }

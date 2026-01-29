@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections.Generic;
-public static class FromJsonExtensions : Object
+public static class FromJsonExtensions
 {
     public static T FromJson<T>(this String json, params Newtonsoft.Json.JsonConverter[] converters)
     {

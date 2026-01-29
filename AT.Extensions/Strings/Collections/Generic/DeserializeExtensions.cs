@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections.Generic;
-public static class DeserializeExtensions : Object
+public static class DeserializeExtensions
 {
     public static T Deserialize<T>(this String jsonString)
     {

@@ -2,7 +2,7 @@
 using AT.Extensions.Strings.Extraction;
 
 namespace AT.Extensions.Chars.Extraction;
-public static class LetterExtensions : Object
+public static class LetterExtensions
 {
     public static Char? FirstLetter(this String value)
     {

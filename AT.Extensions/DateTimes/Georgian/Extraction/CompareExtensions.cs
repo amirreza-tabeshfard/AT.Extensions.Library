@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class CompareExtensions : Object
+public static class CompareExtensions
 {
     public static Double CompareTo(this DateTime dateTime, DateTime value, Enums.DateTimeDifferenceFormat differenceFormat = Enums.DateTimeDifferenceFormat.Days)
     {

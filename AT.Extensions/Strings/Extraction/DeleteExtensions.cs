@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class DeleteExtensions : Object
+public static class DeleteExtensions
 {
     public static String DeleteExtension(this String source, Char Delimeter = '.')
     {

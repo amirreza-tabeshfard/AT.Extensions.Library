@@ -2,7 +2,7 @@
 using static AT.Extensions.Strings.Comparison.StartsWithExtensions;
 
 namespace AT.Extensions.Strings.Comparison;
-public static class ContainsExtensions : Object
+public static class ContainsExtensions
 {
     public static Boolean Contains(this String source, Char value)
     {

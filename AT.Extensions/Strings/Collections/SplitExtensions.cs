@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class SplitExtensions : Object
+public static class SplitExtensions
 {
     public static IEnumerable<String> SplitAndTrim(this String value, params Char[] separators)
     {

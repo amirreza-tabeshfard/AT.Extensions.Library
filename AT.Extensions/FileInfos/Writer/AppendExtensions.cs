@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Writer;
-public static class AppendExtensions : Object
+public static class AppendExtensions
 {
     public static FileStream Append(this FileInfo file)
     {

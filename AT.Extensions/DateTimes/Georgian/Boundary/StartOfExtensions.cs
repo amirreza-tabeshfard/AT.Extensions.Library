@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class StartOfExtensions: Object
+public static class StartOfExtensions
 {
     public static DateTime StartOfSecond(this DateTime dateTime)
     {

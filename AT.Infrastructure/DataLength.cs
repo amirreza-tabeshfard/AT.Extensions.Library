@@ -1,7 +1,7 @@
 ﻿namespace AT.Infrastructure;
-public static class DataLength : Object
+public static class DataLength
 {
-    public static class Bytes : Object
+    public static class Bytes
     {
         #region Field(s)
 

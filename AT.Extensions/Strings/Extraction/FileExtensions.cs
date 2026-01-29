@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Conversion;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class FileExtensions : Object
+public static class FileExtensions
 {
     public static String FileEscape(this String file)
     {

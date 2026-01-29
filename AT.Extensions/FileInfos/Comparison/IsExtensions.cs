@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.FileInfos.Comparison;
-public static class IsExtensions : Object
+public static class IsExtensions
 {
     #region Field(s)
 

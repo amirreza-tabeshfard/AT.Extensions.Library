@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class HashExtensions : Object
+public static class HashExtensions
 {
     public static Int32 Hash(this String value)
     {

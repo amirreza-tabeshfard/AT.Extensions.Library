@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Collections;
-public static class GenerateExtensions : Object
+public static class GenerateExtensions
 {
     public static IEnumerable<DateTime> GenerateBusinessDaysList(this DateTime fisrtDateTime, DateTime lastDateTime, IEnumerable<DateTime> holidays, List<Int32> weekends)
     {

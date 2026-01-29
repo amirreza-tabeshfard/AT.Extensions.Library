@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class NullExtensions : Object
+public static class NullExtensions
 {
     public static String? NullIfEmpty(this String value)
     {

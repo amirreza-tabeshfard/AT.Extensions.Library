@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class FormatExtensions : Object
+public static class FormatExtensions
 {
     public static String FormatWith(this String value, object arg0)
     {

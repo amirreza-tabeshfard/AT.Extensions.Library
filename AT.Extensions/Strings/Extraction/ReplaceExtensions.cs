@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 
 namespace AT.Extensions.Strings.Extraction;
-public static partial class ReplaceExtensions : Object
+public static partial class ReplaceExtensions
 {
     #region Field(s)
 

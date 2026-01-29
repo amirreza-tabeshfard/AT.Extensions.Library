@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Extraction;
 
 namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class GetExtensions : Object
+public static class GetExtensions
 {
     public static DateTime GetCyclic(this DateTime dateTime, IEnumerable<DateTime> cycle)
     {

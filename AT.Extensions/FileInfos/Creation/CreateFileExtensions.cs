@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.FileInfos.Creation;
-public static class CreateFileExtensions : Object
+public static class CreateFileExtensions
 {
     public static FileStream? CreateFile(this String fullFilepath)
     {

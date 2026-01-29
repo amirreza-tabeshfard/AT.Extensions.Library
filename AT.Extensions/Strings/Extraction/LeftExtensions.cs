@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class LeftExtensions : Object
+public static class LeftExtensions
 {
     public static String Left(this String value, Int32 length)
     {

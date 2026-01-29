@@ -1,5 +1,5 @@
 ﻿namespace AT.Infrastructure.RegularExpressionss;
-public static class Patterns : Object
+public static class Patterns
 {
     // |     ==> Or
     // \d    ==> Digit

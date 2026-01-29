@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class EmptyExtensions : Object
+public static class EmptyExtensions
 {
     public static String EmptyIfNull(this String? value)
     {

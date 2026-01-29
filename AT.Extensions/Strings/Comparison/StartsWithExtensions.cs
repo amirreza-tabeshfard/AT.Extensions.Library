@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static partial class StartsWithExtensions : Object
+public static partial class StartsWithExtensions
 {
     #region Method(s): Private
 

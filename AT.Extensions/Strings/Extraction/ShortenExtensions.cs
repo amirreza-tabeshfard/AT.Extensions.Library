@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class ShortenExtensions : Object
+public static class ShortenExtensions
 {
     public static String Shorten(this String value, Int32 maxLength)
     {

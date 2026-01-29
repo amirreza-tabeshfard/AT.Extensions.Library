@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Writer;
-public static class AppendLineExtensions : Object
+public static class AppendLineExtensions
 {
     public static void AppendLine(this FileInfo file, String text)
     {

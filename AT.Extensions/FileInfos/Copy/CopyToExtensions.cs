@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Copy;
-public static class CopyToExtensions : Object
+public static class CopyToExtensions
 {
     public static FileInfo CopyTo(this FileInfo sourceFile, DirectoryInfo destinationDirectory)
     {

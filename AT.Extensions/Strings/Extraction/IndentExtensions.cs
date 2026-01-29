@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Collections;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class IndentExtensions : Object
+public static class IndentExtensions
 {
     public static String? IndentEachLine(this String value, String prefix = "  ")
     {

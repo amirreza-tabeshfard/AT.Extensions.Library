@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class WidthExtensions : Object
+public static class WidthExtensions
 {
     public static Int32 Width(this String value)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Infrastructure;
-public sealed class SystemTimeZone : Object
+public sealed class SystemTimeZone
 {
     #region Field(s): Private
 

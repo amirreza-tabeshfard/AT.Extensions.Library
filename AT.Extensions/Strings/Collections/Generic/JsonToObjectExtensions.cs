@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 namespace AT.Extensions.Strings.Collections.Generic;
-public static class JsonToObjectExtensions : Object
+public static class JsonToObjectExtensions
 {
     public static T JsonToObject<T>(this String json)
     {

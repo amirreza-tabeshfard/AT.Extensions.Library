@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Boundary;
-public static class CheckFileExtensions : Object
+public static class CheckFileExtensions
 {
     public static async Task CheckFileAccessAsync(this FileInfo file, Int32 timeout = 1000, Int32 iterationCount = 100, CancellationToken cancel = default)
     {

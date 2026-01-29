@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class FromNumberExtensions : Object
+public static class FromNumberExtensions
 {
     #region Field(s)
 

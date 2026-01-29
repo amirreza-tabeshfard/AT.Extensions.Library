@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class ExtractExtensions : Object
+public static class ExtractExtensions
 {
     public static IEnumerable<Int32> ExtractInts(this String? value)
     {

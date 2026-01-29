@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 
 namespace AT.Extensions.Strings.Collections.Generic;
-public static class GetValueExtensions : Object
+public static class GetValueExtensions
 {
     public static T GetValue<T>(this String value)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class EndsWithExtensions : Object
+public static class EndsWithExtensions
 {
     public static Boolean EndsWithIgnoreCase(this String value, String suffix)
     {

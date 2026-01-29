@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class ThisWeekExtensions : Object
+public static class ThisWeekExtensions
 {
     public static DateTime ThisWeekSunday(this DateTime dateTime)
     {

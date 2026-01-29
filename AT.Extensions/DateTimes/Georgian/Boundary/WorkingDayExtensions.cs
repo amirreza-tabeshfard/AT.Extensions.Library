@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class WorkingDayExtensions : Object
+public static class WorkingDayExtensions
 {
     public static DateTime WorkingDayAfter(this DateTime source, DayOfWeek publicHoliday1 = DayOfWeek.Sunday, DayOfWeek publicHoliday2 = DayOfWeek.Saturday)
     {

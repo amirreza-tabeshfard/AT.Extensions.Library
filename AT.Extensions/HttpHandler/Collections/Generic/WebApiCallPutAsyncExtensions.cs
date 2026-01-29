@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.HttpHandler.Collections.Generic;
-public static class WebApiCallPutAsyncExtensions : Object
+public static class WebApiCallPutAsyncExtensions
 {
     #region Method<T>
 

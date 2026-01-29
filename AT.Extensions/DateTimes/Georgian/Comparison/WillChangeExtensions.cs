@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Addition;
 
 namespace AT.Extensions.DateTimes.Georgian.Comparison;
-public static class WillChangeExtensions : Object
+public static class WillChangeExtensions
 {
     public static Boolean WillChangeDate(this DateTime dateTime, Double value, Enums.DateTimeDifferenceFormat differenceFormat = Enums.DateTimeDifferenceFormat.Hours)
     {

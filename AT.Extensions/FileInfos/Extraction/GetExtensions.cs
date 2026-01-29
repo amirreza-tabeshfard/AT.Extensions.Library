@@ -2,7 +2,7 @@
 using MimeDetective;
 
 namespace AT.Extensions.FileInfos.Extraction;
-public static class GetExtensions : Object
+public static class GetExtensions
 {
     #region Field(s)
 

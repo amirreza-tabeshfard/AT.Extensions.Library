@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Boundary;
-public static class ThrowExtensions : Object
+public static class ThrowExtensions
 {
     public static FileInfo ThrowIfNotFound(this FileInfo file, String? Message = default)
     {

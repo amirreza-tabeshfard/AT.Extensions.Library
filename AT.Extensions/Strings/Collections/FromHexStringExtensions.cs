@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class FromHexStringExtensions : Object
+public static class FromHexStringExtensions
 {
     #region Field(s)
 

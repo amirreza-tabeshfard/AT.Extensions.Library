@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Conversion;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class ToExtensions : Object
+public static class ToExtensions
 {
     public static void ToFile(this String self, String file)
     {

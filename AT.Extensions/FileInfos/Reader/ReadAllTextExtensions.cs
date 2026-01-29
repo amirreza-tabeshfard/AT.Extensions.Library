@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Reader;
-public static class ReadAllTextExtensions : Object
+public static class ReadAllTextExtensions
 {
     public static String? ReadAllText(this String filePath)
     {

@@ -4,7 +4,7 @@ using AT.Extensions.Strings.Comparison;
 using AT.Extensions.Strings.Extraction;
 
 namespace AT.Extensions.Strings.Conversion;
-public static class ToExtensions : Object
+public static class ToExtensions
 {
     #region Field(s)
 

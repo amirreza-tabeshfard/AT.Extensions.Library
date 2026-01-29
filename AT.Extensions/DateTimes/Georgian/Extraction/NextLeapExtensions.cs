@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class NextLeapExtensions : Object
+public static class NextLeapExtensions
 {
     public static Int32 NextLeapYear(this DateTime dateTime)
     {

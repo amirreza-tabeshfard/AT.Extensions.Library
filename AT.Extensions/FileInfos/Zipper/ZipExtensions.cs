@@ -2,7 +2,7 @@
 using AT.Extensions.FileInfos.Creation;
 
 namespace AT.Extensions.FileInfos.Zipper;
-public static class ZipExtensions : Object
+public static class ZipExtensions
 {
     public static FileInfo Zip(this FileInfo file, String? archiveFileName = null, Boolean isOverride = true)
     {

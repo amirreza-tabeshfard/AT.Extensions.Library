@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections.Generic;
-public static class ToJsonExtensions : Object
+public static class ToJsonExtensions
 {
     public static String ToJson<T>(this T value, Newtonsoft.Json.JsonSerializerSettings? settings = default)
     {

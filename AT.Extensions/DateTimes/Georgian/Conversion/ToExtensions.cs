@@ -3,7 +3,7 @@ using AT.Extensions.DateTimes.Georgian.Extraction;
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DateTimes.Georgian.Conversion;
-public static class ToExtensions : Object
+public static class ToExtensions
 {
     #region Field(s)
 

@@ -1,115 +1,114 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <PackageOutputPath>..\[ Setup ]</PackageOutputPath>
-    <PackageId>AT.Extensions.Library</PackageId>
-    <Title>Extensions (Library)</Title>
-    <Authors>Amirreza Tabeshfard</Authors>
-    <Company>WebNest [Feature]</Company>
-    <Description>The primary goal of creating this «Nuget: AT.Extensions.Library» is to enable developers to effortlessly and confidently utilize this «Library» instead of spending time and effort creating numerous and scattered «Extension Methods» in their projects. This approach not only enhances the efficiency and speed of project development but also significantly contributes to the standardization and integration of code. By leveraging this «Library», developers can benefit from advanced features and optimizations, allowing them to focus on the core and critical aspects of their projects. This strategy not only improves the productivity of development teams but also reduces errors and issues arising from repetitive and non-standard code. Additionally, using this «Library» allows developers to tap into collective experiences and knowledge, avoiding the need to reinvent the wheel and instead relying on proven and efficient solutions. Consequently, projects progress more rapidly, and the final product's quality is significantly enhanced.</Description>
-    <Product>AT.Extensions.Library</Product>
-    <Copyright>Copyright 2024 (c) Amirreza Tabeshfard. All rights reserved.</Copyright>
-    <PackageProjectUrl>https://github.com/amirreza-tabeshfard/AT.Extensions.Library</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/amirreza-tabeshfard/AT.Extensions.Library</RepositoryUrl>
-    <PackageTags>
-      Extension;
-      Extensions;
-      Char;
-      Chars;
-      CharExtension;
-      CharExtensions;
-      CharsExtension;
-      CharsExtensions;
-      DateTime;
-      DateTimes;
-      DateTimeExtension;
-      DateTimeExtensions;
-      DateTimesExtension;
-      DateTimesExtensions;
-      DirectoryInfo;
-      DirectoryInfos;
-      DirectoryInfoExtension;
-      DirectoryInfoExtensions;
-      DirectoryInfosExtension;
-      DirectoryInfosExtensions;
-      FileInfo;
-      FileInfos;
-      FileInfoExtension;
-      FileInfoExtensions;
-      FileInfosExtension;
-      FileInfosExtensions;
-      HttpHandler;
-      HttpHandlers;
-      HttpHandlerExtension;
-      HttpHandlerExtensions;
-      HttpHandlersExtension;
-      HttpHandlersExtensions;
-      String;
-      Strings;
-      StringExtension;
-      StringExtensions;
-      StringsExtension;
-      StringsExtensions;
-      XML;
-      XMLs;
-      XMLExtension;
-      XMLExtensions;
-      XMLsExtension;
-      XMLsExtensions;
-    </PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <RepositoryType>git</RepositoryType>
-    <Version>1.0.0.76</Version>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>Logo.jpg</PackageIcon>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageOutputPath>..\[ Setup ]</PackageOutputPath>
+		<PackageId>AT.Extensions.Library</PackageId>
+		<Title>Extensions (Library)</Title>
+		<Authors>Amirreza Tabeshfard</Authors>
+		<Company>WebNest [Feature]</Company>
+		<Description>The primary goal of creating this «Nuget: AT.Extensions.Library» is to enable developers to effortlessly and confidently utilize this «Library» instead of spending time and effort creating numerous and scattered «Extension Methods» in their projects. This approach not only enhances the efficiency and speed of project development but also significantly contributes to the standardization and integration of code. By leveraging this «Library», developers can benefit from advanced features and optimizations, allowing them to focus on the core and critical aspects of their projects. This strategy not only improves the productivity of development teams but also reduces errors and issues arising from repetitive and non-standard code. Additionally, using this «Library» allows developers to tap into collective experiences and knowledge, avoiding the need to reinvent the wheel and instead relying on proven and efficient solutions. Consequently, projects progress more rapidly, and the final product's quality is significantly enhanced.</Description>
+		<Product>AT.Extensions.Library</Product>
+		<Copyright>Copyright 2024 (c) Amirreza Tabeshfard. All rights reserved.</Copyright>
+		<PackageProjectUrl>https://github.com/amirreza-tabeshfard/AT.Extensions.Library</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/amirreza-tabeshfard/AT.Extensions.Library</RepositoryUrl>
+		<PackageTags>
+			Extension;
+			Extensions;
+			Char;
+			Chars;
+			CharExtension;
+			CharExtensions;
+			CharsExtension;
+			CharsExtensions;
+			DateTime;
+			DateTimes;
+			DateTimeExtension;
+			DateTimeExtensions;
+			DateTimesExtension;
+			DateTimesExtensions;
+			DirectoryInfo;
+			DirectoryInfos;
+			DirectoryInfoExtension;
+			DirectoryInfoExtensions;
+			DirectoryInfosExtension;
+			DirectoryInfosExtensions;
+			FileInfo;
+			FileInfos;
+			FileInfoExtension;
+			FileInfoExtensions;
+			FileInfosExtension;
+			FileInfosExtensions;
+			HttpHandler;
+			HttpHandlers;
+			HttpHandlerExtension;
+			HttpHandlerExtensions;
+			HttpHandlersExtension;
+			HttpHandlersExtensions;
+			String;
+			Strings;
+			StringExtension;
+			StringExtensions;
+			StringsExtension;
+			StringsExtensions;
+			XML;
+			XMLs;
+			XMLExtension;
+			XMLExtensions;
+			XMLsExtension;
+			XMLsExtensions;
+		</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<RepositoryType>git</RepositoryType>
+		<Version>1.0.0.76</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>Logo.jpg</PackageIcon>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\Logo.jpg">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\Logo.jpg">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AT.Enums\AT.Enums.csproj" />
-    <ProjectReference Include="..\AT.Infrastructure\AT.Infrastructure.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\AT.Enums\AT.Enums.csproj" />
+		<ProjectReference Include="..\AT.Infrastructure\AT.Infrastructure.csproj" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.3" />
-    <PackageReference Include="Mime-Detective" Version="24.7.1" />
-    <PackageReference Include="SharperHacks.CoreLibs.Constants" Version="4.1.0" />
-    <PackageReference Include="SharperHacks.CoreLibs.Constraints" Version="4.3.0" />
-    <PackageReference Include="System.DirectoryServices" Version="9.0.3" />
-    <PackageReference Include="MongoDB.Bson" Version="3.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.14" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.14" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+		<PackageReference Include="Mime-Detective" Version="24.7.1" />
+		<PackageReference Include="SharperHacks.CoreLibs.Constants" Version="4.1.0" />
+		<PackageReference Include="SharperHacks.CoreLibs.Constraints" Version="4.3.0" />
+		<PackageReference Include="System.DirectoryServices" Version="9.0.3" />
+		<PackageReference Include="MongoDB.Bson" Version="3.3.0" />
+		<PackageReference Include="System.Diagnostics.EventLog" Version="9.0.4" />
+		<PackageReference Include="Google.Protobuf" Version="3.30.2" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.3" />
-    <PackageReference Include="Mime-Detective" Version="24.7.1" />
-    <PackageReference Include="SharperHacks.CoreLibs.Constants" Version="4.1.0" />
-    <PackageReference Include="SharperHacks.CoreLibs.Constraints" Version="4.3.0" />
-    <PackageReference Include="System.DirectoryServices" Version="9.0.3" />
-    <PackageReference Include="MongoDB.Bson" Version="3.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3" />
+	</ItemGroup>
 
 </Project>

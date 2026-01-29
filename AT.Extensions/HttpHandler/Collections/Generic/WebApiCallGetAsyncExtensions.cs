@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.HttpHandler.Collections.Generic;
-public static class WebApiCallGetAsyncExtensions : Object
+public static class WebApiCallGetAsyncExtensions
 {
     public async static Task<T> WebApiCallGetAsync<T>(this String fullUrl)
         where T : class, new()

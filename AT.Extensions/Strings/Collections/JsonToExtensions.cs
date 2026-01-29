@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class JsonToExtensions : Object
+public static class JsonToExtensions
 {
     public static IDictionary<String, object> JsonToDictionary(this String value)
     {

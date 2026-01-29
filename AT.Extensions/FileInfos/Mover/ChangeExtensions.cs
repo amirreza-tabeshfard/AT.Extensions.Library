@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Mover;
-public static class ChangeExtensions : Object
+public static class ChangeExtensions
 {
     #region Method(s): Private
 

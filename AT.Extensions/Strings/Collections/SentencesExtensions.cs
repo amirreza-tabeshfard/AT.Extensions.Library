@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Extraction;
 
 namespace AT.Extensions.Strings.Collections;
-public static class SentencesExtensions : Object
+public static class SentencesExtensions
 {
     public static IEnumerable<String> Sentences(this String value, Boolean cleanNewLine = true, Boolean cleanWhitepace = true)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class UnionEtensions : Object
+public static class UnionEtensions
 {
     public static String Union(this String value, String unionChars, Boolean ignoreCase = false)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class RepeatExtensions : Object
+public static class RepeatExtensions
 {
     public static String? Repeat(this String value, Int32 count)
     {

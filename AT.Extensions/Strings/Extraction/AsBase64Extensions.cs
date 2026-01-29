@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class AsBase64Extensions : Object
+public static class AsBase64Extensions
 {
     public static String AsBase64Decoded(this String value)
     {

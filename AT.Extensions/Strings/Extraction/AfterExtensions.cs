@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class AfterExtensions : Object
+public static class AfterExtensions
 {
     public static String? After(this String value, String search, Boolean ignoreCase = false)
     {

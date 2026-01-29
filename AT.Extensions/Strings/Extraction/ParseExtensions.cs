@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class ParseExtensions : Object
+public static class ParseExtensions
 {
     public static String ParseStringToCsv(this String value)
     {

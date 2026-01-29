@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class ThrowExtensions : Object
+public static class ThrowExtensions
 {
     public static void ThrowIfEmpty(this String value, String paramName)
     {

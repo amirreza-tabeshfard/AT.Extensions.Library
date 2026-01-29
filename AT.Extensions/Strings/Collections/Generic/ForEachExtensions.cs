@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections.Generic;
-public static class ForEachExtensions : Object
+public static class ForEachExtensions
 {
     public static IEnumerable<TFuncResult> ForEach<TFuncResult>(this String self, Func<Char, TFuncResult> function)
     {

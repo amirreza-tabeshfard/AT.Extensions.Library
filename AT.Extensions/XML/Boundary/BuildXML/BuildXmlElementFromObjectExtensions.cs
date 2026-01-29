@@ -1,164 +1,322 @@
-﻿namespace AT.Extensions.XML.Boundary.BuildXML;
-public static class BuildXmlElementFromObjectExtensions
-    : Object
+﻿using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+
+namespace AT.Extensions.XML.Boundary.BuildXML;
+/// <summary>
+/// Private Mathod(s)
+/// </summary>
+public static partial class BuildXmlElementFromObjectExtensions
+   
 {
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this String xmlString)
+    private static XElement TryConvertToXElement(String elementName, Object value)
     {
-        ArgumentException.ThrowIfNullOrEmpty(xmlString);
-        ArgumentException.ThrowIfNullOrWhiteSpace(xmlString);
-        // ----------------------------------------------------------------------------------------------------
         try
         {
-            System.Xml.XmlDocument xmlDoc = new();
-            using StringReader reader = new(xmlString);
-            using System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(reader, new System.Xml.XmlReaderSettings
-            {
-                DtdProcessing = System.Xml.DtdProcessing.Prohibit
-            });
-
-            xmlDoc.Load(xmlReader);
-            return xmlDoc.DocumentElement ?? throw new ArgumentException("XML does not contain a root element.");
+            return new XElement(elementName, value);
         }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("xmlString"))
+        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals(elementName))
         {
-            throw new ArgumentException("Input XML string cannot be null or empty.", ex);
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "ArgumentException: Invalid argument name."));
         }
-        catch (ArgumentException ex) when (ex.ParamName is not null && ex.ParamName.Equals("xmlString") && string.IsNullOrWhiteSpace(ex.Message))
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals(elementName))
         {
-            throw new ArgumentException("Input XML string cannot be null, empty, or whitespace.", ex);
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "ArgumentNullException: Argument cannot be null."));
         }
-        catch (System.Xml.XmlException ex)
+        catch (FormatException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
         {
-            throw new ArgumentException("Invalid XML format. The XML string is not well-formed.", ex);
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "FormatException: Invalid format for XML element."));
         }
-        catch (IOException ex)
+        catch (InvalidOperationException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
         {
-            throw new InvalidOperationException("An I/O error occurred while reading the XML data. Please check file access or network status.", ex);
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "InvalidOperationException: Operation is not valid in current state."));
         }
-        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("xmlString"))
+        catch (NullReferenceException)
         {
-            throw new ArgumentException("Input XML string cannot be null.", ex);
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "NullReferenceException: Attempted to use an object reference that is null."));
         }
-        catch (InvalidOperationException ex)
+        catch (OverflowException)
         {
-            throw new InvalidOperationException("An unexpected error occurred while processing the XML. Please verify the input and try again.", ex);
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "OverflowException: Value caused an arithmetic overflow."));
+        }
+        catch (XmlException)
+        {
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "XmlException: XML parsing or creation error occurred."));
+        }
+        catch (FormatException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
+        {
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "FormatException: System.Xml format error."));
+        }
+        catch (InvalidCastException)
+        {
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "InvalidCastException: Invalid cast encountered."));
+        }
+        catch (IOException)
+        {
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", "IOException: Input/output error occurred."));
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("An unexpected error occurred. Please review the stack trace for more details.", ex);
+            return new XElement("Error",
+                new XAttribute("Type", elementName),
+                new XAttribute("Message", ex.Message));
         }
     }
 
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this Int32 value, String elementName)
+    private static XElement BuildXmlElementInternal(Object input)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.XmlElement element = new System.Xml.XmlDocument().CreateElement(elementName);
-        element.InnerText = value.ToString();
-        // ----------------------------------------------------------------------------------------------------
-        return element;
-    }
-
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this Boolean value, String elementName)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.XmlElement element = new System.Xml.XmlDocument().CreateElement(elementName);
-        element.InnerText = value.ToString().ToLower();
-        // ----------------------------------------------------------------------------------------------------
-        return element;
-    }
-
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this DateTime dateTime, String elementName, String format)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        ArgumentException.ThrowIfNullOrEmpty(format);
-        ArgumentException.ThrowIfNullOrWhiteSpace(format);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.XmlElement element = new System.Xml.XmlDocument().CreateElement(elementName);
-        element.InnerText = dateTime.ToString(format);
-        // ----------------------------------------------------------------------------------------------------
-        return element;
-    }
-
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this Dictionary<String, String> dictionary, String rootElementName)
-    {
-        ArgumentNullException.ThrowIfNull(dictionary);
-        ArgumentException.ThrowIfNullOrEmpty(rootElementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(rootElementName);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.XmlDocument xmlDoc = new();
-        System.Xml.XmlElement root = xmlDoc.CreateElement(rootElementName);
-        foreach ((KeyValuePair<string, string> kvp, System.Xml.XmlElement child) in from KeyValuePair<string, string> kvp in dictionary
-                                                                                    let child = xmlDoc.CreateElement(kvp.Key)
-                                                                                    select (kvp, child))
+        try
         {
-            child.InnerText = kvp.Value;
-            root.AppendChild(child);
-        }
-        // ----------------------------------------------------------------------------------------------------
-        return root;
-    }
+            if (input == null)
+                throw new ArgumentNullException(nameof(input), "Input cannot be null.");
 
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this String[] array, String rootElementName, String childElementName)
-    {
-        ArgumentNullException.ThrowIfNull(array);
-        ArgumentException.ThrowIfNullOrEmpty(rootElementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(rootElementName);
-        ArgumentException.ThrowIfNullOrEmpty(childElementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(childElementName);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.XmlDocument xmlDoc = new();
-        System.Xml.XmlElement root = xmlDoc.CreateElement(rootElementName);
-        foreach ((string item, System.Xml.XmlElement child) in from string item in array
-                                                               let child = xmlDoc.CreateElement(childElementName)
-                                                               select (item, child))
+            return input switch
+            {
+                XElement xe => new XElement(xe),
+                XmlDocument xd => XElement.Parse(xd.OuterXml),
+                XmlElement xe => XElement.Parse(xe.OuterXml),
+                XmlNode xn => XElement.Parse(xn.OuterXml),
+                String xmlString => XElement.Parse(xmlString),
+                XDocument xdoc => new XElement(xdoc.Root),
+                _ => throw new NotSupportedException($"Type '{input.GetType()}' is not supported by BuildXmlElementFromObject."),
+            };
+        }
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("input"))
         {
-            child.InnerText = item;
-            root.AppendChild(child);
+            throw new InvalidOperationException("Input argument cannot be null.", ex);
         }
-        // ----------------------------------------------------------------------------------------------------
-        return root;
-    }
-
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this Object obj)
-    {
-        ArgumentNullException.ThrowIfNull(obj);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.XmlDocument xmlDoc = new();
-        System.Xml.XmlElement root = xmlDoc.CreateElement(obj.GetType().Name);
-        foreach ((System.Reflection.PropertyInfo prop, System.Xml.XmlElement element) in from System.Reflection.PropertyInfo prop in obj.GetType().GetProperties()
-                                                                                         let element = xmlDoc.CreateElement(prop.Name)
-                                                                                         select (prop, element))
+        catch (NotSupportedException ex) when (ex.Message.Contains("is not supported by BuildXmlElementFromObject"))
         {
-            element.InnerText = prop.GetValue(obj)?.ToString() ?? String.Empty;
-            root.AppendChild(element);
+            throw new InvalidOperationException("Unsupported input type provided to BuildXmlElementInternal.", ex);
         }
-        // ----------------------------------------------------------------------------------------------------
-        return root;
+        catch (XmlException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
+        {
+            throw new InvalidOperationException("XML parsing failed inside BuildXmlElementInternal.", ex);
+        }
+        catch (FormatException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml.Linq"))
+        {
+            throw new InvalidOperationException("Invalid XML format encountered during parsing.", ex);
+        }
+        catch (InvalidOperationException ex) when (ex.Message.Contains("Error building XElement"))
+        {
+            throw new InvalidOperationException("An error occurred specifically during the creation of the XElement.", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException($"Unexpected error occurred while building XElement from type '{input?.GetType().Name}'.", ex);
+        }
+    }
+}
+
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Reference Types )
+/// ( Total Methods: 16 )
+/// </summary>
+public static partial class BuildXmlElementFromObjectExtensions
+   
+{
+    public static XElement BuildXmlElementFromObject(this Object input)
+    {
+        return BuildXmlElementInternal(input);
     }
 
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this System.Xml.Linq.XElement xElement)
+    public static XElement BuildXmlElementFromObject(this String input)
     {
-        ArgumentNullException.ThrowIfNull(xElement);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.XmlDocument xmlDoc = new();
-        xmlDoc.LoadXml(xElement.ToString());
-        // ----------------------------------------------------------------------------------------------------
-        return xmlDoc.DocumentElement;
+        return BuildXmlElementInternal(input);
     }
 
-    public static System.Xml.XmlElement BuildXmlElementFromObject(this Guid guid, String elementName)
+    public static XElement BuildXmlElementFromObject(this StringBuilder input)
     {
-        ArgumentException.ThrowIfNullOrEmpty(elementName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(elementName);
-        // ----------------------------------------------------------------------------------------------------
-        System.Xml.XmlElement element = new System.Xml.XmlDocument().CreateElement(elementName);
-        element.InnerText = guid.ToString();
-        // ----------------------------------------------------------------------------------------------------
-        return element;
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlDocument input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlElement input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlNode input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XDocument input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XElement input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlAttribute input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlCDataSection input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlComment input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlText input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlProcessingInstruction input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlDocumentFragment input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlEntityReference input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+
+    public static XElement BuildXmlElementFromObject(this XmlNotation input)
+    {
+        return BuildXmlElementInternal(input);
+    }
+}
+
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Value Types )
+/// ( Total Methods: 19 )
+/// </summary>
+public static partial class BuildXmlElementFromObjectExtensions
+   
+{
+    public static XElement BuildXmlElementFromObject(this Byte value)
+    {
+        return TryConvertToXElement(nameof(Byte), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this SByte value)
+    {
+        return TryConvertToXElement(nameof(SByte), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this Int16 value)
+    {
+        return TryConvertToXElement(nameof(Int16), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this UInt16 value)
+    {
+        return TryConvertToXElement(nameof(UInt16), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this Int32 value)
+    {
+        return TryConvertToXElement(nameof(Int32), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this UInt32 value)
+    {
+        return TryConvertToXElement(nameof(UInt32), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this Int64 value)
+    {
+        return TryConvertToXElement(nameof(Int64), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this UInt64 value)
+    {
+        return TryConvertToXElement(nameof(Int64), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this IntPtr value)
+    {
+        return TryConvertToXElement(nameof(IntPtr), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this UIntPtr value)
+    {
+        return TryConvertToXElement(nameof(UIntPtr), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this Single value)
+    {
+        return TryConvertToXElement(nameof(Single), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this Double value)
+    {
+        return TryConvertToXElement(nameof(Double), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this Decimal value)
+    {
+        return TryConvertToXElement(nameof(Decimal), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this Boolean value)
+    {
+        return TryConvertToXElement(nameof(Boolean), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this Char value)
+    {
+        return TryConvertToXElement(nameof(Char), value);
+    }
+
+    public static XElement BuildXmlElementFromObject(this DateTime value)
+    {
+        return TryConvertToXElement(nameof(DateTime), value.ToString("o"));
+    }
+
+    public static XElement BuildXmlElementFromObject(this TimeSpan value)
+    {
+        return TryConvertToXElement(nameof(TimeSpan), value.ToString("c"));
+    }
+
+    public static XElement BuildXmlElementFromObject(this Guid value)
+    {
+        return TryConvertToXElement(nameof(Guid), value.ToString());
+    }
+
+    public static XElement BuildXmlElementFromObject(this DayOfWeek value)
+    {
+        return TryConvertToXElement(nameof(DayOfWeek), value.ToString());
     }
 }

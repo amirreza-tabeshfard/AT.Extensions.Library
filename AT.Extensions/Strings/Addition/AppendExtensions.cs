@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Addition;
-public static class AppendExtensions : Object
+public static class AppendExtensions
 {
     public static String Append(this String self, IEnumerable<String> lines, Boolean asAppendLine = false, Boolean appendWithWhiteSpace = false)
     {

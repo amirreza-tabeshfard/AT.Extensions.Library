@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections.Generic;
-public static class IsExtensions : Object
+public static class IsExtensions
 {
     public static Boolean Is<TValue>(this String value)
     {

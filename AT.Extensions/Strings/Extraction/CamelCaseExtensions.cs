@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Collections;
 
 namespace AT.Extensions.Strings.Extraction;
-public static class CamelCaseExtensions : Object
+public static class CamelCaseExtensions
 {
     public static String CamelCaseEveryChar(this String value)
     {

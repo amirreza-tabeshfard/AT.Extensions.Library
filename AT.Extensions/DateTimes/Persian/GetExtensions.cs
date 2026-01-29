@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Persian;
-public static  class GetExtensions : Object
+public static  class GetExtensions
 {
     public static String GetPersianAge(this DateTime birthDate, out Int32 day, out Int32 month, out Int32 year, out Int32 week)
     {

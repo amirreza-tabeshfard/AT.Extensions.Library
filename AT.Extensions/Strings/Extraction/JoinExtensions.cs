@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class JoinExtensions : Object
+public static class JoinExtensions
 {
     public static String Join(this String[] values, String separator)
     {

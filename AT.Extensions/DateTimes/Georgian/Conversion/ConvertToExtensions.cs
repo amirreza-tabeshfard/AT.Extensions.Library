@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Conversion;
-public static class ConvertToExtensions : Object
+public static class ConvertToExtensions
 {
     public static String ConvertTo24HourFormatWithSeconds(this DateTime dateTime)
     {

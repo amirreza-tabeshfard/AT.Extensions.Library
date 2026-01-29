@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class TimeOfExtensions : Object
+public static class TimeOfExtensions
 {
     public static TimeSpan? TimeOfDay(this TimeSpan? value)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static partial class KeepExtensions : object
+public static partial class KeepExtensions
 {
     #region Method(s): Private
 

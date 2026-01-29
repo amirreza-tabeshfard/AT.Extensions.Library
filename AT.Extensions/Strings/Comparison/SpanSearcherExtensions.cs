@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class SpanSearcherExtensions : Object
+public static class SpanSearcherExtensions
 {
     public static Boolean SpanSearcherContains(ReadOnlySpan<Char> stringToSearch, String searchFor, Int32 startAt = 0, Int32 endAt = -1)
     {

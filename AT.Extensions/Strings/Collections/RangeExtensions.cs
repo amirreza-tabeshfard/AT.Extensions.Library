@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class RangeExtensions : Object
+public static class RangeExtensions
 {
     public static IEnumerable<String> Range(this String value, Int32 start, Int32 end, params Char[] split)
     {

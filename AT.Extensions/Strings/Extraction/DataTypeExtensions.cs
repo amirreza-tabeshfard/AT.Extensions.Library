@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class DataTypeExtensions : Object
+public static class DataTypeExtensions
 {
     public static Byte AsByte(this String value)
     {

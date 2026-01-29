@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class ReverseExtensions : Object
+public static class ReverseExtensions
 {
     public static String Reverse(this String value)
     {

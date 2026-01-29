@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class IndexOfExtensions : Object
+public static class IndexOfExtensions
 {
     public static Int32 IndexOfInvariant(this String value, String substring)
     {

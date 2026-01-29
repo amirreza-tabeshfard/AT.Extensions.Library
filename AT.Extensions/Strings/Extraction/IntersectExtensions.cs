@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class IntersectExtensions : Object
+public static class IntersectExtensions
 {
     public static String Intersect(this String value, IEnumerable<Char> intersectChars, Boolean ignoreCase = false)
     {

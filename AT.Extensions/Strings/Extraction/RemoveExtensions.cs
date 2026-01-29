@@ -2,7 +2,7 @@
 using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.Strings.Extraction;
-public static partial class RemoveExtensions : object
+public static partial class RemoveExtensions
 {
     #region Field(s)
 

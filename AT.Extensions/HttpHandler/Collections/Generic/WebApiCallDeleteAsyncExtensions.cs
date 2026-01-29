@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.HttpHandler.Collections.Generic;
-public static class WebApiCallDeleteAsyncExtensions : Object
+public static class WebApiCallDeleteAsyncExtensions
 {
     public async static Task<T> WebApiCallDeleteAsync<T>(this String fullUrl)
         where T : class, new()

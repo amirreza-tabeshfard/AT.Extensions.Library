@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Comparison;
 
 namespace AT.Extensions.DirectoryInfos.Creation;
-public static class CreateExtensions : Object
+public static class CreateExtensions
 {
     public static void CreateDirectory(this String path)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class LengthOfExtensions : Object
+public static class LengthOfExtensions
 {
     public static Int32 LengthOfMonth(this DateTime dateTime)
     {

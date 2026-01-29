@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Extraction;
-public static class QuarterOfExtensions : Object
+public static class QuarterOfExtensions
 {
     public static Int32 QuarterOfYear(this DateTime dateTime)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class UniqueExtensions : Object
+public static class UniqueExtensions
 {
     public static IEnumerable<String> UniqueWords(this String value)
     {

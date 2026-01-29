@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Copy;
-public static class CopyToAsyncExtensions : Object
+public static class CopyToAsyncExtensions
 {
     public static Task CopyToAsync(this Stream input, Stream output, Int32 bufferLength = 0x1000, CancellationToken cancel = default)
     {

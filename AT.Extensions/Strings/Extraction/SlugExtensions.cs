@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static partial class SlugExtensions : object
+public static partial class SlugExtensions
 {
     #region Method(s): Private
 

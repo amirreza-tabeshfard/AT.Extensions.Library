@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Comparison;
-public static class EqualsExtensions : Object
+public static class EqualsExtensions
 {
     public static Boolean EqualsIgnoreCase(this String valueFirst, String valueSecond)
     {

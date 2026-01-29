@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class EncryptExtensions : Object
+public static class EncryptExtensions
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     public static String Encrypt(this String stringToEncrypt, String key)

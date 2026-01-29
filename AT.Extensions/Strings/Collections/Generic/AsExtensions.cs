@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections.Generic;
-public static class AsExtensions : Object
+public static class AsExtensions
 {
     public static TValue As<TValue>(this String value)
     {

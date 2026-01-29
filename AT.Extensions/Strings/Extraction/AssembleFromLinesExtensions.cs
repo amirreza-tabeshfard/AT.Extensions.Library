@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class AssembleFromLinesExtensions : Object
+public static class AssembleFromLinesExtensions
 {
     #region Method(s): Private
 

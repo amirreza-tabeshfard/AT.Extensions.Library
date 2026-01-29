@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static partial class TrimExtensions : Object
+public static partial class TrimExtensions
 {
     #region Method(s): Private
 

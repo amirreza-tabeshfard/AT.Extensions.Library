@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Holiday;
-public static class Extensions : Object
+public static class Extensions
 {
     #region Private: Method(s)
 

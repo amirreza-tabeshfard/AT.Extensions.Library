@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.DateTimes.Georgian.Addition;
 
 namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class TimeZoneExtensions : Object
+public static class TimeZoneExtensions
 {
     public static DateTime CurrentDateTimeIn(this DateTime dateTime, String timeZoneById)
     {

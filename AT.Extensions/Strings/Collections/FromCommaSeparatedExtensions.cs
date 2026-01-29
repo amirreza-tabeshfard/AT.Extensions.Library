@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class FromCommaSeparatedExtensions : Object
+public static class FromCommaSeparatedExtensions
 {
     public static List<String> FromCommaSeparatedToList(this String value)
     {

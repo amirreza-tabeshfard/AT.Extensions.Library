@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static class EncodeExtensions : Object
+public static class EncodeExtensions
 {
     public static String EncodeJson(this String value)
     {

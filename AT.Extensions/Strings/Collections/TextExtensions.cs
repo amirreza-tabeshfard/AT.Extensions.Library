@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class TextExtensions : Object
+public static class TextExtensions
 {
     #region Method(s): Private
 

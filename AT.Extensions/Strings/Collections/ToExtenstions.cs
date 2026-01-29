@@ -1,7 +1,7 @@
 ﻿using AT.Extensions.Strings.Extraction;
 
 namespace AT.Extensions.Strings.Collections;
-public static class ToExtenstions : Object
+public static class ToExtenstions
 {
     public static byte[] ToBytes(this String value)
     {

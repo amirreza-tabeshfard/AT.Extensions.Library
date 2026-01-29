@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.FileInfos.Collections;
-public static class GetFilesExtensions : Object
+public static class GetFilesExtensions
 {
     public static FileInfo[]? GetFiles(this DirectoryInfo directoryInfo)
     {

@@ -1,5 +1,5 @@
 ﻿namespace AT.Infrastructure;
-public static class CultureInfoData : Object
+public static class CultureInfoData
 {
     public class CultureData
     {

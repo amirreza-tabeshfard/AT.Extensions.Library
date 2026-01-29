@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.DateTimes.Georgian.Boundary;
-public static class AgoExtensions : Object
+public static class AgoExtensions
 {
     public static DateTime DaysAgo(this DateTime source, Int32 days)
     {

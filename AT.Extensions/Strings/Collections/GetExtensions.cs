@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Collections;
-public static class GetExtensions : Object
+public static class GetExtensions
 {
     public static Int32[] GetAscii(this String value)
     {

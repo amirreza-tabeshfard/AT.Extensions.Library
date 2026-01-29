@@ -1,5 +1,5 @@
 ﻿namespace AT.Extensions.Strings.Extraction;
-public static  class EveryExtensions : Object
+public static  class EveryExtensions
 {
     public static String EveryLetterLower(this String value)
     {
