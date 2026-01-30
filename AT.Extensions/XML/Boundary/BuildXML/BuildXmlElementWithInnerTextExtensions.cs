@@ -155,6 +155,11 @@ public static partial class BuildXmlElementWithInnerTextExtensions
     }
 }
 
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Reference Types )
+/// ( Total Methods: 15 )
+/// </summary>
 public static partial class BuildXmlElementWithInnerTextExtensions
 {
     public static XElement BuildXmlElementWithInnerText(this String value)
