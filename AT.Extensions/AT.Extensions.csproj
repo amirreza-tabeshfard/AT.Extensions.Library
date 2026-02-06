@@ -95,10 +95,12 @@
 		<PackageReference Include="MongoDB.Bson" Version="3.3.0" />
 		<PackageReference Include="System.Diagnostics.EventLog" Version="9.0.4" />
 		<PackageReference Include="Google.Protobuf" Version="3.30.2" />
+		<PackageReference Include="System.ServiceModel.Syndication" Version="10.0.2" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.14" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.14" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14" />
@@ -106,6 +108,7 @@
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.4" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3" />
