@@ -1,12 +1,262 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
+using System.Xml;
+using System.Xml.Linq;
 
-namespace AT.Extensions.XML.Boundary.Compress
+namespace AT.Extensions.XML.Boundary.Compress;
+/// <summary>
+/// Private Mathod(s)
+/// </summary>
+public static partial class CompressXmlElementExtensions
 {
-    internal class CompressXmlElementExtensions
+    private static XmlDocument Synchronize(Object source)
     {
+        try
+        {
+            if (source is null)
+                throw new ArgumentNullException(nameof(source), "Input source cannot be null.");
+
+            var xml = String.Empty;
+
+            if (source is XmlDocument)
+            {
+                var doc = source as XmlDocument;
+                xml = doc.OuterXml;
+            }
+            else if (source is XmlElement)
+            {
+                var element = source as XmlElement;
+                xml = element.OuterXml;
+            }
+            else if (source is XmlNode)
+            {
+                var node = source as XmlNode;
+                xml = node.OuterXml;
+            }
+            else if (source is XDocument)
+            {
+                var xdoc = source as XDocument;
+                xml = xdoc.ToString(SaveOptions.DisableFormatting);
+            }
+            else if (source is XElement)
+            {
+                var xel = source as XElement;
+                xml = xel.ToString(SaveOptions.DisableFormatting);
+            }
+            else if (source is String)
+            {
+                var text = source as String;
+                xml = text;
+            }
+            else if (source is MemoryStream)
+            {
+                var ms = source as MemoryStream;
+                ms.Position = 0;
+                using var reader = new StreamReader(ms, Encoding.UTF8, true, 1024, true);
+                xml = reader.ReadToEnd();
+            }
+            else if (source is Stream)
+            {
+                var stream = source as Stream;
+                using var reader = new StreamReader(stream, Encoding.UTF8, true, 1024, true);
+                xml = reader.ReadToEnd();
+            }
+            else if (source is TextReader)
+            {
+                var tr = source as TextReader;
+                xml = tr.ReadToEnd();
+            }
+            else if (source is FileInfo)
+            {
+                var fi = source as FileInfo;
+                if (!fi.Exists)
+                    throw new FileNotFoundException("The specified XML file does not exist.", fi.FullName);
+                
+                xml = File.ReadAllText(fi.FullName);
+            }
+            else if (source is Uri)
+            {
+                var uri = source as Uri;
+                if (!uri.IsFile)
+                    throw new InvalidOperationException("Only file-based Uri sources are supported.");
+                
+                var path = uri.LocalPath;
+                if (!File.Exists(path))
+                    throw new FileNotFoundException("The XML file specified by the Uri does not exist.", path);
+                
+                xml = File.ReadAllText(path);
+            }
+            else if (source is Byte[])
+            {
+                var bytes = source as Byte[];
+                xml = Encoding.UTF8.GetString(bytes);
+            }
+            else if (source is StringBuilder)
+            {
+                var sb = source as StringBuilder;
+                xml = sb.ToString();
+            }
+            else if (source is XmlReader)
+            {
+                var xr = source as XmlReader;
+                var temp = new XmlDocument();
+                temp.Load(xr);
+                xml = temp.OuterXml;
+            }
+            else if (source is XmlDocumentFragment)
+            {
+                var frag = source as XmlDocumentFragment;
+                xml = frag.OuterXml;
+            }
+            else
+                throw new NotSupportedException("The provided source type is not supported for XML compression.");
+
+            if (String.IsNullOrWhiteSpace(xml))
+                throw new InvalidDataException("The XML content is empty or whitespace.");
+
+            var result = new XmlDocument();
+            result.PreserveWhitespace = false;
+            result.LoadXml(xml);
+
+            using var sw = new StringWriter();
+            using (var xw = XmlWriter.Create(sw, new XmlWriterSettings { Indent = false, OmitXmlDeclaration = false }))
+            {
+                result.Save(xw);
+            }
+
+            var normalized = sw.ToString();
+            var finalDoc = new XmlDocument
+            {
+                PreserveWhitespace = false
+            };
+            finalDoc.LoadXml(normalized);
+            return finalDoc;
+        }
+        catch (ArgumentNullException ex) when (ex.ParamName is not null && ex.ParamName.Equals("source"))
+        {
+            throw new InvalidOperationException("The input source argument is null.", ex);
+        }
+        catch (DecoderFallbackException ex) when (ex.Source is not null && ex.Source.Equals("System.Text.Encoding"))
+        {
+            throw new InvalidOperationException("Byte to UTF8 String conversion failed due to invalid encoding.", ex);
+        }
+        catch (FileNotFoundException ex) when (ex.Source is not null && ex.Source.Equals("System.IO.File"))
+        {
+            throw new InvalidOperationException("The specified XML file could not be found on disk.", ex);
+        }
+        catch (IOException ex) when (ex.Source is not null && ex.Source.Equals("System.IO"))
+        {
+            throw new InvalidOperationException("An I/O error occurred while reading XML content.", ex);
+        }
+        catch (InvalidDataException ex) when (ex.Message.Equals("The XML content is empty or whitespace."))
+        {
+            throw new InvalidOperationException("The provided XML content is empty or contains only whitespace.", ex);
+        }
+        catch (InvalidOperationException ex) when (ex.Message.Equals("Only file-based Uri sources are supported."))
+        {
+            throw new InvalidOperationException("The provided Uri is not file-based and cannot be processed.", ex);
+        }
+        catch (NotSupportedException ex) when (ex.Message.Equals("The provided source type is not supported for XML compression."))
+        {
+            throw new InvalidOperationException("The input source type is not supported by the XML compression algorithm.", ex);
+        }
+        catch (ObjectDisposedException ex) when (ex.Source is not null && ex.Source.Equals("System.IO"))
+        {
+            throw new InvalidOperationException("The underlying stream or reader has already been disposed.", ex);
+        }
+        catch (UriFormatException ex) when (ex.Source is not null && ex.Source.Equals("System"))
+        {
+            throw new InvalidOperationException("The provided Uri format is invalid.", ex);
+        }
+        catch (XmlException ex) when (ex.Source is not null && ex.Source.Equals("System.Xml"))
+        {
+            throw new InvalidOperationException("The XML content is malformed or cannot be parsed.", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("XML synchronization and compression failed due to an unexpected error: " + ex.Message, ex);
+        }
+    }
+}
+
+/// <summary>
+/// Input Argument (Count): 1
+/// ( Reference Types )
+/// ( Total Methods: 15 )
+/// </summary>
+public static partial class CompressXmlElementExtensions
+{
+    public static XmlDocument CompressXmlElement(this XmlDocument source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this XmlElement source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this XmlNode source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this XDocument source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this XElement source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this String source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this Stream source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this MemoryStream source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this TextReader source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this FileInfo source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this Uri source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this Byte[] source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this StringBuilder source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this XmlReader source)
+    {
+        return Synchronize(source);
+    }
+
+    public static XmlDocument CompressXmlElement(this XmlDocumentFragment source)
+    {
+        return Synchronize(source);
     }
 }

@@ -1,0 +1,19 @@
+﻿namespace AT.Extensions.I_Want_All_Subcategories_To_Be_Deleted.DateTimes.Georgian.Conversion;
+public static class ConvertToExtensions
+{
+    public static String ConvertTo24HourFormatWithSeconds(this DateTime dateTime)
+    {
+        if (dateTime == default)
+            throw new ArgumentNullException(nameof(dateTime));
+        // ----------------------------------------------------------------------------------------------------
+        return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+    }
+
+    public static String ConvertToFormatDateOnly(this DateTime dateTime)
+    {
+        if (dateTime == default)
+            throw new ArgumentNullException(nameof(dateTime));
+        // ----------------------------------------------------------------------------------------------------
+        return dateTime.ToString("yyy-MM-dd");
+    }
+}

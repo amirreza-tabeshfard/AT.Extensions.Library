@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AT.Extensions.XML.Boundary.Compress
+﻿namespace AT.Extensions.XML.Boundary.Compress;
+public static partial class CompressXmlForStorageExtensions
 {
-    internal class CompressXmlForStorageExtensions
-    {
-    }
+
+}
+
+public static partial class CompressXmlForStorageExtensions
+{
+
 }

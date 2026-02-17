@@ -1,0 +1,19 @@
+﻿namespace AT.Extensions.I_Want_All_Subcategories_To_Be_Deleted.Strings.Comparison;
+public static class SequenceExtensions
+{
+    public static Boolean SequenceEqual(this String first, String second)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(first);
+        ArgumentException.ThrowIfNullOrEmpty(second);
+        // ----------------------------------------------------------------------------------------------------
+        return first == second;
+    }
+
+    public static Boolean SequenceEqual(this String first, String second, StringComparison comparison)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(first);
+        ArgumentException.ThrowIfNullOrEmpty(second);
+        // ----------------------------------------------------------------------------------------------------
+        return String.Equals(first, second, comparison);
+    }
+}
