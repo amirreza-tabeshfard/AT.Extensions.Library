@@ -19,5 +19,5 @@ This separation allows developers to clearly understand which namespace should b
 This structure helps developers focus on understanding the categorization logic rather than memorizing individual methods, enabling them to intuitively locate the appropriate extension method. In addition, each namespace is designed in a way that makes it suitable for small, medium, and enterprise-scale projects, and together with xUnit test coverage, it provides the necessary confidence for use in sensitive environments. Simply put, the XML section of this library is not a collection of scattered tools; it is an organized framework for professional XML handling that keeps developers away from complexity, duplication, and common errors, and guides them toward stable, extensible, and standard code.
 
 ### XML Namespaces Reference
-For a complete overview of all XML-related namespaces, including their categorization, the relevant table has been moved to a separate file named `XMLExtensions`.
+For a complete overview of all XML-related namespaces, including their categorization, the relevant table has been moved to a separate file named **XMLExtensions**.
 [View the XML namespaces list](https://github.com/amirreza-tabeshfard/AT.Extensions.Library/blob/master/XMLExtension.md)
