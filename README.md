@@ -13,67 +13,6 @@ One of the key advantages of this library is its modular and well-organized stru
 
 # The tables show namespaces by category
 
-### Chars
-| Row | Namespace | Number of Methods |
-|:---:|:---:|:---:|
-| 01 | AT.Extensions.Chars.Collections | 2 |
-| 02 | AT.Extensions.Chars.Comparison | 10 |
-| 03 | AT.Extensions.Chars.Conversion | 5 |
-| 04 | AT.Extensions.Chars.Extraction | 10 |
-
-### DateTimes
-| Row | Namespace | Number of Methods |
-|:---:|:---:|:---:|
-| 01 | AT.Extensions.DateTimes.Georgian.Addition | 8 |
-| 02 | AT.Extensions.DateTimes.Georgian.Boundary | 117 |
-| 03 | AT.Extensions.DateTimes.Georgian.Calculation | 3 |
-| 04 | AT.Extensions.DateTimes.Georgian.Collections | 10 |
-| 05 | AT.Extensions.DateTimes.Georgian.Comparison | 38 |
-| 06 | AT.Extensions.DateTimes.Georgian.Conversion | 30 |
-| 07 | AT.Extensions.DateTimes.Georgian.Extraction | 90 |
-| 08 | AT.Extensions.DateTimes.Georgian.Holiday | 11 |
-| 09 | AT.Extensions.DateTimes.Persian | 5 |
-
-### DirectoryInfos
-| Row | Namespace | Number of Methods |
-|:---:|:---:|:---:|
-| 01 | AT.Extensions.DirectoryInfos.Collections | 6 |
-| 02 | AT.Extensions.DirectoryInfos.Comparison | 3 |
-| 03 | AT.Extensions.DirectoryInfos.Creation | 2 |
-| 04 | AT.Extensions.DirectoryInfos.Deleted | 2 |
-| 05 | AT.Extensions.DirectoryInfos.Extraction | 1 |
-| 06 | AT.Extensions.DirectoryInfos.Mover | 1 |
-
-### FileInfos
-| Row | Namespace | Number of Methods |
-|:---:|:---:|:---:|
-| 01 | AT.Extensions.FileInfos.Boundary | 2 |
-| 02 | AT.Extensions.FileInfos.Collections | 18 |
-| 03 | AT.Extensions.FileInfos.Comparison | 4 |
-| 04 | AT.Extensions.FileInfos.Copy | 9 |
-| 05 | AT.Extensions.FileInfos.Creation | 8 |
-| 06 | AT.Extensions.FileInfos.Extraction | 7 |
-| 07 | AT.Extensions.FileInfos.Mover | 3 |
-| 08 | AT.Extensions.FileInfos.Process | 5 |
-| 09 | AT.Extensions.FileInfos.Reader | 7 |
-| 10 | AT.Extensions.FileInfos.Writer | 6 |
-| 11 | AT.Extensions.FileInfos.Zipper | 2 |
-
-### HttpHandler
-| Row | Namespace | Number of Methods |
-|:---:|:---:|:---:|
-| 01 | AT.Extensions.HttpHandler.Collections.Generic | 42 |
-
-### Strings
-| Row | Namespace | Number of Methods |
-|:---:|:---:|:---:|
-| 01 | AT.Extensions.Strings.Addition | 14 |
-| 02 | AT.Extensions.Strings.Collections | 36 |
-| 03 | AT.Extensions.Strings.Collections.Generic | 18 |
-| 04 | AT.Extensions.Strings.Comparison | 101 |
-| 05 | AT.Extensions.Strings.Conversion | 38 |
-| 06 | AT.Extensions.Strings.Extraction | 257 |
-
 ### XML
 | Row | Namespace | Number of Methods | Number of Test Cases ( xUnit ) |
 |:---:|:---:|:---:|:---:|
