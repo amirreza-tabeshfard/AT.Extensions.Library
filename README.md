@@ -11,33 +11,11 @@ The **AT.Extensions.Library** is a powerful, comprehensive, and highly purposefu
 
 One of the key advantages of this library is its modular and well-organized structure, which categorizes extension methods into different namespaces based on their functionality and purpose. This means that a developer only needs to include the appropriate `using` directive for the desired namespace at the top of their code file to immediately gain access to a rich set of precise and useful methods—without the need to import multiple libraries or rewrite boilerplate code. For example, if a developer needs helper methods for working with strings or DateTime objects, they can simply include the dedicated namespace for that area and instantly access a complete set of relevant extensions. Therefore, **AT.Extensions.Library** is not just a tool for accelerating the development process—it is a smart framework that promotes higher efficiency, improved code readability, better testability, and consistent coding practices across all layers of a software project.
 
-# The tables show namespaces by category
+## XML Extensions Overview
+In the XML section of the AT.Extensions.Library, the main goal is to provide a highly structured, layered, and precise set of extension methods for working with XML in real and professional scenarios, so that developers can address almost all common and advanced requirements without writing repetitive code or relying on scattered tools. This namespace is designed not only based on the type of operation (such as creation, modification, deletion, or data extraction), but also with an architecture-oriented mindset that clearly separates concepts such as Boundary, Creation, Modification, Extraction, Comparison, and Conversion.
 
-### XML
-| Row | Namespace | Number of Methods | Number of Test Cases ( xUnit ) |
-|:---:|:---:|:---:|:---:|
-| 01 | AT.Extensions.XML.Boundary.BuildXML | ?? | ?? |
-| 02 | AT.Extensions.XML.Boundary.Compress | ?? | ?? |
-| 03 | AT.Extensions.XML.Boundary.Decompress | ?? | ?? |
-| 04 | AT.Extensions.XML.Boundary.Decrypt | ?? | ?? |
-| 05 | AT.Extensions.XML.Boundary.Encrypt | ?? | ?? |
-| 06 | AT.Extensions.XML.Boundary.Load | ?? | ?? |
-| 07 | AT.Extensions.XML.Boundary.Merge | ?? | ?? |
-| 08 | AT.Extensions.XML.Boundary.Parse | ?? | ?? |
-| 09 | AT.Extensions.XML.Boundary.Validate | ?? | ?? |
-| 10 | AT.Extensions.XML.Boundary.Verify | ?? | ?? |
-| 11 | AT.Extensions.XML.Collections | ?? | ?? |
-| 12 | AT.Extensions.XML.Comparison.Compare | ?? | ?? |
-| 13 | AT.Extensions.XML.Comparison.Equal | ?? | ?? |
-| 14 | AT.Extensions.XML.Comparison.Has | ?? | ?? |
-| 15 | AT.Extensions.XML.Comparison.Is | ?? | ?? |
-| 16 | AT.Extensions.XML.Conversion | ?? | ?? |
-| 17 | AT.Extensions.XML.Creation.Append | ?? | ?? |
-| 18 | AT.Extensions.XML.Creation.Create | ?? | ?? |
-| 19 | AT.Extensions.XML.Deletion | ?? | ?? |
-| 20 | AT.Extensions.XML.Extraction.Evaluate | ?? | ?? |
-| 21 | AT.Extensions.XML.Extraction.Execute | ?? | ?? |
-| 22 | AT.Extensions.XML.Extraction.Extract | ?? | ?? |
-| 23 | AT.Extensions.XML.Extraction.Get | ?? | ?? |
-| 24 | AT.Extensions.XML.Modification.Rename | ?? | ?? |
-| 25 | AT.Extensions.XML.Modification.Replace | ?? | ?? |
+This separation allows developers to clearly understand which namespace should be used at each stage of the XML processing lifecycle; for example, when validation or encryption is required, or when there is a need to merge, parse, load, or verify XML data. As a result, the final code becomes more readable and maintainable, and at the same time remains conceptually aligned with Clean Code principles and Separation of Concerns.
+
+This structure helps developers focus on understanding the categorization logic rather than memorizing individual methods, enabling them to intuitively locate the appropriate extension method. In addition, each namespace is designed in a way that makes it suitable for small, medium, and enterprise-scale projects, and together with xUnit test coverage, it provides the necessary confidence for use in sensitive environments. Simply put, the XML section of this library is not a collection of scattered tools; it is an organized framework for professional XML handling that keeps developers away from complexity, duplication, and common errors, and guides them toward stable, extensible, and standard code.
+
+![View the XML namespaces list](https://github.com/amirreza-tabeshfard/AT.Extensions.Library/blob/master/XMLExtension.md)
