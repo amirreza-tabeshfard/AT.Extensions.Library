@@ -12,7 +12,7 @@ public static partial class CompressXmlForFastProcessingExtensions
     {
         try
         {
-            if (input == null)
+            if (input is null)
                 throw new ArgumentNullException(nameof(input), "Input cannot be null.");
 
             var readerSettings = new XmlReaderSettings
@@ -21,95 +21,60 @@ public static partial class CompressXmlForFastProcessingExtensions
                 DtdProcessing = DtdProcessing.Ignore
             };
 
-            XmlReader? reader = null;
+            XmlReader reader;
 
-            if (input is String)
+            if (input is string text)
             {
-                var text = input as String;
-                
-                if (String.IsNullOrWhiteSpace(text))
-                    throw new ArgumentException("Input String is empty or whitespace.");
-                
+                if (string.IsNullOrWhiteSpace(text))
+                    throw new ArgumentException("Input String is empty or whitespace.", nameof(input));
+
                 reader = XmlReader.Create(new StringReader(text), readerSettings);
             }
-            else if (input is XDocument)
+            else if (input is XDocument xdoc)
+                reader = xdoc.CreateReader();
+            else if (input is XElement xel)
+                reader = xel.CreateReader();
+            else if (input is XmlDocument xdoc2)
+                reader = new XmlNodeReader(xdoc2);
+            else if (input is XmlElement xel2)
+                reader = new XmlNodeReader(xel2);
+            else if (input is XmlNode xnode)
+                reader = new XmlNodeReader(xnode);
+            else if (input is Stream stream)
             {
-                var doc = input as XDocument;
-                reader = doc.CreateReader();
-            }
-            else if (input is XElement)
-            {
-                var el = input as XElement;
-                reader = el.CreateReader();
-            }
-            else if (input is XmlDocument)
-            {
-                var doc = input as XmlDocument;
-                reader = new XmlNodeReader(doc);
-            }
-            else if (input is XmlElement)
-            {
-                var el = input as XmlElement;
-                reader = new XmlNodeReader(el);
-            }
-            else if (input is XmlNode)
-            {
-                var node = input as XmlNode;
-                reader = new XmlNodeReader(node);
-            }
-            else if (input is Stream)
-            {
-                var stream = input as Stream;
-                
                 if (!stream.CanRead)
                     throw new InvalidOperationException("Stream is not readable.");
-                
+
                 reader = XmlReader.Create(stream, readerSettings);
             }
-            else if (input is TextReader)
-            {
-                var tr = input as TextReader;
+            else if (input is TextReader tr)
                 reader = XmlReader.Create(tr, readerSettings);
-            }
-            else if (input is FileInfo)
+            else if (input is FileInfo fi)
             {
-                var fi = input as FileInfo;
-                
                 if (!fi.Exists)
                     throw new FileNotFoundException("XML file was not found.", fi.FullName);
-                
+
                 reader = XmlReader.Create(fi.FullName, readerSettings);
             }
-            else if (input is Uri)
-            {
-                var uri = input as Uri;
+            else if (input is Uri uri)
                 reader = XmlReader.Create(uri.AbsoluteUri, readerSettings);
-            }
-            else if (input is StringBuilder)
+            else if (input is StringBuilder sb)
             {
-                var sb = input as StringBuilder;
-                
                 if (sb.Length == 0)
-                    throw new ArgumentException("StringBuilder is empty.");
-                
+                    throw new ArgumentException("StringBuilder is empty.", nameof(input));
+
                 reader = XmlReader.Create(new StringReader(sb.ToString()), readerSettings);
             }
-            else if (input is XmlReader)
-            {
-                reader = input as XmlReader;
-            }
+            else if (input is XmlReader xr)
+                reader = xr;
             else if (input is TextWriter)
-            {
                 throw new InvalidOperationException("TextWriter cannot be used as an XML input source.");
-            }
-            else if (input is Byte[])
+            else if (input is byte[] bytes)
             {
-                var bytes = input as Byte[];
-                
                 if (bytes.Length == 0)
-                    throw new ArgumentException("Byte array is empty.");
-                
-                reader = XmlReader.Create(new MemoryStream(bytes), readerSettings);
+                    throw new ArgumentException("Byte array is empty.", nameof(input));
+
+                reader = XmlReader.Create(new MemoryStream(bytes, false), readerSettings);
             }
             else
                 throw new NotSupportedException("Unsupported input type for XML compression.");
@@ -121,10 +86,10 @@ public static partial class CompressXmlForFastProcessingExtensions
             };
 
             using var sw = new StringWriter();
-            using var writer = XmlWriter.Create(sw, writerSettings);
-
-            writer.WriteNode(reader, true);
-            writer.Flush();
+            using (var writer = XmlWriter.Create(sw, writerSettings))
+            {
+                writer.WriteNode(reader, true);
+            }
 
             return sw.ToString();
         }
