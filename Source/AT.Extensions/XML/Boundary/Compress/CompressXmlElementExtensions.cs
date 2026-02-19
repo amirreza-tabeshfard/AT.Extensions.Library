@@ -15,119 +15,106 @@ public static partial class CompressXmlElementExtensions
             if (source is null)
                 throw new ArgumentNullException(nameof(source), "Input source cannot be null.");
 
-            var xml = String.Empty;
+            var xml = string.Empty;
 
-            if (source is XmlDocument)
-            {
-                var doc = source as XmlDocument;
+            if (source is XmlDocument doc)
                 xml = doc.OuterXml;
-            }
-            else if (source is XmlElement)
-            {
-                var element = source as XmlElement;
+            else if (source is XmlElement element)
                 xml = element.OuterXml;
-            }
-            else if (source is XmlNode)
-            {
-                var node = source as XmlNode;
+            else if (source is XmlNode node)
                 xml = node.OuterXml;
-            }
-            else if (source is XDocument)
-            {
-                var xdoc = source as XDocument;
+            else if (source is XDocument xdoc)
                 xml = xdoc.ToString(SaveOptions.DisableFormatting);
-            }
-            else if (source is XElement)
-            {
-                var xel = source as XElement;
+            else if (source is XElement xel)
                 xml = xel.ToString(SaveOptions.DisableFormatting);
-            }
-            else if (source is String)
-            {
-                var text = source as String;
+            else if (source is string text)
                 xml = text;
-            }
-            else if (source is MemoryStream)
+            else if (source is MemoryStream ms)
             {
-                var ms = source as MemoryStream;
+                if (!ms.CanRead)
+                    throw new InvalidOperationException("The provided MemoryStream is not readable.");
+
                 ms.Position = 0;
                 using var reader = new StreamReader(ms, Encoding.UTF8, true, 1024, true);
                 xml = reader.ReadToEnd();
             }
-            else if (source is Stream)
+            else if (source is Stream stream)
             {
-                var stream = source as Stream;
+                if (!stream.CanRead)
+                    throw new InvalidOperationException("The provided Stream is not readable.");
+
                 using var reader = new StreamReader(stream, Encoding.UTF8, true, 1024, true);
                 xml = reader.ReadToEnd();
             }
-            else if (source is TextReader)
-            {
-                var tr = source as TextReader;
+            else if (source is TextReader tr)
                 xml = tr.ReadToEnd();
-            }
-            else if (source is FileInfo)
+            else if (source is FileInfo fi)
             {
-                var fi = source as FileInfo;
                 if (!fi.Exists)
                     throw new FileNotFoundException("The specified XML file does not exist.", fi.FullName);
-                
-                xml = File.ReadAllText(fi.FullName);
+
+                xml = File.ReadAllText(fi.FullName, Encoding.UTF8);
             }
-            else if (source is Uri)
+            else if (source is Uri uri)
             {
-                var uri = source as Uri;
                 if (!uri.IsFile)
                     throw new InvalidOperationException("Only file-based Uri sources are supported.");
-                
+
                 var path = uri.LocalPath;
                 if (!File.Exists(path))
                     throw new FileNotFoundException("The XML file specified by the Uri does not exist.", path);
-                
-                xml = File.ReadAllText(path);
+
+                xml = File.ReadAllText(path, Encoding.UTF8);
             }
-            else if (source is Byte[])
+            else if (source is byte[] bytes)
             {
-                var bytes = source as Byte[];
+                if (bytes.Length == 0)
+                    throw new InvalidDataException("The byte array is empty.");
+
                 xml = Encoding.UTF8.GetString(bytes);
             }
-            else if (source is StringBuilder)
-            {
-                var sb = source as StringBuilder;
+            else if (source is StringBuilder sb)
                 xml = sb.ToString();
-            }
-            else if (source is XmlReader)
+            else if (source is XmlReader xr)
             {
-                var xr = source as XmlReader;
                 var temp = new XmlDocument();
                 temp.Load(xr);
                 xml = temp.OuterXml;
             }
-            else if (source is XmlDocumentFragment)
-            {
-                var frag = source as XmlDocumentFragment;
+            else if (source is XmlDocumentFragment frag)
                 xml = frag.OuterXml;
-            }
             else
                 throw new NotSupportedException("The provided source type is not supported for XML compression.");
 
-            if (String.IsNullOrWhiteSpace(xml))
+            if (string.IsNullOrWhiteSpace(xml))
                 throw new InvalidDataException("The XML content is empty or whitespace.");
 
-            var result = new XmlDocument();
-            result.PreserveWhitespace = false;
+            var result = new XmlDocument
+            {
+                PreserveWhitespace = false
+            };
+
             result.LoadXml(xml);
 
             using var sw = new StringWriter();
-            using (var xw = XmlWriter.Create(sw, new XmlWriterSettings { Indent = false, OmitXmlDeclaration = false }))
+            using (var xw = XmlWriter.Create(
+                sw,
+                new XmlWriterSettings
+                {
+                    Indent = false,
+                    OmitXmlDeclaration = false
+                }))
             {
                 result.Save(xw);
             }
 
             var normalized = sw.ToString();
+
             var finalDoc = new XmlDocument
             {
                 PreserveWhitespace = false
             };
+
             finalDoc.LoadXml(normalized);
             return finalDoc;
         }
