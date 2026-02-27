@@ -20,13 +20,6 @@ public static partial class BuildXmlFromLogFileExtenstions
         public IEnumerable<String> Logs { get; set; } = null!;
     }
 
-    public class CustomLogStream(IEnumerable<String> lines)
-    {
-        private readonly IEnumerable<String> _lines = lines;
-
-        public IEnumerable<String> ReadLines() => _lines;
-    }
-
     public class LogBoundaryCategory
     {
         public IEnumerable<String> Logs { get; set; } = null!;
@@ -143,11 +136,6 @@ public static partial class BuildXmlFromLogFileExtenstions
                 while ((line = reader.ReadLine()) != null)
                     doc.Root.Add(new XElement("Log", line));
             }
-            else if (input is CustomLogStream customLog)
-            {
-                foreach (var logLine in customLog.ReadLines())
-                    doc.Root.Add(new XElement("Log", logLine));
-            }
             else if (input is LogBoundaryCategory boundary)
             {
                 if (boundary.Logs == null)
@@ -243,7 +231,7 @@ public static partial class BuildXmlFromLogFileExtenstions
 /// <summary>
 /// Input Argument (Count): 1
 /// ( Reference Types )
-/// ( Total Methods: 15 )
+/// ( Total Methods: 14 )
 /// </summary>
 public static partial class BuildXmlFromLogFileExtenstions
 {
@@ -300,11 +288,6 @@ public static partial class BuildXmlFromLogFileExtenstions
     public static XDocument BuildXmlFromLogFile(this MemoryStream logMemoryStream)
     {
         return ProcessLogToXml(logMemoryStream);
-    }
-
-    public static XDocument BuildXmlFromLogFile(this CustomLogStream customLog)
-    {
-        return ProcessLogToXml(customLog);
     }
 
     public static XDocument BuildXmlFromLogFile(this LogBoundaryCategory boundaryCategory)

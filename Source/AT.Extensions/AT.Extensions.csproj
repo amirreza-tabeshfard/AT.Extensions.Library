@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+		<TargetFrameworks>net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PackageOutputPath>..\..\[ Setup ]</PackageOutputPath>
@@ -9,9 +9,7 @@
 		<Title>Extensions (Library)</Title>
 		<Authors>Amirreza Tabeshfard</Authors>
 		<Company>WebNest [Feature]</Company>
-		<Description>The **AT.Extensions.Library** is a powerful, comprehensive, and highly purposeful collection of extension methods designed for the .NET platform. It has been developed with a modern, professional, and well-structured approach to enhance code quality, simplify software development, and increase developer productivity. By offering a wide range of pre-built and thoroughly tested extension methods, this library enables developers to avoid repeatedly writing similar code across different projects. Instead, they can leverage a standardized, optimized, and reliable set of utility functions that have been carefully implemented and validated in real-world development scenarios. These methods are built upon common programming patterns and clean code principles, ensuring they are suitable for a wide variety of applications—from small personal projects to large-scale enterprise systems. Using this library not only results in significant time savings during development but also leads to higher-quality code, easier maintenance, and a reduced risk of common programming errors. As a result, development teams can focus their efforts on innovation, designing advanced architectures, and solving complex, domain-specific challenges rather than wasting time on repetitive, low-value tasks.
-
-One of the key advantages of this library is its modular and well-organized structure, which categorizes extension methods into different namespaces based on their functionality and purpose. This means that a developer only needs to include the appropriate `using` directive for the desired namespace at the top of their code file to immediately gain access to a rich set of precise and useful methods—without the need to import multiple libraries or rewrite boilerplate code. For example, if a developer needs helper methods for working with strings or DateTime objects, they can simply include the dedicated namespace for that area and instantly access a complete set of relevant extensions. Therefore, **AT.Extensions.Library** is not just a tool for accelerating the development process—it is a smart framework that promotes higher efficiency, improved code readability, better testability, and consistent coding practices across all layers of a software project.</Description>
+		<Description>AT.Extensions.Library is currently developed with a strong focus on the XMLExtension module, providing a targeted set of extension methods for working with XML within the .NET ecosystem. This module is designed to simplify the processing, reading, transformation, and management of XML structures, eliminating the need for repetitive and scattered code while offering a unified and standardized approach. All methods are implemented in accordance with clean coding principles and common development patterns to enhance readability and maintainability, while reducing the likelihood of common errors associated with XML data handling. The library’s modular architecture ensures that by simply importing the relevant namespace, developers gain access to a cohesive and practical set of XML capabilities. As a result, this version of the library is specifically optimized for efficient interaction with XML and provides a reliable, high-performance foundation for building systems that work extensively with structured data.</Description>
 		<Product>AT.Extensions.Library</Product>
 		<Copyright>Copyright 2026 (c) Amirreza Tabeshfard. All rights reserved.</Copyright>
 		<PackageProjectUrl>https://github.com/amirreza-tabeshfard/AT.Extensions.Library</PackageProjectUrl>
@@ -24,10 +22,16 @@ XMLExtensions;</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<RepositoryType>git</RepositoryType>
-		<Version>2.0-Preview-01</Version>
+		<Version>2.0.0-Preview-01</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>Logo.jpg</PackageIcon>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="I_Want_All_Subcategories_To_Be_Deleted\**" />
+	  <EmbeddedResource Remove="I_Want_All_Subcategories_To_Be_Deleted\**" />
+	  <None Remove="I_Want_All_Subcategories_To_Be_Deleted\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\..\Logo.jpg">
@@ -47,10 +51,16 @@ XMLExtensions;</PackageTags>
 		<PackageReference Include="Google.Protobuf" Version="3.30.2" />
 	</ItemGroup>
 
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.20" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.20" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+	</ItemGroup>
+
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.24" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.24" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.24" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.24" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
 	</ItemGroup>
@@ -58,7 +68,6 @@ XMLExtensions;</PackageTags>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.13" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.13" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.13" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.13" />
 	</ItemGroup>
@@ -66,7 +75,6 @@ XMLExtensions;</PackageTags>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.3" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.3" />
 	</ItemGroup>
