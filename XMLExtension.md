@@ -4,7 +4,7 @@
 | Row | Namespace | Number of Methods | Number of Test Cases ( xUnit ) |
 |:---:|:---:|:---:|:---:|
 | 01 | AT.Extensions.XML.Boundary.BuildXML | 540 | Not yet ( in the future ) |
-| 02 | AT.Extensions.XML.Boundary.Compress | ?? | ?? |
+| 02 | AT.Extensions.XML.Boundary.Compress | 557 | Not yet ( in the future ) |
 | 03 | AT.Extensions.XML.Boundary.Decompress | ?? | ?? |
 | 04 | AT.Extensions.XML.Boundary.Decrypt | ?? | ?? |
 | 05 | AT.Extensions.XML.Boundary.Encrypt | ?? | ?? |
